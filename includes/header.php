@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +20,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap"
         rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!--***************** -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css"
         integrity="sha512-UiKdzM5DL+I+2YFxK+7TDedVyVm7HMp/bN85NeWMJNYortoll+Nd6PU9ZDrZiaOsdarOyk9egQm6LOJZi36L2g=="
@@ -108,23 +110,39 @@
                 <a href="service.html" class="nav-item nav-link px-3">علاجي</a>
             </div>
         </div>
-        <a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
-            style="color: #7892aa;">Ahmed R.</a>
-        <div class="nav-item dropdown">
+        <?php
+        if (isset($_SESSION['user_id']) && isset($_SESSION['username'])) {
+            // User is logged in, retrieve user data for the navbar
+            $userId = $_SESSION['user_id'];
+            $username = $_SESSION['username'];
+            // Add more user data retrieval if needed
+        
+            // Display user information in the navbar
+            echo `<a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
+                        style="color: #7892aa;">' . $username . '</a>
+                    <div class="nav-item dropdown">
 
-            <a class="btn btn-square ms-1 btn-info rounded-circle" style="background-color: #7ce7d9;
-            border-color: #7ce7d9;" data-bs-toggle="dropdown"><i class="fa-solid fa-user"
-                    style="color: #37474f;"></i></a>
-            <div class="dropdown-menu bg-light border-0 m-0 shadow">
-                <a href="my profile.html" class="dropdown-item">الملف الشخصي </a>
-                <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
-                    الشخصية</a>
-                <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة
-                    المرور</a>
-                <a class="dropdown-item pointer text-danger"
-                    onclick="alertCon('هل انت متأكد انك تريد الخروج','warning',()=>logout())">تسجيل الخروج</a>
-            </div>
-        </div>
-        <a href="" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>
+                        <a class="btn btn-square ms-1 btn-info rounded-circle" style="background-color: #7ce7d9;
+                        border-color: #7ce7d9;" data-bs-toggle="dropdown"><i class="fa-solid fa-user"
+                                style="color: #37474f;"></i></a>
+                        <div class="dropdown-menu bg-light border-0 m-0 shadow">
+                            <a href="my profile.html" class="dropdown-item">الملف الشخصي </a>
+                            <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
+                                الشخصية</a>
+                            <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة
+                                المرور</a>
+                            <a class="dropdown-item pointer text-danger"
+                                onclick="alertCon('هل انت متأكد انك تريد الخروج','warning',()=>logout())">تسجيل الخروج</a>
+                        </div>
+                    </div>`;
+            // Add more navbar elements and user data as needed
+        } else {
+            // User is not logged in, display login/register links or other content
+            echo `<a href="register.php" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>`;
+        }
+        ?>
+
+
+        
     </nav>
     <!-- Navbar End -->
