@@ -125,5 +125,6 @@
                     onclick="alertCon('هل انت متأكد انك تريد الخروج','warning',()=>logout())">تسجيل الخروج</a>
             </div>
         </div>
+        <a href="" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>
     </nav>
     <!-- Navbar End -->
