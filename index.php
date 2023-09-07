@@ -613,3 +613,7 @@
     <!-- Testimonial End -->
 
 <?php include("includes/footer.php"); ?>
+
+</body>
+
+</html>
