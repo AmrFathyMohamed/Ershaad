@@ -1,0 +1,212 @@
+  @media (min-width: 1800px) {
+    .chat-content {
+        height: 57vh!important;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .active-ticktes-out{
+        min-height: 20vh!important;
+    } 
+    .tickets{
+        height: 20vh!important;
+        overflow-y: scroll!important;
+    }
+    .tickets::-webkit-scrollbar {
+        width: 0px;
+    }
+    .chat-content::-webkit-scrollbar {
+        width: 0px;
+    }
+    .active-ticktes-out::-webkit-scrollbar {
+        width: 0px;
+    }
+    .chat-content {
+        overflow-y: scroll!important;
+        height: 55vh!important;
+    }
+    .response,.message{
+        font-size: 0.8rem!important;
+    }
+    .tickets-header{
+        height: 40px!important;
+        padding-top: 0.7rem!important;
+    }
+    .chat-header{
+        height: 40px!important;
+        padding-top: 0.7rem!important;
+    }
+    .avatar.avatar-md .avatar-content, .avatar.avatar-md img {
+        font-size: .8rem;
+        height: 25px;
+        width: 25px;
+    }
+    .bi-send-fill{
+        padding-left: 0rem!important;
+        padding-right: 0rem!important;
+    }
+}
+.active-ticktes-out{
+    min-height: 70vh;
+}
+.chat-content-out{
+    min-height: 70vh; 
+    position: relative;
+}
+.chat-header{
+    background-color: #FAFAFA;  
+    height: fit-content; 
+    height: 70px;
+    border-top-right-radius: 1rem!important;
+    border-top-left-radius: 1rem!important;
+
+}
+.tickets-header{
+    background-color: #FAFAFA; 
+    height: 70px;;
+    border-top-left-radius: 1rem!important;
+    border-top-right-radius: 1rem!important;
+}  
+::-webkit-scrollbar {
+    width: 0px;
+    cursor: pointer !important;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c8ff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6691cc;
+}
+
+.chat-content {
+    overflow-y: scroll;
+    height: 52vh;
+}
+.optionsIcon.bi:before {
+        background-color: transparent;
+        color: #6691cc;
+        padding: 0.5rem;
+        border-radius: 10vw;
+        transition: background 230ms ease-in-out;
+    }
+
+    .optionsIcon:hover.bi:before {
+        background-color: #f1f1f1;
+    }
+    #sendBtn{
+        color: #6691cc;
+        border: 0;
+        border-radius: 0.45rem;
+        background-color: #f6f6f6;
+    }
+    #sendBtn:hover{
+        background-color: #f5f6ff;
+        border: 0;
+    }
+    #newMessageContent{
+    resize: none;
+    background-color: #f6f6f6;
+    border-radius: 0.45rem;
+    padding-bottom: 0.6rem!important;
+    padding-top: 0.5rem!important;
+    height: 43px; 
+    max-height: 100px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    }
+    #newMessageContent:focus{
+        box-shadow: 0 0 0 0rem #e2b96a3d;
+        background-color: #f2f3fa;
+        color: #6691cc;
+    }
+    #newMessageContent:focus::placeholder{
+        color: #c3caf9;
+        font-size: 0.9rem;
+    }
+    #newMessageContent::placeholder {
+    color: #cfcfcf;
+    font-style: italic;
+    }
+    #newMessageContent::-webkit-scrollbar {
+    width: 0px;
+    cursor: pointer !important;
+    height: 20px;
+}
+.ticket.active{
+    background-color: #f6f6f6;
+     border-right: 5px solid #6691cc;
+}
+.ticket{
+    /* background-color: #fff; */
+    border-radius: 0.6rem;
+}
+.ticket:hover{
+    background-color: #f6f6f6;
+    cursor: pointer;
+}
+.slide-in {
+    animation-name: slideInAnimation;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+  }
+  
+  @keyframes slideInAnimation {
+    0% {
+      opacity: 0;
+      transform: translateY(50%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+.response{
+    width:fit-content;
+    max-width:80%; 
+    background-color: #e3effd ;
+    padding: 10px;
+    padding-bottom: 12px;
+    border-radius: 12px;
+    border-top-right-radius: 0;
+    position: relative;
+}
+.message{
+    width:fit-content;
+    max-width:80%; 
+    background-color: #f6f6f6;
+    padding: 10px;
+    padding-bottom: 12px;
+    border-radius: 12px;
+    border-top-left-radius: 0;
+    position: relative;
+}
+.response.delivered ::after{
+    content:"\f269";
+    font-family: bootstrap-icons!important;
+    line-height: 0;
+    position: absolute;
+    right: 6px;
+    bottom: 9px;
+
+}
+
+.response.seen ::after/*, .message.seen ::after*/{
+    color: #6691cc;
+}
+.new-message{
+    position: absolute; 
+    bottom: 0px;
+    margin-bottom: 0px!important;
+    border-bottom-right-radius: 1rem!important;
+    border-bottom-left-radius: 1rem!important;
+}
+.bi-chat-left-quote-fill::before {
+    content: "\f24f";
+    transform: translateY(6px);
+    color: #b0c8ec;
+}
