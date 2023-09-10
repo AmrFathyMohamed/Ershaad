@@ -52,7 +52,7 @@ session_start(); // Start the session
 
         <div class="col-lg-6 mx-auto wow fadeIn" data-wow-delay="0.5s">
           <div class="bg-light rounded p-5">
-          <form method="POST" action="checklogin.php">
+            <form method="POST" action="checklogin.php">
               <div class="row g-3">
                 <h4 class="text-center mb-4">تسجيل دخول</h4>
                 <div class="col-sm-12">

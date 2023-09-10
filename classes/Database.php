@@ -15,14 +15,12 @@ class Database
 
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
-        }else{
-            echo 'Sucss';
         }
     }
 
     public function executeQuery($query)
     {
-        $result = $this->conn->query($query);
+        $result = mysqli_query($this->conn,$query);
 
         if ($result === false) {
             // Handle query execution error
@@ -36,38 +34,49 @@ class Database
     public function login($usernameOrEmail, $password)
     {
         // Prepare the query for therapists
-        $therapistQuery = "SELECT * FROM therapists WHERE 'Email' = '".$usernameOrEmail."' AND 'Password' = '".$password."'";
+        $therapistQuery = "SELECT * FROM therapists WHERE Email = '".$usernameOrEmail."' AND Password = '".$password."'";
 
         // Prepare the query for clients
-        $clientQuery = "SELECT * FROM clients WHERE 'Email' = '".$usernameOrEmail."' AND 'Password' = '".$password."'";
+        $clientQuery = "SELECT * FROM clients WHERE Email = '".$usernameOrEmail."' AND Password = '".$password."'";
 
-        // Execute the therapist query
-        $therapistResult = $this->executeQuery($therapistQuery);
+        // Prepare the query for admins
+        $adminQuery = "SELECT * FROM admins WHERE Email = '".$usernameOrEmail."' AND Password = '".$password."'";
 
+        $therapistResult = mysqli_query($this->conn,$therapistQuery);
         if ($therapistResult) {
-            // Check if a therapist with the provided credentials exists
             if ($therapistResult->num_rows == 1) {
-                $user = $therapistResult->fetch_all(PDO::FETCH_ASSOC);
-                $_SESSION['user_id'] = $user['TherapistID']; // Adjust for therapist/client
+                $user = mysqli_fetch_assoc($therapistResult);
+                $_SESSION['user_id'] = $user['TherapistID'];
                 $_SESSION['username'] = $user['Username'];
+                $_SESSION['fullname'] = $user['FullName'];
+                $_SESSION['type'] = 'therapist';
                 return $user;
             }
         }
 
-        // Execute the client query
-        $clientResult = $this->executeQuery($clientQuery);
-
+        $clientResult = mysqli_query($this->conn,$clientQuery);
         if ($clientResult) {
-            // Check if a client with the provided credentials exists
             if ($clientResult->num_rows == 1) {
-                $user = $clientResult->fetch_all(PDO::FETCH_ASSOC);
-                $_SESSION['user_id'] = $user['ClientID']; // Adjust for therapist/client
+                $user = mysqli_fetch_assoc($clientResult);
+                $_SESSION['user_id'] = $user['ClientID']; 
                 $_SESSION['username'] = $user['Username'];
+                $_SESSION['fullname'] = $user['FullName'];
+                $_SESSION['type'] = 'client';
                 return $user;
             }
         }
 
-        // User login failed
+        $adminResult = mysqli_query($this->conn,$adminQuery);
+        if ($adminResult) {
+            if ($adminResult->num_rows == 1) {
+                $user = mysqli_fetch_assoc($adminResult);
+                $_SESSION['user_id'] = $user['AdminID']; 
+                $_SESSION['username'] = $user['Username'];
+                $_SESSION['fullname'] = $user['FullName'];
+                $_SESSION['type'] = 'admin';
+                return $user;
+            }
+        }
         return false;
     }
 
