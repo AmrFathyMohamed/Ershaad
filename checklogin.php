@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the user inputs from the login form
     $usernameOrEmail = $_POST['email'];
     $password = $_POST['password'];
-
     // Create an instance of the Database class
     $db = new Database();
 
@@ -17,9 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($user) {
         // Login successful
-        // Redirect to the index page with session values
-        $userId = $_SESSION['user_id'];
-        $username = $_SESSION['username'];
         header("Location: index.php");
         exit;
     } else {

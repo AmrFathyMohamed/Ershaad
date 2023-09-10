@@ -51,10 +51,6 @@ class TherapistTable
         if ($stmt !== false) {
             $therapists = $stmt->fetch_all(MYSQLI_ASSOC);
         } else {
-            // Handle the error or log it
-            // $errorInfo = $this->db->getErrorMessage(); // Use $this->db->getErrorMessage()
-            // // Log or display the error message
-            // echo "Database error: " . $errorInfo;
             $therapists = [];
         }
 
@@ -63,5 +59,6 @@ class TherapistTable
 
         return $therapists;
     }
+    
 }
 ?>

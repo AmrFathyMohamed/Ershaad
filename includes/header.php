@@ -102,24 +102,39 @@ session_start();
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-                <a href="index.html" class="nav-item nav-link px-3 active">الرئيسية</a>
-                <a href="about.html" class="nav-item nav-link px-3">المعالجين</a>
-                <a href="about.html" class="nav-item nav-link px-3">عن إرشاد</a>
-                <a href="service.html" class="nav-item nav-link px-3">علاجي</a>
-            </div>
-        </div>
         <?php
-        if (isset($_SESSION['user_id']) && isset($_SESSION['username'])) {
+        if (isset($_SESSION['type'])) {
+            if ($_SESSION['type'] == 'therapist') {
+                ?>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
+                        <a href="sessions.php" class="nav-item nav-link px-3 ">الجلسات</a>
+                        <a href="chats.php" class="nav-item nav-link px-3 ">المحادثات</a>
+                        <a href="courses.php" class="nav-item nav-link px-3">الكورسات</a>
+                        <a href="my profile - therapist.php" class="nav-item nav-link px-3 active">الملف الشخصي</a>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
+                        <a href="index.php" class="nav-item nav-link px-3 active">الرئيسية</a>
+                        <a href="about.php" class="nav-item nav-link px-3">المعالجين</a>
+                        <a href="about.php" class="nav-item nav-link px-3">عن إرشاد</a>
+                        <a href="service.php" class="nav-item nav-link px-3">علاجي</a>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php } ?>
+
+        <?php
+        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {
             // User is logged in, retrieve user data for the navbar
             $userId = $_SESSION['user_id'];
-            $username = $_SESSION['username'];
+            //$username = ;
             // Add more user data retrieval if needed
-        
             // Display user information in the navbar
-            echo `<a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
-                        style="color: #7892aa;">' . $username . '</a>
+            echo '<a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
+                        style="color: #7892aa;">' . $_SESSION['fullname'] . '</a>
                     <div class="nav-item dropdown">
 
                         <a class="btn btn-square ms-1 btn-info rounded-circle" style="background-color: #7ce7d9;
@@ -132,17 +147,17 @@ session_start();
                             <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة
                                 المرور</a>
                             <a class="dropdown-item pointer text-danger"
-                                onclick="alertCon('هل انت متأكد انك تريد الخروج','warning',()=>logout())">تسجيل الخروج</a>
+                                >تسجيل الخروج</a>
                         </div>
-                    </div>`;
+                    </div>' . $_SESSION['type'];
             // Add more navbar elements and user data as needed
         } else {
             // User is not logged in, display login/register links or other content
-            echo `<a href="register.php" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>`;
+            echo '<a href="login.php" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>';
         }
         ?>
 
 
-        
+
     </nav>
     <!-- Navbar End -->
