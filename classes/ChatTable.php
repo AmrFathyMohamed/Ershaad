@@ -1,12 +1,3 @@
-<!-- SELECT DISTINCT u.FullName
-FROM clients AS u
-JOIN (
-    SELECT UserID
-    FROM chats
-    WHERE TherapistID = 100
-) AS cu
-ON u.ClientID = cu.UserID
-ORDER BY u.FullName; -->
 <?php
 class ChatTable
 {
@@ -18,10 +9,10 @@ class ChatTable
         $this->db = $database;
     }
 
-    public function insertChat($data)
+    public function insertChat($UserID,$TherapistID,$Message)
     {
-        $query = "INSERT INTO $this->table (UserID, TherapistID, Message, created_at) 
-                  VALUES (?, ?, ?, NOW())";
+        $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at) 
+                  VALUES ($UserID, $TherapistID, '$Message','Therapist', NOW())";
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
@@ -83,9 +74,8 @@ class ChatTable
         // JOIN clients AS u ON cu.UserID = u.ClientID
         // JOIN chats AS c ON cu.UserID = c.UserID AND cu.LastMessageTime = c.created_at
         // ORDER BY cu.LastMessageTime DESC";
-        $query = "SELECT ch.created_at AS LastMessageTime,
+        $query = "SELECT DISTINCT c.FullName ,ch.created_at AS LastMessageTime,
                     c.*,
-                    c.FullName,
                     IFNULL(ch.Message, '') AS LastMessage,
                     IFNULL(ch.Sender, '') AS LastMessageSender
                     FROM clients c

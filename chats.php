@@ -177,7 +177,10 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                     </div> -->
                 </div>
-                <div class="new-message rounded-0 py-2 card w-100 border-top" id="formsend">
+                <div class="new-message rounded-0 py-2 card w-100 border-top">
+                    <form id="formsend">
+
+                    </form>
                     <!-- <div class="d-flex align-items-center">
                         <textarea id="newMessageContent" class="form-control border-0 mx-2"
                             placeholder="Write a reply"></textarea>
@@ -190,10 +193,10 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </section>
     <?php include("includes/footer.php"); ?>
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             // Set the TherapistID from the session
-            const TherapistID = <?php echo $_SESSION['user_id']; ?>;
+            const TherapistID = ;
 
             // Event listener for the send button
             $("#sendBtn").click(function () {
@@ -208,8 +211,25 @@ if (isset($_SESSION['user_id'])) {
                     url: "send_message.php",
                     data: { UserID: UserID, TherapistID: TherapistID, Message: Message },
                     success: function (response) {
-                        // Handle the success response (e.g., update the chat interface)
-                        // You can update the chat UI here with the sent message
+                        // Assuming your response from send_message.php contains the new message data
+                        // You can parse the JSON response or handle it according to your data format
+                        const newMessageData = JSON.parse(response);
+
+                        // Example: Update the chat UI with the new message
+                        const messageContainer = $(".chat-content"); // Replace with the actual container element
+                        const messageClass = newMessageData.TherapistID === TherapistID ? "message-user" : "message-agent";
+                        const messageHTML = `<div class="${messageClass} ps-2 ms-3 my-3">
+                                                <div class="d-flex align-items-top">
+                                                    <div class="avatar avatar-md"></div>
+                                                    <div class="message ms-2">
+                                                        <p class="mb-0">${newMessageData.Message}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+
+                        // Append the new message to the chat UI
+                        messageContainer.append(messageHTML);
                     },
                     error: function (error) {
                         // Handle any errors (e.g., display an error message)
@@ -221,27 +241,9 @@ if (isset($_SESSION['user_id'])) {
             });
 
             // Function to load messages
-            function loadMessages() {
-                // AJAX request to fetch messages and update the chat UI
-                $.ajax({
-                    type: "POST",
-                    url: "get_messages.php", // Replace with the actual URL to fetch messages
-                    data: { UserID: UserID, TherapistID: TherapistID },
-                    success: function (response) {
-                        // Update the chat UI with the fetched messages
-                        // You will need to implement this part to display the messages
-                    },
-                    error: function (error) {
-                        // Handle any errors (e.g., display an error message)
-                    }
-                });
-            }
 
-            // Call loadMessages initially
-            loadMessages();
 
-            // Set an interval to reload messages every 1 second
-            setInterval(loadMessages, 1000);
+
         });
 
 
@@ -262,7 +264,7 @@ if (isset($_SESSION['user_id'])) {
                         $('#chatMessagesContainer').html(response);
                         $('#formsend').html(`<div class="d-flex align-items-center">
                                                 <textarea id="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                                <input type="hidden" id="UserID" value="" />
+                                                <input type="hidden" id="UserID" value="`+ clientID + `" />
                                                 <button id="sendBtn" class="btn me-2">
                                                     <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
                                                 </button>
@@ -273,11 +275,96 @@ if (isset($_SESSION['user_id'])) {
                         alert('Failed to fetch chat messages.');
                     }
                 });
+                
 
             });
         });
-    </script>
+    </script> -->
+    <script>
+        var chatInterval; // Variable to store the chat refresh interval
 
+        $('.ticket').click(function () {
+            $(this).addClass('active');
+            var clientID = $(this).data('client-id');
+            $('#ClientName').text($(this).data('client-name'));
+
+            // Call a function to load and display chat messages for the clicked client
+            function loadChatMessages() {
+                $.ajax({
+                    url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
+                    method: 'POST',
+                    data: { clientID: clientID },
+                    success: function (response) {
+                        // Display the chat messages in the chatMessagesContainer
+                        $('#chatMessagesContainer').html(response);
+
+                    },
+                    error: function () {
+                        alert('Failed to fetch chat messages.');
+                    }
+                });
+            }
+
+            // Initial load of chat messages
+            $('#formsend').html(`<div class="d-flex align-items-center">
+                    <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                    <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
+                    <button id="sendBtn" type="submit" class="btn me-2">
+                        <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+                    </button>
+                </div>
+                `);
+            loadChatMessages();
+
+            // Clear any existing chat refresh interval
+            clearInterval(chatInterval);
+
+            // Set an interval to refresh chat messages every second
+            chatInterval = setInterval(loadChatMessages, 1000);
+        });
+        // Handle form submission to send messages outside of the click event
+        $('#formsend').on('submit', function (e) {
+            e.preventDefault();
+            var messageContent = $('#newMessageContent').val();
+            var userID = $('#UserID').val();
+            // Call an AJAX function to send the message to the server and update chat messages on success
+            $.ajax({
+                url: 'send_message.php', // Replace with the actual PHP script to send messages
+                method: 'POST',
+                data: { Message: messageContent, UserID: userID },
+                success: function (response) {
+                    // Clear the message input field
+                    $('#newMessageContent').val('');
+                    // Reload chat messages to see the new message
+                    //loadChatMessages();
+                },
+                error: function () {
+                    alert('Failed to send the message.');
+                }
+            });
+        });
+        function reloadChatsSection() {
+            // Reload the chats section content here
+            $.ajax({
+                url: 'refresh_chats_section.php', // Replace with the actual PHP script to refresh the section
+                method: 'GET',
+                success: function (response) {
+                    // Replace the chats section content with the refreshed content
+                    $('#chatsSection').html(response);
+                },
+                error: function () {
+                    alert('Failed to refresh the chats section.');
+                }
+            });
+        }
+
+        // Initial load of the chats section
+        reloadChatsSection();
+
+        // Set an interval to reload the chats section every minute (60,000 milliseconds)
+        setInterval(reloadChatsSection, 1000);
+
+    </script>
 </body>
 
 </html>

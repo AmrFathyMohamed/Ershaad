@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
     $database = new Database();
     $chats = new ChatTable($database);
-
+    
     // Check if clientID is received via POST
     if (isset($_POST['clientID'])) {
         $clientID = $_POST['clientID'];
