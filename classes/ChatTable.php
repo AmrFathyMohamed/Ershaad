@@ -26,12 +26,12 @@ class ChatTable
         return $stmt !== false;
     }
 
-    public function getChatsBetweenUsers($userID1, $userID2)
+    public function getChatsBetweenUsers($UserID, $TherapistID)
     {
         $query = "SELECT * FROM $this->table
-                  WHERE (UserID = ? AND TherapistID = ?) OR (UserID = ? AND TherapistID = ?)
+                  WHERE (UserID = $UserID AND TherapistID = $TherapistID)
                   ORDER BY created_at ASC";
-        $data = [$userID1, $userID2, $userID2, $userID1];
+
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
@@ -73,16 +73,34 @@ class ChatTable
     }
     public function getAllChatsForTherapist($TherapistID)
     {
-        $query = "SELECT u.FullName, c.Message, c.created_at AS LastMessageTime
-        FROM (
-            SELECT UserID, MAX(created_at) AS LastMessageTime
-            FROM chats
-            WHERE TherapistID = $TherapistID
-            GROUP BY UserID
-        ) AS cu
-        JOIN clients AS u ON cu.UserID = u.ClientID
-        JOIN chats AS c ON cu.UserID = c.UserID AND cu.LastMessageTime = c.created_at
-        ORDER BY cu.LastMessageTime DESC";
+        // $query = "SELECT u.ClientID,u.FullName, c.Message, c.created_at AS LastMessageTime
+        // FROM (
+        //     SELECT UserID, MAX(created_at) AS LastMessageTime
+        //     FROM chats
+        //     WHERE TherapistID = $TherapistID
+        //     GROUP BY UserID
+        // ) AS cu
+        // JOIN clients AS u ON cu.UserID = u.ClientID
+        // JOIN chats AS c ON cu.UserID = c.UserID AND cu.LastMessageTime = c.created_at
+        // ORDER BY cu.LastMessageTime DESC";
+        $query = "SELECT ch.created_at AS LastMessageTime,
+                    c.*,
+                    c.FullName,
+                    IFNULL(ch.Message, '') AS LastMessage,
+                    IFNULL(ch.Sender, '') AS LastMessageSender
+                    FROM clients c
+                    LEFT JOIN
+                    (SELECT UserID,
+                            MAX(created_at) AS LastMessageDate
+                        FROM chats
+                        WHERE TherapistID = $TherapistID
+                        AND is_deleted = 0
+                        GROUP BY UserID) AS latest_chats ON c.ClientID = latest_chats.UserID
+                    LEFT JOIN chats ch ON latest_chats.UserID = ch.UserID
+                    AND latest_chats.LastMessageDate = ch.created_at
+                    AND ch.TherapistID = $TherapistID
+                    WHERE latest_chats.UserID IS NOT NULL
+                    ORDER BY LastMessageDate DESC;";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }

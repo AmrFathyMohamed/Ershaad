@@ -52,6 +52,8 @@ if (isset($_SESSION['user_id'])) {
                             <th>Name</th>
                             <th>Specialization</th>
                             <th>Price</th>
+                            <th>Percentage</th>
+                            <th>PriceAfterPercentage</th>
                             <th>Rating</th>
                             <th>City</th>
                             <!-- <th>Bio</th> -->
@@ -76,6 +78,12 @@ if (isset($_SESSION['user_id'])) {
                                 </td>
                                 <td>
                                     <?php echo $therapist['Price']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $therapist['Percentage']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $therapist['PriceAfterPercentage']; ?>
                                 </td>
                                 <td>
                                     <?php echo $therapist['Rating']; ?>
@@ -211,6 +219,14 @@ if (isset($_SESSION['user_id'])) {
                         <input type="number" class="form-control" id="price" name="price" required>
                     </div>
                     <div class="mb-3">
+                        <label for="percentage" class="form-label">Percentage</label>
+                        <input type="number" class="form-control" id="percentage" name="percentage" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
+                        <input type="number" class="form-control" id="priceafterpercentage" name="priceafterpercentage" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="rating" class="form-label">Rating</label>
                         <input type="number" class="form-control" id="rating" name="rating" min="0" max="5" required>
                     </div>
@@ -314,6 +330,14 @@ if (isset($_SESSION['user_id'])) {
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="number" class="form-control" id="edit_price" name="edit_price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="percentage" class="form-label">Percentage</label>
+                        <input type="number" class="form-control" id="edit_percentage" name="edit_percentage" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
+                        <input type="number" class="form-control" id="edit_priceafterpercentage" name="edit_priceafterpercentage" required>
                     </div>
                     <div class="mb-3">
                         <label for="rating" class="form-label">Rating</label>
@@ -465,6 +489,8 @@ if (isset($_SESSION['user_id'])) {
                     $('#edit_fullName').val(data.FullName);
                     $('#edit_specialization').val(data.Specialization);
                     $('#edit_price').val(data.Price);
+                    $('#edit_percentage').val(data.Percentage);
+                    $('#edit_priceafterpercentage').val(data.PriceAfterPercentage);
                     $('#edit_rating').val(data.Rating);
                     $('#edit_city').val(data.City);
                     $('#edit_bio').val(data.Bio);
@@ -505,6 +531,8 @@ if (isset($_POST['addTherapist'])) {
         $_POST['fullName'],
         $_POST['specialization'],
         $_POST['price'],
+        $_POST['percentage'],
+        $_POST['priceafterpercentage'],
         $_POST['rating'],
         $_POST['city'],
         $_POST['bio'],
@@ -534,6 +562,8 @@ if (isset($_POST['updateTherapist'])) {
         $_POST['edit_fullName'],
         $_POST['edit_specialization'],
         $_POST['edit_price'],
+        $_POST['edit_percentage'],
+        $_POST['edit_priceafterpercentage'],
         $_POST['edit_rating'],
         $_POST['edit_city'],
         $_POST['edit_bio'],
