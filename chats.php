@@ -71,9 +71,9 @@ if (isset($_SESSION['user_id'])) {
                     <h6 class="m-0 ps-3"><img src="assets/images/ticketsSide.svg" alt="" class="w-10 pe-2">جميع
                         المحادثات </h6>
                 </div>
-                <div class="tickets px-0 " style="overflow: hidden; height: fit-content;">
+                <div class="tickets px-0 chat-content">
                     <?php foreach ($chatsData as $c) { ?>
-                        <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center active"
+                        <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center "
                             data-client-id="<?php echo $c['ClientID']; ?>" data-client-Name="<?php echo $c['FullName']; ?>">
                             <div class="content">
                                 <h6 class="mb-0">
@@ -248,6 +248,7 @@ if (isset($_SESSION['user_id'])) {
         $(document).ready(function () {
             // Attach a click event handler to the chat divs
             $('.ticket').click(function () {
+                $(this).addClass('active');
                 var clientID = $(this).data('client-id');
                 $('#ClientName').text($(this).data('client-name'));
                 // Call a function to load and display chat messages for the clicked client
