@@ -9,10 +9,10 @@ class ClientTable
         $this->db = $database;
     }
 
-    public function insertClient($data)
+    public function insertClient($fullName, $city, $gender, $phone, $username, $email, $password, $age)
     {
-        $query = "INSERT INTO $this->table (FullName, Username, Email, Password, Gender, Age, City, Phone) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO clients (FullName, Username, Email, Password, Gender, Age, City, Phone) 
+        VALUES ('$fullName', '$username', '$email', '$password', '$gender', '$age', '$city', '$phone')";
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
@@ -43,7 +43,12 @@ class ClientTable
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_assoc();
     }
-
+    public function getClients()
+    {
+        $query = "SELECT * FROM $this->table ";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
     // Add more methods for querying clients here as needed
 }
 ?>
