@@ -124,7 +124,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
                         <a href="index.php" class="nav-item nav-link px-3 active">الرئيسية</a>
-                        <a href="#" class="nav-item nav-link px-3">المعالجين</a>
+                        <a href="search.php" class="nav-item nav-link px-3">المعالجين</a>
                         <a href="about.php" class="nav-item nav-link px-3">عن إرشاد</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">التخصصات</a>
@@ -161,7 +161,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
             <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
                         <a href="index.php" class="nav-item nav-link px-3 active">الرئيسية</a>
-                        <a href="#" class="nav-item nav-link px-3">المعالجين</a>
+                        <a href="search.php" class="nav-item nav-link px-3">المعالجين</a>
                         <a href="about.php" class="nav-item nav-link px-3">عن إرشاد</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">التخصصات</a>

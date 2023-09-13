@@ -1,6 +1,7 @@
 <?php include("layout.php"); ?>
 <?php include("../classes/Database.php"); ?>
 <?php include("../classes/TherapistTable.php"); ?>
+<?php include("../classes/SpecialtiesTable.php"); ?>
 <?php
 // Check if the 'id' parameter is set in the URL
 if (isset($_SESSION['user_id'])) {
@@ -9,6 +10,8 @@ if (isset($_SESSION['user_id'])) {
     $database = new Database();
     $therapists = new TherapistTable($database);
     $therapistsData = $therapists->getTherapists();
+    $SpecialtiesObject = new SpecialtiesTable($database);
+    $specialties = $SpecialtiesObject->getDataByTableName();
     // You can use $userId in your code as needed
 } else {
     // Handle the case when 'id' is not present in the URL
@@ -205,11 +208,9 @@ if (isset($_SESSION['user_id'])) {
                     <div class="mb-3">
                         <label for="specialization" class="form-label">Specialization</label>
                         <select class="form-select" id="specialization" name="specialization" required>
-                            <option value="Specialization1">Specialization1</option>
-                            <option value="Specialization2">Specialization2</option>
-                            <option value="Specialization3">Specialization3</option>
-                            <option value="Specialization4">Specialization4</option>
-                            <option value="Specialization5">Specialization5</option>
+                            <?php foreach ($specialties as $spec) { ?>
+                                <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
+                            <?php } ?>
 
                             <!-- Add more options as needed -->
                         </select>
@@ -224,7 +225,8 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="mb-3">
                         <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
-                        <input type="number" class="form-control" id="priceafterpercentage" name="priceafterpercentage" required>
+                        <input type="number" class="form-control" id="priceafterpercentage" name="priceafterpercentage"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="rating" class="form-label">Rating</label>
@@ -318,11 +320,9 @@ if (isset($_SESSION['user_id'])) {
                     <div class="mb-3">
                         <label for="specialization" class="form-label">Specialization</label>
                         <select class="form-select" id="edit_specialization" name="edit_specialization" required>
-                            <option value="Specialization1">Specialization1</option>
-                            <option value="Specialization2">Specialization2</option>
-                            <option value="Specialization3">Specialization3</option>
-                            <option value="Specialization4">Specialization4</option>
-                            <option value="Specialization5">Specialization5</option>
+                            <?php foreach ($specialties as $spec) { ?>
+                                <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
+                            <?php } ?>
 
                             <!-- Add more options as needed -->
                         </select>
@@ -337,7 +337,8 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="mb-3">
                         <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
-                        <input type="number" class="form-control" id="edit_priceafterpercentage" name="edit_priceafterpercentage" required>
+                        <input type="number" class="form-control" id="edit_priceafterpercentage"
+                            name="edit_priceafterpercentage" required>
                     </div>
                     <div class="mb-3">
                         <label for="rating" class="form-label">Rating</label>

@@ -2,9 +2,9 @@
 class Database
 {
     private $host = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $database = "ershaad";
+    private $username = "root"; //"id21106103_ershad"
+    private $password = ""; //"Ershad2023@@"
+    private $database = "ershaad"; //"id21106103_ershad"
     private $conn;
 
     // Add a property to store the error message
@@ -12,39 +12,15 @@ class Database
 
     public function __construct()
     {
-        // Try connecting with root and empty password
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
-
-        // Check if the connection was successful
         if ($this->conn->connect_error) {
-            // If the first connection attempt failed, try with specific credentials
-            $this->conn = new mysqli($this->host, "id21106103_ershad", "Ershad2023@@", "id21106103_ershad");
-
-            // Check if the second connection attempt also failed
-            if ($this->conn->connect_error) {
-                die("Connection failed: " . $this->conn->connect_error);
-            } else {
-                $query = "UPDATE therapists AS t
-                JOIN (
-                    SELECT TherapistID, AVG(UserRate) AS AvgRating
-                    FROM sessions
-                    WHERE Status = 'Accepted' AND UserRate IS NOT NULL
-                    GROUP BY TherapistID
-                ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID
-                SET t.Rating = avg_ratings.AvgRating;
-                ";
-                $this->executeQuery($query);
-            }
+            die("Connection failed: " . $this->conn->connect_error);
         } else {
             $query = "UPDATE therapists AS t
             JOIN (
                 SELECT TherapistID, AVG(UserRate) AS AvgRating
-                FROM sessions
-                WHERE Status = 'Accepted' AND UserRate IS NOT NULL
-                GROUP BY TherapistID
-            ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID
-            SET t.Rating = avg_ratings.AvgRating;
-            ";
+                FROM sessions WHERE Status = 'Accepted' AND UserRate IS NOT NULL GROUP BY TherapistID
+            ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID SET t.Rating = avg_ratings.AvgRating;";
             $this->executeQuery($query);
         }
     }
@@ -120,7 +96,7 @@ class Database
     {
         $this->conn->close();
     }
-    
+
 }
 
 ?>

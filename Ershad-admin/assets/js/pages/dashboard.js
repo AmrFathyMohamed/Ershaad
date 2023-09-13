@@ -393,7 +393,55 @@ Chart.controllers.roundedBar = Chart.controllers.bar.extend({
   dataElementType: Chart.elements.RoundedTopRectangle
 });
 
-
+// var ctxBar = document.getElementById("bar").getContext("2d");
+// var myBar = new Chart(ctxBar, {
+//   type: 'bar',
+//   data: {
+//     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+//     datasets: [{
+//       label: 'Students',
+//       backgroundColor: [chartColors.grey, chartColors.grey, chartColors.grey, chartColors.grey, chartColors.info, chartColors.blue, chartColors.grey],
+//       data: [
+//         5, 
+//         10, 
+//         30, 
+//         40, 
+//         35, 
+//         55, 
+//         15, 
+//       ]
+//     }]
+//   },
+//   options: {
+//     responsive: true,
+//     barRoundness: 1,
+//     title: {
+//       display: false,
+//       text: "Chart.js - Bar Chart with Rounded Tops (drawRoundedTopRectangle Method)"
+//     },
+//     legend: {
+//       display:false
+//     },
+//     scales: {
+//       yAxes: [{
+//         ticks: {
+//           beginAtZero: true,
+//           suggestedMax: 40 + 20,
+//           padding: 10,
+//         },
+//         gridLines: {
+//           drawBorder: false,
+//         }
+//       }],
+//       xAxes: [{
+//             gridLines: {
+//                 display:false,
+//                 drawBorder: false
+//             }
+//         }]
+//     }
+//   }
+// });
 var radialBarsOptions = {
   series: [44, 80, 67],
   chart: {
