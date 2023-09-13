@@ -23,7 +23,29 @@ class Database
             // Check if the second connection attempt also failed
             if ($this->conn->connect_error) {
                 die("Connection failed: " . $this->conn->connect_error);
+            } else {
+                $query = "UPDATE therapists AS t
+                JOIN (
+                    SELECT TherapistID, AVG(UserRate) AS AvgRating
+                    FROM sessions
+                    WHERE Status = 'Accepted' AND UserRate IS NOT NULL
+                    GROUP BY TherapistID
+                ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID
+                SET t.Rating = avg_ratings.AvgRating;
+                ";
+                $this->executeQuery($query);
             }
+        } else {
+            $query = "UPDATE therapists AS t
+            JOIN (
+                SELECT TherapistID, AVG(UserRate) AS AvgRating
+                FROM sessions
+                WHERE Status = 'Accepted' AND UserRate IS NOT NULL
+                GROUP BY TherapistID
+            ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID
+            SET t.Rating = avg_ratings.AvgRating;
+            ";
+            $this->executeQuery($query);
         }
     }
     public function executeQuery($query)
@@ -98,6 +120,7 @@ class Database
     {
         $this->conn->close();
     }
+    
 }
 
 ?>

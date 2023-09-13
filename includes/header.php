@@ -1,7 +1,13 @@
 <?php
 session_start();
 ?>
-
+<?php include("./classes/Database.php"); ?>
+<?php include("./classes/SpecialtiesTable.php"); ?>
+<?php
+$database = new Database();
+$SpecialtiesObject = new SpecialtiesTable($database);
+$specialties = $SpecialtiesObject->getDataByTableName();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,9 +82,9 @@ session_start();
                     <small>info@example.com</small>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small id="realTimeClock" class="me-2"></small>
                     <small class="far fa-clock me-2"></small>
-                    <small>Mon - Fri : 09 AM - 09 PM</small>
-                </div>
+</div>
             </div>
             <div class="col-lg-5 px-5 text-end">
                 <div class="h-100 d-inline-flex align-items-center">
@@ -94,7 +100,7 @@ session_start();
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex align-items-center">
+        <a href="index.php" class="navbar-brand d-flex align-items-center">
             <h1 class="m-0">
                 <img class="img-fluid me-3" src="img/logo-h.png" alt="" />
             </h1>
@@ -118,43 +124,58 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
                         <a href="index.php" class="nav-item nav-link px-3 active">الرئيسية</a>
-                        <a href="about.php" class="nav-item nav-link px-3">المعالجين</a>
+                        <a href="#" class="nav-item nav-link px-3">المعالجين</a>
                         <a href="about.php" class="nav-item nav-link px-3">عن إرشاد</a>
-                        <a href="service.php" class="nav-item nav-link px-3">علاجي</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">التخصصات</a>
+                            <div class="dropdown-menu bg-light border-0 m-0">
+                                <?php foreach ($specialties as $spec) { ?>
+                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
+                                        class="dropdown-item"><?= $spec["Specialty"] ?></a>
+                                <?php } ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php } ?>
         <?php } ?>
 
         <?php
-        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {
-            // User is logged in, retrieve user data for the navbar
-            $userId = $_SESSION['user_id'];
-            //$username = ;
-            // Add more user data retrieval if needed
-            // Display user information in the navbar
-            echo '<a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
-                        style="color: #7892aa;">' . $_SESSION['fullname'] . '</a>
-                    <div class="nav-item dropdown">
-
-                        <a class="btn btn-square ms-1 btn-info rounded-circle" style="background-color: #7ce7d9;
+        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {$userId = $_SESSION['user_id']; ?>
+            <a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
+                style="color: #7892aa;"><?= $_SESSION['fullname'] ?></a>
+            <div class="nav-item dropdown">
+                <a class="btn btn-square ms-1 btn-info rounded-circle" style="background-color: #7ce7d9;
                         border-color: #7ce7d9;" data-bs-toggle="dropdown"><i class="fa-solid fa-user"
-                                style="color: #37474f;"></i></a>
-                        <div class="dropdown-menu bg-light border-0 m-0 shadow">
-                            <a href="my profile.html" class="dropdown-item">الملف الشخصي </a>
-                            <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
-                                الشخصية</a>
-                            <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة
-                                المرور</a>
-                            <a class="dropdown-item pointer text-danger"
-                                >تسجيل الخروج</a>
+                        style="color: #37474f;"></i></a>
+                <div class="dropdown-menu bg-light border-0 m-0 shadow">
+                    <a href="my profile - therapist.php" class="dropdown-item">الملف الشخصي </a>
+                    <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
+                        الشخصية</a>
+                    <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة
+                        المرور</a>
+                    <a class="dropdown-item pointer text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
+                </div>
+            </div>
+        <?php } else { ?>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
+                        <a href="index.php" class="nav-item nav-link px-3 active">الرئيسية</a>
+                        <a href="#" class="nav-item nav-link px-3">المعالجين</a>
+                        <a href="about.php" class="nav-item nav-link px-3">عن إرشاد</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">التخصصات</a>
+                            <div class="dropdown-menu bg-light border-0 m-0">
+                                <?php foreach ($specialties as $spec) { ?>
+                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
+                                        class="dropdown-item text-center"><?= $spec["Specialty"] ?></a>
+                                <?php } ?>
+                            </div>
                         </div>
-                    </div>' . $_SESSION['type'];
-            // Add more navbar elements and user data as needed
-        } else {
-            // User is not logged in, display login/register links or other content
-            echo '<a href="login.php" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>';
-        }
+                    </div>
+            </div>
+            <a href="login.php" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>
+        <?php }
         ?>
 
 

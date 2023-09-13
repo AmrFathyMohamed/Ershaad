@@ -1,5 +1,5 @@
 <?php include("includes/header.php"); ?>
-<?php include("classes/Database.php"); ?>
+
 <?php include("classes/TherapistTable.php"); ?>
 <!-- Carousel Start -->
 <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -49,7 +49,7 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item rounded">
                         <!-- You can replace the image source with the actual therapist's image -->
-                        <img class="img-fluid" src="img/team-1.jpg" alt="" />
+                        <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
                         <div class="text-center p-4">
                             <h5 class="text-">
                                 <?= $therapist['FullName']; ?>
@@ -122,8 +122,8 @@
                     </p>
                 </div>
             </div>
-
-            <div
+            <?php foreach ($specialties as $spec) { ?>
+                <div
                 class="lc-block d-sm-flex align-items-center justify-content-end mb-4 overflow-hidden position-relative">
                 <div class="d-inline-flex rtl justify-content-end">
                     <div>
@@ -137,12 +137,15 @@
                     </div>
 
                     <div class="me-3 align-self-center" editable="rich">
-                        <p class="fw-bold mb-1 fs-5">الصحة النفسية
+                        <p class="fw-bold mb-1 fs-5"><?= $spec["Specialty"] ?>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="lc-block d-sm-flex align-items-center justify-content-end mb-4">
+
+                                <?php } ?>
+            
+            <!-- <div class="lc-block d-sm-flex align-items-center justify-content-end mb-4">
                 <div class="d-inline-flex rtl justify-content-end">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor"
@@ -195,7 +198,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="col-md-6 d-flex gap-4 wow fadeInUp" data-wow-delay="0.2s">

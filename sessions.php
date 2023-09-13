@@ -1,23 +1,22 @@
 <?php include("includes/header.php"); ?>
-<?php include("classes/Database.php"); ?>
+
 <?php include("classes/SessionTable.php"); ?>
 <?php
-// Check if the 'id' parameter is set in the URL
 if (isset($_SESSION['user_id'])) {
   // Get the 'id' value from the URL
-  $userId = $_SESSION['user_id'];
-  $database = new Database();
-  $sessions = new SessionTable($database);
-  $sessionsData = $sessions->getSessionstherapist($userId);
-  // Now, $userId contains the value of 'id' from the URL
-  // You can use $userId in your code as needed
+  if ($_SESSION['type'] == 'therapist') {
+    $userId = $_SESSION['user_id'];
+    $database = new Database();
+    $sessions = new SessionTable($database);
+    $sessionsData = $sessions->getSessionstherapist($userId);
+  } else {
+    header("Location: index.php");
+    exit;
+  }
 } else {
-  // Handle the case when 'id' is not present in the URL
-  // You might want to redirect the user or show an error message
   header("Location: index.php");
   exit;
-}
-?>
+} ?>
 <style>
   .page-header {
     position: relative;
@@ -107,21 +106,22 @@ if (isset($_SESSION['user_id'])) {
   </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
-<div class="tab-pane w-55 px-4 mx-auto fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-  <?php
-  $currentDate = new DateTime(); // Get the current date and time
+  <div class="tab-pane w-55 px-4 mx-auto fade show active" id="pills-home" role="tabpanel"
+    aria-labelledby="pills-home-tab">
+    <?php
+    $currentDate = new DateTime(); // Get the current date and time
+    
+    foreach ($sessionsData as $session) {
+      $startTime = new DateTime($session['Time']);
 
-  foreach ($sessionsData as $session) {
-    $startTime = new DateTime($session['Time']);
-
-    // Calculate the end time by adding 1 hour to the start time
-    $endTime = clone $startTime;
-    $endTime->add(new DateInterval('PT1H'));
-    $sessionDate = new DateTime($session['Date']);
-    $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
-    $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
-    if ($sessionDate->format('Y-m-d') >= $currentDate->format('Y-m-d')) {
-      echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+      // Calculate the end time by adding 1 hour to the start time
+      $endTime = clone $startTime;
+      $endTime->add(new DateInterval('PT1H'));
+      $sessionDate = new DateTime($session['Date']);
+      $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
+      $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
+      if ($sessionDate->format('Y-m-d') >= $currentDate->format('Y-m-d')) {
+        echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">
                     <div class="service-icon w-25 text-white ' . $sessionTypeClass . ' rounded-end mb-1 me-4"
@@ -138,23 +138,24 @@ if (isset($_SESSION['user_id'])) {
                   </div>
                 </div>
             </div>';
-    }}?>
-    </div>
-    <div class="tab-pane w-55 px-4 mx-auto fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      }
+    } ?>
+  </div>
+  <div class="tab-pane w-55 px-4 mx-auto fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
     <?php
-  $currentDate = new DateTime(); // Get the current date and time
+    $currentDate = new DateTime(); // Get the current date and time
+    
+    foreach ($sessionsData as $session) {
+      $startTime = new DateTime($session['Time']);
 
-  foreach ($sessionsData as $session) {
-    $startTime = new DateTime($session['Time']);
-
-    // Calculate the end time by adding 1 hour to the start time
-    $endTime = clone $startTime;
-    $endTime->add(new DateInterval('PT1H'));
-    $sessionDate = new DateTime($session['Date']);
-    $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
-    $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
-    if ($sessionDate->format('Y-m-d') < $currentDate->format('Y-m-d')) {
-      echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+      // Calculate the end time by adding 1 hour to the start time
+      $endTime = clone $startTime;
+      $endTime->add(new DateInterval('PT1H'));
+      $sessionDate = new DateTime($session['Date']);
+      $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
+      $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
+      if ($sessionDate->format('Y-m-d') < $currentDate->format('Y-m-d')) {
+        echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">
                     <div class="service-icon w-25 text-white ' . $sessionTypeClass . ' rounded-end mb-1 me-4"
@@ -174,31 +175,32 @@ if (isset($_SESSION['user_id'])) {
 
                 
             ';
-    }} ?>
-</div>
-<!-- rate modal -->
+      }
+    } ?>
+  </div>
+  <!-- rate modal -->
 
-<!-- Modal -->
-<div class="modal fade" id="rateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id=""> </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+  <!-- Modal -->
+  <div class="modal fade" id="rateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id=""> </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-        <button type="button" class="btn btn-primary px-5">نشر</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+          <button type="button" class="btn btn-primary px-5">نشر</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<?php include("includes/footer.php"); ?>
+  <?php include("includes/footer.php"); ?>
 
-</body>
+  </body>
 
-</html>
+  </html>

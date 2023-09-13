@@ -1,5 +1,5 @@
 <?php include("includes/header.php"); ?>
-<?php include("classes/Database.php"); ?>
+
 <?php include("classes/ChatTable.php"); ?>
 <?php
 // Check if the 'id' parameter is set in the URL

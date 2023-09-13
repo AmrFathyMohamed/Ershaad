@@ -51,16 +51,39 @@ class TherapistTable
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_assoc();
     }
+    public function getDataByTherapistIdAccepted($therapistId, $tableName)
+    {
+        $query = "SELECT * FROM $tableName WHERE TherapistID = $therapistId And Status = 'Accepted' AND UserRate is not NULL ORDER BY UserRate DESC";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getDataByTherapistId($therapistId, $tableName)
+    {
+        if ($tableName == "documents") {
+            $query = "SELECT * FROM $tableName WHERE TherapistID = $therapistId ORDER BY DocumentDate DESC";
+        } else if ($tableName == "course_therapist") {
+            $query = "SELECT c.* ,ct.Status FROM courses AS c INNER JOIN $tableName AS ct ON c.CourseID = ct.CourseID WHERE ct.TherapistID = $therapistId";
+        } else {
+            $query = "SELECT * FROM $tableName WHERE TherapistID = $therapistId";
+        }
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
     public function getTherapists()
     {
         $query = "SELECT * FROM $this->table ";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
-
+    public function getTherapistsBySpecialization($SpecialtyID)
+    {
+        $query = "SELECT * FROM $this->table where Specialization = (SELECT Specialty FROM specialties where SpecialtyID = $SpecialtyID) ORDER BY Rating DESC";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
     public function getRandomTopRatedTherapists($count)
     {
-        $query = "SELECT * FROM $this->table ORDER BY Rating DESC LIMIT $count";
+        $query = "SELECT * FROM $this->table ORDER BY RAND() LIMIT $count";
         $stmt = $this->db->executeQuery($query);
 
         if ($stmt !== false) {
