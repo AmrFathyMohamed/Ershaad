@@ -3,38 +3,39 @@
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
-                <h1 class="text-white mb-4">
+                <h1 class="text-white mb-4 right">
                     <img class="w-80 me-3" src="img/logo h.png" alt="" />
                 </h1>
-                <p>
+                <p class="right">
                     نعمل علي توفير التواصل السريع والمستمر بين أصحاب الاحتياجات الاستشارية إلى المختصين في جميع
                     مناحي الحياة
                 </p>
 
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 right">
                 <h5 class="text-light mb-4">للتواصل</h5>
                 <p>
-                    <i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA
+                    123 Street, New York, USA <i class="fa fa-map-marker-alt ms-3"></i>
                 </p>
-                <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                <div class="d-flex pt-2">
-                    <a class="btn btn-square me-1" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-square me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square me-1" href=""><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-square me-0" href=""><i class="fab fa-linkedin-in"></i></a>
+                <p>01020304050 <i class="fa fa-phone-alt ms-3"></i></p>
+                <p>info@example.com <i class="fa fa-envelope ms-3"></i></p>
+                <div class="d-flex pt-2 justify-content-end">
+                    <a class="btn btn-square me-1" href="https://twitter.com/ershaad392688"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-square me-1" href="https://www.facebook.com/profile.php?id=61550946876715&mibextid=D4KYlr"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square me-1" href="https://www.tiktok.com/@ershaad2"><i class="fa-brands fa-tiktok"></i></a>
+                    <a class="btn btn-square me-1" href="https://www.snapchat.com/add/ershaad566?share_id=CYR0dVL1NQw&locale=en-EG"><i class="fa-brands fa-snapchat"></i></a>
+                    <a class="btn btn-square me-0" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 right">
                 <h5 class="text-light mb-4">روابط هامة</h5>
-                <a class="btn btn-link" href="">عن إرشاد</a>
-                <a class="btn btn-link" href="">المعالجين</a>
-                <a class="btn btn-link" href="">التخصصات</a>
+                <a class="btn btn-link" href="about.php">عن إرشاد</a>
+                <a class="btn btn-link" href="search.php">المعالجين</a>
+                <a class="btn btn-link" href="index.php #spec">التخصصات</a>
                 <a class="btn btn-link" href="">الدعم والمساعدة</a>
-                <a class="btn btn-link" href="">الشروط وقواعد الاستخدام</a>
+                <a class="btn btn-link" href="policy.php">سياسة الاستخدام والخصوصية</a>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 right">
                 <h5 class="text-light mb-4">التحديثات</h5>
                 <!-- <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p> -->
                 <div class="position-relative mx-auto" style="max-width: 400px">

@@ -433,20 +433,20 @@ font-family: 'Tajawal', sans-serif!important;
     display: block;
     margin-bottom: 5px;
     padding: 0;
-    text-align: left;
+    text-align: right;
     color: #A7A8B4;
     font-weight: normal;
     text-transform: capitalize;
     transition: .3s;
 }
 
-.footer .btn.btn-link::before {
+.footer .btn.btn-link::after {
     position: relative;
-    content: "\f105";
+    content: "\f104";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     color: #A7A8B4;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .footer .btn.btn-link:hover {
