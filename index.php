@@ -98,14 +98,37 @@
 
             <div class="col-12 mt-5 text-center">
                 <a class="btn w-20 btn-dark m-1" href="">المزيد</a>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit praesentium quidem nemo cumque, autem
-                doloremque!
+                
             </div>
         </div>
 
     </div>
 </div>
 <!-- Team End -->
+
+<!-- Slider Start -->
+<div id="carouselExampleControls" class="carousel slide pb-5 my-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="img/ad 1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="img/ad 2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="img/ad 3.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<!-- Slider end -->
 
 <div class="container py-6">
     <div class="row align-items-center flex-md-row-reverse">
@@ -224,10 +247,7 @@
 
     </div>
 </div>
-
-
 <!-- Facts Start -->
-
 
 
 <div class="container-fluid text-center py-5 py-md-6 mt-5  wow fadeInUp" data-wow-delay="0.1s">
