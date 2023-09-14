@@ -64,13 +64,13 @@ $specialties = $SpecialtiesObject->getDataByTableName();
 <body>
     <!-- Spinner Start -->
     <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" style="background: #15233c;">
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
     <!-- Spinner End -->
 
     <!-- Topbar Start -->
-    <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
+    <div class="container-fluid bg-light py-2 px-0 d-none d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
                 <div class="h-100 d-inline-flex align-items-center me-4">
@@ -99,7 +99,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top px-4 px-lg-5" style="background-color: #15233c!important;">
         <a href="index.php" class="navbar-brand d-flex align-items-center">
             <h1 class="m-0">
                 <img class="img-fluid me-3" src="img/logo-h.png" alt="" />
@@ -113,21 +113,21 @@ $specialties = $SpecialtiesObject->getDataByTableName();
             if ($_SESSION['type'] == 'therapist') {
                 ?>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-                        <a href="sessions.php" class="nav-item nav-link px-3 ">الجلسات</a>
-                        <a href="chats.php" class="nav-item nav-link px-3 ">المحادثات</a>
-                        <a href="courses.php" class="nav-item nav-link px-3">الكورسات</a>
-                        <a href="my profile - therapist.php" class="nav-item nav-link px-3 active">الملف الشخصي</a>
+                    <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
+                        <a href="sessions.php" class="nav-item nav-link px-3  text-white">الجلسات</a>
+                        <a href="chats.php" class="nav-item nav-link px-3  text-white">المحادثات</a>
+                        <a href="courses.php" class="nav-item nav-link px-3 text-white">الكورسات</a>
+                        <a href="my profile - therapist.php" class="nav-item nav-link px-3 active text-white">الملف الشخصي</a>
                     </div>
                 </div>
             <?php } else { ?>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-                        <a href="index.php" class="nav-item nav-link px-3 active">الرئيسية</a>
-                        <a href="search.php" class="nav-item nav-link px-3">المعالجين</a>
-                        <a href="about.php" class="nav-item nav-link px-3">عن إرشاد</a>
+                    <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
+                        <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>
+                        <a href="search.php" class="nav-item nav-link px-3 text-white">المعالجين</a>
+                        <a href="about.php" class="nav-item nav-link px-3 text-white">عن إرشاد</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">التخصصات</a>
+                            <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
                             <div class="dropdown-menu bg-light border-0 m-0">
                                 <?php foreach ($specialties as $spec) { ?>
                                     <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
@@ -159,12 +159,12 @@ $specialties = $SpecialtiesObject->getDataByTableName();
             </div>
         <?php } else { ?>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-                        <a href="index.php" class="nav-item nav-link px-3 active">الرئيسية</a>
-                        <a href="search.php" class="nav-item nav-link px-3">المعالجين</a>
-                        <a href="about.php" class="nav-item nav-link px-3">عن إرشاد</a>
+            <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
+                        <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>
+                        <a href="search.php" class="nav-item nav-link px-3 text-white">المعالجين</a>
+                        <a href="about.php" class="nav-item nav-link px-3 text-white">عن إرشاد</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">التخصصات</a>
+                            <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
                             <div class="dropdown-menu bg-light border-0 m-0">
                                 <?php foreach ($specialties as $spec) { ?>
                                     <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
@@ -174,7 +174,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                         </div>
                     </div>
             </div>
-            <a href="login.php" class="btn btn-primary px-4" style="width: 15vw;">تسجيل الدخول</a>
+            <a href="login.php" class="btn btn-light px-4" style="width: 8vw;">تسجيل الدخول</a>
         <?php }
         ?>
 

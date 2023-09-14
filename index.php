@@ -6,7 +6,7 @@
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="w-100" src="img/carousel-2.svg" alt="Image" />
+                <img class="w-100" src="img/carousel-3.jpg" alt="Image" />
                 <div class="carousel-caption">
                     <div class="container">
                         <div class="row">
@@ -97,7 +97,7 @@
 
 
             <div class="col-12 mt-5 text-center">
-                <a class="btn w-20 btn-dark m-1" href="">المزيد</a>
+                <a class="btn w-20 btn-dark m-1" href="search.php">المزيد</a>
                 
             </div>
         </div>
@@ -130,7 +130,7 @@
 </div>
 <!-- Slider end -->
 
-<div class="container py-6">
+<div class="container py-6" id="spec">
     <div class="row align-items-center flex-md-row-reverse">
         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="lc-block mb-4">
@@ -145,12 +145,12 @@
                     </p>
                 </div>
             </div>
-            <?php foreach ($specialties as $spec) { ?>
-                <div
-                class="lc-block d-sm-flex align-items-center justify-content-end mb-4 overflow-hidden position-relative">
-                <div class="d-inline-flex rtl justify-content-end">
+            
+                <div class="lc-block row align-items-center justify-content-end mb-4 overflow-hidden position-relative">
+                    <?php foreach ($specialties as $spec) { ?>
+                <div class="d-inline-flex rtl justify-content-start mt-3 col-6">
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="#7ce7d9"
                             class="text-success" viewBox="0 0 16 16" style="" lc-helper="svg-icon">
                             <path
                                 d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z">
@@ -164,9 +164,10 @@
                         </p>
                     </div>
                 </div>
+                 <?php } ?>
             </div>
 
-                                <?php } ?>
+                               
             
             <!-- <div class="lc-block d-sm-flex align-items-center justify-content-end mb-4">
                 <div class="d-inline-flex rtl justify-content-end">
@@ -280,7 +281,7 @@
     <div class="container">
         <div class="row g-5 align-items-center">
 
-            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.5s">
                 <h1 class="display-6 mb-4  text-right">
                     احصل على أفضل استشارات علاقات زوجية ودون أن تغادر منزلك اونلاين
                 </h1>
@@ -289,7 +290,7 @@
                     النفسية على تنوعها كالأسرية والاجتماعية، وذلك من خلال الحجز أونلاين
                 </p>
             </div>
-            <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                 <img class=" w-100 h-100 rounded" src="img/part.svg" alt="" style="object-fit: cover" />
             </div>
         </div>
@@ -304,7 +305,7 @@
             </div>
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
                 <h1 class="display-6 mb-4  text-right">
-                    احصل على الدعم من خلال العلاج عبر الإنترنت
+                    احصل على الاستشارات النفسية بأنواعها من خلال العلاج عبر الإنترنت
                 </h1>
                 <p class="mb-4 text-right">
                     هل تريد القليل من المساعدة الإضافية؟ يمكنك الحصول على دعم وتوجيه مستمرين من معالج مرخص عند
@@ -315,16 +316,17 @@
     </div>
 </div>
 
+
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-5 align-items-center">
 
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
                 <h1 class="display-6 mb-4  text-right">
-                    دردشة افتراضية مجهولة الهوية مع مستمعين مهتمين
+                    دردشة افتراضية مجهولة الهوية مع  متخصصين
                 </h1>
                 <p class="mb-2 text-right">
-                    بحاجة الى التحدث الى شخص ما؟ يتوفر مستمعونا المتطوعون المدربون على مدار الساعة طوال أيام الأسبوع
+                    بحاجة الى التحدث الى شخص ما؟ يتوفر   المتخصصون على مدار الساعة طوال أيام الأسبوع
                     لتقديم الدعم العاطفي عبر الدردشة اونلاين
                 </p>
                 <p class="mb-4 text-right">
@@ -348,14 +350,45 @@
                     نحن هنا من أجل المراهقين أيضًا
                 </h1>
                 <p class="mb-4 text-right">
-                    يمكنك أيضًا الانضمام إلى منتدياتنا المجتمعية النابضة بالحياة وغرف الدردشة للمشاركة مع زملائك
-                    الذين يفهمون ما تمر به. احصل على الدعم وتكوين صداقات جديدة على طول الطريق
-                </p>
+                إذا كنت تشعر بالوحدة، لا أحد يفهمك، لا تستطيع تكوين صداقات. نحن هنا من أجل تقديم الدعم لك في أي وقت                </p>
             </div>
         </div>
     </div>
 </div>
 
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+
+            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
+                <h1 class="display-6 mb-4  text-right">
+                تلك الحياة لا تروق إلا للمحاربين، فإن لم تكن ذو إرادة فلا اسف عليك
+                </h1>
+                <p class="mb-2 text-right">
+                قاتل لكي تكون ما تريد. نحن نقدم الدعم والارشاد الفردي والاسري لأبطالنا ذوي الاحتياجات الخاصة في كل وقت.                </p>
+                
+            </div>
+            <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+                <img class=" w-100 h-100 rounded" src="img/disabled.svg" alt="" style="object-fit: cover" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+                <img class=" w-100 h-100 rounded" src="img/kid.svg" alt="" style="object-fit: cover" />
+            </div>
+            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
+                <h1 class="display-6 mb-4  text-right">
+                تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة.                </h1>
+                <p class="mb-4 text-right">
+                تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة.            </div>
+        </div>
+    </div>
+</div>
 
 <!-- About End -->
 <!-- About Start -->
