@@ -41,6 +41,11 @@ checkSession();
                                 <i data-feather="home" width="20"></i>
                                 <span>Dashboard</span>
                             </a>
+                            
+                            <a href="Admin.php" class='sidebar-link'>
+                                <i data-feather="users" width="20"></i>
+                                <span>Admins</span>
+                            </a>
                             <a href="Therapist.php" class='sidebar-link'>
                                 <i data-feather="users" width="20"></i>
                                 <span>Therapist</span>

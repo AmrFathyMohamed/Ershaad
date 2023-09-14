@@ -87,7 +87,7 @@ session_start(); // Start the session
                     <?php echo $loginError; ?>
                   </div>
                 <?php } ?>
-                <p class="mt-5 text-center">ليس لديك حساب؟ <a href="register.html" class="text-primary">أنشئ حساب</a>
+                <p class="mt-5 text-center">ليس لديك حساب؟ <a href="register.php" class="text-primary">أنشئ حساب</a>
                 </p>
               </div>
             </form>

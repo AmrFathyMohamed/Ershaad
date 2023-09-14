@@ -1,6 +1,8 @@
 <?php include("layout.php"); ?>
 <?php include("../classes/Database.php"); ?>
+<?php 
 
+?>
 <div class="main-content container-fluid">
     <div class="page-title">
         <h3>Dashboard</h3>

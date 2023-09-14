@@ -90,8 +90,8 @@ if (isset($_SESSION['user_id'])) {
             </li>
           </ol>
           <div>
-            <button class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#requestCourseModal"><i
-                class="fa-solid fa-pencil me-2"></i>طلب أضافة كورس</button>
+            <!-- <button class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#requestCourseModal"><i
+                class="fa-solid fa-pencil me-2"></i>طلب أضافة كورس</button> -->
           </div>
         </div>
       </nav>
