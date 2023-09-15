@@ -11,8 +11,9 @@ class ClientTable
 
     public function insertClient($fullName, $city, $gender, $phone, $username, $email, $password, $age)
     {
-        $query = "INSERT INTO clients (FullName, Username, Email, Password, Gender, Age, City, Phone) 
-        VALUES ('$fullName', '$username', '$email', '$password', '$gender', '$age', '$city', '$phone')";
+        $query = "INSERT INTO clients (FullName, Username, Email, Password, Gender, Age, City, Phone, is_deleted, created_at, updated_at) 
+        VALUES ('$fullName', '$username', '$email', '$password', '$gender', $age, '$city', '$phone',0,NOW(),NOW())";
+        //echo $query;
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
