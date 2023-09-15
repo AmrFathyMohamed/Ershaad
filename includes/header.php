@@ -88,10 +88,11 @@ $specialties = $SpecialtiesObject->getDataByTableName();
             </div>
             <div class="col-lg-5 px-5 text-end">
                 <div class="h-100 d-inline-flex align-items-center">
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
+                    <a class=" ms-4 text-dark" href="https://twitter.com/ershaad392688"><i class="fab fa-twitter"></i></a>
+                    <a class=" ms-4 text-dark" href="https://www.tiktok.com/@ershaad2"><i class="fa-brands fa-tiktok"></i></a>
+                    <a class=" ms-4 text-dark" href="https://www.facebook.com/profile.php?id=61550946876715&mibextid=D4KYlr"><i class="fab fa-facebook-f "></i></a>
+                    <a class=" ms-4 text-dark" href="https://www.snapchat.com/add/ershaad566?share_id=CYR0dVL1NQw&locale=en-EG"><i class="fa-brands fa-snapchat"></i></a>
+                    <a class=" ms-4 text-dark" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>

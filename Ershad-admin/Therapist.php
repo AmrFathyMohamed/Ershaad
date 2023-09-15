@@ -24,14 +24,14 @@ if (isset($_SESSION['user_id'])) {
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Datatable</h3>
+                <h3>Therapists</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class='breadcrumb-header'>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Therapist</li>
+                        <li class="breadcrumb-item active" aria-current="page">Therapists</li>
                     </ol>
                 </nav>
             </div>
@@ -40,8 +40,7 @@ if (isset($_SESSION['user_id'])) {
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#addModal"
-                    class="btn icon icon-left btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                <a href="addTherapist.php" class="btn icon icon-left btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -52,20 +51,20 @@ if (isset($_SESSION['user_id'])) {
                 <table class='table table-striped' id="table1">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Specialization</th>
-                            <th>Price</th>
-                            <th>Percentage</th>
-                            <th>PriceAfterPercentage</th>
-                            <th>Rating</th>
-                            <th>City</th>
+                            <th class="fs-small">Name</th>
+                            <th class="fs-small">Specialty</th>
+                            <th class="fs-small">Price/hour</th>
+                            <!-- <th class="fs-small">Percentage</th>
+                            <th class="fs-small">PriceAfterPerc.</th> -->
+                            <th class="fs-small">Rating</th>
+                            <th class="fs-small">City</th>
                             <!-- <th>Bio</th> -->
-                            <th>Gender</th>
-                            <th>Phone</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Age</th>
+                            <th class="fs-small">Gender</th>
+                            <th class="fs-small">Phone</th>
+                            <!-- <th class="fs-small">Username</th> -->
+                            <th class="fs-small">credentials</th>
+                            <!-- <th class="fs-small">Password</th> -->
+                            <th class="fs-small">Age</th>
                             <!-- <th>Profile</th> -->
                             <th>Status</th>
                         </tr>
@@ -76,18 +75,18 @@ if (isset($_SESSION['user_id'])) {
                                 <td>
                                     <?php echo $therapist['FullName']; ?>
                                 </td>
-                                <td>
+                                <td class="fs-small">
                                     <?php echo $therapist['Specialization']; ?>
                                 </td>
                                 <td>
                                     <?php echo $therapist['Price']; ?>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <?php echo $therapist['Percentage']; ?>
                                 </td>
                                 <td>
                                     <?php echo $therapist['PriceAfterPercentage']; ?>
-                                </td>
+                                </td> -->
                                 <td>
                                     <?php echo $therapist['Rating']; ?>
                                 </td>
@@ -101,15 +100,14 @@ if (isset($_SESSION['user_id'])) {
                                 <td>
                                     <?php echo $therapist['Phone']; ?>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <?php echo $therapist['Username']; ?>
-                                </td>
+                                </td> -->
                                 <td>
                                     <?php echo $therapist['Email']; ?>
-                                </td>
-                                <td>
                                     <?php echo $therapist['Password']; ?>
                                 </td>
+                               
                                 <td>
                                     <?php echo $therapist['Age']; ?>
                                 </td>
@@ -121,13 +119,15 @@ if (isset($_SESSION['user_id'])) {
                                             Options
                                         </button>
                                         <div class="dropdown-menu">
-                                            <!-- <a class="dropdown-item pointer" data-bs-toggle="modal"
-                                                data-bs-target="#statusModal">تغيير الحالة</a> -->
-                                            <a class="dropdown-item pointer" data-bs-toggle="modal"
-                                                data-bs-target="#editModal"
-                                                data-id="<?php echo $therapist['TherapistID']; ?>">تعديل</a>
-                                            <a class="dropdown-item pointer" data-bs-toggle="modal"
-                                                data-bs-target="#detailsModal">التفاصيل</a>
+                                        <a class="dropdown-item pointer" href="editTherapist.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">تعديل البيانات</a>
+                                            <a class="dropdown-item pointer" href="viewTherapist.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">التفاصيل</a>
+                                            <a class="dropdown-item" href="docs.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">الوثائق</a>
+                                            <a class="dropdown-item" href="Schedule.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">تحديد الواعيد</a>
+                                            
+                                            <!-- <a class="dropdown-item pointer" href="editTherapist.php">تعديل البيانات</a>
+                                            <a class="dropdown-item pointer" href="viewTherapist.php">التفاصيل</a>
+                                            <a class="dropdown-item" href="docs.php">الوثائق</a>
+                                            <a class="dropdown-item" href="Schedule.php">تحديد الواعيد</a> -->
                                             <a class="dropdown-item pointer" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal">حذف</a>
                                         </div>
@@ -189,254 +189,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 </div>
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Add</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i data-feather="x"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="">
-                    <div class="mb-3">
-                        <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="fullName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="specialization" class="form-label">Specialization</label>
-                        <select class="form-select" id="specialization" name="specialization" required>
-                            <?php foreach ($specialties as $spec) { ?>
-                                <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
-                            <?php } ?>
 
-                            <!-- Add more options as needed -->
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="percentage" class="form-label">Percentage</label>
-                        <input type="number" class="form-control" id="percentage" name="percentage" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
-                        <input type="number" class="form-control" id="priceafterpercentage" name="priceafterpercentage"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Rating</label>
-                        <input type="number" class="form-control" id="rating" name="rating" min="0" max="5" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">City</label>
-                        <select class="form-select" id="city" name="city" required>
-                            <option value="City 1">City 1</option>
-                            <option value="City 2">City 2</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="bio" class="form-label">Bio</label>
-                        <textarea class="form-control" id="bio" name="bio" rows="4" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">Gender</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="male" value="Male" required>
-                            <label class="form-check-label" for="male">Male</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="female" value="Female"
-                                required>
-                            <label class="form-check-label" for="female">Female</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" name="age" min="0" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="profile" class="form-label">Profile Image</label>
-                        <input type="file" class="form-control" id="profile" name="profile">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Close</span>
-                        </button>
-                        <button type="submit" class="btn btn-primary" name="addTherapist">Add Therapist</button>
-                    </div>
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Close</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Edit Therapist</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i data-feather="x"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="">
-                    <input type="hidden" name="edit_therapistId" value="">
-
-                    <div class="mb-3">
-                        <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="edit_fullName" name="edit_fullName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="specialization" class="form-label">Specialization</label>
-                        <select class="form-select" id="edit_specialization" name="edit_specialization" required>
-                            <?php foreach ($specialties as $spec) { ?>
-                                <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
-                            <?php } ?>
-
-                            <!-- Add more options as needed -->
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="edit_price" name="edit_price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="percentage" class="form-label">Percentage</label>
-                        <input type="number" class="form-control" id="edit_percentage" name="edit_percentage" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
-                        <input type="number" class="form-control" id="edit_priceafterpercentage"
-                            name="edit_priceafterpercentage" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Rating</label>
-                        <input type="number" class="form-control" id="edit_rating" name="edit_rating" min="0" max="5"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">City</label>
-                        <select class="form-select" id="edit_city" name="edit_city" required>
-                            <option value="City 1">City 1</option>
-                            <option value="City 2">City 2</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="bio" class="form-label">Bio</label>
-                        <textarea class="form-control" id="edit_bio" name="edit_bio" rows="4" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">Gender</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="edit_gender" id="edit_male" value="Male"
-                                required>
-                            <label class="form-check-label" for="male">Male</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="edit_gender" id="edit_female"
-                                value="Female" required>
-                            <label class="form-check-label" for="female">Female</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="edit_phone" name="edit_phone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="edit_username" name="edit_username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="edit_email" name="edit_email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="edit_password" name="edit_password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="edit_age" name="edit_age" min="0" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="profile" class="form-label">Profile Image</label>
-                        <input type="file" class="form-control" id="edit_profile" name="edit_profile">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Close</span>
-                        </button>
-                        <button type="submit" class="btn btn-primary" name="updateTherapist">Update Therapist</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Close</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Details</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i data-feather="x"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Close</span>
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
 <!--Danger theme Modal -->
 <div class="modal fade text-left" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120"
     aria-hidden="true">

@@ -25,7 +25,14 @@ checkSession();
         href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 </head>
-
+<style>
+.fs-small{
+    font-size: small;
+}
+.text-right{
+    text-align:right;
+}
+</style>
 <body>
     <div id="app">
         <div id="sidebar" class='active'>
@@ -46,24 +53,45 @@ checkSession();
                                 <span>Therapist</span>
                             </a>
                             <a href="Client.php" class='sidebar-link'>
-                                <i data-feather="users" width="20"></i>
+                                <i data-feather="user" width="20"></i>
                                 <span>Client</span>
                             </a>
+                            <a href="Admins.php" class='sidebar-link'>
+                                <i data-feather="user" width="20"></i>
+                                <span>Admins</span>
+                            </a>
                             <a href="Appointment.php" class='sidebar-link'>
-                                <i data-feather="users" width="20"></i>
+                                <i data-feather="calendar" width="20"></i>
                                 <span>Appointments</span>
                             </a>
                             <a href="Session.php" class='sidebar-link'>
-                                <i data-feather="users" width="20"></i>
+                                <i data-feather="git-commit" width="20"></i>
                                 <span>Sessions</span>
                             </a>
-                            <a href="Course.php" class='sidebar-link'>
-                                <i data-feather="users" width="20"></i>
+                            <a href="Courses.php" class='sidebar-link'>
+                                <i data-feather="monitor" width="20"></i>
                                 <span>Courses</span>
                             </a>
+                            <a href="CoursesRequests.php" class='sidebar-link'>
+                                <i data-feather="monitor" width="20"></i>
+                                <span>Courses Requests</span>
+                            </a>
+                            <a href="Specialties.php" class='sidebar-link'>
+                                <i data-feather="award" width="20"></i>
+                                <span>Specialties</span>
+                            </a>
+                           
                             <a href="Report.php" class='sidebar-link'>
-                                <i data-feather="users" width="20"></i>
-                                <span>Reports</span>
+                                <i data-feather="help-circle" width="20"></i>
+                                <span>Questions</span>
+                            </a>
+                            <a href="Report.php" class='sidebar-link'>
+                                <i data-feather="percent" width="20"></i>
+                                <span>Ads</span>
+                            </a>
+                            <a href="Report.php" class='sidebar-link'>
+                                <i data-feather="disc" width="20"></i>
+                                <span>Sessions</span>
                             </a>
                         </li>
                     </ul>
