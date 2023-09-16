@@ -187,4 +187,4 @@ $specialties = $SpecialtiesObject->getDataByTableName();
 
 
     </nav>
-    <!-- Navbar End -->
+   

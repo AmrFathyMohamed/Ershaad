@@ -25,7 +25,7 @@ $alltherapists = $therapistTable2->getTherapists();
 <!-- Page Header End -->
 
 <!-- Team Start -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-0">
   <div class="container">
     <div class="text-center mx-auto" style="max-width: 500px">
       <h1 class="display-6 mb-5">المعالجين</h1>
@@ -37,33 +37,33 @@ $alltherapists = $therapistTable2->getTherapists();
           <label for="search" style="right: 0!important; left: auto!important;">بحث بأسم المعالج</label>
         </div>
       </div>
-      <div class="col-2">
-        <button class="btn btn-primary py-3 w-100 px-5" type="button" onclick="searchTherapists()">
+      <div class="col-2 px-sm-0">
+        <button class="btn btn-primary py-3 w-100" type="button" onclick="searchTherapists()">
           بحث
         </button>
       </div>
     </div>
     <div class="row g-2">
-      <div class="col-9 mt-5">
+      <div class="col-md-9 mt-5 order-last-phone">
         <div class="row g-4" id="therapistsList">
           <?php foreach ($therapists2 as $therapist) { ?>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="team-item rounded">
+            <div class="col-lg-4 col-md-6 col-6 wow fadeInUp mb-3" data-wow-delay="0.1s">
+              <div class="team-item rounded px-sm-1">
                 <!-- You can replace the image source with the actual therapist's image -->
                 <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
-                <div class="text-center p-4">
-                  <h5 class="text-">
+                <div class="text-center p-4 px-sm-3">
+                  <h5 class="h-phone">
                     <?= $therapist['FullName']; ?>
                   </h5>
-                  <span>
+                  <span  class="text-phone">
                     <?= $therapist['Specialization']; ?>
                   </span>
                 </div>
-                <div class="team-text text-center bg-white p-4">
-                  <h5>
+                <div class="team-text text-center bg-white p-4 px-sm-3">
+                  <h5 class="h-phone">
                     <?= $therapist['FullName']; ?>
                   </h5>
-                  <p>
+                  <p  class="text-phone">
                     <?= $therapist['Specialization']; ?>
                   </p>
                   <div class="d- justify-content-center">
@@ -96,7 +96,7 @@ $alltherapists = $therapistTable2->getTherapists();
           ?>
         </div>
       </div>
-      <div class="col-3 mt-5">
+      <div class="col-md-3 col-12 mt-5">
         <div class="border rounded py-4 px-2">
           <p class="right">التاريخ</p>
           <div class="form-floating">

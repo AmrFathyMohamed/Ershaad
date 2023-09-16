@@ -32,12 +32,12 @@
 </div>
 <!-- Carousel End -->
 <!-- Team Start -->
-<div class="container-xxl py-5" id="team-section">
-    <div class="container">
+<div class="container-xxl py-5 px-sm-0" id="team-section">
+    <div class="container px-sm-1">
         <div class="text-center mx-auto" style="max-width: 500px">
             <h1 class="display-6 mb-5 underline">المعالجين</h1>
         </div>
-        <div class="row g-4">
+        <div class="row gx-3">
             <?php
             // Example usage to display 8 random top-rated therapists
             $database = new Database();
@@ -46,23 +46,23 @@
 
             foreach ($therapists as $therapist) {
                 ?>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 col-6 wow fadeInUp mb-3" data-wow-delay="0.1s" onclick="window.location.href='#'">
                     <div class="team-item rounded">
                         <!-- You can replace the image source with the actual therapist's image -->
                         <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
                         <div class="text-center p-4">
-                            <h5 class="text-">
+                            <h5 class="h-phone">
                                 <?= $therapist['FullName']; ?>
                             </h5>
-                            <span>
+                            <span class="text-phone">
                                 <?= $therapist['Specialization']; ?>
                             </span>
                         </div>
-                        <div class="team-text text-center bg-white p-4">
-                            <h5>
+                        <div class="team-text text-center bg-white p-4 px-sm-3">
+                            <h5 class="h-phone">
                                 <?= $therapist['FullName']; ?>
                             </h5>
-                            <p>
+                            <p class="text-phone">
                                 <?= $therapist['Specialization']; ?>
                             </p>
                             <div class="d- justify-content-center">
@@ -86,7 +86,7 @@
                                     </p>
                                     <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
                                 </div>
-                                <a class="btn w-100 btn-light m-1" href="">عرض الملف الشخصي</a>
+                                <a class="btn w-100 btn-light m-1 btn-sm-phone" href="#">عرض الملف الشخصي</a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
 
 
             <div class="col-12 mt-5 text-center">
-                <a class="btn w-20 btn-dark m-1" href="search.php">المزيد</a>
+                <a class="btn col-8 col-md-3 btn-dark m-1" href="search.php">المزيد</a>
                 
             </div>
         </div>
@@ -160,7 +160,7 @@
                     </div>
 
                     <div class="me-3 align-self-center" editable="rich">
-                        <p class="fw-bold mb-1 fs-5"><?= $spec["Specialty"] ?>
+                        <p class="fw-bold mb-1 fs-5 h-phone"><?= $spec["Specialty"] ?>
                         </p>
                     </div>
                 </div>
@@ -277,7 +277,7 @@
 <!-- Facts End -->
 
 <!-- About Start -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-3">
     <div class="container">
         <div class="row g-5 align-items-center">
 
@@ -297,10 +297,10 @@
     </div>
 </div>
 
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-3">
     <div class="container">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-lg-5 wow fadeInUp order-last-phone" data-wow-delay="0.1s">
                 <img class=" w-100 h-100 rounded" src="img/alone.svg" alt="" style="object-fit: cover" />
             </div>
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
@@ -317,7 +317,7 @@
 </div>
 
 
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-3">
     <div class="container">
         <div class="row g-5 align-items-center">
 
@@ -339,13 +339,13 @@
     </div>
 </div>
 
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-3">
     <div class="container">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-lg-5 wow fadeInUp order--phone" data-wow-delay="0.1s">
                 <img class=" w-100 h-100 rounded" src="img/teen.svg" alt="" style="object-fit: cover" />
             </div>
-            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="col-lg-7 wow fadeInUp  px-sm-3" data-wow-delay="0.5s">
                 <h1 class="display-6 mb-4  text-right">
                     نحن هنا من أجل المراهقين أيضًا
                 </h1>
@@ -356,7 +356,7 @@
     </div>
 </div>
 
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-3">
     <div class="container">
         <div class="row g-5 align-items-center">
 
@@ -375,10 +375,10 @@
     </div>
 </div>
 
-<div class="container-xxl py-5">
+<div class="container-xxl py- px-sm-3">
     <div class="container">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-lg-5 wow fadeInUp order-last-phone" data-wow-delay="0.1s">
                 <img class=" w-100 h-100 rounded" src="img/kid.svg" alt="" style="object-fit: cover" />
             </div>
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
@@ -392,7 +392,7 @@
 
 <!-- About End -->
 <!-- About Start -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-3">
     <div class="container">
         <div class="row align-items-end g-5">
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -401,9 +401,9 @@
                     <div class="position-absolute top-0 start-0 bg-white rounded pe-3 pb-3"
                         style="width: 200px; height: 200px">
                         <div class="d-flex flex-column justify-content-center text-center bg-dark rounded h-100 p-3">
-                            <h1 class="text-white mb-0">15</h1>
-                            <h2 class="text-white">عاماً خبرة</h2>
-                            <h5 class="text-white mb-0">في الطب النفسي</h5>
+                            <h1 class="text-white mb-0 h-phone">15</h1>
+                            <h2 class="text-white h-phone">عاماً خبرة</h2>
+                            <h5 class="text-white mb-0 h-phone">في الطب النفسي</h5>
                         </div>
                     </div>
                 </div>
