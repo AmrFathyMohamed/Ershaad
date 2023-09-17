@@ -7,17 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'classes/ClientTable.php';
     $db = new Database();
     $client = new ClientTable($db);
-    // $field = $_POST['field'];
-    // $value = $_POST['value'];
-    // $stmt = $db->executeQuery("SELECT COUNT(*) FROM users WHERE $field = '$value'");  
-    // // For this example, we'll simulate the result
-    // $count = count($stmt->fetch_all(MYSQLI_ASSOC));
-  
-    // if ($count > 0) {
-    //   echo 'taken';
-    // } else {
-    //   echo 'available';
-    // }
   
     $FullName = $_POST['FullName'];
     $Username = $_POST['Username'];

@@ -75,6 +75,12 @@ class TherapistTable
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
+    public function getAdmins()
+    {
+        $query = "SELECT * FROM admins ";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
     public function getTherapistsBySpecialization($SpecialtyID)
     {
         $query = "SELECT * FROM $this->table where Specialization = (SELECT Specialty FROM specialties where SpecialtyID = $SpecialtyID) ORDER BY Rating DESC";

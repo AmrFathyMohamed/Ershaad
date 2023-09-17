@@ -26,13 +26,15 @@ checkSession();
     <link rel="stylesheet" href="assets/css/custom.css">
 </head>
 <style>
-.fs-small{
-    font-size: small;
-}
-.text-right{
-    text-align:right;
-}
+    .fs-small {
+        font-size: small;
+    }
+
+    .text-right {
+        text-align: right;
+    }
 </style>
+
 <body>
     <div id="app">
         <div id="sidebar" class='active'>
@@ -48,11 +50,7 @@ checkSession();
                                 <i data-feather="home" width="20"></i>
                                 <span>Dashboard</span>
                             </a>
-                            
-                            <a href="Admin.php" class='sidebar-link'>
-                                <i data-feather="users" width="20"></i>
-                                <span>Admins</span>
-                            </a>
+
                             <a href="Therapist.php" class='sidebar-link'>
                                 <i data-feather="users" width="20"></i>
                                 <span>Therapist</span>
@@ -85,7 +83,7 @@ checkSession();
                                 <i data-feather="award" width="20"></i>
                                 <span>Specialties</span>
                             </a>
-                           
+
                             <a href="Report.php" class='sidebar-link'>
                                 <i data-feather="help-circle" width="20"></i>
                                 <span>Questions</span>

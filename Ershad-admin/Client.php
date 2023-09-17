@@ -102,9 +102,14 @@ if (isset($_SESSION['user_id'])) {
                                             <a class="dropdown-item pointer" data-bs-toggle="modal"
                                                 data-bs-target="#detailsModal"
                                                 data-id="<?php echo $client['ClientID']; ?>">التفاصيل</a>
-                                            <a class="dropdown-item pointer" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal"
-                                                data-id="<?php echo $client['ClientID']; ?>">حذف</a>
+                                            <a class="dropdown-item pointer delete-Client" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal" data-id="<?php echo $client['ClientID']; ?>"
+                                                data-fullname="<?php echo $client['FullName']; ?>">
+                                                حذف
+                                            </a>
+
+
+
                                         </div>
                                     </div>
                                 </td>
@@ -118,8 +123,7 @@ if (isset($_SESSION['user_id'])) {
     </section>
 </div>
 
-</div>
-</div>
+
 
 <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -206,9 +210,33 @@ if (isset($_SESSION['user_id'])) {
                     <div class="mb-3">
                         <label for="city" class="form-label">City</label>
                         <select class="form-select" id="city" name="city" required>
-                            <option value="City 1">City 1</option>
-                            <option value="City 2">City 2</option>
-                            <!-- Add more options as needed -->
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Aswan">Aswan</option>
+                            <option value="Asyut">Asyut</option>
+                            <option value="Beheira">Beheira</option>
+                            <option value="Beni Suef">Beni Suef</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Dakahlia">Dakahlia</option>
+                            <option value="Damietta">Damietta</option>
+                            <option value="Faiyum">Faiyum</option>
+                            <option value="Gharbia">Gharbia</option>
+                            <option value="Giza">Giza</option>
+                            <option value="Ismailia">Ismailia</option>
+                            <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                            <option value="Luxor">Luxor</option>
+                            <option value="Matrouh">Matrouh</option>
+                            <option value="Minya">Minya</option>
+                            <option value="Monufia">Monufia</option>
+                            <option value="New Valley">New Valley</option>
+                            <option value="North Sinai">North Sinai</option>
+                            <option value="Port Said">Port Said</option>
+                            <option value="Qalyubia">Qalyubia</option>
+                            <option value="Qena">Qena</option>
+                            <option value="Red Sea">Red Sea</option>
+                            <option value="Sharqia">Sharqia</option>
+                            <option value="Sohag">Sohag</option>
+                            <option value="South Sinai">South Sinai</option>
+                            <option value="Suez">Suez</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -277,9 +305,33 @@ if (isset($_SESSION['user_id'])) {
                     <div class="mb-3">
                         <label for="city" class="form-label">City</label>
                         <select class="form-select" id="edit_city" name="edit_city" required>
-                            <option value="City 1">City 1</option>
-                            <option value="City 2">City 2</option>
-                            <!-- Add more options as needed -->
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Aswan">Aswan</option>
+                            <option value="Asyut">Asyut</option>
+                            <option value="Beheira">Beheira</option>
+                            <option value="Beni Suef">Beni Suef</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Dakahlia">Dakahlia</option>
+                            <option value="Damietta">Damietta</option>
+                            <option value="Faiyum">Faiyum</option>
+                            <option value="Gharbia">Gharbia</option>
+                            <option value="Giza">Giza</option>
+                            <option value="Ismailia">Ismailia</option>
+                            <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                            <option value="Luxor">Luxor</option>
+                            <option value="Matrouh">Matrouh</option>
+                            <option value="Minya">Minya</option>
+                            <option value="Monufia">Monufia</option>
+                            <option value="New Valley">New Valley</option>
+                            <option value="North Sinai">North Sinai</option>
+                            <option value="Port Said">Port Said</option>
+                            <option value="Qalyubia">Qalyubia</option>
+                            <option value="Qena">Qena</option>
+                            <option value="Red Sea">Red Sea</option>
+                            <option value="Sharqia">Sharqia</option>
+                            <option value="Sohag">Sohag</option>
+                            <option value="South Sinai">South Sinai</option>
+                            <option value="Suez">Suez</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -372,26 +424,28 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title white" id="myModalLabel120">Delete</h5>
+                <h5 class="modal-title white" id="myModalLabel120">حذف</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i data-feather="x"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <h4 class="text-center">Confirm to delete this</h4>
+                <h4 class="text-center">هل تريد بالتأكيد حذف هذاالعميل</h4>
+                <p class="text-center" id="ClientFullName"></p>
                 <div class="text-center">
-                    <button class="btn btn-danger w-35 mt-5">Delete</button>
+                    <button class="btn btn-danger w-35 mt-5" id="confirmDelete">حذف</button>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                     <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Close</span>
+                    <span class="d-none d-sm-block">إلغاء</span>
                 </button>
             </div>
         </div>
     </div>
 </div>
+
 <?php include("footer.php"); ?>
 <script>
     $(document).ready(function () {
@@ -447,6 +501,50 @@ if (isset($_SESSION['user_id'])) {
             fetchclientData(clientId);
         });
     });
+</script>
+<script>$(document).ready(function () {
+        // ...
+
+        // Handle the click event of the "Delete" button
+        // Handle the click event of the "Delete" button
+        $('.delete-Client').click(function () {
+            // Get the Client ID from the data-id attribute
+            var ClientId = $(this).data('id');
+            var ClientFullName = $(this).data('fullname');
+
+            // Set the Client's full name in the confirmation modal
+            $('#ClientFullName').text('Client: ' + ClientFullName);
+
+            // Handle the confirmation button click
+            $('#confirmDelete').click(function () {
+                // Make an AJAX request to delete the Client
+                $.ajax({
+                    url: './deleteClient.php', // Update the URL to match the correct path
+                    method: 'GET',
+                    data: { id: ClientId },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            // Deletion successful, you can remove the table row or reload the page
+                            alert('Client deleted successfully!');
+                            location.reload(); // Reload the page to update the Client list
+                        } else {
+                            // Deletion failed, handle the error (e.g., display an error message)
+                            alert('Failed to delete Client. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to delete Client. Please try again.');
+                    }
+                });
+            });
+        });
+
+
+        // ...
+    });
+
+
 </script>
 
 </body>
@@ -506,18 +604,6 @@ if (isset($_POST['updateclient'])) {
     }
 }
 // Handle the deletion of a client
-if (isset($_GET['deleteclient'])) {
-    $clientId = $_GET['deleteclient'];
-
-    if ($clients->deleteclient($clientId)) {
-        // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Client.php";</script>';
-        exit;
-    } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete client.";
-    }
-}
 // Retrieve client data by ID
 if (isset($_GET['editclient'])) {
     $clientId = $_GET['editclient'];

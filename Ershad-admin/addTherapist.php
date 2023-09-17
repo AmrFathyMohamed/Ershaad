@@ -2,24 +2,95 @@
 <?php include("../classes/Database.php"); ?>
 <?php include("../classes/TherapistTable.php"); ?>
 <?php include("../classes/SpecialtiesTable.php"); ?>
+
 <?php
-// Check if the 'id' parameter is set in the URL
 if (isset($_SESSION['user_id'])) {
-    // Get the 'id' value from the URL
     $userId = $_SESSION['user_id'];
     $database = new Database();
     $therapists = new TherapistTable($database);
     $therapistsData = $therapists->getTherapists();
     $SpecialtiesObject = new SpecialtiesTable($database);
     $specialties = $SpecialtiesObject->getDataByTableName();
-    // You can use $userId in your code as needed
 } else {
-    // Handle the case when 'id' is not present in the URL
-    // You might want to redirect the user or show an error message
     header("Location: index.php");
     exit;
 }
+
+if (isset($_POST['addTherapist'])) {
+    $fullName = $_POST['fullName'];
+    $specialization = $_POST['specialization'];
+    $price = floatval($_POST['price']);
+    $percentage = floatval($_POST['percentage']);
+    $priceAfterPercentage = floatval($_POST['priceafterpercentage']);
+    $rating = floatval($_POST['rating']);
+    $city = $_POST['city'];
+    $bio = $_POST['bio'];
+    $gender = $_POST['gender'];
+    $phone = $_POST['phone'];
+    $desiredUsername = $_POST['username'];
+
+    // Check if the desired username already exists
+    $query = "SELECT COUNT(*) AS count FROM therapists WHERE Username = '$desiredUsername'";
+    $result = $database->executeQuery($query);
+    $row = $result->fetch_assoc();
+
+    if ($row['count'] > 0) {
+        // Username already exists, generate a unique one
+        $uniqueUsername = $desiredUsername . uniqid(); // Appending a unique identifier
+    } else {
+        // Username is unique
+        $uniqueUsername = $desiredUsername;
+    }
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $age = intval($_POST['age']);
+
+    // Handle file upload for profile image
+    $targetDir = "uploads/"; // Replace with your desired upload directory
+    $profileImage = $_FILES['profile']['name'];
+    $profileImageTmp = $_FILES['profile']['tmp_name'];
+
+    // Generate a unique filename for the uploaded image
+    $uniqueFilename = uniqid() . '_' . $profileImage;
+
+    // Move the uploaded file to the target directory
+    if (move_uploaded_file($profileImageTmp, $targetDir . $uniqueFilename)) {
+        // File uploaded successfully, continue with insertion
+        $success = $therapists->insertTherapist(
+            $fullName,
+            $specialization,
+            $price,
+            $percentage,
+            $priceAfterPercentage,
+            $rating,
+            $city,
+            $bio,
+            $gender,
+            $phone,
+            $uniqueUsername,
+            // Use the generated unique username
+            $email,
+            $password,
+            $age,
+            $uniqueFilename // Use the generated unique filename
+        );
+
+        if ($success) {
+            // Insertion successful, redirect to a success page or show a success message
+            header('Location: success.php');
+            exit;
+        } else {
+            // Insertion failed, show an error message
+            $errorMessage = "Failed to add therapist.";
+        }
+    } else {
+        // File upload failed, show an error message
+        $errorMessage = "Failed to upload profile image.";
+    }
+}
 ?>
+
 <div class="main-content container-fluid">
     <div class="page-title">
         <div class="row">
@@ -40,266 +111,156 @@ if (isset($_SESSION['user_id'])) {
     <section class="section">
         <div class="card">
             <div class="card-body">
-            <form method="POST" action="">
-            <div class="row">
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="fullName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="fullName" name="fullName" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="specialization" class="form-label">Specialization</label>
-            <select class="form-select" id="specialization" name="specialization" required>
-                <?php foreach ($specialties as $spec) { ?>
-                    <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
-                <?php } ?>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="price" name="price" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="percentage" class="form-label">Percentage</label>
-            <input type="number" class="form-control" id="percentage" name="percentage" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
-            <input type="number" class="form-control" id="priceafterpercentage" name="priceafterpercentage" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="rating" class="form-label">Rating</label>
-            <input type="number" class="form-control" id="rating" name="rating" min="0" max="5" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="city" class="form-label">City</label>
-            <select class="form-select" id="city" name="city" required>
-                <option value="City 1">City 1</option>
-                <option value="City 2">City 2</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="bio" class="form-label">Bio</label>
-            <textarea class="form-control" id="bio" name="bio" rows="4" required></textarea>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="gender" class="form-label">Gender</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="male" value="Male" required>
-                <label class="form-check-label" for="male">Male</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="female" value="Female" required>
-                <label class="form-check-label" for="female">Female</label>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="text" class="form-control" id="password" name="password" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="age" class="form-label">Age</label>
-            <input type="number" class="form-control" id="age" name="age" min="0" required>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="profile" class="form-label">Profile Image</label>
-            <input type="file" class="form-control" id="profile" name="profile">
-        </div>
-    </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-        <i class="bx bx-x d-block d-sm-none"></i>
-        <span class="d-none d-sm-block">Close</span>
-    </button>
-    <button type="submit" class="btn btn-primary" name="addTherapist">Add Therapist</button>
-</div>
-</form>
+                <form method="POST" action="">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="specialization" class="form-label">Specialization</label>
+                                <select class="form-select" id="specialization" name="specialization" required>
+                                    <?php foreach ($specialties as $spec) { ?>
+                                        <option value="<?= $spec["Specialty"] ?>">
+                                            <?= $spec["Specialty"] ?>
+                                        </option>
+                                    <?php } ?>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="price" name="price" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="percentage" class="form-label">Percentage</label>
+                                <input type="number" class="form-control" id="percentage" name="percentage" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
+                                <input type="number" class="form-control" id="priceafterpercentage"
+                                    name="priceafterpercentage" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">Rating</label>
+                                <input type="number" class="form-control" id="rating" name="rating" min="0" max="5"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <select class="form-select" id="city" name="city" required>
+                                    <option value="Alexandria">Alexandria</option>
+                                    <option value="Aswan">Aswan</option>
+                                    <option value="Asyut">Asyut</option>
+                                    <option value="Beheira">Beheira</option>
+                                    <option value="Beni Suef">Beni Suef</option>
+                                    <option value="Cairo">Cairo</option>
+                                    <option value="Dakahlia">Dakahlia</option>
+                                    <option value="Damietta">Damietta</option>
+                                    <option value="Faiyum">Faiyum</option>
+                                    <option value="Gharbia">Gharbia</option>
+                                    <option value="Giza">Giza</option>
+                                    <option value="Ismailia">Ismailia</option>
+                                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                                    <option value="Luxor">Luxor</option>
+                                    <option value="Matrouh">Matrouh</option>
+                                    <option value="Minya">Minya</option>
+                                    <option value="Monufia">Monufia</option>
+                                    <option value="New Valley">New Valley</option>
+                                    <option value="North Sinai">North Sinai</option>
+                                    <option value="Port Said">Port Said</option>
+                                    <option value="Qalyubia">Qalyubia</option>
+                                    <option value="Qena">Qena</option>
+                                    <option value="Red Sea">Red Sea</option>
+                                    <option value="Sharqia">Sharqia</option>
+                                    <option value="Sohag">Sohag</option>
+                                    <option value="South Sinai">South Sinai</option>
+                                    <option value="Suez">Suez</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="bio" class="form-label">Bio</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male"
+                                        required>
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="female"
+                                        value="Female" required>
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="text" class="form-control" id="password" name="password" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" min="0" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="profile" class="form-label">Profile Image</label>
+                                <input type="file" class="form-control" id="profile" name="profile">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary" name="addTherapist">Add Therapist</button>
+                    </div>
+                </form>
 
             </div>
-        </div>        
+        </div>
     </section>
-</div>        
+</div>
 <?php include("footer.php"); ?>
-
-<script>
-    $(document).ready(function () {
-        // Function to fetch therapist data and populate the form
-        function fetchTherapistData(therapistId) {
-            $.ajax({
-                url: 'getTherapistData.php',
-                method: 'GET',
-                data: { therapistId: therapistId },
-                dataType: 'json',
-                success: function (data) {
-                    // Populate the form fields with data
-                    $('#edit_fullName').val(data.FullName);
-                    $('#edit_specialization').val(data.Specialization);
-                    $('#edit_price').val(data.Price);
-                    $('#edit_percentage').val(data.Percentage);
-                    $('#edit_priceafterpercentage').val(data.PriceAfterPercentage);
-                    $('#edit_rating').val(data.Rating);
-                    $('#edit_city').val(data.City);
-                    $('#edit_bio').val(data.Bio);
-                    $('input[name="edit_gender"][value="' + data.Gender + '"]').prop('checked', true);
-                    $('#edit_phone').val(data.Phone);
-                    $('#edit_username').val(data.Username);
-                    $('#edit_email').val(data.Email);
-                    $('#edit_password').val(data.Password);
-                    $('#edit_age').val(data.Age);
-                    // You may need to handle the profile image separately
-                },
-                error: function () {
-                    alert('Failed to fetch therapist data.');
-                }
-            });
-        }
-
-        $('#editModal').on('show.bs.modal', function (event) {
-            // Get the TherapistID from the data-id attribute
-            var therapistId = $(event.relatedTarget).data('id');
-
-            // Populate the hidden input field
-            $('input[name="edit_therapistId"]').val(therapistId);
-
-            // Fetch and display therapist data
-            fetchTherapistData(therapistId);
-        });
-    });
-</script>
-
-</body>
-
-</html>
-<?php
-// Handle the form submission for adding a new therapist
-if (isset($_POST['addTherapist'])) {
-    $data = array(
-        $_POST['fullName'],
-        $_POST['specialization'],
-        $_POST['price'],
-        $_POST['percentage'],
-        $_POST['priceafterpercentage'],
-        $_POST['rating'],
-        $_POST['city'],
-        $_POST['bio'],
-        $_POST['gender'],
-        $_POST['phone'],
-        $_POST['username'],
-        $_POST['email'],
-        $_POST['password'],
-        $_POST['age'],
-        $_POST['profile']
-    );
-
-    if ($therapists->insertTherapist(...$data)) {
-        // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
-        exit;
-    } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add therapist.";
-    }
-}
-// Handle the form submission for updating an existing therapist
-if (isset($_POST['updateTherapist'])) {
-    //$therapistId = $_POST['therapistId'];
-    $data = array(
-        $_POST['edit_therapistId'],
-        $_POST['edit_fullName'],
-        $_POST['edit_specialization'],
-        $_POST['edit_price'],
-        $_POST['edit_percentage'],
-        $_POST['edit_priceafterpercentage'],
-        $_POST['edit_rating'],
-        $_POST['edit_city'],
-        $_POST['edit_bio'],
-        $_POST['edit_gender'],
-        $_POST['edit_phone'],
-        $_POST['edit_username'],
-        $_POST['edit_email'],
-        $_POST['edit_password'],
-        $_POST['edit_age'],
-        $_POST['edit_profile']
-    );
-
-    if ($therapists->updateTherapist(...$data)) {
-        // Update successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
-        exit;
-    } else {
-        // Update failed, handle the error
-        $errorMessage = "Failed to update therapist.";
-    }
-}
-// Handle the deletion of a therapist
-if (isset($_GET['deleteTherapist'])) {
-    $therapistId = $_GET['deleteTherapist'];
-
-    if ($therapists->deleteTherapist($therapistId)) {
-        // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
-        exit;
-    } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete therapist.";
-    }
-}
-// Retrieve therapist data by ID
-if (isset($_GET['editTherapist'])) {
-    $therapistId = $_GET['editTherapist'];
-    $therapistData = $therapists->getTherapistById($therapistId);
-
-    // Populate the edit modal with $therapistData
-}
-
-// Retrieve therapist data for details view
-if (isset($_GET['viewDetails'])) {
-    $therapistId = $_GET['viewDetails'];
-    $therapistData = $therapists->getTherapistById($therapistId);
-}
-
-
-?>

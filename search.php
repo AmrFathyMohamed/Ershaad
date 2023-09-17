@@ -26,6 +26,7 @@ $alltherapists = $therapistTable2->getTherapists();
 
 <!-- Team Start -->
 <div class="container-xxl py-5">
+
   <div class="container">
     <div class="text-center mx-auto" style="max-width: 500px">
       <h1 class="display-6 mb-5">المعالجين</h1>
@@ -47,7 +48,7 @@ $alltherapists = $therapistTable2->getTherapists();
       <div class="col-9 mt-5">
         <div class="row g-4" id="therapistsList">
           <?php foreach ($therapists2 as $therapist) { ?>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
               <div class="team-item rounded">
                 <!-- You can replace the image source with the actual therapist's image -->
                 <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
@@ -86,7 +87,7 @@ $alltherapists = $therapistTable2->getTherapists();
                       </p>
                       <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
                     </div>
-                    <a class="btn w-100 btn-light m-1" href="">عرض الملف الشخصي</a>
+                    <a class="btn w-100 btn-light m-1" href="therapist-profile.php?id=<?=$therapist["TherapistID"];?>">عرض الملف الشخصي</a>
                   </div>
                 </div>
               </div>
@@ -97,42 +98,51 @@ $alltherapists = $therapistTable2->getTherapists();
         </div>
       </div>
       <div class="col-3 mt-5">
-        <div class="border rounded py-4 px-2">
-          <p class="right">التاريخ</p>
-          <div class="form-floating">
-            <input type="date" class="form-control" id="date" placeholder="التاريخ" />
-            <label for="date">التاريخ</label>
-          </div>
-          <hr>
-          <p class="right">النوع</p>
-          <div class="d-flex">
-            <div class="form-check">
-              <div class="checkbox right">
-                <input type="checkbox" id="female" class="form-check-input float-end">
-                <label for="female" class=" pe-4">انثي</label>
+        <form method="POST" id="filterForm">
+          <div class="border rounded py-4 px-2">
+            <p class="right">التاريخ</p>
+            <div class="form-floating">
+              <input type="date" class="form-control" id="date" name="date" placeholder="التاريخ" />
+              <label for="date">التاريخ</label>
+            </div>
+            <hr>
+            <p class="right">النوع</p>
+            <div class="d-flex">
+              <p class="me-5">النوع</p>
+              <div class="form-check form-check-primary me-3">
+                <input class="form-check-input" type="checkbox" name="GenderM" id="Male" checked>
+                <label class="form-check-label" for="Male">
+                  ذكر
+                </label>
+              </div>
+              <div class="form-check form-check-primary me-3">
+                <input class="form-check-input" type="checkbox" name="GenderF" id="Female" checked>
+                <label class="form-check-label" for="Female">
+                  انثي
+                </label>
               </div>
             </div>
-            <div class="form-check">
-              <div class="checkbox right">
-                <input type="checkbox" id="male" class="form-check-input float-end">
-                <label for="male" class=" pe-4">ذكر</label>
-              </div>
+            <hr>
+            <p class="right">التخصص</p>
+            <select class="form-control form-control-lg" id="speciality" name="speciality">
+              <option value="All">كل التخصصات</option>
+              <?php foreach ($specialties as $spec) { ?>
+                <option value="<?= $spec["Specialty"] ?>">
+                  <?= $spec["Specialty"] ?>
+                </option>
+              <?php } ?>
+            </select>
+            <hr>
+            <div class="border rounded py-4 px-2">
+              <p class="right">سعر الجلسة</p>
+              <input type="range" class="form-range" min="0" max="1000" step="1" id="customRange3" name="priceRange"
+                value="100">
+              <p class="right" id="priceValue">100</p>
+              <hr>
+              <button class="btn btn-primary py- w-100 px-5" type="submit"> تطبيق الفلاتر </button>
             </div>
           </div>
-          <hr>
-          <p class="right">التخصص</p>
-          <select name="" class="form-control form-control-lg" id="speciality">
-            <?php foreach ($specialties as $spec) { ?>
-              <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
-            <?php } ?>
-
-          </select>
-          <hr>
-          <p class="right">سعر الجلسة</p>
-          <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
-          <hr>
-          <button class="btn btn-primary py- w-100 px-5"> تطبيق الفلاتر </button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -181,7 +191,7 @@ $alltherapists = $therapistTable2->getTherapists();
                                     <p>${therapist['Price']}/ساعة</p>
                                     <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
                                 </div>
-                                <a class="btn w-100 btn-light m-1" href="">عرض الملف الشخصي</a>
+                                <a class="btn w-100 btn-light m-1" href="therapist-profile.php?id=${therapist['TherapistID'];}">عرض الملف الشخصي</a>
                             </div>
                         </div>
                     </div>
@@ -199,6 +209,42 @@ $alltherapists = $therapistTable2->getTherapists();
     }
     return stars;
   }
+  const priceRangeInput = document.getElementById("customRange3");
+  const priceValueElement = document.getElementById("priceValue");
+
+  // Display the initial value
+  priceValueElement.textContent = priceRangeInput.value;
+
+  // Update the displayed value as the user changes the input
+  priceRangeInput.addEventListener("input", function () {
+    priceValueElement.textContent = this.value;
+  });
+</script>
+
+
+<script>
+  $("#filterForm").on("submit", function (e) {
+    e.preventDefault(); // Prevent the form from submitting traditionally
+
+    // Get the form data
+    const formData = $(this).serialize();
+
+    // Make an AJAX request to fetch filtered data
+    $.ajax({
+      url: "checksearch.php", // Update the URL to your PHP script
+      method: "POST",
+      data: formData,
+      dataType: "html", // Expect HTML response
+      success: function (data) {
+        // Update the therapistsList div with the filtered data
+        $("#therapistsList").html(data);
+      },
+      error: function () {
+        // Handle errors if any
+        alert("An error occurred while fetching data.");
+      },
+    });
+  });
 </script>
 </body>
 

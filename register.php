@@ -118,10 +118,35 @@ session_start(); // Start the session
                 <div class="col-sm-12">
                   <label for="city" class="form-label">City</label>
                   <select class="form-select" id="City" name="City" required>
-                    <option value="City 1">City 1</option>
-                    <option value="City 2">City 2</option>
-                    <!-- Add more options as needed -->
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Aswan">Aswan</option>
+                    <option value="Asyut">Asyut</option>
+                    <option value="Beheira">Beheira</option>
+                    <option value="Beni Suef">Beni Suef</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Dakahlia">Dakahlia</option>
+                    <option value="Damietta">Damietta</option>
+                    <option value="Faiyum">Faiyum</option>
+                    <option value="Gharbia">Gharbia</option>
+                    <option value="Giza">Giza</option>
+                    <option value="Ismailia">Ismailia</option>
+                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                    <option value="Luxor">Luxor</option>
+                    <option value="Matrouh">Matrouh</option>
+                    <option value="Minya">Minya</option>
+                    <option value="Monufia">Monufia</option>
+                    <option value="New Valley">New Valley</option>
+                    <option value="North Sinai">North Sinai</option>
+                    <option value="Port Said">Port Said</option>
+                    <option value="Qalyubia">Qalyubia</option>
+                    <option value="Qena">Qena</option>
+                    <option value="Red Sea">Red Sea</option>
+                    <option value="Sharqia">Sharqia</option>
+                    <option value="Sohag">Sohag</option>
+                    <option value="South Sinai">South Sinai</option>
+                    <option value="Suez">Suez</option>
                   </select>
+
                 </div>
                 <div class="col-12 text-center">
                   <button class="btn btn-primary btn-lg mt-3 w-100 px-5" type="submit" id="submitBtn">
@@ -180,12 +205,12 @@ session_start(); // Start the session
               $('#Username').hasClass('is-valid') &&
               $('#Phone').hasClass('is-valid');
 
-            // Enable or disable the submit button based on the validation result
-            if (allFieldsValid) {
-              $('#submitBtn').prop('disabled', false);
-            } else {
-              $('#submitBtn').prop('disabled', true);
-            }
+            // // Enable or disable the submit button based on the validation result
+            // if (allFieldsValid) {
+            //   $('#submitBtn').prop('disabled', false);
+            // } else {
+            //   $('#submitBtn').prop('disabled', true);
+            // }
           }
         });
       });

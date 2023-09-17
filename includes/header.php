@@ -142,7 +142,9 @@ $specialties = $SpecialtiesObject->getDataByTableName();
         <?php } ?>
 
         <?php
-        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {$userId = $_SESSION['user_id'];?>
+        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {
+            $userId = $_SESSION['user_id'];
+            if ($_SESSION['type'] != 'admin') {?>
             <a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
                 style="color: #7892aa;"><?= $_SESSION['fullname'] ?></a>
             <div class="nav-item dropdown">
@@ -164,6 +166,8 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                 </div>
             </div>
         <?php } else { ?>
+            <a href="login.php" class="btn btn-light px-4" style="width: 8vw;">تسجيل الدخول</a>
+        <?php } } else { ?>
             <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
                         <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>

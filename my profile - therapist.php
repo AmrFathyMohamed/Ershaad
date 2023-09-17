@@ -30,7 +30,7 @@ if (isset($_SESSION['user_id'])) {
     background:
       linear-gradient(rgba(190, 235, 255, 0.77), rgba(255, 223, 252, 0.563)),
       /* Gradient Overlay */
-      url(../img/carousel-1.jpg) center center no-repeat;
+      url(img/carousel-1.jpg) center center no-repeat;
     background-size: cover;
   }
 
