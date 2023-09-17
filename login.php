@@ -22,8 +22,9 @@ session_start(); // Start the session
 
   <!-- Icon Font Stylesheet -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+    integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Libraries Stylesheet -->
   <link href="lib/animate/animate.min.css" rel="stylesheet" />
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
@@ -48,10 +49,10 @@ session_start(); // Start the session
     <div class="container">
 
       <div class="row g-5">
-        <div class="text-center mt-3"><img class="w-15 me-3" src="img/logo v.png" alt="" /></div>
+        <div class="text-center mt-3"><img class="col-5 col-sm-2 me-3" src="img/logo v.png" alt="" /></div>
 
         <div class="col-lg-6 mx-auto wow fadeIn" data-wow-delay="0.5s">
-          <div class="bg-light rounded p-5">
+          <div class="bg-light rounded p-5 px-sm-3">
             <form method="POST" action="checklogin.php">
               <div class="row g-3">
                 <h4 class="text-center mb-4">تسجيل دخول</h4>
@@ -77,8 +78,11 @@ session_start(); // Start the session
                   <?php } ?>
                 </div>
                 <div class="col-12 text-center">
-                  <button class="btn btn-primary py-3 mt-4 w-50 px-5" type="submit">
+                  <button class="btn btn-primary py-3 mt-4 col-12 col-md-6 px-5" type="submit">
                     تسجيل الدخول
+                  </button>
+                  <button class="btn btn-danger mt-4 mt-3 w-100 px-5" type="submit" id="submitBtn">
+                     <i class="bi bi-google me-3"></i> Google تسجيل بأستخدام   
                   </button>
                 </div>
                 <?php if (isset($loginError) && !empty($loginError) && !strpos($loginError, 'email') && !strpos($loginError, 'password')) { ?>
