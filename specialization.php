@@ -22,7 +22,7 @@ if (isset($_GET['SpecialtyID'])) {
                 <div class="form-floating">
                     <input type="text" class="form-control right" id="search"
                         placeholder="بحث بأسم المعالج فى تخصص <?= $firstTherapist['Specialization']; ?>" />
-                    <label for="search" style="right: 0!important; left: auto!important;">بحث بأسم المعالج فى تخصص
+                    <label for="search" style="right: 0!important; left: auto!important;">    متخصصين: 
                         <?= $firstTherapist['Specialization']; ?>
                     </label>
                 </div>
