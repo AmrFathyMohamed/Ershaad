@@ -586,7 +586,10 @@ font-family: 'Tajawal', sans-serif!important;
 }
 
    @media (max-width: 767px) {
-    
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        width: 2rem;
+        height: 2rem;
+    }
     .btn-sm-phone {
         padding: 0.25rem 0.5rem;
         font-size: .875rem;
