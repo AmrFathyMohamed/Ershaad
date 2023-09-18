@@ -29,13 +29,28 @@ class ClientTable
         return $stmt !== false;
     }
 
-    public function deleteClient($clientId)
+
+    public function deleteclient($clientId)
     {
-        $query = "DELETE FROM $this->table WHERE ClientID = $clientId";
-        $data[] = $clientId;
-        $stmt = $this->db->executeQuery($query);
-        return $stmt !== false;
+        $query = "DELETE FROM $this->table WHERE clientID = :clientID";
+
+        // Prepare the SQL statement
+        $stmt = $this->db->prepare($query);
+
+        // Bind the clientID parameter
+        $stmt->bindParam(':clientID', $clientId, PDO::PARAM_INT);
+
+        // Execute the SQL statement
+        if ($stmt->execute()) {
+            // Deletion was successful
+            return true;
+        } else {
+            // Deletion failed, display the error message
+            echo "Error: " . implode(", ", $stmt->errorInfo()); // Replace with your actual error handling method
+            return false;
+        }
     }
+
 
     public function getClientById($clientId)
     {
