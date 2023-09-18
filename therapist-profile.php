@@ -77,19 +77,39 @@ if (isset($_SESSION['user_id'])) {
           </li>
         </ol>
       </nav>
-      <div class="text-center"><img src="<?= $therapist['Profile']; ?>" style="width: 10vw;" alt="" class="rounded-circle shadow">
+      <div class="text-center"><img src="<?= $therapist['Profile']; ?>" style="width: 10vw;" alt=""
+          class="rounded-circle shadow">
       </div>
-      <h1 class="animated slideInDown text-center arabic text- mb-4"><?= $therapist['FullName']; ?></h1>
-      <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><?= $therapist['Specialization']; ?></p>
+      <h1 class="animated slideInDown text-center arabic text- mb-4">
+        <?= $therapist['FullName']; ?>
+      </h1>
+      <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white">
+        <?= $therapist['Specialization']; ?>
+      </p>
       <div class="rate d-flex justify-content-center align-content-center mb-2">
         <!-- <div class="pt-1"><small class="text-white">(124 تقييم)</small></div> -->
-        <h3 class="text-center px-4"><i class="fa-solid fa-star text-warning fs-4 me-2"></i><?= $therapist['Rating'] ?></h3>
+        <h3 class="text-center px-4"><i class="fa-solid fa-star text-warning fs-4 me-2"></i>
+          <?= $therapist['Rating'] ?>
+        </h3>
       </div>
-      <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span><?= $therapist['Price'] ?></span><span
-          class="px-2">/</span><span>ساعة</span></p>
+      <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
+          <?= $therapist['Price'] ?>
+        </span><span class="px-2">/</span><span>ساعة</span></p>
       <div class="text-center">
-        <button class="btn btn-primary px-4" style="width: 15vw;">التحدث الي المعالج</button>
-        <button class="btn btn-secondary px-4" style="width: 15vw;"> حجز جلسة</button>
+        <button class="btn btn-primary px-4" style="width: 25vw;">التحدث الي المعالج</button>
+        <form method="POST" action="send_message.php">
+          <div class="d-flex align-items-center">
+            <textarea id="Message" name="Message" class="form-control border-0 mx-2"
+              placeholder="Write a reply"></textarea>
+            <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
+            <input type="hidden" id="TherapistID" name="TherapistID" value="<?= $therapist['TherapistID']; ?>" />
+
+            <button id="sendBtn" type="submit" class="btn me-2">
+              <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+            </button>
+          </div>
+        </form>
+        <!-- <button class="btn btn-secondary px-4" style="width: 15vw;"> حجز جلسة</button> -->
       </div>
     </div>
   </div>
@@ -184,6 +204,37 @@ if (isset($_SESSION['user_id'])) {
   </div>
 </div>
 <!-- reservation end -->
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <h6 class="text-right">اخر التقييمات</h6>
+
+    </div>
+    <?php foreach ($sessions as $session) { ?>
+      <div class="col-lg-10 mx-auto mt-3 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="service-item rounded h-100 p-4 pb-2">
+          <div class="testimonial-item text-">
+            <div class="d-flex justify-content-end align-items-center">
+              <p class="text-right mb-0">
+                <?= $session['UserOpinion'] ?>
+              </p>
+            </div>
+            <?php
+            $rating = $session['UserRate'];
+            for ($i = 1; $i <= 5; $i++) {
+              if ($i <= $rating) {
+                echo '<i class="fa-solid fa-star text-warning"></i>';
+              } else {
+                echo '<i class="fa-regular fa-star text-warning"></i>';
+              }
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+    <?php } ?>
+  </div>
+</div>
 <!-- courswes Start -->
 <div class="container-xxl py-5">
   <div class="container">

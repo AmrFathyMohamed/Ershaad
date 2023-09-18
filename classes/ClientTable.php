@@ -52,19 +52,40 @@ class ClientTable
     }
 
 
-    public function getClientById($clientId)
-    {
-        $query = "SELECT * FROM $this->table WHERE ClientID = $clientId";
-        $data[] = $clientId;
-        $stmt = $this->db->executeQuery($query);
-        return $stmt->fetch_assoc();
-    }
+    // public function getClientById($clientId)
+    // {
+    //     $query = "SELECT * FROM $this->table WHERE ClientID = $clientId";
+    //     $data[] = $clientId;
+    //     $stmt = $this->db->executeQuery($query);
+    //     return $stmt->fetch_assoc();
+    // }
     public function getClients()
     {
         $query = "SELECT * FROM $this->table ";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
-    // Add more methods for querying clients here as needed
+    public function getClientById($ClientId)
+    {
+        $query = "SELECT * FROM $this->table WHERE ClientID = $ClientId";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_assoc();
+    }
+    public function getDataByClientIdAccepted($ClientId, $tableName)
+    {
+        $query = "SELECT * FROM $tableName WHERE UserID = $ClientId And Status = 'Accepted'";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getDataByClientId($ClientId, $tableName)
+    {
+        if ($tableName == "course_client") {
+            $query = "SELECT c.*  FROM courses AS c INNER JOIN $tableName AS ct ON c.CourseID = ct.CourseID WHERE ct.ClientID = $ClientId";
+        } else {
+            $query = "SELECT * FROM $tableName WHERE ClientID = $ClientId";
+        }
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

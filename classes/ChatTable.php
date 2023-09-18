@@ -9,10 +9,16 @@ class ChatTable
         $this->db = $database;
     }
 
-    public function insertChat($UserID,$TherapistID,$Message)
+    public function insertChat($UserID, $TherapistID, $Message)
     {
-        $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at) 
+        if ($_SESSION['type'] == 'therapist') {
+            $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at) 
                   VALUES ($UserID, $TherapistID, '$Message','Therapist', NOW())";
+        } else if ($_SESSION['type'] == 'client') {
+            $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at) 
+                  VALUES ($UserID, $TherapistID, '$Message','Client', NOW())";
+        }
+        
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
@@ -75,7 +81,7 @@ class ChatTable
         // JOIN chats AS c ON cu.UserID = c.UserID AND cu.LastMessageTime = c.created_at
         // ORDER BY cu.LastMessageTime DESC";
         $query = "SELECT DISTINCT c.FullName ,ch.created_at AS LastMessageTime,
-                    c.*,
+                    c.*,ch.TherapistID,ch.UserID,
                     IFNULL(ch.Message, '') AS LastMessage,
                     IFNULL(ch.Sender, '') AS LastMessageSender
                     FROM clients c
@@ -96,16 +102,23 @@ class ChatTable
     }
     public function getAllChatsForUser($ClientID)
     {
-        $query = "SELECT DISTINCT u.FullName
-        FROM therapists AS u
-        JOIN (
-            SELECT TherapistID
-            FROM chats
-            WHERE UserID = $ClientID
-        ) AS cu
-        ON u.TherapistID = cu.TherapistID
-        ORDER BY u.FullName";
-
+        $query = "SELECT DISTINCT c.FullName ,ch.created_at AS LastMessageTime,
+                    c.*,ch.TherapistID,ch.UserID,
+                    IFNULL(ch.Message, '') AS LastMessage,
+                    IFNULL(ch.Sender, '') AS LastMessageSender
+                    FROM therapists c
+                    LEFT JOIN
+                    (SELECT TherapistID,
+                            MAX(created_at) AS LastMessageDate
+                        FROM chats
+                        WHERE UserID = $ClientID
+                        AND is_deleted = 0
+                        GROUP BY TherapistID) AS latest_chats ON c.TherapistID = latest_chats.TherapistID
+                    LEFT JOIN chats ch ON latest_chats.TherapistID = ch.TherapistID
+                    AND latest_chats.LastMessageDate = ch.created_at
+                    AND ch.UserID = $ClientID
+                    WHERE latest_chats.TherapistID IS NOT NULL
+                    ORDER BY LastMessageDate DESC;";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }

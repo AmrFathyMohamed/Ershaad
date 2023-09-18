@@ -44,6 +44,21 @@ class SessionTable
             return []; // Return an empty array if no sessions are found
         }
     }
+    public function getSessionsclient($id)
+    {
+        // Define your SELECT query to fetch sessions for a therapist using $this->db->executeQuery
+        $query = "SELECT s.*, u.FullName FROM $this->table s
+        -- JOIN therapists t ON s.TherapistID = t.TherapistID
+        JOIN therapists u ON s.TherapistID = u.TherapistID WHERE UserID = $id and Type != 'Courses' And Status = 'Accepted'";
+        //$data = [$id];
+        $stmt = $this->db->executeQuery($query);
+
+        if ($stmt !== false) {
+            return $stmt->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return []; // Return an empty array if no sessions are found
+        }
+    }
 
 }
 ?>

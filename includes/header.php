@@ -118,7 +118,39 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                         <a href="sessions.php" class="nav-item nav-link px-3  text-white">الجلسات</a>
                         <a href="chats.php" class="nav-item nav-link px-3  text-white">المحادثات</a>
                         <a href="courses.php" class="nav-item nav-link px-3 text-white">الكورسات</a>
-                        <a href="my profile - therapist.php" class="nav-item nav-link px-3 active text-white">الملف الشخصي</a>
+                        <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>
+                        <a href="search.php" class="nav-item nav-link px-3 text-white">المعالجين</a>
+                        <a href="about.php" class="nav-item nav-link px-3 text-white">عن إرشاد</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
+                            <div class="dropdown-menu bg-light border-0 m-0">
+                                <?php foreach ($specialties as $spec) { ?>
+                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
+                                        class="dropdown-item"><?= $spec["Specialty"] ?></a>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php } else if ($_SESSION['type'] == 'client') {
+                ?>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
+                        <!-- <a href="sessions.php" class="nav-item nav-link px-3  text-white">الجلسات</a> -->
+                        <a href="chats.php" class="nav-item nav-link px-3  text-white">المحادثات</a>
+                        <!-- <a href="courses.php" class="nav-item nav-link px-3 text-white">الكورسات</a> -->
+                        <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>
+                        <a href="search.php" class="nav-item nav-link px-3 text-white">المعالجين</a>
+                        <a href="about.php" class="nav-item nav-link px-3 text-white">عن إرشاد</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
+                            <div class="dropdown-menu bg-light border-0 m-0">
+                                <?php foreach ($specialties as $spec) { ?>
+                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
+                                        class="dropdown-item"><?= $spec["Specialty"] ?></a>
+                                <?php } ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php } else { ?>

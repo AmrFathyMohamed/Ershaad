@@ -8,7 +8,11 @@ if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
     $database = new Database();
     $chats = new ChatTable($database);
-    $chatsData = $chats->getAllChatsForTherapist($userId);
+    if ($_SESSION['type'] == 'therapist') {
+        $chatsData = $chats->getAllChatsForTherapist($userId);
+    } else if ($_SESSION['type'] == 'client') {
+        $chatsData = $chats->getAllChatsForUser($userId);
+    }
 } else {
     header("Location: index.php");
     exit;
@@ -74,26 +78,55 @@ if (isset($_SESSION['user_id'])) {
                 <div class="tickets px-0 chat-content">
                     <?php foreach ($chatsData as $c) { ?>
                         <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center "
-                            data-client-id="<?php echo $c['ClientID']; ?>" data-client-Name="<?php echo $c['FullName']; ?>">
+                            data-client-id="<?php echo $c['UserID']; ?>" data-therapist-id="<?php echo $c['TherapistID']; ?>" data-client-Name="<?php echo $c['FullName']; ?>">
                             <div class="content">
                                 <h6 class="mb-0">
                                     <?php echo $c['FullName']; ?>
                                 </h6>
                                 <small class="mb-0 last-message">
                                     <?php
-                                    if ($c['LastMessageSender'] == 'Therapist') {
-                                        $message = $c['LastMessage'];
-                                        if (strlen($message) > 100) {
-                                            $message = substr($message, 0, 25) . '...';
+                                    if ($_SESSION['type'] == 'therapist') {
+                                        if ($c['LastMessageSender'] == 'Therapist') {
+                                            $message = $c['LastMessage'];
+                                            if (strlen($message) > 100) {
+                                                $message = substr($message, 0, 25) . '...';
+                                            }
+                                            echo 'You : ' . $message;
+                                        } else {
+                                            $message = $c['LastMessage'];
+                                            if (strlen($message) > 100) {
+                                                $message = substr($message, 0, 25) . '...';
+                                            }
+                                            echo $c['FullName'] . ' : ' . $message;
                                         }
-                                        echo 'You : ' . $message;
-                                    } else {
-                                        $message = $c['LastMessage'];
-                                        if (strlen($message) > 100) {
-                                            $message = substr($message, 0, 25) . '...';
+                                    } else if ($_SESSION['type'] == 'client') {
+                                        if ($c['LastMessageSender'] == 'Client') {
+                                            $message = $c['LastMessage'];
+                                            if (strlen($message) > 100) {
+                                                $message = substr($message, 0, 25) . '...';
+                                            }
+                                            echo 'You : ' . $message;
+                                        } else {
+                                            $message = $c['LastMessage'];
+                                            if (strlen($message) > 100) {
+                                                $message = substr($message, 0, 25) . '...';
+                                            }
+                                            echo $c['FullName'] . ' : ' . $message;
                                         }
-                                        echo $c['FullName'] . ' : ' . $message;
                                     }
+                                    // if ($c['LastMessageSender'] == 'Therapist') {
+                                    //     $message = $c['LastMessage'];
+                                    //     if (strlen($message) > 100) {
+                                    //         $message = substr($message, 0, 25) . '...';
+                                    //     }
+                                    //     echo 'You : ' . $message;
+                                    // } else {
+                                    //     $message = $c['LastMessage'];
+                                    //     if (strlen($message) > 100) {
+                                    //         $message = substr($message, 0, 25) . '...';
+                                    //     }
+                                    //     echo $c['FullName'] . ' : ' . $message;
+                                    // }
                                     ?>
                                 </small>
                             </div>
@@ -286,6 +319,7 @@ if (isset($_SESSION['user_id'])) {
         $('.ticket').click(function () {
             $(this).addClass('active');
             var clientID = $(this).data('client-id');
+            var therapistID = $(this).data('therapist-id');
             $('#ClientName').text($(this).data('client-name'));
 
             // Call a function to load and display chat messages for the clicked client
@@ -293,7 +327,7 @@ if (isset($_SESSION['user_id'])) {
                 $.ajax({
                     url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
                     method: 'POST',
-                    data: { clientID: clientID },
+                    data: { clientID: clientID , therapistID:therapistID },
                     success: function (response) {
                         // Display the chat messages in the chatMessagesContainer
                         $('#chatMessagesContainer').html(response);
@@ -306,14 +340,35 @@ if (isset($_SESSION['user_id'])) {
             }
 
             // Initial load of chat messages
-            $('#formsend').html(`<div class="d-flex align-items-center">
-                    <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                    <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
-                    <button id="sendBtn" type="submit" class="btn me-2">
-                        <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                    </button>
-                </div>
-                `);
+            <?php
+            if ($_SESSION['type'] == 'therapist') { ?>
+                $('#formsend').html(`<div class="d-flex align-items-center">
+                        <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                        <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
+                        <button id="sendBtn" type="submit" class="btn me-2">
+                            <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+                        </button>
+                    </div>
+                    `);
+            <?php } else if ($_SESSION['type'] == 'client') { ?>
+                    $('#formsend').html(`<div class="d-flex align-items-center">
+                            <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                            <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
+                            <button id="sendBtn" type="submit" class="btn me-2">
+                                <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+                            </button>
+                        </div>
+                        `);
+            <?php }
+            ?>
+            // $('#formsend').html(`<div class="d-flex align-items-center">
+            //         <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+            //         <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
+            //         <button id="sendBtn" type="submit" class="btn me-2">
+            //             <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+            //         </button>
+            //     </div>
+            //     `);
             loadChatMessages();
 
             // Clear any existing chat refresh interval
@@ -326,12 +381,20 @@ if (isset($_SESSION['user_id'])) {
         $('#formsend').on('submit', function (e) {
             e.preventDefault();
             var messageContent = $('#newMessageContent').val();
-            var userID = $('#UserID').val();
+            <?php if ($_SESSION['type'] == 'therapist') { ?>
+                var userID = $('#UserID').val();
+                var therapistID = <?= $_SESSION['user_id']; ?>;
+
+            <?php } else if ($_SESSION['type'] == 'client') { ?>
+                var userID =<?= $_SESSION['user_id']; ?>;
+                var therapistID = $('#TherapistID').val();
+            <?php } ?>
+            
             // Call an AJAX function to send the message to the server and update chat messages on success
             $.ajax({
                 url: 'send_message.php', // Replace with the actual PHP script to send messages
                 method: 'POST',
-                data: { Message: messageContent, UserID: userID },
+                data: { Message: messageContent, UserID: userID,TherapistID: therapistID },
                 success: function (response) {
                     // Clear the message input field
                     $('#newMessageContent').val('');

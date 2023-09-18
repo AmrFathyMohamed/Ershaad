@@ -11,17 +11,18 @@ if (isset($_SESSION['user_id'])) {
     $chats = new ChatTable($database);
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $UserID = $_POST['UserID'];
-        $TherapistID = $_SESSION['user_id']; // Get TherapistID from the session
+        $TherapistID = $_POST['TherapistID']; // Get TherapistID from the session
         $Message = $_POST['Message'];
 
         // Insert the message into the database
         $db = new Database();
-        echo $UserID.$TherapistID.$Message;
+        //echo $UserID.$TherapistID.$Message;
         $result = $chats->insertChat($UserID, $TherapistID, $Message);
-
+        
         if ($result) {
             // Message was inserted successfully
             $newMessageData = array(
+                'ClientID' => $UserID,
                 'TherapistID' => $TherapistID,
                 'Message' => $Message
             );
