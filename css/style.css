@@ -587,11 +587,13 @@ font-family: 'Tajawal', sans-serif!important;
 }
 .prof-img{
     width: 9vw;
+    max-width: 9vw;
     height: 9vw;
 }
    @media (max-width: 767px) {
     .prof-img{
         width: 20vw;
+    max-width: 20vw;
         height: 20vw;
     }
     .carousel-control-prev-icon, .carousel-control-next-icon {
@@ -646,4 +648,22 @@ font-family: 'Tajawal', sans-serif!important;
 .navbar .nav-item .dropdown-menu {
     left: -50vw!important;
     }
+    }
+
+    .form-floating > label {
+        position: absolute;
+        left: auto!important;
+        right: 0!important;
+    }
+    input.form-control{
+        direction: rtl;
+    }
+    select{
+        direction: rtl;
+    }
+    .modal-header{
+        flex-direction: row-reverse!important;
+    }
+    .modal-header .btn-close {
+        margin: -0.5rem -0.5rem -0.5rem 10px;
     }

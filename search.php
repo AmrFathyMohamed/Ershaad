@@ -101,13 +101,12 @@ $alltherapists = $therapistTable2->getTherapists();
           <div class="border rounded py-4 px-2">
             <p class="right">التاريخ</p>
             <div class="form-floating">
-              <input type="date" class="form-control" id="date" name="date" placeholder="التاريخ" />
+              <input type="date" class="form-control rtl" id="date" name="date" placeholder="التاريخ" />
               <label for="date">التاريخ</label>
             </div>
             <hr>
             <p class="right">النوع</p>
-            <div class="d-flex">
-              <p class="me-5">النوع</p>
+            <div class="d-flex flex-row-reverse">
               <div class="form-check form-check-primary me-3">
                 <input class="form-check-input" type="checkbox" name="GenderM" id="Male" checked>
                 <label class="form-check-label" for="Male">

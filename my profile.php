@@ -118,14 +118,16 @@ if (isset($_SESSION['user_id'])) {
         echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">
-                    <div class="service-icon w-25 text-white ' . $sessionTypeClass . ' rounded-end mb-1 me-4"
-                      style="border-top-right-radius: 0px !important;">' . $sessionTypeName . '</div>
+                    <div class="service-icon w-25 text-white bg-primary rounded-end mb-1 me-4"  onclick="showRate(\'' . $session['SessionID'] . '\')"
+                      style="border-top-right-radius: 0px !important;">تحدث الي المعالج <i class="fa-solid fa-comments ms-2"></i></div>
+                      
                     <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="mb-0 text-right">
                       <i class="fa-regular fa-clock" style="color: #6eaedc;"></i> ' . $startTime->format('h:i A') . ' - ' . $endTime->format('h:i A') . '
                     </p>
+                    <p class="badge bg-'.$sessionTypeClass .' text-white">'.$sessionTypeClass .'</p>
                     <p class="mb-0 text-right">
                       ' . $sessionDate->format('d-m-Y') . ' <i class="fa-regular fa-calendar-check" style="color: #6eaedc;"></i>
                     </p>
@@ -170,8 +172,8 @@ if (isset($_SESSION['user_id'])) {
         echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">
-                  <div class="service-icon w-25 text-white bg-warning rounded-end mb-1 me-4 pointer" data-bs-toggle="modal" data-bs-target="#rateModal" onclick="showRate()" style="border-top-right-radius: 0px !important;">
-                  تقييم <i class="fa-regular fa-star ms-2">' . $session['SessionID'] . '</i>
+                  <div class="service-icon w-25 text-white bg-warning rounded-end mb-1 me-4 pointer"  onclick="showChat(\'' . $session['SessionID'] . '\')" style="border-top-right-radius: 0px !important;">
+                  تقييم <i class="fa-regular fa-star ms-2"></i>
                  </div>
                     <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
                   </div>
@@ -236,7 +238,28 @@ if (isset($_SESSION['user_id'])) {
 
 </div>
 <!-- tabs end -->
-
+<!-- Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="chat.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">تحدثت الي معالجك</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <textarea name="" id="message" cols="30" rows="4" placeholder="أكتب رسالتك"
+            class="rtl arabic form-control"></textarea>
+            <input type="text" hidden id="therapistID">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+          <button type="submit" class="btn btn-primary px-5" id="send">ارسال</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <!-- rate modal -->
 
 <!-- Modal -->
@@ -257,12 +280,14 @@ if (isset($_SESSION['user_id'])) {
             <i class="fa-regular fa-star rateStar"></i>
             <i class="fa-regular fa-star rateStar"></i>
           </div>
-          <textarea name="" id="" cols="30" rows="6" placeholder="أكتب تعليقاً"
+          <textarea name="" id="comment" cols="30" rows="6" placeholder="أكتب تعليقاً"
             class="rtl arabic form-control"></textarea>
+            <input type="text" hidden id="sessionID">
+            <input type="text" hidden id="ratingVal">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-          <button type="button" class="btn btn-primary px-5">نشر</button>
+          <button type="submit" class="btn btn-primary px-5" id="pupl">نشر</button>
         </div>
       </form>
     </div>
@@ -305,17 +330,30 @@ if (isset($_SESSION['user_id'])) {
 </div>
 <?php include("includes/footer.php"); ?>
 <script>
-  function showRate() { }
+ function showRate(sessionID) {
+  $("#sessionID").val(sessionID)
+  $("#rateModal").modal('show')
+  }
+
+  function showChat(therID) {
+  $("#therapistID").val(therID)
+  $("#chatModal").modal('show')
+  }
   $(document).ready(function () {
     const ratingIcons = $('.rating .fa-regular');
     let ratingValue = 0;
+    
     ratingIcons.click(function () {
-      ratingValue = $(this).data('rating');
+      ratingValue = $(this).index() + 1;
       ratingIcons.removeClass('fa-solid rateStar-fill').addClass('fa-regular rateStar');
       $(this).prevAll().addBack().removeClass('fa-regular rateStar').addClass('fa-solid rateStar-fill');
     });
-    $(document).on('click', function () {
-      console.log('Selected Rating:', ratingValue);
+    
+    $("#pupl").on('click', function () {
+      $("#ratingVal").val(ratingValue); 
+      alert('Session ID:'+ $("#sessionID").val());
+      alert('Rating:'+ $("#ratingVal").val());
+      alert('Comment:'+ $("#comment").val());
     });
   });
 </script>

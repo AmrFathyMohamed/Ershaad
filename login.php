@@ -64,8 +64,8 @@ session_start(); // Start the session
                 <h4 class="text-center mb-4">تسجيل دخول</h4>
                 <div class="col-sm-12">
                   <div class="form-floating">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="البريد الاليكتروني" />
-                    <label for="email">البريد الاليكتروني</label>
+                    <input type="email" class="form-control rtl" id="email" name="email" placeholder="البريد الاليكتروني" />
+                    <label for="email" class="rtl">البريد الاليكتروني</label>
                   </div>
                   <!-- Display email validation error message -->
                   <?php if (isset($loginError) && strpos($loginError, 'email') !== false) { ?>
@@ -74,9 +74,9 @@ session_start(); // Start the session
                 </div>
                 <div class="col-sm-12">
                   <div class="form-floating">
-                    <input type="password" class="form-control" id="password" name="password"
+                    <input type="password" class="form-control rtl" id="password" name="password"
                       placeholder="كلمة المرور" />
-                    <label for="password">كلمة المرور</label>
+                    <label for="password" class="rtl">كلمة المرور</label>
                   </div>
                   <!-- Display password validation error message -->
                   <?php if (isset($loginError) && strpos($loginError, 'password') !== false) { ?>
@@ -97,7 +97,7 @@ session_start(); // Start the session
                     <?php echo $loginError; ?>
                   </div>
                 <?php } ?>
-                <p class="mt-5 text-center">  نسيت كلمة المرور؟ <a class="text-primarypointer" data-bs-toggle="modal" data-bs-target="#forgetPassModal">إسترجاع</a>
+                <p class="mt-5 text-center">  نسيت كلمة المرور؟ <a class="text-primary pointer" data-bs-toggle="modal" data-bs-target="#forgetPassModal">إسترجاع</a>
                 <p class="mt-5 text-center">ليس لديك حساب؟ <a href="register.php" class="text-primary">أنشئ حساب</a>
                 </p>
               </div>
@@ -128,7 +128,7 @@ session_start(); // Start the session
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-        <button type="button" class="btn btn-primary px-5">إرسال</button>
+        <button type="button" class="btn btn-primary px-5" onclick="sendMail()">إرسال</button>
       </div>
     </form>
     </div>
@@ -173,6 +173,12 @@ session_start(); // Start the session
       }).showToast()
     }
 
+  }
+
+  function sendMail(){
+    let mail = $("#mail").val();
+    // send mail
+    toast('تم ارسال كلمة مرور جديدة علي بريدك الاليكتروني')
   }
   </script>
 </body>

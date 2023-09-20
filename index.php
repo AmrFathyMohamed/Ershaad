@@ -5,7 +5,13 @@ include("classes/QuestionTable.php");
 
 $questionTable = new QuestionTable($database); // Change this to your QuestionTable class
 $questionsData = $questionTable->getQuestions(); // Assuming you have a method to fetch questions ?>
-
+<style>
+    .accordion-button::after {
+    
+    margin-left: 0!important;
+    margin-right: auto!important;
+    }
+</style>
 <!-- Carousel Start -->
 <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -466,28 +472,33 @@ $questionsData = $questionTable->getQuestions(); // Assuming you have a method t
 
 
 <!-- Testimonial Start -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 px-sm-1">
     <div class="container">
         <div class="text-center mx-auto" style="max-width: 500px">
             <h1 class="display-6 mb-5">الاسئلة الشائعة</h1>
         </div>
+       
         <div class="row g-5">
-            <div class="col-lg-3 d-none d-lg-block">
-
-            </div>
+           <div class="accordion px-sm-0" id="accordion">
             <?php foreach ($questionsData as $QA) {?>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                <div class="owl-carousel testimonial-carousel">
-                    <div class="testimonial-item text-center">
-                        <p class="fs-5">
-                            <?= $QA['Question'];?>
-                        </p>
-                        <a href="" class="text-primary fw-bold fs-6"><?= $QA['Answer'];?></a>
+                
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header right flex-row-reverse rtl" id="heading-<?= $QA['QuestionID'];?>">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?= $QA['QuestionID'];?>" aria-expanded="true" aria-controls="collapseOne">
+                    <?= $QA['Question'];?>
+                    </button>
+                </h2>
+                <div id="collapse-<?= $QA['QuestionID'];?>" class="accordion-collapse collapse" aria-labelledby="heading-<?= $QA['QuestionID'];?>" data-bs-parent="#accordion">
+                    <div class="accordion-body right">
+                        <?= $QA['Answer'];?>
                     </div>
                 </div>
             </div>
+  
+        
             <?php } ?>
-            
+            </div>
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="testimonial-right h-100">
 
@@ -499,7 +510,11 @@ $questionsData = $questionTable->getQuestions(); // Assuming you have a method t
 <!-- Testimonial End -->
 
 <?php include("includes/footer.php"); ?>
-
+<script>
+    $(document).ready(function() {
+        $('.accordion-item:first .accordion-button').click();
+    });
+</script>
 </body>
 
 </html>

@@ -100,8 +100,8 @@ session_start(); // Start the session
                   </div>
                 </div>
                 <div class="col-sm-12">
-                  <div class="d-flex">
-                    <p class="me-5">النوع</p>
+                <p class="me- right">النوع</p>
+                  <div class="d-flex flex-row-reverse">
                     <div class="form-check form-check-primary me-3">
                       <input class="form-check-input" type="radio" name="Gender" id="Male" checked>
                       <label class="form-check-label" for="Male">
@@ -117,7 +117,7 @@ session_start(); // Start the session
                   </div>
                 </div>
                 <div class="col-sm-12">
-                  <label for="city" class="form-label">City</label>
+                  <p for="city" class="form-label right">المدينة</p>
                   <select class="form-select" id="City" name="City" required>
                     <option value="Alexandria">Alexandria</option>
                     <option value="Aswan">Aswan</option>

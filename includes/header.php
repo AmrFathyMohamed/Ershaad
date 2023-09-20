@@ -211,7 +211,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                                 <?php } ?>
                             </div>
                         </div>
-                        <!-- <a href="login.php" class="btn btn-light px-4 d-block">تسجيل الدخول</a> -->
+                        <a href="login.php" class="btn btn-light px-4 d-block">تسجيل الدخول</a>
                     </div>
             </div>
         <?php }
