@@ -2,9 +2,9 @@
 <div class="container-fluid bg-dark footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container py-5">
         <div class="row g-5">
-            <div class="col-lg-3 col-md-6">
-                <h1 class="text-white mb-4 right">
-                    <img class="w-80 me-3" src="img/logo h.png" alt="" />
+            <div class="col-lg-4 mt-3 col-md-6">
+                <h1 class="text-white mb-2 right">
+                    <img class="w-50 me-3" src="img/logo h.png" alt="" />
                 </h1>
                 <p class="right">
                     نعمل علي توفير التواصل السريع والمستمر بين أصحاب الاحتياجات الاستشارية إلى المختصين في جميع
@@ -12,13 +12,13 @@
                 </p>
 
             </div>
-            <div class="col-lg-3 col-md-6 right">
+            <div class="col-lg-4 col-md-6 right">
                 <h5 class="text-light mb-4">للتواصل</h5>
-                <p>
+                <!-- <p>
                     123 Street, New York, USA <i class="fa fa-map-marker-alt ms-3"></i>
                 </p>
-                <p>01020304050 <i class="fa fa-phone-alt ms-3"></i></p>
-                <p>info@example.com <i class="fa fa-envelope ms-3"></i></p>
+                <p>01020304050 <i class="fa fa-phone-alt ms-3"></i></p> -->
+                <p>ershaad80@gmail.com<i class="fa fa-envelope ms-3"></i></p>
                 <div class="d-flex pt-2 justify-content-end">
                     <a class="btn btn-square me-1" href="https://twitter.com/ershaad392688"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-square me-1" href="https://www.facebook.com/profile.php?id=61550946876715&mibextid=D4KYlr"><i class="fab fa-facebook-f"></i></a>
@@ -27,17 +27,16 @@
                     <a class="btn btn-square me-0" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 right">
+            <div class="col-lg-4 col-md-6 right">
                 <h5 class="text-light mb-4">روابط هامة</h5>
                 <a class="btn btn-link" href="about.php">عن إرشاد</a>
                 <a class="btn btn-link" href="search.php">المعالجين</a>
-                <a class="btn btn-link" href="index.php #spec">التخصصات</a>
-                <a class="btn btn-link" href="">الدعم والمساعدة</a>
+                <!-- <a class="btn btn-link" href="index.php #spec">التخصصات</a>
+                <a class="btn btn-link" href="">الدعم والمساعدة</a> -->
                 <a class="btn btn-link" href="policy.php">سياسة الاستخدام والخصوصية</a>
             </div>
-            <div class="col-lg-3 col-md-6 right">
+            <!-- <div class="col-lg-3 col-md-6 right">
                 <h5 class="text-light mb-4">التحديثات</h5>
-                <!-- <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p> -->
                 <div class="position-relative mx-auto" style="max-width: 400px">
                     <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
                         placeholder="البريد الاليكتروني" />
@@ -45,7 +44,7 @@
                         أشترك
                     </button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="container-fluid copyright">
