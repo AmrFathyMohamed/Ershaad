@@ -169,7 +169,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
         if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {
             $userId = $_SESSION['user_id'];
             if ($_SESSION['type'] != 'admin') {?>
-            <a href="" class="d-inline-block mx-2 fs-5 pointer" data-bs-toggle="modal" data-bs-target="#chatModal"
+            <a href="#" class="d-inline-block mx-2 fs-5 pointer" 
                 style="color: #7892aa;"><?= $_SESSION['fullname'] ?></a>
             <div class="nav-item dropdown">
                 <a class="btn btn-square ms-1 btn-info rounded-circle" style="background-color: #7ce7d9;
@@ -184,8 +184,8 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                 <?php } ?>                
                     <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
                         الشخصية</a>
-                    <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة
-                        المرور</a>
+                     <!-- <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة 
+                        المرور</a> -->
                     <a class="dropdown-item pointer text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
                 </div>
             </div>
