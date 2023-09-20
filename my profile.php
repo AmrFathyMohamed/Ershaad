@@ -303,23 +303,7 @@ if (isset($_SESSION['user_id'])) {
     </div>
   </div>
 </div>
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/counterup/counterup.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<!-- Template Javascript -->
-
-<script src="js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"
-  integrity="sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"
-  integrity="sha512-TPh2Oxlg1zp+kz3nFA0C5vVC6leG/6mm1z9+mA81MI5eaUVqasPLO8Cuk4gMF4gUfP5etR73rgU/8PNMsSesoQ=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<?php include("includes/footer.php"); ?>
 <script>
   function showRate() { }
   $(document).ready(function () {

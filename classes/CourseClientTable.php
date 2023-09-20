@@ -22,6 +22,7 @@ class CourseClientTable
     {
         $query = "UPDATE $this->table SET Status = '$status', updated_at = NOW() 
                   WHERE id = $courseClientId";
+                  
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }

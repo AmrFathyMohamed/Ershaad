@@ -52,54 +52,70 @@ if (isset($_SESSION['user_id'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($therapistsData as $therapist) { ?>
+                        <?php foreach ($sessionsData as $SD) { ?>
                             <tr>
                                 <td>
-                                    <?php echo $therapist['FullName']; ?>
+                                    <?php echo $SD['TherapistID']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $therapist['Email']; ?>
+                                    <?php echo $SD['UserID']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $therapist['Username']; ?>
+                                    <?php echo $SD['Date']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $therapist['Password']; ?>
+                                    <?php echo $SD['Time']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $therapist['Username']; ?>
+                                    <?php echo $SD['Type']; ?>
                                 </td>
                                 <td>
-                                    <span class="badge bg-success px-3">Accepted</span>
-                                    <span class="badge bg-danger px-3">Rejected</span>
+                                    <?php if ($SD['Status'] == "Accepted") { ?>
+                                        <span class="badge bg-success px-3">Accepted</span>
+                                    <?php } else if ($SD['Status'] == "Pending Review") { ?>
+                                            <span class="badge bg-warning px-3">Rejected</span>
+                                    <?php } else { ?>
+                                            <span class="badge bg-danger px-3">Rejected</span>
+                                    <?php } ?>
+
+
                                 </td>
 
                                 <td>
-                                    <div class="row">
-                                        <div class="col-6 pe-3">
-                                            <input id="argent-<?php echo $therapist['TherapistID'] ?>"
-                                                class="check-rej-input" type="radio"
-                                                name="type-<?php echo $therapist['TherapistID'] ?>" value="argent" />
-                                            <label for="argent-<?php echo $therapist['TherapistID']; ?>"
-                                                class="check-img-label w-100">
-                                                <div class="check-img-content py-1">
-                                                    <h6 class="mb-0"> <i class="bi bi-x-octagon me-1 fs-5"></i> رفض</h6>
-                                                </div>
-                                            </label>
+                                <form method="POST">
+                                        <input type="hidden" name="SessionID" value="<?php echo $SD['SessionID']; ?>">
+                                        <button type="submit" class="btn btn-success" name="acceptSession">Accept</button>
+                                    </form>
+                                    <form method="POST">
+                                    <input type="hidden" name="SessionID" value="<?php echo $SD['SessionID']; ?>">
+                                        <button type="submit" class="btn btn-danger" name="rejectSession">Reject</button>
+                                    </form>
+                                    <?php if ($SD['Status'] == "Pending Review") { ?>
+                                        <div class="row">
+                                            <div class="col-6 pe-3">
+                                                <input id="argent-<?php echo $SD['TherapistID'] ?>" class="check-rej-input"
+                                                    type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="argent" />
+                                                <label for="argent-<?php echo $SD['TherapistID']; ?>"
+                                                    class="check-img-label w-100">
+                                                    <div class="check-img-content py-1">
+                                                        <h6 class="mb-0"> <i class="bi bi-x-octagon me-1 fs-5"></i> رفض</h6>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="col-6 ps-3">
+                                                <input id="normal-<?php echo $SD['TherapistID'] ?>" class="check-acc-input"
+                                                    type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="normal" />
+                                                <label for="normal-<?php echo $SD['TherapistID'] ?>"
+                                                    class="check-img-label w-100">
+                                                    <div class="check-img-content py-1">
+                                                        <h6 class="mb-0"> <i class="bi bi-check-circle-fill me-1 fs-5"></i> قبول
+                                                        </h6>
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div class="col-6 ps-3">
-                                            <input id="normal-<?php echo $therapist['TherapistID'] ?>"
-                                                class="check-acc-input" type="radio"
-                                                name="type-<?php echo $therapist['TherapistID'] ?>" value="normal" />
-                                            <label for="normal-<?php echo $therapist['TherapistID'] ?>"
-                                                class="check-img-label w-100">
-                                                <div class="check-img-content py-1">
-                                                    <h6 class="mb-0"> <i class="bi bi-check-circle-fill me-1 fs-5"></i> قبول
-                                                    </h6>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <?php } ?>
+
                                 </td>
                             </tr>
                         <?php } ?>

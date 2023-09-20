@@ -11,26 +11,6 @@ $totalSessions = count($sessions);
 $docements = $therapistTable->getDataByTherapistId($userId, "documents");
 $course_therapist = $therapistTable->getDataByTherapistId($userId, "course_therapist");
 $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
-// if (isset($_SESSION['user_id'])) {
-//   // Get the 'id' value from the URL
-//   if ($_SESSION['type'] == 'client') {
-//     $userId = $_GET['id'];
-//     $database = new Database();
-//     $therapistTable = new TherapistTable($database);
-//     $therapist = $therapistTable->getTherapistById($userId);
-//     $sessions = $therapistTable->getDataByTherapistIdAccepted($userId, "sessions");
-//     $totalSessions = count($sessions);
-//     $docements = $therapistTable->getDataByTherapistId($userId, "documents");
-//     $course_therapist = $therapistTable->getDataByTherapistId($userId, "course_therapist");
-//     $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
-//   } else {
-//     header("Location: index.php");
-//     exit;
-//   }
-// } else {
-//   header("Location: index.php");
-//   exit;
-// }
 
 ?>
 <style>
@@ -104,7 +84,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
           <?= $therapist['Price'] ?>
         </span><span class="px-2">/</span><span>ساعة</span></p>
-      
+
 
     </div>
   </div>
@@ -114,12 +94,12 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
 <!-- reservation start -->
 <div class="container mb-5">
   <div class="row rounded border p-4 px-sm-3">
-  <div class="col-md-7 col-12 pe-5 order-last-phone px-sm-3 mt-4">
+    <div class="col-md-7 col-12 pe-5 order-last-phone px-sm-3 mt-4">
       <div class="col-12">
         <h6 class="text-right">المواعيد المتاحة</h6>
       </div>
       <div class="row gx-4" id="availableDates">
-
+       
       </div>
       <div class="text-center mt-5">
         <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
@@ -153,7 +133,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
 
       </div>
     </div>
-    
+
   </div>
 </div>
 <!-- reservation end -->
@@ -252,10 +232,10 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
                         <button type="submit" class="btn btn-dark px-4" data-bs-dismiss="modal">حجز
                           الكورس</button>
                       <?php } else { ?>
-                        <a href="login.php" class="btn btn-light px-4 d-none d-md-block" >تسجيل الدخول</a>
+                        <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
                       <?php }
                     } else { ?>
-                      <a href="login.php" class="btn btn-light px-4 d-none d-md-block" >تسجيل الدخول</a>
+                      <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
                     <?php } ?>
 
                   </div>
@@ -410,16 +390,16 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
     }
 
   }
-        // Get the current date in yyyy-mm-dd format
-        function getCurrentDate() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = (now.getMonth() + 1).toString().padStart(2, '0');
-            const day = now.getDate().toString().padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
-        // Set the input's value to the current date
-        document.getElementById('date').value = getCurrentDate();
+  // Get the current date in yyyy-mm-dd format
+  function getCurrentDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  // Set the input's value to the current date
+  document.getElementById('date').value = getCurrentDate();
   // $("#reserveSession").prop("hidden", true);
   // $("#availableDates").hide()
   // $(document).ready(function () {
@@ -458,28 +438,77 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
 
   //});
 
-  $('#date').on('change', function() {
+  $('#date').on('change', function () {
     const selectedDate = $(this).val();
     const currentDate = getCurrentDate();
 
     // Check if the selected date is not today's date
     if (selectedDate !== currentDate) {
-        // Hide the element with ID "arg"
-        $('#arg').hide();
+      // Hide the element with ID "arg"
+      $('#arg').hide();
     } else {
-        // Show the element with ID "arg"
-        $('#arg').show();
+      // Show the element with ID "arg"
+      $('#arg').show();
     }
-});
+    $.ajax({
+    url: 'fetch_appointments.php', // Replace with your backend endpoint
+    method: 'POST',
+    data: {
+      date: $(this).val(),
+      TherapistID : <?= $therapist['TherapistID']; ?>
+    },
+    success: function (response) {
+      // Handle the response and display the available appointments
+      $("#availableDates").html(response);
+    },
+    error: function () {
+      toast("حدث خطأ أثناء جلب المواعيد المتاحة.", 0);
+    }
+  });
+  });
 
 </script>
 <script>
   function reservePeriod() {
-    let date = $("#CheckDate").val(),
-      type = $('[name="type"]').val(),
-      period = $('[name="period"]').val();
-    console.log(date + type + period)
+    let date = $("#date").val();
+    let period = $("input[name='period']:checked").val(); // Get the selected period
+    let therapistId = <?= $userId ?>; // Get the therapist ID from PHP
+    let status = "Pending Review"; // Set the session status
+
+    // Check if a period is selected
+    if (!period) {
+      alert("يرجى تحديد الفترة المرغوبة.");
+      return;
+    }
+    console.log({
+        date: date,
+        time: period,
+        therapistId: therapistId,
+        uid : <?= $_SESSION['user_id'];?>,
+        status: status
+      });
+      $.ajax({
+      url: 'insert_session.php',
+      method: 'POST',
+      data: {
+        date: date,
+        time: period,
+        therapistId: therapistId,
+        uid : <?= $_SESSION['user_id'];?>,
+        status: status
+      },
+      success: function (response) {
+        // Handle the response (e.g., show a success message)
+        alert(response);
+        // You can also perform additional actions here, such as updating the UI
+      },
+      error: function () {
+        alert("حدث خطأ أثناء إجراء الحجز.");
+      }
+    });
+    
   }
+  
 </script>
 </body>
 

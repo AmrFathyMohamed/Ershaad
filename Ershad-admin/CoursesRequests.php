@@ -24,6 +24,7 @@ include("../classes/CourseTable.php");
 include("../classes/SessionTable.php");
 
 
+
 // Check if the user is logged in as an admin
 if (isset($_SESSION['user_id'])) {
     $adminId = $_SESSION['user_id'];
@@ -31,6 +32,8 @@ if (isset($_SESSION['user_id'])) {
     $clientTable = new ClientTable($database);
     $sessionTable = new SessionTable($database);
     $courseClientTable = new CourseClientTable($database);
+    $courseTable = new CourseTable($database);
+
     // Review
     //Accepted
     $courseTableAccepted = $courseClientTable->getAllCourseClients('Accepted');
@@ -50,6 +53,45 @@ if (isset($_SESSION['user_id'])) {
             // Status changed to 'Accepted', calculate session details and cost
             $courseClient = $courseClientTable->getCourseClientById($courseClientId);
             $courseId = $courseClient['CourseID'];
+            $course = $courseTable->getCourseById($courseId);
+            $clientId = $_POST['ClientID'];
+            $therapistId = $_POST['TherapistID'];
+        
+            // Calculate session details
+            $sessions = $course['Sessions'];
+            $startDate = date('Y-m-d');
+            $endDate = date('Y-m-d', strtotime($startDate . ' + ' . ($sessions - 1) . ' days'));
+        
+            // Calculate cost per session
+            //$sessionCost = $course['Price'] / $sessions;
+        
+            // Insert sessions into the 'sessions' table
+            for ($i = 0; $i < $sessions; $i++) {
+                $sessionDate = date('Y-m-d', strtotime($startDate . ' + ' . $i . ' days'));
+                $sessionTime = '12:00:00'; // Change this to the desired session time
+                $sessionType = 'Regular'; // Change this to the desired session type
+                $sessionStatus = 'Accepted'; // Change this to the initial session status
+        
+                // Insert the session into the 'sessions' table
+                $sessionTable->insertSession($clientId, $therapistId, $sessionDate, $sessionTime, $sessionType, $sessionStatus);
+        
+                // Calculate the next session date (1 week interval)
+                $startDate = date('Y-m-d', strtotime($sessionDate . ' + 1 week'));
+            }
+        
+            // Display a success message or redirect as needed
+        }
+        
+    }
+    if (isset($_POST['rejectCourse'])) {
+        $courseClientId = $_POST['courseClientId'];
+        
+
+        if ($courseClientTable->updateCourseClient($courseClientId, 'Rejected')) {
+            // Status changed to 'Accepted', calculate session details and cost
+            $courseClient = $courseClientTable->getCourseClientById($courseClientId);
+            $courseId = $courseClient['CourseID'];
+            $course = $courseTable->getCourseById($courseId);
             $clientId = $_POST['ClientID'];
             $therapistId = $_POST['TherapistID'];
         
@@ -131,6 +173,12 @@ if (isset($_SESSION['user_id'])) {
                                         <input type="hidden" name="ClientID" value="<?php echo $request['ClientID']; ?>">
                                         <input type="hidden" name="TherapistID" value="<?php echo $request['TherapistID']; ?>">
                                         <button type="submit" class="btn btn-success" name="acceptCourse">Accept</button>
+                                    </form>
+                                    <form method="POST">
+                                        <input type="hidden" name="courseClientId" value="<?php echo $courseClientId; ?>">
+                                        <input type="hidden" name="ClientID" value="<?php echo $request['ClientID']; ?>">
+                                        <input type="hidden" name="TherapistID" value="<?php echo $request['TherapistID']; ?>">
+                                        <button type="submit" class="btn btn-danger" name="rejectCourse">Reject</button>
                                     </form>
                                 </td>
                             </tr>
