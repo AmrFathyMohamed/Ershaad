@@ -9,7 +9,7 @@ if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
     $database = new Database();
     $therapists = new TherapistTable($database);
-    $therapistsData = $therapists->getTherapists();
+    $therapistsData = $therapists->getTherapistById($_GET['TherapistID']);
     $SpecialtiesObject = new SpecialtiesTable($database);
     $specialties = $SpecialtiesObject->getDataByTableName();
     // You can use $userId in your code as needed
@@ -40,68 +40,56 @@ if (isset($_SESSION['user_id'])) {
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="">
+            <form method="POST" action="editTherapist.php" enctype="multipart/form-data">
                     <div class="row">
-                        <input type="hidden" name="edit_therapistId" value="">
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="edit_fullName" name="edit_fullName"
-                                    required>
+                                <input type="text" class="form-control" id="fullName" value="<?= $therapistsData[''] ?>" name="fullName" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="specialization" class="form-label">Specialization</label>
-                                <select class="form-select" id="edit_specialization" name="edit_specialization"
-                                    required>
+                                <select class="form-select" id="specialization" value="<?= $therapistsData[''] ?>" name="specialization" required>
                                     <?php foreach ($specialties as $spec) { ?>
                                         <option value="<?= $spec["Specialty"] ?>">
                                             <?= $spec["Specialty"] ?>
                                         </option>
                                     <?php } ?>
-                                    <!-- Add more options as needed -->
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
-                                <input type="number" class="form-control" id="edit_price" name="edit_price" required>
+                                <input type="number" class="form-control" id="price" value="<?= $therapistsData[''] ?>" name="price" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="percentage" class="form-label">Percentage</label>
-                                <input type="number" class="form-control" id="edit_percentage" name="edit_percentage"
-                                    required>
+                                <input type="number" class="form-control" id="percentage" value="<?= $therapistsData[''] ?>" name="percentage" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="priceafterpercentage" class="form-label">Price After Percentage</label>
-                                <input type="number" class="form-control" id="edit_priceafterpercentage"
-                                    name="edit_priceafterpercentage" required>
+                                <input type="number" class="form-control" id="priceafterpercentage"
+                                    value="<?= $therapistsData[''] ?>" name="priceafterpercentage" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="rating" class="form-label">Rating</label>
-                                <input type="number" class="form-control" id="edit_rating" name="edit_rating" min="0"
-                                    max="5" required>
+                                <input type="number" class="form-control" id="rating" value="<?= $therapistsData[''] ?>" name="rating" min="0" max="5"
+                                    required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="city" class="form-label">City</label>
-                                <select class="form-select" id="edit_city" name="edit_city" required>
+                                <select class="form-select" id="city" value="<?= $therapistsData['city'] ?>" name="city" required>
                                     <option value="Alexandria">Alexandria</option>
                                     <option value="Aswan">Aswan</option>
                                     <option value="Asyut">Asyut</option>
@@ -132,86 +120,71 @@ if (isset($_SESSION['user_id'])) {
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="bio" class="form-label">Bio</label>
-                                <textarea class="form-control" id="edit_bio" name="edit_bio" rows="4"
-                                    required></textarea>
+                                <textarea class="form-control" id="bio" value="<?= $therapistsData['bio'] ?>" name="bio" rows="4" required></textarea>
                             </div>
                         </div>
-
-                        <div class="col-4">
+                        <!-- <div class="col-4">
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Gender</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="edit_gender" id="edit_male"
-                                        value="Male" required>
-                                    <label class="form-check-label" for="edit_male">Male</label>
+                                    <input class="form-check-input" type="radio" value="<?= $therapistsData[''] ?>" name="gender" id="male" value="Male"
+                                        required>
+                                    <label class="form-check-label" for="male">Male</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="edit_gender" id="edit_female"
+                                    <input class="form-check-input" type="radio" value="<?= $therapistsData[''] ?>" name="gender" id="female"
                                         value="Female" required>
-                                    <label class="form-check-label" for="edit_female">Female</label>
+                                    <label class="form-check-label" for="female">Female</label>
                                 </div>
                             </div>
-                        </div>
-
+                        </div> -->
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="edit_phone" name="edit_phone" required>
+                                <input type="text" class="form-control" id="phone" value="<?= $therapistsData['phone'] ?>" name="phone" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="edit_username" name="edit_username"
-                                    required>
+                                <input type="text" class="form-control" id="username" value="<?= $therapistsData['username'] ?>" name="username" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="edit_email" name="edit_email" required>
+                                <input type="email" class="form-control" id="email" value="<?= $therapistsData['email'] ?>" name="email" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="text" class="form-control" id="edit_password" name="edit_password"
-                                    required>
+                                <input type="text" class="form-control" id="password" value="<?= $therapistsData['password'] ?>" name="password" required>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="age" class="form-label">Age</label>
-                                <input type="number" class="form-control" id="edit_age" name="edit_age" min="0"
-                                    required>
+                                <input type="number" class="form-control" id="age" value="<?= $therapistsData['age'] ?>" name="age" min="0" required>
                             </div>
                         </div>
-
-                        <div class="col-4">
+                        <!-- <div class="col-4">
                             <div class="mb-3">
                                 <label for="profile" class="form-label">Profile Image</label>
-                                <input type="file" class="form-control" id="edit_profile" name="edit_profile">
+                                <input type="file" class="form-control" id="profile" value="<?= $therapistsData['profile'] ?>" name="profile">
                             </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                <i class="bx bx-x d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Close</span>
-                            </button>
-                            <button type="submit" class="btn btn-primary" name="updateTherapist">Update
-                                Therapist</button>
-                        </div>
+                        </div> -->
                     </div>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary" name="addTherapist">Add Therapist</button>
+                    </div>
                 </form>
             </div>
         </div>

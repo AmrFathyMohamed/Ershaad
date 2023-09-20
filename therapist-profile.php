@@ -2,26 +2,35 @@
 
 <?php include("classes/TherapistTable.php"); ?>
 <?php
-if (isset($_SESSION['user_id'])) {
-  // Get the 'id' value from the URL
-  if ($_SESSION['type'] == 'client') {
-    $userId = $_GET['id'];
-    $database = new Database();
-    $therapistTable = new TherapistTable($database);
-    $therapist = $therapistTable->getTherapistById($userId);
-    $sessions = $therapistTable->getDataByTherapistIdAccepted($userId, "sessions");
-    $totalSessions = count($sessions);
-    $docements = $therapistTable->getDataByTherapistId($userId, "documents");
-    $course_therapist = $therapistTable->getDataByTherapistId($userId, "course_therapist");
-    $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
-  } else {
-    header("Location: index.php");
-    exit;
-  }
-} else {
-  header("Location: index.php");
-  exit;
-}
+$userId = $_GET['id'];
+$database = new Database();
+$therapistTable = new TherapistTable($database);
+$therapist = $therapistTable->getTherapistById($userId);
+$sessions = $therapistTable->getDataByTherapistIdAccepted($userId, "sessions");
+$totalSessions = count($sessions);
+$docements = $therapistTable->getDataByTherapistId($userId, "documents");
+$course_therapist = $therapistTable->getDataByTherapistId($userId, "course_therapist");
+$appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
+// if (isset($_SESSION['user_id'])) {
+//   // Get the 'id' value from the URL
+//   if ($_SESSION['type'] == 'client') {
+//     $userId = $_GET['id'];
+//     $database = new Database();
+//     $therapistTable = new TherapistTable($database);
+//     $therapist = $therapistTable->getTherapistById($userId);
+//     $sessions = $therapistTable->getDataByTherapistIdAccepted($userId, "sessions");
+//     $totalSessions = count($sessions);
+//     $docements = $therapistTable->getDataByTherapistId($userId, "documents");
+//     $course_therapist = $therapistTable->getDataByTherapistId($userId, "course_therapist");
+//     $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
+//   } else {
+//     header("Location: index.php");
+//     exit;
+//   }
+// } else {
+//   header("Location: index.php");
+//   exit;
+// }
 
 ?>
 <style>
@@ -95,22 +104,29 @@ if (isset($_SESSION['user_id'])) {
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
           <?= $therapist['Price'] ?>
         </span><span class="px-2">/</span><span>ساعة</span></p>
-      <div class="text-center">
-        <button class="btn btn-primary px-4" style="width: 25vw;">التحدث الي المعالج</button>
-        <form method="POST" action="send_message.php">
-          <div class="d-flex align-items-center">
-            <textarea id="Message" name="Message" class="form-control border-0 mx-2"
-              placeholder="Write a reply"></textarea>
-            <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
-            <input type="hidden" id="TherapistID" name="TherapistID" value="<?= $therapist['TherapistID']; ?>" />
+      <?php if (isset($_SESSION['user_id'])) {
+        // Get the 'id' value from the URL
+        if ($_SESSION['type'] == 'client') { ?>
+          <div class="text-center">
+            <button class="btn btn-primary px-4" style="width: 25vw;">التحدث الي المعالج</button>
+            <form method="POST" action="send_message.php">
+              <div class="d-flex align-items-center">
+                <textarea id="Message" name="Message" class="form-control border-0 mx-2"
+                  placeholder="Write a reply"></textarea>
+                <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
+                <input type="hidden" id="TherapistID" name="TherapistID" value="<?= $therapist['TherapistID']; ?>" />
 
-            <button id="sendBtn" type="submit" class="btn me-2">
-              <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-            </button>
+                <button id="sendBtn" type="submit" class="btn me-2">
+                  <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+                </button>
+              </div>
+            </form>
+            <!-- <button class="btn btn-secondary px-4" style="width: 15vw;"> حجز جلسة</button> -->
           </div>
-        </form>
-        <!-- <button class="btn btn-secondary px-4" style="width: 15vw;"> حجز جلسة</button> -->
-      </div>
+        <?php } else {
+        }
+      } ?>
+
     </div>
   </div>
 </div>
@@ -290,7 +306,7 @@ if (isset($_SESSION['user_id'])) {
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
-                    <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal">حجز الكورس</button>
+                    <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal" href="login.php">حجز الكورس</button>
                   </div>
                 </form>
               </div>

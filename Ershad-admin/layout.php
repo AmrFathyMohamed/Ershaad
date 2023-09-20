@@ -63,11 +63,11 @@ checkSession();
                                 <i data-feather="user" width="20"></i>
                                 <span>Admins</span>
                             </a>
-                            <a href="Appointment.php" class='sidebar-link'>
+                            <!-- <a href="Appointment.php" class='sidebar-link'>
                                 <i data-feather="calendar" width="20"></i>
                                 <span>Appointments</span>
-                            </a>
-                            <a href="Session.php" class='sidebar-link'>
+                            </a> -->
+                            <a href="Sessions.php" class='sidebar-link'>
                                 <i data-feather="git-commit" width="20"></i>
                                 <span>Sessions</span>
                             </a>
@@ -84,17 +84,17 @@ checkSession();
                                 <span>Specialties</span>
                             </a>
 
-                            <a href="Report.php" class='sidebar-link'>
+                            <a href="Questions.php" class='sidebar-link'>
                                 <i data-feather="help-circle" width="20"></i>
                                 <span>Questions</span>
                             </a>
-                            <a href="Report.php" class='sidebar-link'>
+                            <a href="Ads.php" class='sidebar-link'>
                                 <i data-feather="percent" width="20"></i>
                                 <span>Ads</span>
                             </a>
-                            <a href="Report.php" class='sidebar-link'>
-                                <i data-feather="disc" width="20"></i>
-                                <span>Sessions</span>
+                            <a href="Reports.php" class='sidebar-link'>
+                                <i data-feather="percent" width="20"></i>
+                                <span>Reports</span>
                             </a>
                         </li>
                     </ul>

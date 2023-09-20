@@ -28,66 +28,45 @@ if (isset($_POST['addTherapist'])) {
     $gender = $_POST['gender'];
     $phone = $_POST['phone'];
     $desiredUsername = $_POST['username'];
-
-    // Check if the desired username already exists
     $query = "SELECT COUNT(*) AS count FROM therapists WHERE Username = '$desiredUsername'";
     $result = $database->executeQuery($query);
     $row = $result->fetch_assoc();
 
     if ($row['count'] > 0) {
-        // Username already exists, generate a unique one
-        $uniqueUsername = $desiredUsername . uniqid(); // Appending a unique identifier
+        $uniqueUsername = $desiredUsername . uniqid();
     } else {
-        // Username is unique
         $uniqueUsername = $desiredUsername;
     }
 
     $email = $_POST['email'];
     $password = $_POST['password'];
     $age = intval($_POST['age']);
-
-    // Handle file upload for profile image
-    $targetDir = "uploads/"; // Replace with your desired upload directory
+    $targetDir = "uploads/";
     $profileImage = $_FILES['profile']['name'];
     $profileImageTmp = $_FILES['profile']['tmp_name'];
 
-    // Generate a unique filename for the uploaded image
-    $uniqueFilename = uniqid() . '_' . $profileImage;
-
-    // Move the uploaded file to the target directory
-    if (move_uploaded_file($profileImageTmp, $targetDir . $uniqueFilename)) {
-        // File uploaded successfully, continue with insertion
-        $success = $therapists->insertTherapist(
-            $fullName,
-            $specialization,
-            $price,
-            $percentage,
-            $priceAfterPercentage,
-            $rating,
-            $city,
-            $bio,
-            $gender,
-            $phone,
-            $uniqueUsername,
-            // Use the generated unique username
-            $email,
-            $password,
-            $age,
-            $uniqueFilename // Use the generated unique filename
-        );
-
-        if ($success) {
-            // Insertion successful, redirect to a success page or show a success message
-            header('Location: success.php');
-            exit;
-        } else {
-            // Insertion failed, show an error message
-            $errorMessage = "Failed to add therapist.";
-        }
+    // Check if a file was uploaded
+    if (empty($profileImage)) {
+        $errorMessage = "Please select a profile image.";
     } else {
-        // File upload failed, show an error message
-        $errorMessage = "Failed to upload profile image.";
+        $uniqueFilename = uniqid() . '_' . $profileImage;
+
+        // Check if the file was successfully uploaded
+        if (move_uploaded_file($profileImageTmp, $targetDir . $uniqueFilename)) {
+            // Assuming $therapists is an instance of a class with an insertTherapist method
+            $success = $therapists->insertTherapist($fullName, $specialization, $price, $percentage, $priceAfterPercentage, $rating, $city, $bio, $gender, $phone, $uniqueUsername, $email, $password, $age, 'Ershad-admin/'.$targetDir.$uniqueFilename);
+
+            if ($success) {
+                header('Location: index.php');
+                exit;
+            } else {
+                $errorMessage = "Failed to add therapist.";
+            }
+        } else {
+            $errorMessage = "Failed to upload profile image.";
+        }
     }
+
 }
 ?>
 
@@ -111,7 +90,7 @@ if (isset($_POST['addTherapist'])) {
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="">
+            <form method="POST" action="addTherapist.php" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-4">
                             <div class="mb-3">
@@ -128,7 +107,6 @@ if (isset($_POST['addTherapist'])) {
                                             <?= $spec["Specialty"] ?>
                                         </option>
                                     <?php } ?>
-                                    <!-- Add more options as needed -->
                                 </select>
                             </div>
                         </div>
@@ -264,3 +242,6 @@ if (isset($_POST['addTherapist'])) {
     </section>
 </div>
 <?php include("footer.php"); ?>
+</body>
+
+</html>

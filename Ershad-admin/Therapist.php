@@ -3,19 +3,14 @@
 <?php include("../classes/TherapistTable.php"); ?>
 <?php include("../classes/SpecialtiesTable.php"); ?>
 <?php
-// Check if the 'id' parameter is set in the URL
 if (isset($_SESSION['user_id'])) {
-    // Get the 'id' value from the URL
     $userId = $_SESSION['user_id'];
     $database = new Database();
     $therapists = new TherapistTable($database);
     $therapistsData = $therapists->getTherapists();
     $SpecialtiesObject = new SpecialtiesTable($database);
     $specialties = $SpecialtiesObject->getDataByTableName();
-    // You can use $userId in your code as needed
 } else {
-    // Handle the case when 'id' is not present in the URL
-    // You might want to redirect the user or show an error message
     header("Location: index.php");
     exit;
 }
@@ -55,18 +50,12 @@ if (isset($_SESSION['user_id'])) {
                             <th class="fs-small">Name</th>
                             <th class="fs-small">Specialty</th>
                             <th class="fs-small">Price/hour</th>
-                            <!-- <th class="fs-small">Percentage</th>
-                            <th class="fs-small">PriceAfterPerc.</th> -->
                             <th class="fs-small">Rating</th>
                             <th class="fs-small">City</th>
-                            <!-- <th>Bio</th> -->
                             <th class="fs-small">Gender</th>
                             <th class="fs-small">Phone</th>
-                            <!-- <th class="fs-small">Username</th> -->
                             <th class="fs-small">credentials</th>
-                            <!-- <th class="fs-small">Password</th> -->
                             <th class="fs-small">Age</th>
-                            <!-- <th>Profile</th> -->
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -74,45 +63,39 @@ if (isset($_SESSION['user_id'])) {
                         <?php foreach ($therapistsData as $therapist) { ?>
                             <tr>
                                 <td>
-                                    <?php echo $therapist['FullName']; ?>
+                                    <?= $therapist['FullName']; ?>
                                 </td>
                                 <td class="fs-small">
-                                    <?php echo $therapist['Specialization']; ?>
+                                    <?= $therapist['Specialization']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $therapist['Price']; ?>
-                                </td>
-                                <!-- <td>
-                                    <?php echo $therapist['Percentage']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $therapist['PriceAfterPercentage']; ?>
-                                </td> -->
-                                <td>
-                                    <?php echo $therapist['Rating']; ?>
+                                    Price :
+                                    <?= $therapist['Price']; ?>
+                                    Percentage :
+                                    <?= $therapist['Percentage']; ?>
+                                    Price After Percentage :
+                                    <?= $therapist['PriceAfterPercentage']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $therapist['City']; ?>
-                                </td>
-                                <!-- <td><?php //echo $therapist['Bio']; ?></td> -->
-                                <td>
-                                    <?php echo $therapist['Gender']; ?>
+                                    <?= $therapist['Rating']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $therapist['Phone']; ?>
+                                    <?= $therapist['City']; ?>
                                 </td>
-                                <!-- <td>
-                                    <?php echo $therapist['Username']; ?>
-                                </td> -->
                                 <td>
-                                    <?php echo $therapist['Email']; ?>
-                                    <?php echo $therapist['Password']; ?>
+                                    <?= $therapist['Gender']; ?>
+                                </td>
+                                <td>
+                                    <?= $therapist['Phone']; ?>
                                 </td>
 
                                 <td>
-                                    <?php echo $therapist['Age']; ?>
+                                    <?= 'UserName : ' . $therapist['Username']; ?>
+                                    <?= 'Email : ' . $therapist['Email']; ?>
                                 </td>
-                                <!-- <td><?php //echo $therapist['Profile']; ?></td> -->
+                                <td>
+                                    <?= $therapist['Age']; ?>
+                                </td>
                                 <td>
                                     <div class="dropdown right">
                                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
@@ -121,23 +104,21 @@ if (isset($_SESSION['user_id'])) {
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item pointer"
-                                                href="editTherapist.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">تعديل
+                                                href="editTherapist.php?TherapistID=<?= $therapist['TherapistID']; ?>">تعديل
                                                 البيانات</a>
                                             <a class="dropdown-item pointer"
-                                                href="viewTherapist.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">التفاصيل</a>
+                                                href="viewTherapist.php?TherapistID=<?= $therapist['TherapistID']; ?>">التفاصيل</a>
                                             <a class="dropdown-item"
-                                                href="docs.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">الوثائق</a>
+                                                href="docs.php?TherapistID=<?= $therapist['TherapistID']; ?>">الوثائق</a>
                                             <a class="dropdown-item"
-                                                href="Schedule.php?TherapistID=<?php echo $therapist['TherapistID']; ?>">تحديد
+                                                href="Schedule.php?TherapistID=<?= $therapist['TherapistID']; ?>">تحديد
                                                 الواعيد</a>
 
                                             <a class="dropdown-item pointer delete-therapist" href="#"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="<?php echo $therapist['TherapistID']; ?>"
-                                                data-fullname="<?php echo $therapist['FullName']; ?>"
-                                                onclick="confirmDelete(<?php echo $therapist['TherapistID']; ?>)">حذف</a>
-
-
+                                                data-id="<?= $therapist['TherapistID']; ?>"
+                                                data-fullname="<?= $therapist['FullName']; ?>"
+                                                onclick="confirmDelete(<?= $therapist['TherapistID']; ?>)">حذف</a>
                                         </div>
                                     </div>
                                 </td>
@@ -147,55 +128,12 @@ if (isset($_SESSION['user_id'])) {
                 </table>
             </div>
         </div>
-
     </section>
 </div>
 
 
 
-<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">تغيير الحالة</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i data-feather="x"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row my-5">
-                    <div class="col-6 pe-3">
-                        <input id="argent" class="check-rej-input" type="radio" name="type" value="argent" />
-                        <label for="argent" class="check-img-label w-100">
-                            <div class="check-img-content pt-3 pb-2">
-                                <h5> <i class="bi bi-x-octagon me-1 fs-4"></i> رفض</h5>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="col-6 ps-3">
-                        <input id="normal" class="check-acc-input" type="radio" name="type" value="normal" />
-                        <label for="normal" class="check-img-label w-100">
-                            <div class="check-img-content pt-3 pb-2">
-                                <h5> <i class="bi bi-check-circle-fill me-1 fs-4"></i> قبول </h5>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">الغاء</span>
-                </button>
-                <button type="button" class="btn btn-primary px-5" data-bs-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">حفظ</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!--Danger theme Modal -->
 <div class="modal fade text-left" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120"
@@ -236,98 +174,23 @@ if (isset($_SESSION['user_id'])) {
             ],
         });
     });
-</script>
-<!-- Add this script to your HTML, preferably just before the closing </body> tag -->
-<script>
+
     $(document).ready(function () {
-        // Function to fetch therapist data and populate the form
-        function fetchTherapistData(therapistId) {
-            $.ajax({
-                url: 'getTherapistData.php',
-                method: 'GET',
-                data: { therapistId: therapistId },
-                dataType: 'json',
-                success: function (data) {
-                    // Populate the form fields with data
-                    $('#edit_fullName').val(data.FullName);
-                    $('#edit_specialization').val(data.Specialization);
-                    $('#edit_price').val(data.Price);
-                    $('#edit_percentage').val(data.Percentage);
-                    $('#edit_priceafterpercentage').val(data.PriceAfterPercentage);
-                    $('#edit_rating').val(data.Rating);
-                    $('#edit_city').val(data.City);
-                    $('#edit_bio').val(data.Bio);
-                    $('input[name="edit_gender"][value="' + data.Gender + '"]').prop('checked', true);
-                    $('#edit_phone').val(data.Phone);
-                    $('#edit_username').val(data.Username);
-                    $('#edit_email').val(data.Email);
-                    $('#edit_password').val(data.Password);
-                    $('#edit_age').val(data.Age);
-                    // You may need to handle the profile image separately
-                },
-                error: function () {
-                    alert('Failed to fetch therapist data.');
-                }
-            });
-        }
-
-        $('#editModal').on('show.bs.modal', function (event) {
-            // Get the TherapistID from the data-id attribute
-            var therapistId = $(event.relatedTarget).data('id');
-
-            // Populate the hidden input field
-            $('input[name="edit_therapistId"]').val(therapistId);
-
-            // Fetch and display therapist data
-            fetchTherapistData(therapistId);
-        });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        // Function to fetch therapist data and populate the form
-        function fetchTherapistData(therapistId) {
-            $.ajax({
-                url: './getTherapistData.php',
-                method: 'GET',
-                data: { therapistId: therapistId },
-                dataType: 'json',
-                success: function (data) {
-                    // Populate the form fields with data
-                    $('#edit_fullName').val(data.FullName);
-                    // ... (populate other fields)
-                },
-                error: function () {
-                    alert('Failed to fetch therapist data.');
-                }
-            });
-        }
-
-
-        // Handle the click event of the "Delete" button
         $(document).on('click', '.delete-therapist', function () {
-            // Get the therapist ID from the data-id attribute
             var therapistId = $(this).data('id');
             var therapistFullName = $(this).data('fullname');
-
-            // Set the therapist's full name in the confirmation modal
             $('#therapistFullName').text('Therapist: ' + therapistFullName);
-
-            // Handle the confirmation button click
             $('#confirmDelete').off('click').on('click', function () {
-                // Make an AJAX request to delete the therapist
                 $.ajax({
-                    url: './deletetherapist.php', // Replace with the correct URL for your deletetherapist.php file
+                    url: 'deletetherapist.php',
                     method: 'GET',
-                    data: { TherapistID: therapistId }, // Ensure the correct parameter name is used
+                    data: { TherapistID: therapistId },
                     dataType: 'json',
                     success: function (response) {
                         if (response.success) {
-                            // Deletion successful, you can remove the table row or reload the page
                             alert('Therapist deleted successfully!');
-                            location.reload(); // Reload the page to update the therapist list
+                            location.reload();
                         } else {
-                            // Deletion failed, display the error message
                             alert('Failed to delete therapist: ' + response.message);
                         }
                     },
@@ -345,92 +208,90 @@ if (isset($_SESSION['user_id'])) {
 </html>
 <?php
 // Handle the form submission for adding a new therapist
-if (isset($_POST['addTherapist'])) {
-    $data = array(
-        $_POST['fullName'],
-        $_POST['specialization'],
-        $_POST['price'],
-        $_POST['percentage'],
-        $_POST['priceafterpercentage'],
-        $_POST['rating'],
-        $_POST['city'],
-        $_POST['bio'],
-        $_POST['gender'],
-        $_POST['phone'],
-        $_POST['username'],
-        $_POST['email'],
-        $_POST['password'],
-        $_POST['age'],
-        $_POST['profile']
-    );
+// if (isset($_POST['addTherapist'])) {
+//     $data = array(
+//         $_POST['fullName'],
+//         $_POST['specialization'],
+//         $_POST['price'],
+//         $_POST['percentage'],
+//         $_POST['priceafterpercentage'],
+//         $_POST['rating'],
+//         $_POST['city'],
+//         $_POST['bio'],
+//         $_POST['gender'],
+//         $_POST['phone'],
+//         $_POST['username'],
+//         $_POST['email'],
+//         $_POST['password'],
+//         $_POST['age'],
+//         $_POST['profile']
+//     );
 
-    if ($therapists->insertTherapist(...$data)) {
-        // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script$>';
-        exit;
-    } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add therapist.";
-    }
-}
-// Handle the form submission for updating an existing therapist
-if (isset($_POST['updateTherapist'])) {
-    //$therapistId = $_POST['therapistId'];
-    $data = array(
-        $_POST['edit_therapistId'],
-        $_POST['edit_fullName'],
-        $_POST['edit_specialization'],
-        $_POST['edit_price'],
-        $_POST['edit_percentage'],
-        $_POST['edit_priceafterpercentage'],
-        $_POST['edit_rating'],
-        $_POST['edit_city'],
-        $_POST['edit_bio'],
-        $_POST['edit_gender'],
-        $_POST['edit_phone'],
-        $_POST['edit_username'],
-        $_POST['edit_email'],
-        $_POST['edit_password'],
-        $_POST['edit_age'],
-        $_POST['edit_profile']
-    );
+//     if ($therapists->insertTherapist(...$data)) {
+//         // Insertion successful, you can redirect or show a success message
+//         echo '<script>window.location.href = "Therapist.php";</script$>';
+//         exit;
+//     } else {
+//         // Insertion failed, handle the error
+//         $errorMessage = "Failed to add therapist.";
+//     }
+// }
+// // Handle the form submission for updating an existing therapist
+// if (isset($_POST['updateTherapist'])) {
+//     //$therapistId = $_POST['therapistId'];
+//     $data = array(
+//         $_POST['edit_therapistId'],
+//         $_POST['edit_fullName'],
+//         $_POST['edit_specialization'],
+//         $_POST['edit_price'],
+//         $_POST['edit_percentage'],
+//         $_POST['edit_priceafterpercentage'],
+//         $_POST['edit_rating'],
+//         $_POST['edit_city'],
+//         $_POST['edit_bio'],
+//         $_POST['edit_gender'],
+//         $_POST['edit_phone'],
+//         $_POST['edit_username'],
+//         $_POST['edit_email'],
+//         $_POST['edit_password'],
+//         $_POST['edit_age'],
+//         $_POST['edit_profile']
+//     );
 
-    if ($therapists->updateTherapist(...$data)) {
-        // Update successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
-        exit;
-    } else {
-        // Update failed, handle the error
-        $errorMessage = "Failed to update therapist.";
-    }
-}
-// Handle the deletion of a therapist
-if (isset($_GET['deleteTherapist'])) {
-    $therapistId = $_GET['deleteTherapist'];
+//     if ($therapists->updateTherapist(...$data)) {
+//         // Update successful, you can redirect or show a success message
+//         echo '<script>window.location.href = "Therapist.php";</script>';
+//         exit;
+//     } else {
+//         // Update failed, handle the error
+//         $errorMessage = "Failed to update therapist.";
+//     }
+// }
+// // Handle the deletion of a therapist
+// if (isset($_GET['deleteTherapist'])) {
+//     $therapistId = $_GET['deleteTherapist'];
 
-    if ($therapists->deleteTherapist($therapistId)) {
-        // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
-        exit;
-    } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete therapist.";
-    }
-}
+//     if ($therapists->deleteTherapist($therapistId)) {
+//         // Deletion successful, you can redirect or show a success message
+//         echo '<script>window.location.href = "Therapist.php";</script>';
+//         exit;
+//     } else {
+//         // Deletion failed, handle the error
+//         $errorMessage = "Failed to delete therapist.";
+//     }
+// }
 
-// Retrieve therapist data by ID
-if (isset($_GET['editTherapist'])) {
-    $therapistId = $_GET['editTherapist'];
-    $therapistData = $therapists->getTherapistById($therapistId);
+// // Retrieve therapist data by ID
+// if (isset($_GET['editTherapist'])) {
+//     $therapistId = $_GET['editTherapist'];
+//     $therapistData = $therapists->getTherapistById($therapistId);
 
-    // Populate the edit modal with $therapistData
-}
+//     // Populate the edit modal with $therapistData
+// }
 
-// Retrieve therapist data for details view
-if (isset($_GET['viewDetails'])) {
-    $therapistId = $_GET['viewDetails'];
-    $therapistData = $therapists->getTherapistById($therapistId);
-}
-
-
+// // Retrieve therapist data for details view
+// if (isset($_GET['viewDetails'])) {
+//     $therapistId = $_GET['viewDetails'];
+//     $therapistData = $therapists->getTherapistById($therapistId);
+// }
 ?>

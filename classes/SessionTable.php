@@ -24,9 +24,11 @@ class SessionTable
 
     }
 
-    public function getSessionById($SessionId)
+    public function getSessions()
     {
-
+        $query = "SELECT * FROM $this->table ";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getSessionstherapist($id)

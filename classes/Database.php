@@ -4,7 +4,7 @@ class Database
     private $host = "localhost";
     private $username = "root"; //"id21106103_ershad"
     private $password = ""; //"Ershad2023@@"
-    private $database = "ershaad"; //"id21106103_ershad"
+    private $database = "ershad"; //"id21106103_ershad"
     private $conn;
 
     // Add a property to store the error message

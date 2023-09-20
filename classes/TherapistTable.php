@@ -11,8 +11,9 @@ class TherapistTable
 
     public function insertTherapist($fullName, $specialization, $price, $percentage, $priceAfterPercentage, $rating, $city, $bio, $gender, $phone, $username, $email, $password, $age, $profile)
     {
-        $query = "INSERT INTO $this->table (FullName, Specialization, Price,Percentage,PriceAfterPercentage Rating, City, Bio, Gender, Phone, Username, Email, Password, Age, Profile) 
+        $query = "INSERT INTO $this->table (FullName, Specialization, Price,Percentage,PriceAfterPercentage, Rating, City, Bio, Gender, Phone, Username, Email, Password, Age, Profile) 
                   VALUES ('$fullName', '$specialization', '$price','$percentage','$priceAfterPercentage','$rating', '$city', '$bio', '$gender', '$phone', '$username', '$email', '$password', '$age', '$profile')";
+        echo $query;
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
