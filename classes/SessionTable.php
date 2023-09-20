@@ -27,9 +27,13 @@ class SessionTable
     }
 
 
-    public function updateSession($SessionId)
+    public function updateSession($courseClientId, $status)
     {
-
+        $query = "UPDATE $this->table SET Status = '$status', updated_at = NOW() 
+        WHERE SessionID = $courseClientId";
+        
+$stmt = $this->db->executeQuery($query);
+return $stmt !== false;
     }
 
     public function deleteSession($SessionId)

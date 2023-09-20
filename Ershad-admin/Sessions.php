@@ -11,6 +11,23 @@ if (isset($_SESSION['user_id'])) {
     $sessions = new SessionTable($database);
     $sessionsData = $sessions->getSessions();
     // You can use $userId in your code as needed
+    if (isset($_POST['acceptSession'])) {
+        $courseClientId = $_POST['SessionID'];       
+
+        if ($sessions ->updateSession($courseClientId, 'Accepted')) {
+            // Status changed to 'Accepted', calculate session details and cost
+        }
+        
+    }
+    if (isset($_POST['rejectSession'])) {
+        $courseClientId = $_POST['SessionID'];
+        
+
+        if ($sessions ->updateSession($courseClientId, 'Rejected')) {
+            // Status changed to 'Accepted', calculate session details and cost
+        }
+        
+    }
 } else {
     // Handle the case when 'id' is not present in the URL
     // You might want to redirect the user or show an error message
