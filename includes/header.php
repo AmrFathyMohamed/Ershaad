@@ -74,17 +74,9 @@ $specialties = $SpecialtiesObject->getDataByTableName();
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
                 <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="fa fa-phone-alt me-2"></small>
-                    <small>+012 345 6789</small>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center me-4">
                     <small class="far fa-envelope-open me-2"></small>
-                    <small>info@example.com</small>
+                    <small>ershaad80@gmail.com</small>
                 </div>
-                <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small id="realTimeClock" class="me-2"></small>
-                    <small class="far fa-clock me-2"></small>
-</div>
             </div>
             <div class="col-lg-5 px-5 text-end">
                 <div class="h-100 d-inline-flex align-items-center">
@@ -197,8 +189,13 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                     <a class="dropdown-item pointer text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
                 </div>
             </div>
-        <?php } else { ?>
-            <a href="login.php" class="btn btn-light px-4" style="width: 8vw;">تسجيل الدخول</a>
+        <?php }
+         else { ?>
+            <a href="login.php" class="btn btn-light col-5 col-md-2 d-none d-md-inline-block">تسجيل الدخول</a>
+            <div class="d-md-none d-block w-100 right">
+                <a href="login.php" class=" text-white border rounded px-2 py-1">تسجيل الدخول</a>
+            </div>
+            
         <?php } } else { ?>
             <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
@@ -214,10 +211,9 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                                 <?php } ?>
                             </div>
                         </div>
-                        <a href="login.php" class="btn btn-light px-4 d-block d-md-none">تسجيل الدخول</a>
+                        <!-- <a href="login.php" class="btn btn-light px-4 d-block">تسجيل الدخول</a> -->
                     </div>
             </div>
-            <a href="login.php" class="btn btn-light px-4 d-none d-md-block" style="width: 8vw;">تسجيل الدخول</a>
         <?php }
         ?>
 

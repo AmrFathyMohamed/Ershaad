@@ -79,15 +79,15 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
     <div class="container  py-5">
       <nav aria-label="breadcrumb animated slideInDown">
         <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
-          <li class="breadcrumb-item"><a href="search.php">المعالجين</a></li>
+          <li class="breadcrumb-item"><a href="index.php" class="text-phone">الرئيسية</a></li>
+          <li class="breadcrumb-item"><a href="search.php" class="text-phone">المعالجين</a></li>
           <li class="breadcrumb-item active" aria-current="page">
             الملف الشخصي لمعالج
           </li>
         </ol>
       </nav>
-      <div class="text-center"><img src="<?= $therapist['Profile']; ?>" style="width: 10vw;" alt=""
-          class="rounded-circle shadow">
+      <div class="text-center mt-3"><img src="<?= $therapist['Profile']; ?>" alt=""
+          class="rounded-circle shadow prof-img">
       </div>
       <h1 class="animated slideInDown text-center arabic text- mb-4">
         <?= $therapist['FullName']; ?>
@@ -104,28 +104,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
           <?= $therapist['Price'] ?>
         </span><span class="px-2">/</span><span>ساعة</span></p>
-      <?php if (isset($_SESSION['user_id'])) {
-        // Get the 'id' value from the URL
-        if ($_SESSION['type'] == 'client') { ?>
-          <div class="text-center">
-            <button class="btn btn-primary px-4" style="width: 25vw;">التحدث الي المعالج</button>
-            <form method="POST" action="send_message.php">
-              <div class="d-flex align-items-center">
-                <textarea id="Message" name="Message" class="form-control border-0 mx-2"
-                  placeholder="Write a reply"></textarea>
-                <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
-                <input type="hidden" id="TherapistID" name="TherapistID" value="<?= $therapist['TherapistID']; ?>" />
-
-                <button id="sendBtn" type="submit" class="btn me-2">
-                  <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                </button>
-              </div>
-            </form>
-            <!-- <button class="btn btn-secondary px-4" style="width: 15vw;"> حجز جلسة</button> -->
-          </div>
-        <?php } else {
-        }
-      } ?>
+      
 
     </div>
   </div>
@@ -134,16 +113,26 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
 
 <!-- reservation start -->
 <div class="container mb-5">
-  <div class="row rounded border p-4">
-    <div class="col-5  border-end">
-      <h6 class="text-right">اختر اليوم</h6>
-      <div id="container" class="calendar-container"></div>
-      <input type="date" id="date" hidden>
-      <p class="text-" id="dateLabel"></p>
+  <div class="row rounded border p-4 px-sm-3">
+  <div class="col-md-7 col-12 pe-5 order-last-phone px-sm-3 mt-4">
+      <div class="col-12">
+        <h6 class="text-right">المواعيد المتاحة</h6>
+      </div>
+      <div class="row gx-4" id="availableDates">
 
+      </div>
+      <div class="text-center mt-5">
+        <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
+          الموعد</button>
+      </div>
+    </div>
+    <div class="col-md-5 col-12">
+      <h6 class="text-right">اختر اليوم</h6>
+      <input type="date" id="date" class="form-control form-control-lg">
+      <p class="text-" id="dateLabel"></p>
       <h6 class="text-right mt-3">أختر نوع الجلسة</h6>
       <div class="d-flex align-items-center justify-content-around">
-        <div class="col-6 pe-3">
+        <div class="col-6 pe-3" id="arg">
           <input id="argent" class="check-img-input" type="radio" name="type" value="argent" />
           <label for="argent" class="check-img-label w-100">
             <div class="check-img-content pt-2 pb-1">
@@ -164,59 +153,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
 
       </div>
     </div>
-    <div class="col-7">
-      <div class="col-12">
-        <h6 class="text-right">المواعيد المتاحة</h6>
-      </div>
-      <div class="row gx-4" id="availableDates">
-
-        <div class="col-3 pb-4">
-          <input id="period-1" class="check-img-input" type="radio" name="period" value="11:00 pm - 12:00 pm" />
-          <label for="period-1" class="check-img-label w-100">
-            <div class="check-img-content pt-2 pb-1">
-              <h6>11:00 pm - 12:00 pm </h6>
-            </div>
-          </label>
-        </div>
-        <div class="col-3 pb-4">
-          <input id="period-5" class="check-img-input" type="radio" name="period" value="11:00 pm - 12:00 pm" />
-          <label for="period-5" class="check-img-label w-100">
-            <div class="check-img-content pt-2 pb-1">
-              <h6>11:00 pm - 12:00 pm </h6>
-            </div>
-          </label>
-        </div>
-        <div class="col-3 pb-4">
-          <input id="period-2" class="check-img-input" type="radio" name="period" value="11:00 pm - 12:00 pm" />
-          <label for="period-2" class="check-img-label w-100">
-            <div class="check-img-content pt-2 pb-1">
-              <h6>11:00 pm - 12:00 pm </h6>
-            </div>
-          </label>
-        </div>
-        <div class="col-3 pb-4">
-          <input id="period-3" class="check-img-input" type="radio" name="period" value="11:00 pm - 12:00 pm" />
-          <label for="period-3" class="check-img-label w-100">
-            <div class="check-img-content pt-2 pb-1">
-              <h6>11:00 pm - 12:00 pm </h6>
-            </div>
-          </label>
-        </div>
-        <div class="col-3 pb-4">
-          <input id="period-4" class="check-img-input" type="radio" name="period" value="11:00 pm - 12:00 pm" />
-          <label for="period-4" class="check-img-label w-100">
-            <div class="check-img-content pt-2 pb-1">
-              <h6>11:00 pm - 12:00 pm </h6>
-            </div>
-          </label>
-        </div>
-
-      </div>
-      <div class="text-center mt-5">
-        <button class="btn btn-primary px-4" style="width: 15vw;" onclick="reservePeriod()" id="reserveSession"> حجز هذا
-          الموعد</button>
-      </div>
-    </div>
+    
   </div>
 </div>
 <!-- reservation end -->
@@ -459,45 +396,67 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
     }
 
   }
-  $("#reserveSession").prop("hidden", true);
-  $("#availableDates").hide()
-  $(document).ready(function () {
+        // Get the current date in yyyy-mm-dd format
+        function getCurrentDate() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        // Set the input's value to the current date
+        document.getElementById('date').value = getCurrentDate();
+  // $("#reserveSession").prop("hidden", true);
+  // $("#availableDates").hide()
+  // $(document).ready(function () {
 
-    $("#container").simpleCalendar({
-      fixedStartDay: false
-    });
+  //   $("#container").simpleCalendar({
+  //     fixedStartDay: false
+  //   });
 
-    $(".td").click(function () {
-      if ($(".check-img-input:checked").length <= 0) {
-        toast("اختر نوع الجلسة لعرض المواعيد", 0);
-        $("#availableDates").hide()
+  //   $(".td").click(function () {
+  //     if ($(".check-img-input:checked").length <= 0) {
+  //       toast("اختر نوع الجلسة لعرض المواعيد", 0);
+  //       $("#availableDates").hide()
 
-      } else {
-        // عرض الموعيد
-        $("#availableDates").show()
+  //     } else {
+  //       // عرض الموعيد
+  //       $("#availableDates").show()
 
-      }
-    })
-    $(".check-img-input").change(function () {
-      if ($("#date").val() == '') {
-        toast(" حدد تاريخ الجلسة لعرض المواعيد", 0);
-        $("#availableDates").hide()
-      } else {
-        //عرض المواعيد
-        $("#availableDates").show()
+  //     }
+  //   })
+  //   $(".check-img-input").change(function () {
+  //     if ($("#date").val() == '') {
+  //       toast(" حدد تاريخ الجلسة لعرض المواعيد", 0);
+  //       $("#availableDates").hide()
+  //     } else {
+  //       //عرض المواعيد
+  //       $("#availableDates").show()
 
-      }
-    })
+  //     }
+  //   })
 
-    $('[name="period"]').change(function () {
-      $("#reserveSession").prop("hidden", false);
-      // حجز الموعد
+  //   $('[name="period"]').change(function () {
+  //     $("#reserveSession").prop("hidden", false);
+  //     // حجز الموعد
 
-    })
+  //   })
 
-  });
+  //});
 
+  $('#date').on('change', function() {
+    const selectedDate = $(this).val();
+    const currentDate = getCurrentDate();
 
+    // Check if the selected date is not today's date
+    if (selectedDate !== currentDate) {
+        // Hide the element with ID "arg"
+        $('#arg').hide();
+    } else {
+        // Show the element with ID "arg"
+        $('#arg').show();
+    }
+});
 
 </script>
 <script>

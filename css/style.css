@@ -152,6 +152,7 @@ font-family: 'Tajawal', sans-serif!important;
         transition: .5s;
         opacity: 1;
     }
+    
 }
 
 
@@ -584,8 +585,15 @@ font-family: 'Tajawal', sans-serif!important;
     transition: .5s;
     opacity: 1;
 }
-
+.prof-img{
+    width: 9vw;
+    height: 9vw;
+}
    @media (max-width: 767px) {
+    .prof-img{
+        width: 20vw;
+        height: 20vw;
+    }
     .carousel-control-prev-icon, .carousel-control-next-icon {
         width: 2rem;
         height: 2rem;
@@ -627,3 +635,15 @@ font-family: 'Tajawal', sans-serif!important;
 }
     
 }
+
+.navbar .nav-item .dropdown-menu{
+    left: auto!important;
+}
+@media (max-width: 991.98px){
+.navbar .nav-item .dropdown-menu {
+    padding-left: 30px;
+}
+.navbar .nav-item .dropdown-menu {
+    left: -50vw!important;
+    }
+    }
