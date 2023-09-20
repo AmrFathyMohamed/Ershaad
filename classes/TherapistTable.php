@@ -11,8 +11,8 @@ class TherapistTable
 
     public function insertTherapist($fullName, $specialization, $price, $percentage, $priceAfterPercentage, $rating, $city, $bio, $gender, $phone, $username, $email, $password, $age, $profile)
     {
-        $query = "INSERT INTO $this->table (FullName, Specialization, Price,Percentage,PriceAfterPercentage, Rating, City, Bio, Gender, Phone, Username, Email, Password, Age, Profile) 
-                  VALUES ('$fullName', '$specialization', '$price','$percentage','$priceAfterPercentage','$rating', '$city', '$bio', '$gender', '$phone', '$username', '$email', '$password', '$age', '$profile')";
+        $query = "INSERT INTO $this->table (FullName, Specialization, Price,Percentage,PriceAfterPercentage, Rating, City, Bio, Gender, Phone, Username, Email, Password, Age, Profile, is_deleted, created_at, updated_at)  
+                  VALUES ('$fullName', '$specialization', '$price','$percentage','$priceAfterPercentage','$rating', '$city', '$bio', '$gender', '$phone', '$username', '$email', '$password', '$age', '$profile',0,NOW(),NOW())";
         echo $query;
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
@@ -23,7 +23,7 @@ class TherapistTable
     {
         $edit_query = "UPDATE $this->table SET 
               FullName = '$edit_fullName', Specialization = '$edit_specialization', Price = $edit_price, Percentage = $edit_percentage,PriceAfterPercentage =$editpriceAfterPercentage, Rating = $edit_rating, City = '$edit_city',
-              Bio = '$edit_bio', Gender = '$edit_gender', Phone = '$edit_phone', Username = '$edit_username', Email = '$edit_email',
+              Bio = '$edit_bio', Gender = '$edit_gender', Phone = '$edit_phone', Username = '$edit_username', Email = '$edit_email',updated_at = NOW()
               Password = '$edit_password', Age = $edit_age, Profile = '$edit_profile' 
               WHERE TherapistID = $edit_therapistId";
 

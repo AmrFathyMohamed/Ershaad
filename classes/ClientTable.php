@@ -8,8 +8,7 @@ class ClientTable
     {
         $this->db = $database;
     }
-
-    public function insertClient($fullName, $city, $gender, $phone, $username, $email, $password, $age)
+    public function insertClient($fullName, $username,$email,$password,$gender,   $age, $city,  $phone)
     {
         $query = "INSERT INTO clients (FullName, Username, Email, Password, Gender, Age, City, Phone, is_deleted, created_at, updated_at) 
         VALUES ('$fullName', '$username', '$email', '$password', '$gender', $age, '$city', '$phone',0,NOW(),NOW())";
@@ -17,54 +16,41 @@ class ClientTable
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
-
-    public function updateClient($clientId, $data)
+    public function updateClient($edit_clientId,$edit_fullName, $edit_username,$edit_email,$edit_password,$edit_gender,   $edit_age, $edit_city,  $edit_phone)
     {
         $query = "UPDATE $this->table SET 
-                  FullName = ?, Username = ?, Email = ?, Password = ?,
-                  Gender = ?, Age = ?, City = ?, Phone = ? 
-                  WHERE ClientID = ?";
-        $data[] = $clientId;
+                  FullName = '$edit_fullName', Username = '$edit_username', Email = '$edit_email', Password = '$edit_password',
+                  Gender = '$edit_gender', Age = $edit_age, City = '$edit_city', Phone = '$edit_phone' ,updated_at = NOW()
+                  WHERE ClientID = $edit_clientId";
+        //$data[] = $clientId;
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
-
-
     public function deleteclient($clientId)
     {
-        $query = "DELETE FROM $this->table WHERE clientID = :clientID";
+        $query = "DELETE FROM $this->table WHERE clientID = $clientId";
 
         // Prepare the SQL statement
-        $stmt = $this->db->prepare($query);
-
-        // Bind the clientID parameter
-        $stmt->bindParam(':clientID', $clientId, PDO::PARAM_INT);
-
-        // Execute the SQL statement
-        if ($stmt->execute()) {
-            // Deletion was successful
-            return true;
-        } else {
-            // Deletion failed, display the error message
-            echo "Error: " . implode(", ", $stmt->errorInfo()); // Replace with your actual error handling method
-            return false;
-        }
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
     }
-
-
-    // public function getClientById($clientId)
-    // {
-    //     $query = "SELECT * FROM $this->table WHERE ClientID = $clientId";
-    //     $data[] = $clientId;
-    //     $stmt = $this->db->executeQuery($query);
-    //     return $stmt->fetch_assoc();
-    // }
     public function getClients()
     {
         $query = "SELECT * FROM $this->table ";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
+    public function getClientsWithTherapistNames()
+{
+    $query = "SELECT cc.*, c.FullName, t.Title
+              FROM course_client AS cc
+              INNER JOIN clients AS c ON cc.ClientID = c.ClientID
+              INNER JOIN courses AS t ON cc.CourseID = t.CourseID";
+    
+    $stmt = $this->db->executeQuery($query);
+    return $stmt->fetch_all(MYSQLI_ASSOC);
+}
+
     public function getClientById($ClientId)
     {
         $query = "SELECT * FROM $this->table WHERE ClientID = $ClientId";
@@ -80,12 +66,27 @@ class ClientTable
     public function getDataByClientId($ClientId, $tableName)
     {
         if ($tableName == "course_client") {
-            $query = "SELECT c.*  FROM courses AS c INNER JOIN $tableName AS ct ON c.CourseID = ct.CourseID WHERE ct.ClientID = $ClientId";
+            $query = "SELECT c.*,ct.Status  FROM courses AS c INNER JOIN $tableName AS ct ON c.CourseID = ct.CourseID WHERE ct.ClientID = $ClientId";
         } else {
             $query = "SELECT * FROM $tableName WHERE ClientID = $ClientId";
         }
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
+    // Function to get data by ClientID and Status (Accepted, Pending Review, Canceled)
+    public function getDataByClientIdAndStatus($clientId, $tableName, $status)
+    {
+        $query = "SELECT * FROM $tableName WHERE ClientID = $clientId AND Status = '$status'";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
+
+    // Function to update the status of a course request
+    public function updateCourseRequestStatus($Id, $status)
+    {
+        $query = "UPDATE course_client SET Status = '$status' WHERE id = $Id";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
     }
 }
 ?>

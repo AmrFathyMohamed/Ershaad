@@ -281,9 +281,12 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
-                <form action="">
+                <form action="reservition_course.php" method="POST">
+                  <input type="hidden" name="CourseID" value="<?= $course['CourseID'] ?>">
+                  <input type="hidden" name="ClientID" value="<?php echo $_SESSION['user_id']; ?>">
+                  <input type="hidden" name="TherapistID" value="<?php echo $therapist['TherapistID']; ?>">
                   <div class="modal-header">
-                    <h5 class="modal-title" id=""> تفاصيل الكورس</h5>
+                    <h5 class="modal-title"> تفاصيل الكورس</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -306,7 +309,18 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
-                    <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal" href="login.php">حجز الكورس</button>
+                    <?php
+                    if (isset($_SESSION['type'])) {
+                      if ($_SESSION['type'] == 'client') { ?>
+                        <button type="submit" class="btn btn-dark px-4" data-bs-dismiss="modal">حجز
+                          الكورس</button>
+                      <?php } else { ?>
+                        <a href="login.php" class="btn btn-light px-4 d-none d-md-block" >تسجيل الدخول</a>
+                      <?php }
+                    } else { ?>
+                      <a href="login.php" class="btn btn-light px-4 d-none d-md-block" >تسجيل الدخول</a>
+                    <?php } ?>
+
                   </div>
                 </form>
               </div>

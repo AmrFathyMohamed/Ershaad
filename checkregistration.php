@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }else{
         $Gender = "Female";
     }
-    $user = $client->insertClient($FullName, $City, $Gender, $Phone, $Username, $Email, $Password, $Age);
+    $user = $client->insertClient($FullName, $Username,$Email,$Password,$Gender,   $Age, $City,  $Phone);
 
     if ($user) {
         // Registration successful

@@ -192,37 +192,48 @@ if (isset($_SESSION['user_id'])) {
     } ?>
   </div>
   <div class="tab-pane w-55 px-5 mx-auto fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-    <?php foreach ($course_client as $course) { ?>
-      <div class="tab-pane w-55 px-4 mx-auto fade show active" id="pills-home" role="tabpanel"
-        aria-labelledby="pills-home2-tab">
-        <div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
-          <div class="service-item rounded h-100 px-4 pb-2">
-            <div class="ms-n5 mb-1">
-              <div class="service-icon w-25 text-white bg-success rounded-end mb-1 me-4"
+  <?php foreach ($course_client as $course) { ?>
+      <div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="service-item rounded h-100 px-4 pb-2">
+          <div class="ms-n5 mb-1">
+            <?php if ($course['Status'] == "Pending Review") { ?>
+              <div class="service-icon w-25 text-white bg-warning rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;">
-                مقبول
+                قيد المراجعة
               </div>
-              <h4 class="mb-0 w-100 text-right">
-                <?= $course['Title'] ?>
-              </h4>
-              <p class="text-right w-100">
-                <?= $course['Description'] ?>
-              </p>
-            </div>
-            <div class="d-flex justify-content-between">
-              <p class=" mb-0 text-right">
-                <i class="fa-solid fa-hand-holding-dollar" style="color: #6eaedc;"></i>
-                <?= $course['Price'] ?> ج.م
-              </p>
-              <p class=" mb-0 text-right">
-                <?= $course['Sessions'] ?> جلسات <i class="fa-regular fa-calendar-check" style="color: #6eaedc;"></i>
-              </p>
-            </div>
+            <?php } else if ($course['Status'] == "Cancelled") { ?>
+                <div class="service-icon w-25 text-white bg-danger rounded-end mb-1 me-4"
+                  style="border-top-right-radius: 0px !important;">
+                  مرفوض
+                </div>
+            <?php } else if ($course['Status'] == "Accepted") { ?>
+                  <div class="service-icon w-25 text-white bg-success rounded-end mb-1 me-4"
+                    style="border-top-right-radius: 0px !important;">
+                    مقبول
+                  </div>
+            <?php } ?>
+            <h4 class="mb-0 w-100 text-right">
+              <?= $course['Title'] ?>
+            </h4>
+            <p class="text-right w-100">
+              <?= $course['Description'] ?>
+            </p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p class=" mb-0 text-right">
+              <i class="fa-solid fa-hand-holding-dollar" style="color: #6eaedc;"></i>
+              <?= $course['Price'] ?> ج.م
+            </p>
+            <p class=" mb-0 text-right">
+              <?= $course['Sessions'] ?> جلسات <i class="fa-regular fa-calendar-check" style="color: #6eaedc;"></i>
+            </p>
           </div>
         </div>
       </div>
-    <?php } ?>
+  <?php } ?>
   </div>
+  </div>
+
 </div>
 <!-- tabs end -->
 

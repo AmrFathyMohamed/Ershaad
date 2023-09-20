@@ -9,10 +9,23 @@ class SessionTable
         $this->db = $database;
     }
 
-    public function insertSession($data)
+    public function insertSession($UserID, $TherapistID, $Date, $Time, $Type, $Status)
     {
+        // Define your SQL query to insert a new session record
+        $query = "INSERT INTO sessions (UserID, TherapistID, Date, Time, Type, Status, created_at, updated_at)
+              VALUES ('$UserID', '$TherapistID', '$Date', '$Time', '$Type', '$Status', NOW(), NOW())";
 
+        // Execute the SQL query
+        $stmt = $this->db->executeQuery($query);
+
+        // Check if the insertion was successful
+        if ($stmt !== false) {
+            return true; // Return true to indicate success
+        } else {
+            return false; // Return false to indicate failure
+        }
     }
+
 
     public function updateSession($SessionId)
     {

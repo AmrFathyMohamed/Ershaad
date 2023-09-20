@@ -99,9 +99,9 @@ if (isset($_SESSION['user_id'])) {
                                             <a class="dropdown-item pointer" data-bs-toggle="modal"
                                                 data-bs-target="#editModal"
                                                 data-id="<?php echo $client['ClientID']; ?>">تعديل</a>
-                                            <a class="dropdown-item pointer" data-bs-toggle="modal"
+                                            <!-- <a class="dropdown-item pointer" data-bs-toggle="modal"
                                                 data-bs-target="#detailsModal"
-                                                data-id="<?php echo $client['ClientID']; ?>">التفاصيل</a>
+                                                data-id="echo $client['ClientID'];">التفاصيل</a> -->
                                             <a class="dropdown-item pointer delete-Client" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal" data-id="<?php echo $client['ClientID']; ?>"
                                                 data-fullname="<?php echo $client['FullName']; ?>">
@@ -276,31 +276,32 @@ if (isset($_SESSION['user_id'])) {
             <div class="modal-body">
                 <form method="POST" action="">
                     <input type="hidden" name="edit_clientId" value="">
-
                     <div class="mb-3">
                         <label for="fullName" class="form-label">Full Name</label>
                         <input type="text" class="form-control" id="edit_fullName" name="edit_fullName" required>
                     </div>
                     <div class="mb-3">
-                        <label for="specialization" class="form-label">Specialization</label>
-                        <select class="form-select" id="edit_specialization" name="edit_specialization" required>
-                            <option value="Specialization1">Specialization1</option>
-                            <option value="Specialization2">Specialization2</option>
-                            <option value="Specialization3">Specialization3</option>
-                            <option value="Specialization4">Specialization4</option>
-                            <option value="Specialization5">Specialization5</option>
-
-                            <!-- Add more options as needed -->
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="edit_username" name="edit_username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="edit_email" name="edit_email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="edit_password" name="edit_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="edit_gender" name="edit_gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="edit_price" name="edit_price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Rating</label>
-                        <input type="number" class="form-control" id="edit_rating" name="edit_rating" min="0" max="5"
-                            required>
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="edit_age" name="edit_age" min="0" required>
                     </div>
                     <div class="mb-3">
                         <label for="city" class="form-label">City</label>
@@ -335,45 +336,8 @@ if (isset($_SESSION['user_id'])) {
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="bio" class="form-label">Bio</label>
-                        <textarea class="form-control" id="edit_bio" name="edit_bio" rows="4" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">Gender</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="edit_gender" id="edit_male" value="Male"
-                                required>
-                            <label class="form-check-label" for="male">Male</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="edit_gender" id="edit_female"
-                                value="Female" required>
-                            <label class="form-check-label" for="female">Female</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
                         <input type="text" class="form-control" id="edit_phone" name="edit_phone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="edit_username" name="edit_username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="edit_email" name="edit_email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="edit_password" name="edit_password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="edit_age" name="edit_age" min="0" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="profile" class="form-label">Profile Image</label>
-                        <input type="file" class="form-control" id="edit_profile" name="edit_profile">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -384,17 +348,10 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Close</span>
-                </button>
-            </div>
+
         </div>
     </div>
 </div>
-
-
 <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -418,7 +375,6 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 </div>
-<!--Danger theme Modal -->
 <div class="modal fade text-left" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -446,7 +402,69 @@ if (isset($_SESSION['user_id'])) {
     </div>
 </div>
 
-<?php include("footer.php"); ?>
+<?php include("footer.php");
+// Handle the form submission for adding a new client
+if (isset($_POST['addclient'])) {
+    $data = array(
+        $_POST['fullName'],
+        $_POST['username'],
+        $_POST['email'],
+        $_POST['password'],
+        $_POST['gender'],
+        $_POST['age'],
+        $_POST['city'],
+        $_POST['phone'],
+    );
+
+    if ($clients->insertclient(...$data)) {
+        // Insertion successful, you can redirect or show a success message
+        echo '<script>window.location.href = "Client.php";</script>';
+        exit;
+    } else {
+        // Insertion failed, handle the error
+        $errorMessage = "Failed to add client.";
+    }
+}
+// Handle the form submission for updating an existing client
+if (isset($_POST['updateclient'])) {
+    //$clientId = $_POST['clientId'];
+    $data = array(
+        $_POST['edit_clientId'],
+        $_POST['edit_fullName'],
+        $_POST['edit_username'],
+        $_POST['edit_email'],
+        $_POST['edit_password'],
+        $_POST['edit_gender'],
+        $_POST['edit_age'],
+        $_POST['edit_city'],
+        $_POST['edit_phone']
+    );
+
+    if ($clients->updateclient(...$data)) {
+        // Update successful, you can redirect or show a success message
+        //        echo '<script>window.location.href = "Client.php";</script>';
+        echo '<script>window.location.href = "client.php";</script>';
+        exit;
+    } else {
+        // Update failed, handle the error
+        $errorMessage = "Failed to update client.";
+    }
+}
+// Handle the deletion of a client
+// Retrieve client data by ID
+if (isset($_GET['editclient'])) {
+    $clientId = $_GET['editclient'];
+    $clientData = $clients->getclientById($clientId);
+
+    // Populate the edit modal with $clientData
+}
+
+// Retrieve client data for details view
+if (isset($_GET['viewDetails'])) {
+    $clientId = $_GET['viewDetails'];
+    $clientData = $clients->getclientById($clientId);
+}
+?>
 <script>
     $(document).ready(function () {
         $('#table1').DataTable({
@@ -466,16 +484,12 @@ if (isset($_SESSION['user_id'])) {
             $.ajax({
                 url: 'getclientData.php',
                 method: 'GET',
-                data: { clientId: clientId },
+                data: { ClientId: clientId },
                 dataType: 'json',
                 success: function (data) {
                     // Populate the form fields with data
                     $('#edit_fullName').val(data.FullName);
-                    $('#edit_specialization').val(data.Specialization);
-                    $('#edit_price').val(data.Price);
-                    $('#edit_rating').val(data.Rating);
                     $('#edit_city').val(data.City);
-                    $('#edit_bio').val(data.Bio);
                     $('input[name="edit_gender"][value="' + data.Gender + '"]').prop('checked', true);
                     $('#edit_phone').val(data.Phone);
                     $('#edit_username').val(data.Username);
@@ -550,73 +564,3 @@ if (isset($_SESSION['user_id'])) {
 </body>
 
 </html>
-<?php
-// Handle the form submission for adding a new client
-if (isset($_POST['addclient'])) {
-    $data = array(
-        $_POST['fullName'],
-        $_POST['username'],
-        $_POST['email'],
-        $_POST['password'],
-        $_POST['gender'],
-        $_POST['age'],
-        $_POST['city'],
-        $_POST['phone'],
-    );
-
-    if ($clients->insertclient(...$data)) {
-        // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Client.php";</script>';
-        exit;
-    } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add client.";
-    }
-}
-// Handle the form submission for updating an existing client
-if (isset($_POST['updateclient'])) {
-    //$clientId = $_POST['clientId'];
-    $data = array(
-        $_POST['edit_clientId'],
-        $_POST['edit_fullName'],
-        $_POST['edit_specialization'],
-        $_POST['edit_price'],
-        $_POST['edit_rating'],
-        $_POST['edit_city'],
-        $_POST['edit_bio'],
-        $_POST['edit_gender'],
-        $_POST['edit_phone'],
-        $_POST['edit_username'],
-        $_POST['edit_email'],
-        $_POST['edit_password'],
-        $_POST['edit_age'],
-        $_POST['edit_profile']
-    );
-
-    if ($clients->updateclient(...$data)) {
-        // Update successful, you can redirect or show a success message
-        //        echo '<script>window.location.href = "Client.php";</script>';
-        echo '<script>window.location.href = "client.php";</script>';
-        exit;
-    } else {
-        // Update failed, handle the error
-        $errorMessage = "Failed to update client.";
-    }
-}
-// Handle the deletion of a client
-// Retrieve client data by ID
-if (isset($_GET['editclient'])) {
-    $clientId = $_GET['editclient'];
-    $clientData = $clients->getclientById($clientId);
-
-    // Populate the edit modal with $clientData
-}
-
-// Retrieve client data for details view
-if (isset($_GET['viewDetails'])) {
-    $clientId = $_GET['viewDetails'];
-    $clientData = $clients->getclientById($clientId);
-}
-
-
-?>

@@ -1,6 +1,11 @@
-<?php include("includes/header.php"); ?>
+<?php
+include("includes/header.php");
+include("classes/TherapistTable.php");
+include("classes/QuestionTable.php");
 
-<?php include("classes/TherapistTable.php"); ?>
+$questionTable = new QuestionTable($database); // Change this to your QuestionTable class
+$questionsData = $questionTable->getQuestions(); // Assuming you have a method to fetch questions ?>
+
 <!-- Carousel Start -->
 <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -46,7 +51,8 @@
 
             foreach ($therapists as $therapist) {
                 ?>
-                <div class="col-lg-3 col-md-6 col-6 wow fadeInUp mb-3" data-wow-delay="0.1s" onclick="window.location.href='#'">
+                <div class="col-lg-3 col-md-6 col-6 wow fadeInUp mb-3" data-wow-delay="0.1s"
+                    onclick="window.location.href='#'">
                     <div class="team-item rounded">
                         <!-- You can replace the image source with the actual therapist's image -->
                         <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
@@ -86,7 +92,8 @@
                                     </p>
                                     <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
                                 </div>
-                                <a class="btn w-100 btn-light m-1 btn-sm-phone" href="therapist-profile.php?id=<?=$therapist["TherapistID"];?>">عرض الملف الشخصي</a>
+                                <a class="btn w-100 btn-light m-1 btn-sm-phone"
+                                    href="therapist-profile.php?id=<?= $therapist["TherapistID"]; ?>">عرض الملف الشخصي</a>
 
                             </div>
                         </div>
@@ -99,7 +106,7 @@
 
             <div class="col-12 mt-5 text-center">
                 <a class="btn col-8 col-md-3 btn-dark m-1" href="search.php">المزيد</a>
-                
+
             </div>
         </div>
 
@@ -109,25 +116,25 @@
 
 <!-- Slider Start -->
 <div id="carouselExampleControls" class="carousel slide pb-5 my-5" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="img/ad 1.jpg" class="d-block w-100" alt="...">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="img/ad 1.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="img/ad 2.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="img/ad 3.jpg" class="d-block w-100" alt="...">
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="img/ad 2.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="img/ad 3.jpg" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
 <!-- Slider end -->
 
@@ -146,30 +153,31 @@
                     </p>
                 </div>
             </div>
-            
-                <div class="lc-block row align-items-center justify-content-end mb-4 overflow-hidden position-relative">
-                    <?php foreach ($specialties as $spec) { ?>
-                <div class="d-inline-flex rtl justify-content-start mt-3 col-6">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="#7ce7d9"
-                            class="text-success" viewBox="0 0 16 16" style="" lc-helper="svg-icon">
-                            <path
-                                d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z">
-                            </path>
-                            <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"></path>
-                        </svg>
-                    </div>
 
-                    <div class="me-3 align-self-center" editable="rich">
-                        <p class="fw-bold mb-1 fs-5 h-phone"><?= $spec["Specialty"] ?>
-                        </p>
+            <div class="lc-block row align-items-center justify-content-end mb-4 overflow-hidden position-relative">
+                <?php foreach ($specialties as $spec) { ?>
+                    <div class="d-inline-flex rtl justify-content-start mt-3 col-6">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="#7ce7d9"
+                                class="text-success" viewBox="0 0 16 16" style="" lc-helper="svg-icon">
+                                <path
+                                    d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z">
+                                </path>
+                                <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"></path>
+                            </svg>
+                        </div>
+
+                        <div class="me-3 align-self-center" editable="rich">
+                            <p class="fw-bold mb-1 fs-5 h-phone">
+                                <?= $spec["Specialty"] ?>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                 <?php } ?>
+                <?php } ?>
             </div>
 
-                               
-            
+
+
             <!-- <div class="lc-block d-sm-flex align-items-center justify-content-end mb-4">
                 <div class="d-inline-flex rtl justify-content-end">
                     <div>
@@ -324,10 +332,10 @@
 
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
                 <h1 class="display-6 mb-4  text-right">
-                    دردشة افتراضية مجهولة الهوية مع  متخصصين
+                    دردشة افتراضية مجهولة الهوية مع متخصصين
                 </h1>
                 <p class="mb-2 text-right">
-                    بحاجة الى التحدث الى شخص ما؟ يتوفر   المتخصصون على مدار الساعة طوال أيام الأسبوع
+                    بحاجة الى التحدث الى شخص ما؟ يتوفر المتخصصون على مدار الساعة طوال أيام الأسبوع
                     لتقديم الدعم العاطفي عبر الدردشة اونلاين
                 </p>
                 <p class="mb-4 text-right">
@@ -351,7 +359,8 @@
                     نحن هنا من أجل المراهقين أيضًا
                 </h1>
                 <p class="mb-4 text-right">
-                إذا كنت تشعر بالوحدة، لا أحد يفهمك، لا تستطيع تكوين صداقات. نحن هنا من أجل تقديم الدعم لك في أي وقت                </p>
+                    إذا كنت تشعر بالوحدة، لا أحد يفهمك، لا تستطيع تكوين صداقات. نحن هنا من أجل تقديم الدعم لك في أي وقت
+                </p>
             </div>
         </div>
     </div>
@@ -363,11 +372,12 @@
 
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
                 <h1 class="display-6 mb-4  text-right">
-                تلك الحياة لا تروق إلا للمحاربين، فإن لم تكن ذو إرادة فلا اسف عليك
+                    تلك الحياة لا تروق إلا للمحاربين، فإن لم تكن ذو إرادة فلا اسف عليك
                 </h1>
                 <p class="mb-2 text-right">
-                قاتل لكي تكون ما تريد. نحن نقدم الدعم والارشاد الفردي والاسري لأبطالنا ذوي الاحتياجات الخاصة في كل وقت.                </p>
-                
+                    قاتل لكي تكون ما تريد. نحن نقدم الدعم والارشاد الفردي والاسري لأبطالنا ذوي الاحتياجات
+                    الخاصة في كل وقت. </p>
+
             </div>
             <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
                 <img class=" w-100 h-100 rounded" src="img/disabled.svg" alt="" style="object-fit: cover" />
@@ -384,9 +394,10 @@
             </div>
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
                 <h1 class="display-6 mb-4  text-right">
-                تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة.                </h1>
+                    تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة. </h1>
                 <p class="mb-4 text-right">
-                تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة.            </div>
+                    تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة.
+            </div>
         </div>
     </div>
 </div>
@@ -458,62 +469,25 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto" style="max-width: 500px">
-            <h1 class="display-6 mb-5">شهادات العملاء </h1>
+            <h1 class="display-6 mb-5">الاسئلة الشائعة</h1>
         </div>
         <div class="row g-5">
             <div class="col-lg-3 d-none d-lg-block">
 
             </div>
-            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+            <?php foreach ($questionsData as $QA) {?>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <div class="owl-carousel testimonial-carousel">
                     <div class="testimonial-item text-center">
-                        <img class="img-fluid rounded mx-auto mb-4" src="img/testimonial-1.jpg" alt="" />
                         <p class="fs-5">
-                            استفدت جدا وسمعت كلام الدكتورة ونفذته وفرق معايا أوي. هي دكتورة مريحة جدا ومستمعة جيدة
-                            جدا وكريمة في معلوماتها
+                            <?= $QA['Question'];?>
                         </p>
-                        <div class="rating">
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <a href="" class="text-primary fw-bold fs-6">الي د. نجوي السيد </a>
-                    </div>
-                    <div class="testimonial-item text-center">
-                        <img class="img-fluid rounded mx-auto mb-4" src="img/testimonial-2.jpg" alt="" />
-                        <p class="fs-5">
-                            الدكتورة كانت بتسمع جدًا وتسألني اسئلة بتفرق فعلًا في التشخيص وقعدت معايا وقت أكتر من
-                            وقت الجلسة المفروض وكانت لطيفة وبتحاول تشيل الضغط وبجد تجربة كويسة فوق المتوقع وهكررها
-                            أكيد
-                        </p>
-                        <div class="rating">
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <a href="" class="text-primary fw-bold fs-6">الي د. نجوي السيد </a>
-                    </div>
-                    <div class="testimonial-item text-center">
-                        <img class="img-fluid rounded mx-auto mb-4" src="img/testimonial-3.jpg" alt="" />
-                        <p class="fs-5">
-                            الجلسة بتكون كافية إنك تتكلم مع الدكتور براحتك، وتقول كل اللي عندك، بعدها الدكتور بيوضح
-                            بعض النقاط لك، وفيه متابعة بتستمر مع المستخدم جزاكم الله خيرا
-                        </p>
-                        <div class="rating">
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid text-warning fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <a href="" class="text-primary fw-bold fs-6">الي د. نجوي السيد </a>
+                        <a href="" class="text-primary fw-bold fs-6"><?= $QA['Answer'];?></a>
                     </div>
                 </div>
             </div>
+            <?php } ?>
+            
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="testimonial-right h-100">
 

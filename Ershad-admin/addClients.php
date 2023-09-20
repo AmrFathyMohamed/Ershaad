@@ -15,10 +15,10 @@ if (isset($_POST['updateclinet'])) {
     $database = new Database();
 
     // Create a new clinetTable instance
-    $clinets = new clinetTable($database);
+    $clinets = new ClientTable($database);
 
     // Update the clinet record in the database
-    $updated = $clinets->updateclinet($clinetId, $fullName, $username, $email, $password);
+    $updated = $clinets->updateClient($clinetId, $fullName, $username, $email, $password);
 
     if ($updated) {
         // Update successful, you can redirect or show a success message
