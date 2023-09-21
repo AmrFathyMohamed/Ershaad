@@ -122,7 +122,7 @@ $alltherapists = $therapistTable2->getTherapists();
             </div>
             <hr>
             <p class="right">التخصص</p>
-            <select class="form-control form-control-lg" id="speciality" name="speciality">
+            <select class="form-control form-control-lg right" id="speciality" name="speciality">
               <option value="All">كل التخصصات</option>
               <?php foreach ($specialties as $spec) { ?>
                 <option value="<?= $spec["Specialty"] ?>">
@@ -133,7 +133,7 @@ $alltherapists = $therapistTable2->getTherapists();
             <hr>
             <div class="border rounded py-4 px-2">
               <p class="right">سعر الجلسة</p>
-              <input type="range" class="form-range" min="0" max="1000" step="1" id="customRange3" name="priceRange"
+              <input type="range" class="form-range" min="0" max="2000" step="1" id="customRange3" name="priceRange"
                 value="100">
               <p class="right" id="priceValue">100</p>
               <hr>

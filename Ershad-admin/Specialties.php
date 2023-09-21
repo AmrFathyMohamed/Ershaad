@@ -58,10 +58,10 @@ if (isset($_SESSION['user_id'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($therapistsData as $therapist) { ?>
+                        <?php foreach ($specialties as $therapist) { ?>
                             <tr>
                             <td>
-                                    <?php echo $therapist['FullName']; ?>
+                                    <?php echo $therapist['Specialty']; ?>
                                 </td>
                                 <td>
                                 <div class="dropdown right">
