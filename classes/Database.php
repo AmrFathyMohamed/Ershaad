@@ -6,7 +6,11 @@ class Database
     private $password = ""; //"Ershad2023@@"
     private $database = "ershad"; //"id21106103_ershad"
     private $conn;
-
+    // private $host = "localhost";
+    // private $username = "id21106103_ershad";
+    // private $password = "Ershad2023@@";
+    // private $database = "id21106103_ershad";
+    // private $conn;
     // Add a property to store the error message
     private $errorMessage = "";
 
