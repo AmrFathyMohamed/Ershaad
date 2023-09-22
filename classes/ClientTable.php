@@ -88,5 +88,11 @@ class ClientTable
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
+    public function resetPassword($email, $Password)
+    {
+        $query = "UPDATE clients SET password = '$Password' WHERE email = '$email'";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
+    }   
 }
 ?>

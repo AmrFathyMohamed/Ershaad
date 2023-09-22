@@ -126,7 +126,7 @@ if (isset($_GET['deleteCourse'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="Courses.php">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="title" name="title" required>

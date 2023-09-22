@@ -2,14 +2,20 @@
 include("includes/header.php");
 include("classes/TherapistTable.php");
 include("classes/QuestionTable.php");
+include("classes/AdsTable.php");
+
 
 $questionTable = new QuestionTable($database); // Change this to your QuestionTable class
-$questionsData = $questionTable->getQuestions(); // Assuming you have a method to fetch questions ?>
+$questionsData = $questionTable->getQuestions(); // Assuming you have a method to fetch questions
+
+$adsTable = new AdsTable($database); // Change this to your QuestionTable class
+$adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
+?>
 <style>
     .accordion-button::after {
-    
-    margin-left: 0!important;
-    margin-right: auto!important;
+
+        margin-left: 0 !important;
+        margin-right: auto !important;
     }
 </style>
 <!-- Carousel Start -->
@@ -123,15 +129,14 @@ $questionsData = $questionTable->getQuestions(); // Assuming you have a method t
 <!-- Slider Start -->
 <div id="carouselExampleControls" class="carousel slide pb-5 my-5" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="img/ad 1.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="img/ad 2.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="img/ad 3.jpg" class="d-block w-100" alt="...">
-        </div>
+        <?php $firstItem = true; ?>
+        <?php foreach ($adsData as $QA) { ?>
+            <div class="carousel-item <?php if ($firstItem)
+                echo 'active'; ?>">
+                <img src="<?= $QA['photo'] ?>" class="d-block w-100" alt="...">
+            </div>
+            <?php $firstItem = false; ?>
+        <?php } ?>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -477,27 +482,30 @@ $questionsData = $questionTable->getQuestions(); // Assuming you have a method t
         <div class="text-center mx-auto" style="max-width: 500px">
             <h1 class="display-6 mb-5">الاسئلة الشائعة</h1>
         </div>
-       
+
         <div class="row g-5">
-           <div class="accordion px-sm-0" id="accordion">
-            <?php foreach ($questionsData as $QA) {?>
-                
-            
-            <div class="accordion-item">
-                <h2 class="accordion-header right flex-row-reverse rtl" id="heading-<?= $QA['QuestionID'];?>">
-                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?= $QA['QuestionID'];?>" aria-expanded="true" aria-controls="collapseOne">
-                    <?= $QA['Question'];?>
-                    </button>
-                </h2>
-                <div id="collapse-<?= $QA['QuestionID'];?>" class="accordion-collapse collapse" aria-labelledby="heading-<?= $QA['QuestionID'];?>" data-bs-parent="#accordion">
-                    <div class="accordion-body right">
-                        <?= $QA['Answer'];?>
+            <div class="accordion px-sm-0" id="accordion">
+                <?php foreach ($questionsData as $QA) { ?>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header right flex-row-reverse rtl" id="heading-<?= $QA['QuestionID']; ?>">
+                            <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse-<?= $QA['QuestionID']; ?>" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                <?= $QA['Question']; ?>
+                            </button>
+                        </h2>
+                        <div id="collapse-<?= $QA['QuestionID']; ?>" class="accordion-collapse collapse"
+                            aria-labelledby="heading-<?= $QA['QuestionID']; ?>" data-bs-parent="#accordion">
+                            <div class="accordion-body right">
+                                <?= $QA['Answer']; ?>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-  
-        
-            <?php } ?>
+
+
+                <?php } ?>
             </div>
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="testimonial-right h-100">
@@ -511,7 +519,7 @@ $questionsData = $questionTable->getQuestions(); // Assuming you have a method t
 
 <?php include("includes/footer.php"); ?>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.accordion-item:first .accordion-button').click();
     });
 </script>

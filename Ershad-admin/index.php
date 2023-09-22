@@ -1,7 +1,27 @@
 <?php include("layout.php"); ?>
 <?php include("../classes/Database.php"); ?>
-<?php 
+<?php include("../classes/SessionTable.php"); ?>
 
+<?php 
+if (isset($_SESSION['user_id'])) {
+    // Get the 'id' value from the URL
+    $userId = $_SESSION['user_id'];
+    $database = new Database();
+    $sessions = new SessionTable($database);
+    $sessionsData = $sessions->getSessionSums();
+    // You can use $userId in your code as needed
+    $TotalA = $sessionsData['TotalSumA'];
+    $TotalB = $sessionsData['TotalSumB'];
+
+    $sessionsData = $sessions->getSessionTotal();
+    // You can use $userId in your code as needed
+    $TotalSessionsToday  = $sessionsData['TotalSessionsToday'];
+    $TotalSessions  = $sessionsData['TotalSessions'];
+
+} else {
+    header("Location: index.php");
+    exit;
+}
 ?>
 <div class="main-content container-fluid">
     <div class="page-title">
@@ -15,7 +35,7 @@
                     <div class="card-body p-0">
                         <div class="d-flex flex-column">
                             <div class='px-3 py-3 d-flex justify-content-between'>
-                                <h3 class='card-title'>SALES</h3>
+                                <h3 class='card-title'>Total</h3>
                                 <div class="card-right d-flex align-items-center">
                                     <p id="sales">5000 EGP</p>
                                 </div>
@@ -32,7 +52,7 @@
                     <div class="card-body p-0">
                         <div class="d-flex flex-column">
                             <div class='px-3 py-3 d-flex justify-content-between'>
-                                <h3 class='card-title'>SUERS</h3>
+                                <h3 class='card-title'>Profit</h3>
                                 <div class="card-right d-flex align-items-center">
                                     <p id="users">532,20</p>
                                 </div>
@@ -106,10 +126,10 @@
 </div>
 <?php include("footer.php"); ?>
 <script>
-    let totalSessions = 5000;
-    let todaySessions = 45;
-    let users = 1435;
-    let sales = 2130;
+    let totalSessions = <?php echo $TotalSessions;?>;
+    let todaySessions = <?php echo $TotalSessionsToday ;?>;
+    let users = <?php echo $TotalB;?>;
+    let sales = <?php echo $TotalA;?>;
 
     $("#totalSessions").text(totalSessions);
     $("#todaySessions").text(todaySessions);
@@ -124,9 +144,7 @@ $sql = "SELECT DATE_FORMAT(Date, '%b') AS month, COUNT(*) AS session_count
 FROM Sessions
 GROUP BY DATE_FORMAT(Date, '%b')
 ORDER BY MIN(Date)";
-echo $sql;
 // Execute the query and fetch the results
-$database = new Database();
 $result = $database->executeQuery($sql);
 
 // Initialize an array to store session counts for each month

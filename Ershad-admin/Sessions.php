@@ -12,21 +12,23 @@ if (isset($_SESSION['user_id'])) {
     $sessionsData = $sessions->getSessions();
     // You can use $userId in your code as needed
     if (isset($_POST['acceptSession'])) {
-        $courseClientId = $_POST['SessionID'];       
+        $courseClientId = $_POST['SessionID'];
 
-        if ($sessions ->updateSession($courseClientId, 'Accepted')) {
-            // Status changed to 'Accepted', calculate session details and cost
+        if ($sessions->updateSession($courseClientId, 'Accepted')) {
+            echo '<script>window.location.href = "Sessions.php";</script>';
+                exit;
         }
-        
+
     }
     if (isset($_POST['rejectSession'])) {
         $courseClientId = $_POST['SessionID'];
-        
 
-        if ($sessions ->updateSession($courseClientId, 'Rejected')) {
-            // Status changed to 'Accepted', calculate session details and cost
+
+        if ($sessions->updateSession($courseClientId, 'Rejected')) {
+            echo '<script>window.location.href = "Sessions.php";</script>';
+                exit;
         }
-        
+
     }
 } else {
     // Handle the case when 'id' is not present in the URL
@@ -72,10 +74,10 @@ if (isset($_SESSION['user_id'])) {
                         <?php foreach ($sessionsData as $SD) { ?>
                             <tr>
                                 <td>
-                                    <?php echo $SD['TherapistID']; ?>
+                                    <?php echo $SD['TherapistName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $SD['UserID']; ?>
+                                    <?php echo $SD['ClientName']; ?>
                                 </td>
                                 <td>
                                     <?php echo $SD['Date']; ?>
@@ -90,23 +92,14 @@ if (isset($_SESSION['user_id'])) {
                                     <?php if ($SD['Status'] == "Accepted") { ?>
                                         <span class="badge bg-success px-3">Accepted</span>
                                     <?php } else if ($SD['Status'] == "Pending Review") { ?>
-                                            <span class="badge bg-warning px-3">Rejected</span>
+                                            <span class="badge bg-warning px-3">Pending Review</span>
                                     <?php } else { ?>
                                             <span class="badge bg-danger px-3">Rejected</span>
                                     <?php } ?>
-
-
                                 </td>
 
                                 <td>
-                                <form method="POST">
-                                        <input type="hidden" name="SessionID" value="<?php echo $SD['SessionID']; ?>">
-                                        <button type="submit" class="btn btn-success" name="acceptSession">Accept</button>
-                                    </form>
-                                    <form method="POST">
-                                    <input type="hidden" name="SessionID" value="<?php echo $SD['SessionID']; ?>">
-                                        <button type="submit" class="btn btn-danger" name="rejectSession">Reject</button>
-                                    </form>
+
                                     <?php if ($SD['Status'] == "Pending Review") { ?>
                                         <div class="row">
                                             <div class="col-6 pe-3">
@@ -114,9 +107,18 @@ if (isset($_SESSION['user_id'])) {
                                                     type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="argent" />
                                                 <label for="argent-<?php echo $SD['TherapistID']; ?>"
                                                     class="check-img-label w-100">
-                                                    <div class="check-img-content py-1">
-                                                        <h6 class="mb-0"> <i class="bi bi-x-octagon me-1 fs-5"></i> رفض</h6>
-                                                    </div>
+                                                    <!-- <div class="check-img-content py-1"> -->
+                                                    <form method="POST" action="Sessions.php">
+                                                        <input type="hidden" name="SessionID"
+                                                            value="<?php echo $SD['SessionID']; ?>">
+                                                        <button type="submit" name="rejectSession"
+                                                            class="check-img-content py-1">
+                                                            <h6 class="mb-0">
+                                                                <i class="bi bi-x-octagon me-1 fs-5"></i> رفض
+                                                            </h6>
+                                                        </button>
+                                                    </form>
+                                                    <!-- </div> -->
                                                 </label>
                                             </div>
                                             <div class="col-6 ps-3">
@@ -124,10 +126,18 @@ if (isset($_SESSION['user_id'])) {
                                                     type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="normal" />
                                                 <label for="normal-<?php echo $SD['TherapistID'] ?>"
                                                     class="check-img-label w-100">
-                                                    <div class="check-img-content py-1">
-                                                        <h6 class="mb-0"> <i class="bi bi-check-circle-fill me-1 fs-5"></i> قبول
-                                                        </h6>
-                                                    </div>
+                                                    <!-- <div class="check-img-content py-1"> -->
+                                                    <form method="POST" action="Sessions.php">
+                                                        <input type="hidden" name="SessionID"
+                                                            value="<?php echo $SD['SessionID']; ?>">
+                                                        <button type="submit" name="acceptSession"
+                                                            class="check-img-content py-1">
+                                                            <h6 class="mb-0"> <i class="bi bi-check-circle-fill me-1 fs-5"></i>
+                                                                قبول
+                                                            </h6>
+                                                        </button>
+                                                    </form>
+                                                    <!-- </div> -->
                                                 </label>
                                             </div>
                                         </div>

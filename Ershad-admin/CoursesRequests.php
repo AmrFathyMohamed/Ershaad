@@ -47,79 +47,49 @@ if (isset($_SESSION['user_id'])) {
     // // Handle changing the status of a course request to 'Accepted'
     if (isset($_POST['acceptCourse'])) {
         $courseClientId = $_POST['courseClientId'];
-        
-
         if ($courseClientTable->updateCourseClient($courseClientId, 'Accepted')) {
-            // Status changed to 'Accepted', calculate session details and cost
+
             $courseClient = $courseClientTable->getCourseClientById($courseClientId);
-            $courseId = $courseClient['CourseID'];
+            $courseId = $_POST['CourseID'];
             $course = $courseTable->getCourseById($courseId);
             $clientId = $_POST['ClientID'];
             $therapistId = $_POST['TherapistID'];
-        
+
             // Calculate session details
             $sessions = $course['Sessions'];
             $startDate = date('Y-m-d');
             $endDate = date('Y-m-d', strtotime($startDate . ' + ' . ($sessions - 1) . ' days'));
-        
+
             // Calculate cost per session
             //$sessionCost = $course['Price'] / $sessions;
-        
+
             // Insert sessions into the 'sessions' table
             for ($i = 0; $i < $sessions; $i++) {
                 $sessionDate = date('Y-m-d', strtotime($startDate . ' + ' . $i . ' days'));
                 $sessionTime = '12:00:00'; // Change this to the desired session time
                 $sessionType = 'Regular'; // Change this to the desired session type
                 $sessionStatus = 'Accepted'; // Change this to the initial session status
-        
+
                 // Insert the session into the 'sessions' table
                 $sessionTable->insertSession($clientId, $therapistId, $sessionDate, $sessionTime, $sessionType, $sessionStatus);
-        
+
                 // Calculate the next session date (1 week interval)
                 $startDate = date('Y-m-d', strtotime($sessionDate . ' + 1 week'));
             }
-        
+
             // Display a success message or redirect as needed
         }
-        
+
     }
     if (isset($_POST['rejectCourse'])) {
         $courseClientId = $_POST['courseClientId'];
-        
+
 
         if ($courseClientTable->updateCourseClient($courseClientId, 'Rejected')) {
-            // Status changed to 'Accepted', calculate session details and cost
-            $courseClient = $courseClientTable->getCourseClientById($courseClientId);
-            $courseId = $courseClient['CourseID'];
-            $course = $courseTable->getCourseById($courseId);
-            $clientId = $_POST['ClientID'];
-            $therapistId = $_POST['TherapistID'];
-        
-            // Calculate session details
-            $sessions = $course['Sessions'];
-            $startDate = date('Y-m-d');
-            $endDate = date('Y-m-d', strtotime($startDate . ' + ' . ($sessions - 1) . ' days'));
-        
-            // Calculate cost per session
-            //$sessionCost = $course['Price'] / $sessions;
-        
-            // Insert sessions into the 'sessions' table
-            for ($i = 0; $i < $sessions; $i++) {
-                $sessionDate = date('Y-m-d', strtotime($startDate . ' + ' . $i . ' days'));
-                $sessionTime = '12:00:00'; // Change this to the desired session time
-                $sessionType = 'Regular'; // Change this to the desired session type
-                $sessionStatus = 'Accepted'; // Change this to the initial session status
-        
-                // Insert the session into the 'sessions' table
-                $sessionTable->insertSession($clientId, $therapistId, $sessionDate, $sessionTime, $sessionType, $sessionStatus);
-        
-                // Calculate the next session date (1 week interval)
-                $startDate = date('Y-m-d', strtotime($sessionDate . ' + 1 week'));
-            }
-        
-            // Display a success message or redirect as needed
+            echo '<script>window.location.href = "CoursesRequests.php";</script>';
+            exit;
         }
-        
+
     }
 } else {
     // Redirect or display an error message for unauthorized access
@@ -154,32 +124,75 @@ if (isset($_SESSION['user_id'])) {
                             $courseClientId = $request['id'];
                             ?>
                             <tr>
-                            <td>
-                                    <?php echo $request['Title']; ?>
+                                <td>
+                                    <?php echo $request['CourseName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $request['CName']; ?>
+                                    <?php echo $request['ClientName']; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $request['TherapistName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $request['TName']; ?>
+                                    <span class="badge bg-warning px-3">
+                                        <?php echo $request['Status']; ?>
+                                    </span>
+
                                 </td>
                                 <td>
-                                <span class="badge bg-warning px-3"><?php echo $request['Status']; ?></span>
-                                    
-                                </td>
-                                <td>
-                                    <form method="POST">
-                                        <input type="hidden" name="courseClientId" value="<?php echo $courseClientId; ?>">
-                                        <input type="hidden" name="ClientID" value="<?php echo $request['ClientID']; ?>">
-                                        <input type="hidden" name="TherapistID" value="<?php echo $request['TherapistID']; ?>">
-                                        <button type="submit" class="btn btn-success" name="acceptCourse">Accept</button>
-                                    </form>
-                                    <form method="POST">
-                                        <input type="hidden" name="courseClientId" value="<?php echo $courseClientId; ?>">
-                                        <input type="hidden" name="ClientID" value="<?php echo $request['ClientID']; ?>">
-                                        <input type="hidden" name="TherapistID" value="<?php echo $request['TherapistID']; ?>">
-                                        <button type="submit" class="btn btn-danger" name="rejectCourse">Reject</button>
-                                    </form>
+                                    <div class="row">
+                                        <div class="col-6 pe-3">
+                                            <input id="argent-<?php echo $SD['TherapistID'] ?>" class="check-rej-input"
+                                                type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="argent" />
+                                            <label for="argent-<?php echo $SD['TherapistID']; ?>"
+                                                class="check-img-label w-100">
+                                                <!-- <div class="check-img-content py-1"> -->
+                                                <form method="POST" action="CoursesRequests.php">
+                                                    <input type="hidden" name="courseClientId"
+                                                        value="<?php echo $courseClientId; ?>">
+                                                    <input type="hidden" name="CourseID"
+                                                        value="<?php echo $request['CourseID']; ?>">
+                                                    <input type="hidden" name="ClientID"
+                                                        value="<?php echo $request['ClientID']; ?>">
+                                                    <input type="hidden" name="TherapistID"
+                                                        value="<?php echo $request['TherapistID']; ?>">
+                                                    <button type="submit" name="rejectCourse"
+                                                        class="check-img-content py-1">
+                                                        <h6 class="mb-0">
+                                                            <i class="bi bi-x-octagon me-1 fs-5"></i> رفض
+                                                        </h6>
+                                                    </button>
+                                                </form>
+                                                <!-- </div> -->
+                                            </label>
+                                        </div>
+                                        <div class="col-6 ps-3">
+                                            <input id="normal-<?php echo $SD['TherapistID'] ?>" class="check-acc-input"
+                                                type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="normal" />
+                                            <label for="normal-<?php echo $SD['TherapistID'] ?>"
+                                                class="check-img-label w-100">
+                                                <!-- <div class="check-img-content py-1"> -->
+                                                <form method="POST" action="CoursesRequests.php">
+                                                    <input type="hidden" name="courseClientId"
+                                                        value="<?php echo $courseClientId; ?>">
+                                                    <input type="hidden" name="CourseID"
+                                                        value="<?php echo $request['CourseID']; ?>">
+                                                    <input type="hidden" name="ClientID"
+                                                        value="<?php echo $request['ClientID']; ?>">
+                                                    <input type="hidden" name="TherapistID"
+                                                        value="<?php echo $request['TherapistID']; ?>">
+                                                    <button type="submit" name="acceptCourse"
+                                                        class="check-img-content py-1">
+                                                        <h6 class="mb-0"> <i class="bi bi-check-circle-fill me-1 fs-5"></i>
+                                                            قبول
+                                                        </h6>
+                                                    </button>
+                                                </form>
+                                                <!-- </div> -->
+                                            </label>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -193,8 +206,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="card">
             <div class="card-body">
                 <h4 class="text-success">Accepted requests</h4>
-                <table class='table table-striped' id="table3">
-                <thead>
+                <table class='table table-striped' id="table2">
+                    <thead>
                         <tr>
                             <th>Course</th>
                             <th>Client</th>
@@ -207,17 +220,18 @@ if (isset($_SESSION['user_id'])) {
                             $courseClientId = $request['id'];
                             ?>
                             <tr>
-                            <td>
-                                    <?php echo $request['Title']; ?>
+                                <td>
+                                    <?php echo $request['CourseName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $request['CName']; ?>
+                                    <?php echo $request['ClientName']; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $request['TherapistName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $request['TName']; ?>
-                                </td>
-                                <td>
-                                <span class="badge bg-success px-3">Accepted</span>
+                                    <span class="badge bg-success px-3">Accepted</span>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -231,7 +245,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="card">
             <div class="card-body">
                 <h4 class="text-danger">Rejected requests</h4>
-                <table class='table table-striped' id="table2">
+                <table class='table table-striped' id="table3">
                     <thead>
                         <tr>
                             <th class="fs-small">Course</th>
@@ -244,17 +258,18 @@ if (isset($_SESSION['user_id'])) {
                             $courseClientId = $request['id'];
                             ?>
                             <tr>
-                            <td>
-                                    <?php echo $request['Title']; ?>
+                                <td>
+                                    <?php echo $request['CourseName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $request['CName']; ?>
+                                    <?php echo $request['ClientName']; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $request['TherapistName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $request['TName']; ?>
-                                </td>
-                                <td>
-                                <span class="badge bg-danger px-3">Rejected</span>
+                                    <span class="badge bg-danger px-3">Rejected</span>
                                 </td>
                             </tr>
                         <?php } ?>

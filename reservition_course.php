@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status = 'Pending Review'; // Change this to 'Pending'
         echo $courseId . $clientId. $status;
         
-        if ($courseClientTable->insertCourseClient($courseId, $clientId, $status)) {
+        if ($courseClientTable->insertCourseClient($courseId, $clientId,$therapistId, $status)) {
             // Reservation was successful
             // You can redirect the user to a success page or display a success message
             echo '<script>window.location.href = "my profile.php";</script>';

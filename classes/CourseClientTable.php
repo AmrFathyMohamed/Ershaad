@@ -9,10 +9,10 @@ class CourseClientTable
         $this->db = $database;
     }
 
-    public function insertCourseClient($courseId, $clientId, $status)
+    public function insertCourseClient($courseId, $clientId,$therapistId, $status)
     {
-        $query = "INSERT INTO $this->table (CourseID, ClientID, Status, is_deleted, created_at, updated_at) 
-                  VALUES ($courseId, $clientId, '$status',0,NOW(),NOW())";
+        $query = "INSERT INTO $this->table (CourseID, ClientID,TherapistID, Status, is_deleted, created_at, updated_at) 
+                  VALUES ($courseId, $clientId,$therapistId, '$status',0,NOW(),NOW())";
                   //echo $query;
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
@@ -43,13 +43,13 @@ class CourseClientTable
 
     public function getAllCourseClients($Status)
     {
-        $query = "SELECT c.*,cc.*,cl.*,t.*,c.Title as Title ,cc.id as id , cc.Status as Status ,cl.FullName as CName , t.FullName as TName  
-        FROM courses c 
-        INNER JOIN course_client cc ON c.CourseID = cc.CourseID 
-        INNER JOIN clients cl ON cc.ClientID = cl.ClientID 
-        INNER JOIN course_therapist s ON c.CourseID = s.CourseID 
-        INNER JOIN therapists t ON s.TherapistID = t.TherapistID
-        Where cc.Status = '$Status'";
+        $query = "SELECT cc.*, c.FullName AS ClientName, co.Title AS CourseName,t.FullName AS TherapistName
+        FROM course_client cc
+        JOIN clients c ON cc.ClientID = c.ClientID
+        JOIN therapists t ON cc.TherapistID = t.TherapistID
+        JOIN courses co ON cc.CourseID = co.CourseID WHERE cc.status = '$Status'";
+
+
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }

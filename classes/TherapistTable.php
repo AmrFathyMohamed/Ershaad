@@ -14,17 +14,36 @@ class TherapistTable
         $query = "INSERT INTO $this->table (FullName, Specialization, Price,Percentage,PriceAfterPercentage, Rating, City, Bio, Gender, Phone, Username, Email, Password, Age, Profile, is_deleted, created_at, updated_at)  
                   VALUES ('$fullName', '$specialization', '$price','$percentage','$priceAfterPercentage','$rating', '$city', '$bio', '$gender', '$phone', '$username', '$email', '$password', '$age', '$profile',0,NOW(),NOW())";
         echo $query;
-        $stmt = $this->db->executeQuery($query);
-        return $stmt !== false;
+        // $stmt = $this->db->executeQuery($query);
+        // return $stmt !== false;
     }
 
 
-    public function updateTherapist($edit_therapistId, $edit_fullName, $edit_specialization, $edit_price, $edit_percentage, $editpriceAfterPercentage, $edit_rating, $edit_city, $edit_bio, $edit_gender, $edit_phone, $edit_username, $edit_email, $edit_password, $edit_age, $edit_profile)
+    public function updateTherapist($edit_therapistId, $edit_fullName, $edit_specialization, $edit_price, $edit_percentage, $editpriceAfterPercentage, $edit_rating, $edit_city, $edit_bio, $edit_phone, $edit_username, $edit_email, $edit_password, $edit_age, $edit_profile)
     {
         $edit_query = "UPDATE $this->table SET 
               FullName = '$edit_fullName', Specialization = '$edit_specialization', Price = $edit_price, Percentage = $edit_percentage,PriceAfterPercentage =$editpriceAfterPercentage, Rating = $edit_rating, City = '$edit_city',
-              Bio = '$edit_bio', Gender = '$edit_gender', Phone = '$edit_phone', Username = '$edit_username', Email = '$edit_email',updated_at = NOW()
+              Bio = '$edit_bio', Phone = '$edit_phone', Username = '$edit_username', Email = '$edit_email',updated_at = NOW(),
               Password = '$edit_password', Age = $edit_age, Profile = '$edit_profile' 
+              WHERE TherapistID = $edit_therapistId";
+        echo $edit_query;
+        // $stmt = $this->db->executeQuery($edit_query);
+
+        // if ($stmt !== false) {
+        //     // Update successful
+        //     return true;
+        // } else {
+        //     // Update failed
+        //     return false;
+        // }
+    }
+
+    public function updateTherapistWithoutImage($edit_therapistId, $edit_fullName, $edit_specialization, $edit_price, $edit_percentage, $editpriceAfterPercentage, $edit_rating, $edit_city, $edit_bio, $edit_phone, $edit_username, $edit_email, $edit_password, $edit_age)
+    {
+        $edit_query = "UPDATE $this->table SET 
+              FullName = '$edit_fullName', Specialization = '$edit_specialization', Price = $edit_price, Percentage = $edit_percentage,PriceAfterPercentage =$editpriceAfterPercentage, Rating = $edit_rating, City = '$edit_city',
+              Bio = '$edit_bio', Phone = '$edit_phone', Username = '$edit_username', Email = '$edit_email',updated_at = NOW(),
+              Password = '$edit_password', Age = $edit_age
               WHERE TherapistID = $edit_therapistId";
 
         $stmt = $this->db->executeQuery($edit_query);
@@ -37,8 +56,6 @@ class TherapistTable
             return false;
         }
     }
-
-
     public function deleteTherapist($therapistId)
     {
         $query = "DELETE FROM $this->table WHERE TherapistID = $therapistId";
@@ -103,6 +120,32 @@ class TherapistTable
         shuffle($therapists);
 
         return $therapists;
+    }
+
+
+    public function searchTherapistsWithSessionCount($therapistName, $specialty, $fromDate, $toDate)
+    {
+        $sql = "SELECT T.*, COUNT(S.SessionID) AS SessionCount
+            FROM therapists T
+            LEFT JOIN sessions S ON T.TherapistID = S.TherapistID
+            WHERE 1 = 1";
+
+        if ($therapistName !== 'All') {
+            $sql .= " AND T.FullName LIKE '%$therapistName%'";
+        }
+
+        if ($specialty !== 'All') {
+            $sql .= " AND T.Specialization = '$specialty'";
+        }
+
+        if (!empty($fromDate) && !empty($toDate)) {
+            $sql .= " AND S.Date BETWEEN '$fromDate' AND '$toDate'";
+        }
+
+        $sql .= " GROUP BY T.TherapistID";
+
+        $stmt = $this->db->executeQuery($sql);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
     }
 
 }

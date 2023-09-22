@@ -117,7 +117,7 @@ session_start(); // Start the session
         <h5 class="modal-title" id=""> إسترجاع كلمة المرور </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form>
+      <form id="email-form">
       <div class="modal-body">
         <div class="col-sm-12 mt-4">
           <div class="form-floating">
@@ -128,7 +128,7 @@ session_start(); // Start the session
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-        <button type="button" class="btn btn-primary px-5" onclick="sendMail()">إرسال</button>
+        <button type="submit" class="btn btn-primary px-5" >إرسال</button>
       </div>
     </form>
     </div>
@@ -151,6 +151,8 @@ session_start(); // Start the session
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Template Javascript -->
   <script src="js/main.js"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  
   <script>
     function toast(text, type) {
     if (type == 0) {
@@ -174,12 +176,54 @@ session_start(); // Start the session
     }
 
   }
+  function generateRandomPassword(length) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset.charAt(randomIndex);
+    }
+    return password;
+}
+emailjs.init("8IqpS-2yL8vNVUlT-");
 
-  function sendMail(){
-    let mail = $("#mail").val();
-    // send mail
-    toast('تم ارسال كلمة مرور جديدة علي بريدك الاليكتروني')
-  }
+//   function sendMail() {
+//     const email = $('#mail').val();
+
+//     // Generate a random password
+//     const randomPassword = generateRandomPassword(8);
+
+//     // Send the email
+//     $.post('send_email.php', { email: email, randomPassword: randomPassword }, function (data) {
+//         if (data === 'Email sent successfully') {
+//                 // if (data === 'Password updated successfully') {
+//                 //     alert('Password updated successfully. Check your email for the new password.');
+//                 // } else {
+//                 //     alert('Password update failed.');
+//                 // }
+//         } else {
+//             alert('Email sending failed.');
+//         }
+//     });
+// }
+document.getElementById("email-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("mail").value;
+    const randomPassword = generateRandomPassword(8); // Implement your random password function
+
+    // Send the email using Email.js
+    emailjs.send("service_66qxkf7", "template_g9q8u4c", {
+        to_email: email,
+        random_password: randomPassword,
+    }).then(function (response) {
+        alert("Email sent successfully!");
+    }, function (error) {
+        console.error("Email sending failed:", error);
+    });
+});
+
+
   </script>
 </body>
 

@@ -31,9 +31,9 @@ class SessionTable
     {
         $query = "UPDATE $this->table SET Status = '$status', updated_at = NOW() 
         WHERE SessionID = $courseClientId";
-        
-$stmt = $this->db->executeQuery($query);
-return $stmt !== false;
+
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
     }
 
     public function deleteSession($SessionId)
@@ -43,10 +43,15 @@ return $stmt !== false;
 
     public function getSessions()
     {
-        $query = "SELECT * FROM $this->table ";
+        $query = "SELECT s.*, c.FullName AS ClientName, t.FullName AS TherapistName
+              FROM sessions s
+              JOIN clients c ON s.UserID = c.ClientID
+              JOIN therapists t ON s.TherapistID = t.TherapistID";
+
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
+
 
     public function getSessionstherapist($id)
     {
@@ -78,6 +83,26 @@ return $stmt !== false;
             return []; // Return an empty array if no sessions are found
         }
     }
+    public function getSessionSums()
+    {
+        $query = "SELECT SUM(A) AS TotalSumA, SUM(B) AS TotalSumB FROM ( SELECT TherapistID, FullName, TotalIncome, SessionCount, TotalIncome * SessionCount AS A, TotalOutcome * SessionCount AS B FROM ( SELECT t.TherapistID, t.FullName, SUM(t.PriceAfterPercentage) AS TotalIncome, COUNT(s.SessionID) AS SessionCount, SUM(t.PriceAfterPercentage - t.Price) AS TotalOutcome FROM therapists t JOIN sessions s ON t.TherapistID = s.TherapistID WHERE s.Status = 'Accepted' GROUP BY t.TherapistID, t.FullName ) AS SubqueryAlias ) AS SubqueryAlias2; ";
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_assoc();
 
+    }
+    public function getSessionTotal()
+    {
+        // Define your SELECT query to fetch sessions for a therapist using $this->db->executeQuery
+        $query = "SELECT
+        COUNT(*) AS TotalSessions,
+        SUM(CASE WHEN DATE(Date) = CURDATE() THEN 1 ELSE 0 END) AS TotalSessionsToday
+    FROM
+        sessions;
+    ";
+        $stmt = $this->db->executeQuery($query);
+
+        return $stmt->fetch_assoc();
+
+    }
 }
 ?>
