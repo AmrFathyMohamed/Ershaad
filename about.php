@@ -1,7 +1,7 @@
 <?php include("includes/header.php"); ?>
   <!-- Page Header Start -->
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-    <div class="container py-5">
+    <div class="container py-5 right">
       <h1 class="display-4 animated slideInDown mb-4">عن إرشاد</h1>
       <nav aria-label="breadcrumb animated slideInDown">
         <ol class="breadcrumb mb-0">
@@ -23,7 +23,7 @@
           <h1 class="display-6 mb-4  text-right">
             رسالتنا
           </h1>
-          <h4 class="mb-4 text-right">
+          <h4 class="mb-4 text-right rtl">
           توفير الدعم المتخصص والاستشارات للأسر والأفراد وذوي الاحتياجات الخاصة عن طريق خدمات متخصصة ومبتكرة لتقييم وتشخيص وعلاج هذه المشاكل، وتوفير الدعم الشامل لمواجهة التحديات النفسية والتعليمية.
           </h4>
         </div>
@@ -38,8 +38,8 @@
           <h1 class="display-6 mb-4  text-right">
             رؤيتنا
           </h1>
-          <h4 class="mb-4 text-right">
-          لريادة في تقديم الاستشارات للأسر والأفراد وذوي الاحتياجات الخاصة والدعم النفسي لتحسين جودة الحياة النفسية والعاطفية  وتمكينهم من التكيف والتطور والمشاركة الفعّالة في المجتمع.
+          <h4 class="mb-4 text-right rtl">
+          الريادة في تقديم الاستشارات للأسر والأفراد وذوي الاحتياجات الخاصة والدعم النفسي لتحسين جودة الحياة النفسية والعاطفية  وتمكينهم من التكيف والتطور والمشاركة الفعّالة في المجتمع.
 
           </h4>
         </div>
@@ -67,37 +67,37 @@
         </div>
         <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
           <div class="h-100">
-            <h1 class="display-6 mb-5 right">
+            <h1 class="display-6 mb-5 right rtl">
               إرشاد.. رحلتك لحياة صحية تبدأ هنا
             </h1>
 
             <div class="row g-4 mb-4">
               <div class="col-sm-6">
-                <div class="d-flex align-items-center">
-                  <img class="flex-shrink-0 me-3 w-20" src="img/icon/personalized.svg" alt="" />
+                <div class="d-flex align-items-center flex-row-reverse">
+                  <img class="flex-shrink-0 ms-3 w-20" src="img/icon/personalized.svg" alt="" />
                   <h5 class="mb-0">إجابات متخصصة</h5>
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="d-flex align-items-center">
-                  <img class="flex-shrink-0 me-3 w-20" src="img/icon/confidentiality.svg" alt="" />
+                <div class="d-flex align-items-center flex-row-reverse">
+                  <img class="flex-shrink-0 ms-3 w-20" src="img/icon/confidentiality.svg" alt="" />
                   <h5 class="mb-0">سرية تامة </h5>
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="d-flex align-items-center">
-                  <img class="flex-shrink-0 me-3 w-20" src="img/icon/support.svg" alt="" />
+                <div class="d-flex align-items-center flex-row-reverse">
+                  <img class="flex-shrink-0 ms-3 w-20" src="img/icon/support.svg" alt="" />
                   <h5 class="mb-0">دعم متواصل</h5>
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="d-flex align-items-center">
-                  <img class="flex-shrink-0 me-3 w-20" src="img/icon/Follow.svg" alt="" />
+                <div class="d-flex align-items-center flex-row-reverse">
+                  <img class="flex-shrink-0 ms-3 w-20" src="img/icon/Follow.svg" alt="" />
                   <h5 class="mb-0">متابعة مستمرة </h5>
                 </div>
               </div>
             </div>
-            <p class="mb-4 right">
+            <p class="mb-4 right rtl">
               إجابات متخصصة لجميع الأسئلة في كافة المجالات المتعلقة بالصحة النفسية أختر التخصص الذي تبحث عنه.
             </p>
 
@@ -114,13 +114,9 @@
       <div class="row g-0 mx-lg-0">
         <div class="col-lg-12 facts-text wow fadeIn" data-wow-delay="0.1s">
           <div class="h-100 px-4 ps-lg-0 right">
-            <h1 class="text-white mb-4 right">إجابات متخصصة لجميع الأسئلة في كافة المجالات المتعلقة بالصحة</h1>
-            <p class="text-light mb-5">
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit.
-              Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit,
-              sed stet lorem sit clita duo justo magna dolore erat amet
-            </p>
-            <a href="" class="align-self-end btn btn-dark py-3 px-5">اعرف اكتر</a>
+            <h1 class="text-white mb-4 right rtl">إجابات متخصصة لجميع الأسئلة في كافة المجالات المتعلقة بالصحة</h1>
+            
+            <a href="index.php#FAQ" class="align-self-end btn btn-dark py-3 px-5">اعرف اكتر</a>
           </div>
         </div>
       </div>
