@@ -1,43 +1,34 @@
 <?php
-require 'Exception.php';
-require 'PHPMailer.php';
-require 'SMTP.php';
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+session_start();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Include the Database class
+    require_once 'classes/Database.php';
+    require_once 'classes/ClientTable.php';
 
-$to = $_POST['email']; // Get the email address from the request
-$subject = "Password Reset";
-$randomPassword = $_POST['randomPassword']; // Generate a random password
-$message = "Your new password is: " . $randomPassword;
-$senderEmail = "e0802676@gmail.com"; // Set the sender's email address
+    // Retrieve the user inputs from the login form
+    $to = $_POST['email'];
+    $randomPassword = $_POST['randomPassword']; // Generate a random password
+    // Create an instance of the Database class
+    $db = new Database();
 
-$mail = new PHPMailer(true);
+    // Attempt to log in the user
+    $user = new ClientTable($db);
 
-try {
-    //Server settings
-    $mail->SMTPDebug = 0; // Enable verbose debug output for testing (set to 2 for more details)
-    $mail->isSMTP(); // Send using SMTP
-    $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to Gmail's server
-    $mail->SMTPAuth = true; // Enable SMTP authentication
-    $mail->Username = 'e0802676@gmail.com'; // Your Gmail username
-    $mail->Password = 'Ershad2023@@'; // Your Gmail password
-    $mail->SMTPSecure = 'tls'; // Enable TLS encryption; 'ssl' also accepted
-    $mail->Port = 587; // TCP port to connect to, use 465 for 'ssl', 587 for 'tls'
-
-    //Recipients
-    $mail->setFrom($senderEmail);
-    $mail->addAddress($to); // Add recipient
-
-    //Content
-    $mail->isHTML(false); // Set email format to plain text
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-    
-    $mail->send();
-    echo "Email sent successfully";
-} catch (Exception $e) {
-    echo "Email sending failed. Error: {$e->getMessage()}"; // Changed to get the error message
+    if ($user->resetPassword($to,$randomPassword)) {
+        // Login successful
+        header("Location: index.php");
+        exit;
+    } else {
+        // Login failed
+        // Set an error message and redirect back to the login page
+        $_SESSION['loginError'] = "Invalid Email . Please try again.";
+        header("Location: login.php");
+        exit;
+    }
+} else {
+    // If the form was not submitted via POST, redirect to the login page
+    header("Location: login.php");
+    exit;
 }
-
 ?>
