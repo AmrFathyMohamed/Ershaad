@@ -31,7 +31,7 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
                                 <h1 class="display-3 text-dark mb-4 animated slideInDown text-right">
                                     تحتاج إلى التحدث مع شخص؟
                                 </h1>
-                                <p class="text-body mb-5 text-right">
+                                <p class="text-body mb-5 text-right rtl">
                                     نحن هنا من اجلك وعلى أهبة الاستعداد<br> بالرغم من اننا في عالم مزدحم الا اننا
                                     كثيرا ما نشعر بالوحدة، وأن نجد من يستمع الينا يمثل جزءًا أساسيًا من انسانيتنا،
                                     لكن قلة هم من يستمعون حقًا، وتبقي الحاجة لشخص يفهمنا ملحة، لذلك نحن هنا من أجلك.
@@ -154,12 +154,12 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="lc-block mb-4">
                 <div editable="rich">
-                    <h2 class="fw-bold display-5 arabic text-right">نقوم بتوصيلك مع أفضل المعالجين</h2>
+                    <h2 class="fw-bold display-5 arabic text-right rtl">نقوم بتوصيلك مع أفضل المعالجين</h2>
                 </div>
             </div>
             <div class="lc-block mb-5">
                 <div editable="rich">
-                    <p class="lead text-muted arabic text-right ps-4">إجابات متخصصة لجميع الأسئلة في كافة المجالات
+                    <p class="lead text-muted arabic text-right ps-4 rtl">إجابات متخصصة لجميع الأسئلة في كافة المجالات
                         المتعلقة بالصحة النفسية أختر التخصص الذي تبحث عنه.
                     </p>
                 </div>
@@ -290,7 +290,7 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
                 </div>
             </div>
         </div>
-        <div class="lc-block"><a class="align-self-end btn btn-dark py-3 px-5" href="about.html" role="button">اعرف
+        <div class="lc-block"><a class="align-self-end btn btn-dark py-3 px-5" href="index.php#FAQ" role="button">اعرف
                 اكتر</a></div>
     </div>
 </div>
@@ -302,10 +302,10 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
         <div class="row g-5 align-items-center">
 
             <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.5s">
-                <h1 class="display-6 mb-4  text-right">
+                <h1 class="display-6 mb-4  text-right rtl">
                     احصل على أفضل استشارات علاقات زوجية ودون أن تغادر منزلك اونلاين
                 </h1>
-                <p class="mb-4 text-right">
+                <p class="mb-4 text-right rtl">
                     تريد أن تحافظ على حياتك الزوجية وبشكل صحي، نقدم لك استشارات علاقات زوجية اونلاين وحتى الاستشارات
                     النفسية على تنوعها كالأسرية والاجتماعية، وذلك من خلال الحجز أونلاين
                 </p>
@@ -324,10 +324,10 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
                 <img class=" w-100 h-100 rounded" src="img/alone.svg" alt="" style="object-fit: cover" />
             </div>
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
-                <h1 class="display-6 mb-4  text-right">
+                <h1 class="display-6 mb-4  text-right rtl">
                     احصل على الاستشارات النفسية بأنواعها من خلال العلاج عبر الإنترنت
                 </h1>
-                <p class="mb-4 text-right">
+                <p class="mb-4 text-right rtl">
                     هل تريد القليل من المساعدة الإضافية؟ يمكنك الحصول على دعم وتوجيه مستمرين من معالج مرخص عند
                     التسجيل للحصول على العلاج اونلاين
                 </p>
@@ -342,14 +342,14 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
         <div class="row g-5 align-items-center">
 
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
-                <h1 class="display-6 mb-4  text-right">
+                <h1 class="display-6 mb-4  text-right rtl">
                     دردشة افتراضية مجهولة الهوية مع متخصصين
                 </h1>
-                <p class="mb-2 text-right">
+                <p class="mb-2 text-right rtl">
                     بحاجة الى التحدث الى شخص ما؟ يتوفر المتخصصون على مدار الساعة طوال أيام الأسبوع
                     لتقديم الدعم العاطفي عبر الدردشة اونلاين
                 </p>
-                <p class="mb-4 text-right">
+                <p class="mb-4 text-right rtl">
                     عندما تحتاج إلى شخص ما للتحدث معه ، فنحن هنا للاستماع إليك ومساعدتك على الشعور بتحسن </p>
             </div>
             <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -366,10 +366,10 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
                 <img class=" w-100 h-100 rounded" src="img/teen.svg" alt="" style="object-fit: cover" />
             </div>
             <div class="col-lg-7 wow fadeInUp  px-sm-3" data-wow-delay="0.5s">
-                <h1 class="display-6 mb-4  text-right">
+                <h1 class="display-6 mb-4  text-right rtl">
                     نحن هنا من أجل المراهقين أيضًا
                 </h1>
-                <p class="mb-4 text-right">
+                <p class="mb-4 text-right rtl">
                     إذا كنت تشعر بالوحدة، لا أحد يفهمك، لا تستطيع تكوين صداقات. نحن هنا من أجل تقديم الدعم لك في أي وقت
                 </p>
             </div>
@@ -382,10 +382,10 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
         <div class="row g-5 align-items-center">
 
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
-                <h1 class="display-6 mb-4  text-right">
+                <h1 class="display-6 mb-4  text-right rtl">
                     تلك الحياة لا تروق إلا للمحاربين، فإن لم تكن ذو إرادة فلا اسف عليك
                 </h1>
-                <p class="mb-2 text-right">
+                <p class="mb-2 text-right rtl">
                     قاتل لكي تكون ما تريد. نحن نقدم الدعم والارشاد الفردي والاسري لأبطالنا ذوي الاحتياجات
                     الخاصة في كل وقت. </p>
 
@@ -404,9 +404,9 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
                 <img class=" w-100 h-100 rounded" src="img/kid.svg" alt="" style="object-fit: cover" />
             </div>
             <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
-                <h1 class="display-6 mb-4  text-right">
+                <h1 class="display-6 mb-4  text-right rtl">
                     تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة. </h1>
-                <p class="mb-4 text-right">
+                <p class="mb-4 text-right rtl">
                     تعلم كيفية تعليم ابنك من خلال نقاط القوة لديه و كيفية ملاحظته بطريقة ذكية وغير مباشرة.
             </div>
         </div>
@@ -433,37 +433,37 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
             </div>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="h-100">
-                    <h1 class="display-6 mb-5 right">
+                    <h1 class="display-6 mb-5 right rtl">
                         إرشاد.. رحلتك لحياة صحية تبدأ هنا
                     </h1>
 
                     <div class="row g-4 mb-4">
                         <div class="col-sm-6">
-                            <div class="d-flex align-items-center">
-                                <img class="flex-shrink-0 me-3 w-20" src="img/icon/personalized.svg" alt="" />
+                            <div class="d-flex align-items-center flex-row-reverse">
+                                <img class="flex-shrink-0 ms-3 w-20" src="img/icon/personalized.svg" alt="" />
                                 <h5 class="mb-0">إجابات متخصصة</h5>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="d-flex align-items-center">
-                                <img class="flex-shrink-0 me-3 w-20" src="img/icon/confidentiality.svg" alt="" />
+                            <div class="d-flex align-items-center flex-row-reverse">
+                                <img class="flex-shrink-0 ms-3 w-20" src="img/icon/confidentiality.svg" alt="" />
                                 <h5 class="mb-0">سرية تامة </h5>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="d-flex align-items-center">
-                                <img class="flex-shrink-0 me-3 w-20" src="img/icon/support.svg" alt="" />
+                            <div class="d-flex align-items-center flex-row-reverse">
+                                <img class="flex-shrink-0 ms-3 w-20" src="img/icon/support.svg" alt="" />
                                 <h5 class="mb-0">دعم متواصل</h5>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="d-flex align-items-center">
-                                <img class="flex-shrink-0 me-3 w-20" src="img/icon/Follow.svg" alt="" />
+                            <div class="d-flex align-items-center flex-row-reverse">
+                                <img class="flex-shrink-0 ms-3 w-20" src="img/icon/Follow.svg" alt="" />
                                 <h5 class="mb-0">متابعة مستمرة </h5>
                             </div>
                         </div>
                     </div>
-                    <p class="mb-4 right">
+                    <p class="mb-4 right rtl">
                         إجابات متخصصة لجميع الأسئلة في كافة المجالات المتعلقة بالصحة النفسية أختر التخصص الذي تبحث
                         عنه.
                     </p>
@@ -477,7 +477,7 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
 
 
 <!-- Testimonial Start -->
-<div class="container-xxl py-5 px-sm-1">
+<div class="container-xxl py-5 px-sm-1" id="FAQ">
     <div class="container">
         <div class="text-center mx-auto" style="max-width: 500px">
             <h1 class="display-6 mb-5">الاسئلة الشائعة</h1>
