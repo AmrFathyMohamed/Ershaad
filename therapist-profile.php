@@ -84,7 +84,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
           <?= $therapist['Price'] ?>
         </span><span class="px-2">/</span><span>ساعة</span></p>
-
+        
 
     </div>
   </div>
@@ -499,7 +499,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       },
       success: function (response) {
         // Handle the response (e.g., show a success message)
-        alert(response);
+        alert("تمت عملية الحجز بنجاح");
         // You can also perform additional actions here, such as updating the UI
       },
       error: function () {

@@ -1,8 +1,6 @@
 
 <?php
 function logout() {
-    // Start or resume the session
-    session_start();
 
     // Unset all session variables
     $_SESSION = array();

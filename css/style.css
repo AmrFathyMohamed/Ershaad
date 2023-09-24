@@ -667,31 +667,3 @@ font-family: 'Tajawal', sans-serif!important;
     .modal-header .btn-close {
         margin: -0.5rem -0.5rem -0.5rem 10px;
     }
-
-    /* .breadcrumb-item + .breadcrumb-item::after {
-        float: left;
-        padding-right: .5rem;
-        color: #6c757d;
-        content: "/"!important;
-      }
-      .breadcrumb-item + .breadcrumb-item::before {
-        float: left;
-        padding-right: .5rem;
-        color: #6c757d;
-        content: ""!important;
-      } */
-      .breadcrumb{
-        flex-direction: row-reverse!important;
-      }
-      .page-header .breadcrumb-item a, .page-header .breadcrumb-item + .breadcrumb-item::before {
-        color: #696E77;
-        content: ''!important;
-      }
-      .page-header .breadcrumb-item a, .page-header .breadcrumb-item + .breadcrumb-item::after {
-        color: #696E77;
-        content: '/'!important;
-        margin: 0px 0.5rem;
-      }
-      .container.py-5>h1{
-        text-align: right!important;
-      }

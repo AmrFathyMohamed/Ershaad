@@ -94,7 +94,8 @@ if (isset($_GET['deleteAd'])) {
                         <?php foreach ($adsData as $ad) { ?>
                             <tr>
                                 <td>
-                                    <img src="<?php echo $ad['photo']; ?>" alt="Ad Photo" width="100">
+                                <img src="<?= str_replace('Ershad-admin/', '', $ad['photo']) ?>" class="d-block w-100" alt="...">
+
                                 </td>
                                 <td>
                                     <a href="Ads.php?deleteAd=<?php echo $ad['adsID']; ?>" class="btn btn-sm btn-danger"

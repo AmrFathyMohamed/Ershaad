@@ -103,10 +103,10 @@ $specialties = $SpecialtiesObject->getDataByTableName();
         </button>
         <?php
         if (isset($_SESSION['type'])) {
-            if ($_SESSION['type'] == 'therapist') {
+            if ($_SESSION['type'] == 'therapist' && $_SESSION['user_id'] != 0) {
                 ?>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
+                    <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">                    
                         <a href="sessions.php" class="nav-item nav-link px-3  text-white">الجلسات</a>
                         <a href="chats.php" class="nav-item nav-link px-3  text-white">المحادثات</a>
                         <a href="courses.php" class="nav-item nav-link px-3 text-white">الكورسات</a>
@@ -124,13 +124,11 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                         </div>
                     </div>
                 </div>
-            <?php } else if ($_SESSION['type'] == 'client') {
+            <?php } else if ($_SESSION['type'] == 'client' || $_SESSION['user_id'] == 0) {
                 ?>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
-                        <!-- <a href="sessions.php" class="nav-item nav-link px-3  text-white">الجلسات</a> -->
                         <a href="chats.php" class="nav-item nav-link px-3  text-white">المحادثات</a>
-                        <!-- <a href="courses.php" class="nav-item nav-link px-3 text-white">الكورسات</a> -->
                         <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>
                         <a href="search.php" class="nav-item nav-link px-3 text-white">المعالجين</a>
                         <a href="about.php" class="nav-item nav-link px-3 text-white">عن إرشاد</a>

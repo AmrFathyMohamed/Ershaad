@@ -36,9 +36,13 @@ class SessionTable
         return $stmt !== false;
     }
 
-    public function deleteSession($SessionId)
+    public function updateSessionRate($sessionid, $r , $c)
     {
+        $query = "UPDATE $this->table SET UserOpinion = '$c',UserRate = $r, updated_at = NOW() 
+        WHERE SessionID = $sessionid";
 
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
     }
 
     public function getSessions()

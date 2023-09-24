@@ -13,9 +13,9 @@ class TherapistTable
     {
         $query = "INSERT INTO $this->table (FullName, Specialization, Price,Percentage,PriceAfterPercentage, Rating, City, Bio, Gender, Phone, Username, Email, Password, Age, Profile, is_deleted, created_at, updated_at)  
                   VALUES ('$fullName', '$specialization', '$price','$percentage','$priceAfterPercentage','$rating', '$city', '$bio', '$gender', '$phone', '$username', '$email', '$password', '$age', '$profile',0,NOW(),NOW())";
-        echo $query;
-        // $stmt = $this->db->executeQuery($query);
-        // return $stmt !== false;
+
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
     }
 
 
@@ -26,16 +26,15 @@ class TherapistTable
               Bio = '$edit_bio', Phone = '$edit_phone', Username = '$edit_username', Email = '$edit_email',updated_at = NOW(),
               Password = '$edit_password', Age = $edit_age, Profile = '$edit_profile' 
               WHERE TherapistID = $edit_therapistId";
-        echo $edit_query;
-        // $stmt = $this->db->executeQuery($edit_query);
+        $stmt = $this->db->executeQuery($edit_query);
 
-        // if ($stmt !== false) {
-        //     // Update successful
-        //     return true;
-        // } else {
-        //     // Update failed
-        //     return false;
-        // }
+        if ($stmt !== false) {
+            // Update successful
+            return true;
+        } else {
+            // Update failed
+            return false;
+        }
     }
 
     public function updateTherapistWithoutImage($edit_therapistId, $edit_fullName, $edit_specialization, $edit_price, $edit_percentage, $editpriceAfterPercentage, $edit_rating, $edit_city, $edit_bio, $edit_phone, $edit_username, $edit_email, $edit_password, $edit_age)
@@ -142,7 +141,7 @@ class TherapistTable
             $sql .= " AND S.Date BETWEEN '$fromDate' AND '$toDate'";
         }
 
-        $sql .= " GROUP BY T.TherapistID";
+        $sql .= "AND Status = 'Accepted' GROUP BY T.TherapistID";
 
         $stmt = $this->db->executeQuery($sql);
         return $stmt->fetch_all(MYSQLI_ASSOC);

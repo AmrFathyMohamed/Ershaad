@@ -29,7 +29,7 @@ if (isset($_POST['date'])) {
                 foreach ($appointments as $key) {
                     echo '<div class="col-3 pb-4">';
                     echo '<input id="period-' . $key['AppointmentID'] . '" class="check-img-input" type="radio" name="period" ' .
-                        'value="' . date('h:ia', strtotime($key['Time'])) . ' - ' . date('h:ia', strtotime($key['Time'] . ' +1 hour')) . '" />';
+                        'value="' . date('h:ia', strtotime($key['Time'])) . '" />';
                     echo '<label for="period-' . $key['AppointmentID'] . '" class="check-img-label w-100">';
                     echo '<div class="check-img-content pt-2 pb-1">';
                     echo '<h6>' . date('h:ia', strtotime($key['Time'])) . ' - ' . date('h:ia', strtotime($key['Time'] . ' +1 hour')) . '</h6>';

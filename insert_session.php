@@ -22,7 +22,7 @@ if (isset($_POST['date'], $_POST['time'], $_POST['therapistId'], $_POST['status'
         } else {
             echo "Error inserting session";
         }
-        $stmt->close();
+        
     } catch (Exception $e) {
         echo 'Database error: ' . $e->getMessage();
     }

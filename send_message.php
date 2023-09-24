@@ -26,9 +26,13 @@ if (isset($_SESSION['user_id'])) {
                 'TherapistID' => $TherapistID,
                 'Message' => $Message
             );
-
-            // Return the newly inserted message data as JSON
-            echo json_encode($newMessageData);
+            if(isset($_POST['T'])){
+                header("Location: chats.php");
+                exit;
+            }else{
+                // Return the newly inserted message data as JSON
+                echo json_encode($newMessageData);
+            }
         } else {
             // Handle the case where the message insertion failed
             echo json_encode(array('error' => 'Message insertion failed'));

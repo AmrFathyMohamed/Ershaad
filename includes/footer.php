@@ -31,8 +31,13 @@
                 <h5 class="text-light mb-4">روابط هامة</h5>
                 <a class="btn btn-link" href="about.php">عن إرشاد</a>
                 <a class="btn btn-link" href="search.php">المعالجين</a>
-                <!-- <a class="btn btn-link" href="index.php #spec">التخصصات</a>
-                <a class="btn btn-link" href="">الدعم والمساعدة</a> -->
+                <!-- <a class="btn btn-link" href="index.php #spec">التخصصات</a> -->
+                <?php if ($_SESSION['user_id'] != 0) {
+                ?>
+                <a class="btn btn-link" data-bs-toggle="modal"
+                  data-bs-target="#chatModal2">الدعم والمساعدة</a>
+                  <?php }?>
+                
                 <a class="btn btn-link" href="policy.php">سياسة الاستخدام والخصوصية</a>
             </div>
             <!-- <div class="col-lg-3 col-md-6 right">
@@ -152,118 +157,34 @@
 </div>
 <!-- Edit info Modal -->
 <!-- chat Modal -->
-<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header flex-row-reverse justify-content-between">
-                <h5 class="modal-title" id="">تحدث مع معالجك</h5>
-                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form>
-                <div class="modal-body">
-                    <section class="section">
-                        <div class="row w-90 mx-auto border rounded-3">
 
-                            <div class="col-sm-12 px-0 chat-content-out">
-                                <div
-                                    class="col-12 ps-3 py-4 d-flex justify-content-between align-items-center border-bottom chat-header">
-                                    <div class="dropdown d-inline">
-                                        <a class="text-right text-purple fs-5" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="bi optionsIcon px-3 bi-list fs-6"
-                                                style="transform: translateY(-5px); cursor: pointer;"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end border"
-                                            aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-                                            <li>
-                                                <a class="dropdown-item text-muted" style="cursor: pointer;">
-                                                    <i class="icon-mid bi bi-dash-circle fs-6 me-2"></i>
-                                                    Option
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <h6 class="m-0 me-3 fw-black text-purple">د. مراد محسن <i
-                                            class="bi bi-chat-left-quote-fill fs-3 ms-2"></i></h6>
-                                </div>
-                                <div class="chat-content pt-4">
-                                    <div class="message-agent ms-3 my-3">
-                                        <div class="d-flex align-items-top">
-                                            <div class="avatar avatar-md"></div>
-                                            <div class="message ms-2">
-                                                <p class="mb-0">Si Lorem ipsum dolor sitpernatur ad! Facere,
-                                                    sapiente blanditiis?</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="message-user me-3 my-3">
-                                        <div class="d-flex justify-content-end align-items-top">
-
-                                            <div class="response me-2 delivered seen">
-                                                <p class="mb-0">dolor sit! Facere, sapiente blanditiis?</p>
-                                            </div>
-                                            <div class="avatar avatar-md"></div>
-                                        </div>
-                                    </div>
-                                    <div class="message-agent ms-3  my-3">
-                                        <div class="d-flex align-items-top">
-                                            <div class="avatar avatar-md"></div>
-                                            <div class="message ms-2">
-                                                <p class="mb-0">Si Lorem ipsum dolor sit amet, consectetur
-                                                    adiprnatur ad! Facere, sapiente blanditiis?</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="message-user me-3  my-3">
-                                        <div class="d-flex justify-content-end align-items-top">
-
-                                            <div class="response me-2 delivered seen">
-                                                <p class="mb-0">Si Lorem ipsum dolor sit amet, consectetur
-                                                    adipisicing elit blanditiis?</p>
-                                            </div>
-                                            <div class="avatar avatar-md"></div>
-                                        </div>
-                                    </div>
-                                    <div class="message-agent ms-3  my-3">
-                                        <div class="d-flex align-items-top">
-                                            <div class="avatar avatar-md"></div>
-                                            <div class="message ms-2">
-                                                <p class="mb-0">sapiente blanditiis?</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="message-user me-3  my-3">
-                                        <div class="d-flex justify-content-end align-items-top">
-
-                                            <div class="response me-2 delivered seen">
-                                                <p class="mb-0">Si Lorem ipsum doload! Facere, sapiente blanditiis?
-                                                </p>
-                                            </div>
-                                            <div class="avatar avatar-md"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="new-message rounded-0 py-2 card w-100 border-top">
-                                    <div class="d-flex align-items-center">
-                                        <textarea id="newMessageContent" class="form-control border-0 mx-2"
-                                            placeholder="Write a reply"></textarea>
-                                        <button onclick="sendNewMessage(this)" id="sendBtn" class=" btn me-2">
-                                            <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 <!-- chat Modal -->
+<!-- Modal -->
+<div class="modal fade" id="chatModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="send_message.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">تحدثت الي الادارة</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea id="Message" name="Message" cols="30" rows="4" placeholder="أكتب رسالتك"
+            class="rtl arabic form-control"></textarea>
+          <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
+          <input type="hidden" id="T" name="T" value="0" />
 
+          <input type="hidden" id="therapistID" name="TherapistID" value="0" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+          <button type="submit" class="btn btn-primary px-5" id="send">ارسال</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- rate modal -->
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
