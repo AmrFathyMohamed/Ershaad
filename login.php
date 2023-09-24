@@ -109,32 +109,32 @@ session_start(); // Start the session
     </div>
   </div>
   <!-- Appointment End -->
-  <!--   Modal -->
-  <div class="modal fade" id="forgetPassModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id=""> إسترجاع كلمة المرور </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="email-form">
-          <div class="modal-body">
-            <div class="col-sm-12 mt-4">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="mail" placeholder="البريد الاليكتروني" />
-                <label for="mail">البريد الاليكتروني</label>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-            <button type="submit" class="btn btn-primary px-5" >إرسال</button>
-          </div>
-        </form>
+<!--   Modal -->
+<div class="modal fade" id="forgetPassModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id=""> إسترجاع كلمة المرور </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form id="email-form">
+      <div class="modal-body">
+        <div class="col-sm-12 mt-4">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="mail" placeholder="البريد الاليكتروني" />
+            <label for="mail">البريد الاليكتروني</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+        <button type="submit" class="btn btn-primary px-5" >إرسال</button>
+      </div>
+    </form>
     </div>
   </div>
-  <!--   Modal -->
+</div>
+<!--   Modal -->
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
