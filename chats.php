@@ -78,19 +78,20 @@ if (isset($_SESSION['user_id'])) {
                 <div class="tickets px-0">
                     <?php foreach ($chatsData as $c) { ?>
                         <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center "
-                            data-client-id="<?php echo $c['UserID']; ?>" data-therapist-id="<?php echo $c['TherapistID']; ?>" data-client-Name="<?php if ($_SESSION['type'] == 'therapist') {
-                                    echo $c['Username'];
-                                } else if ($_SESSION['type'] == 'client') {
-                                    echo $c['FullName'];
-                                } ?>">
+                            data-client-id="<?php echo $c['UserID']; ?>"
+                            data-therapist-id="<?php echo $c['TherapistID']; ?>" data-client-Name="<?php if ($_SESSION['type'] == 'therapist') {
+                                   echo $c['Username'];
+                               } else if ($_SESSION['type'] == 'client') {
+                                   echo $c['FullName'];
+                               } ?>">
                             <div class="content">
                                 <h6 class="mb-0">
-                                <?php if ($_SESSION['type'] == 'therapist') {
-                                    echo $c['Username'];
-                                } else if ($_SESSION['type'] == 'client') {
-                                    echo $c['FullName'];
-                                }
-                                      ?>
+                                    <?php if ($_SESSION['type'] == 'therapist') {
+                                        echo $c['Username'];
+                                    } else if ($_SESSION['type'] == 'client') {
+                                        echo $c['FullName'];
+                                    }
+                                    ?>
                                 </h6>
                                 <small class="mb-0 last-message">
                                     <?php
@@ -123,19 +124,6 @@ if (isset($_SESSION['user_id'])) {
                                             echo $c['FullName'] . ' : ' . $message;
                                         }
                                     }
-                                    // if ($c['LastMessageSender'] == 'Therapist') {
-                                    //     $message = $c['LastMessage'];
-                                    //     if (strlen($message) > 100) {
-                                    //         $message = substr($message, 0, 25) . '...';
-                                    //     }
-                                    //     echo 'You : ' . $message;
-                                    // } else {
-                                    //     $message = $c['LastMessage'];
-                                    //     if (strlen($message) > 100) {
-                                    //         $message = substr($message, 0, 25) . '...';
-                                    //     }
-                                    //     echo $c['FullName'] . ' : ' . $message;
-                                    // }
                                     ?>
                                 </small>
                             </div>
@@ -146,17 +134,6 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                         </div>
                     <?php } ?>
-                    <!-- <div
-                        class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center active">
-                        <div class="content ">
-                            <h6 class="mb-0">سيد بدرية </h6>
-                            <small class="mb-0 last-message">Lorem ipsum dolor sit amet consectetur
-                                adipisicing...</small>
-                        </div>
-                        <div>
-                            <span class="badge text-muted fs-small">20/2/2023</span>
-                        </div>
-                    </div> -->
                 </div>
 
             </div>
@@ -165,171 +142,25 @@ if (isset($_SESSION['user_id'])) {
                     <h6 class="m-0 fw-black text-purple text-right" id="ClientName"></h6>
                 </div>
                 <div class="chat-content pt-4" id="chatMessagesContainer">
-                    <!-- <div class="message-agent ps-2 ms-3 my-3">
-                        <div class="d-flex align-items-top">
-                            <div class="avatar avatar-md"></div>
-                            <div class="message ms-2">
-                                <p class="mb-0">Si Lorem ipsum dolor sitpernatur ad! Facere, sapiente blanditiis?</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="message-user ps-2 me-3 my-3">
-                        <div class="d-flex justify-content-end align-items-top">
-
-                            <div class="response me-2 delivered seen">
-                                <p class="mb-0">dolor sit! Facere, sapiente blanditiis?</p>
-                            </div>
-                            <div class="avatar avatar-md"></div>
-                        </div>
-                    </div>
-                    <div class="message-agent ps-2 ms-3  my-3">
-                        <div class="d-flex align-items-top">
-                            <div class="avatar avatar-md"></div>
-                            <div class="message ms-2">
-                                <p class="mb-0">Si Lorem ipsum dolor sit amet, consectetur adiprnatur ad! Facere,
-                                    sapiente blanditiis?</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="message-user ps-2 me-3  my-3">
-                        <div class="d-flex justify-content-end align-items-top">
-
-                            <div class="response me-2 delivered seen">
-                                <p class="mb-0">Si Lorem ipsum dolor sit amet, consectetur adipisicing elit blanditiis?
-                                </p>
-                            </div>
-                            <div class="avatar avatar-md"></div>
-                        </div>
-                    </div>
-                    <div class="message-agent ps-2 ms-3  my-3">
-                        <div class="d-flex align-items-top">
-                            <div class="avatar avatar-md"></div>
-                            <div class="message ms-2">
-                                <p class="mb-0">sapiente blanditiis?</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="message-user ps-2 me-3  my-3">
-                        <div class="d-flex justify-content-end align-items-top">
-
-                            <div class="response me-2 delivered seen">
-                                <p class="mb-0">Si Lorem ipsum doload! Facere, sapiente blanditiis?</p>
-                            </div>
-                            <div class="avatar avatar-md"></div>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="new-message rounded-0 py-2 card w-100 border-top">
                     <form id="formsend">
 
                     </form>
-                    <!-- <div class="d-flex align-items-center">
-                        <textarea id="newMessageContent" class="form-control border-0 mx-2"
-                            placeholder="Write a reply"></textarea>
-                        <button id="sendBtn" class=" btn me-2">
-                            <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                        </button>
-                    </div> -->
                 </div>
             </div>
         </div>
     </section>
     <?php include("includes/footer.php"); ?>
-    <!-- <script>
-        $(document).ready(function () {
-            // Set the TherapistID from the session
-            const TherapistID = ;
 
-            // Event listener for the send button
-            $("#sendBtn").click(function () {
-                const UserID = $("#UserID").val(); // Get the ClientID
-
-                // Get the message content from the textarea
-                const Message = $("#newMessageContent").val();
-
-                // AJAX request to send the message
-                $.ajax({
-                    type: "POST",
-                    url: "send_message.php",
-                    data: { UserID: UserID, TherapistID: TherapistID, Message: Message },
-                    success: function (response) {
-                        // Assuming your response from send_message.php contains the new message data
-                        // You can parse the JSON response or handle it according to your data format
-                        const newMessageData = JSON.parse(response);
-
-                        // Example: Update the chat UI with the new message
-                        const messageContainer = $(".chat-content"); // Replace with the actual container element
-                        const messageClass = newMessageData.TherapistID === TherapistID ? "message-user" : "message-agent";
-                        const messageHTML = `<div class="${messageClass} ps-2 ms-3 my-3">
-                                                <div class="d-flex align-items-top">
-                                                    <div class="avatar avatar-md"></div>
-                                                    <div class="message ms-2">
-                                                        <p class="mb-0">${newMessageData.Message}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        `;
-
-                        // Append the new message to the chat UI
-                        messageContainer.append(messageHTML);
-                    },
-                    error: function (error) {
-                        // Handle any errors (e.g., display an error message)
-                    }
-                });
-
-                // Clear the textarea after sending the message
-                $("#newMessageContent").val("");
-            });
-
-            // Function to load messages
-
-
-
-        });
-
-
-        $(document).ready(function () {
-            // Attach a click event handler to the chat divs
-            $('.ticket').click(function () {
-                $(this).addClass('active');
-                var clientID = $(this).data('client-id');
-                $('#ClientName').text($(this).data('client-name'));
-                // Call a function to load and display chat messages for the clicked client
-                $.ajax({
-                    url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
-                    method: 'POST',
-                    data: { clientID: clientID },
-                    success: function (response) {
-                        // Display the chat messages in the chatMessagesContainer
-
-                        $('#chatMessagesContainer').html(response);
-                        $('#formsend').html(`<div class="d-flex align-items-center">
-                                                <textarea id="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                                <input type="hidden" id="UserID" value="`+ clientID + `" />
-                                                <button id="sendBtn" class="btn me-2">
-                                                    <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                                                </button>
-                                            </div>
-                                            `);
-                    },
-                    error: function () {
-                        alert('Failed to fetch chat messages.');
-                    }
-                });
-                
-
-            });
-        });
-    </script> -->
     <script>
-        scrollEnd() 
+        scrollEnd()
         function scrollEnd() {
-        $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);
-        $(".chat-content").animate({ scrollTop: $(".chat-content")[0].scrollHeight }, 2000);
-    }
-            scrollToStart() 
-            function scrollToStart() {
+            $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);
+            $(".chat-content").animate({ scrollTop: $(".chat-content")[0].scrollHeight }, 2000);
+        }
+        scrollToStart()
+        function scrollToStart() {
             $(".tickets").scrollTop(0);
             $(".tickets").animate({ scrollTop: 0 }, 2000);
         }
@@ -346,7 +177,7 @@ if (isset($_SESSION['user_id'])) {
                 $.ajax({
                     url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
                     method: 'POST',
-                    data: { clientID: clientID , therapistID:therapistID },
+                    data: { clientID: clientID, therapistID: therapistID },
                     success: function (response) {
                         // Display the chat messages in the chatMessagesContainer
                         $('#chatMessagesContainer').html(response);
@@ -362,32 +193,25 @@ if (isset($_SESSION['user_id'])) {
             <?php
             if ($_SESSION['type'] == 'therapist') { ?>
                 $('#formsend').html(`<div class="d-flex align-items-center">
-                        <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                        <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
-                        <button id="sendBtn" type="submit" class="btn me-2">
-                            <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                        </button>
-                    </div>
-                    `);
+                                <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                                <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
+                                <button id="sendBtn" type="submit" class="btn me-2">
+                                    <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+                                </button>
+                            </div>
+                            `);
             <?php } else if ($_SESSION['type'] == 'client') { ?>
                     $('#formsend').html(`<div class="d-flex align-items-center">
-                            <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                            <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
-                            <button id="sendBtn" type="submit" class="btn me-2">
-                                <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                            </button>
-                        </div>
-                        `);
+                                            <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                                            <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
+                                            <button id="sendBtn" type="submit" class="btn me-2">
+                                                <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
+                                            </button>
+                                        </div>
+                                        `);
             <?php }
             ?>
-            // $('#formsend').html(`<div class="d-flex align-items-center">
-            //         <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-            //         <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
-            //         <button id="sendBtn" type="submit" class="btn me-2">
-            //             <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-            //         </button>
-            //     </div>
-            //     `);
+
             loadChatMessages();
 
             // Clear any existing chat refresh interval
@@ -405,15 +229,15 @@ if (isset($_SESSION['user_id'])) {
                 var therapistID = <?= $_SESSION['user_id']; ?>;
 
             <?php } else if ($_SESSION['type'] == 'client') { ?>
-                var userID =<?= $_SESSION['user_id']; ?>;
-                var therapistID = $('#TherapistID').val();
+                    var userID = <?= $_SESSION['user_id']; ?>;
+                    var therapistID = $('#TherapistID').val();
             <?php } ?>
-            
+
             // Call an AJAX function to send the message to the server and update chat messages on success
             $.ajax({
                 url: 'send_message.php', // Replace with the actual PHP script to send messages
                 method: 'POST',
-                data: { Message: messageContent, UserID: userID,TherapistID: therapistID },
+                data: { Message: messageContent, UserID: userID, TherapistID: therapistID },
                 success: function (response) {
                     // Clear the message input field
                     $('#newMessageContent').val('');
