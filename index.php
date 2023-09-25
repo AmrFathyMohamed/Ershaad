@@ -10,7 +10,9 @@ $questionsData = $questionTable->getQuestions(); // Assuming you have a method t
 
 $adsTable = new AdsTable($database); // Change this to your QuestionTable class
 $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
-?>
+
+
+  ?>
 <style>
     .accordion-button::after {
 
