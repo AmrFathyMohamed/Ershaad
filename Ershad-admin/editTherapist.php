@@ -14,7 +14,11 @@ if (isset($_SESSION['user_id'], $_GET['TherapistID'])) {
     $specialties = $SpecialtiesObject->getDataByTableName();
     // You can use $userId in your code as needed
 } else {
-    echo '<script>window.location.href = "Therapist.php";</script>';
+    echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
+    
     exit;
 }
 // Handle the form submission
@@ -91,10 +95,16 @@ if (isset($_POST['updateTherapist'])) {
         );
 
         if ($success) {
-            echo '<script>window.location.href = "Therapist.php";</script>';
-            exit;
-        } else {
-            $errorMessage = "Failed to update therapist.";
+            echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
+        exit;
+    } else {
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
         }
     }
 }

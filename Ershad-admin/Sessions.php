@@ -15,8 +15,12 @@ if (isset($_SESSION['user_id'])) {
         $courseClientId = $_POST['SessionID'];
 
         if ($sessions->updateSession($courseClientId, 'Accepted')) {
-            echo '<script>window.location.href = "Sessions.php";</script>';
-                exit;
+            
+                echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Sessions.php";
+        </script>';
+        exit;
         }
 
     }
@@ -25,8 +29,11 @@ if (isset($_SESSION['user_id'])) {
 
 
         if ($sessions->updateSession($courseClientId, 'Rejected')) {
-            echo '<script>window.location.href = "Sessions.php";</script>';
-                exit;
+            echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Sessions.php";
+        </script>';
+        exit;
         }
 
     }

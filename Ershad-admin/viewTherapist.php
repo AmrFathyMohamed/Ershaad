@@ -118,11 +118,16 @@ if (isset($_POST['addTherapist'])) {
 
     if ($therapists->insertTherapist(...$data)) {
         // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
         exit;
     } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add therapist.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 // Handle the form submission for updating an existing therapist
@@ -149,11 +154,16 @@ if (isset($_POST['updateTherapist'])) {
 
     if ($therapists->updateTherapist(...$data)) {
         // Update successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
         exit;
     } else {
-        // Update failed, handle the error
-        $errorMessage = "Failed to update therapist.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 // Handle the deletion of a therapist
@@ -162,11 +172,16 @@ if (isset($_GET['deleteTherapist'])) {
 
     if ($therapists->deleteTherapist($therapistId)) {
         // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Therapist.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
         exit;
     } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete therapist.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 // Retrieve therapist data by ID

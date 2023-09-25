@@ -3,7 +3,7 @@ session_start();
 ?>
 <?php include("./classes/Database.php"); ?>
 <?php include("./classes/SpecialtiesTable.php"); 
-require_once 'config.php';?>
+?>
 <?php
 $database = new Database();
 $SpecialtiesObject = new SpecialtiesTable($database);
@@ -190,10 +190,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
             </div>
         <?php }
          else { ?>
-            <!-- <a href="login.php" class="btn btn-light col-5 col-md-2 d-none d-md-inline-block">تسجيل الدخول</a> -->
-            <div class="d-md-none d-block w-100 right">
-                <a href="login.php" class=" text-white border rounded px-2 py-1">تسجيل الدخول</a>
-            </div>
+            
             
         <?php } } else { ?>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -210,8 +207,9 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                                 <?php } ?>
                             </div>
                         </div>
-                        <a href="login.php" class="btn btn-light px-4 d-block">تسجيل الدخول</a>
                     </div>
+                    <a href="login.php" class="btn btn-light px-4 d-block">تسجيل الدخول</a>
+
             </div>
         <?php }
         ?>

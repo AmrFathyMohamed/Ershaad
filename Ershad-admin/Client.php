@@ -418,11 +418,16 @@ if (isset($_POST['addclient'])) {
 
     if ($clients->insertclient(...$data)) {
         // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Client.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
         exit;
     } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add client.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 // Handle the form submission for updating an existing client
@@ -443,11 +448,16 @@ if (isset($_POST['updateclient'])) {
     if ($clients->updateclient(...$data)) {
         // Update successful, you can redirect or show a success message
         //        echo '<script>window.location.href = "Client.php";</script>';
-        echo '<script>window.location.href = "client.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "client.php";
+        </script>';
         exit;
     } else {
-        // Update failed, handle the error
-        $errorMessage = "Failed to update client.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 // Handle the deletion of a client

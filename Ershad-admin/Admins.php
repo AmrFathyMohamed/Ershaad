@@ -26,13 +26,16 @@ if (isset($_POST['addAdmin'])) {
     );
 
     if ($admins->insertAdmin(...$data)) {
-        // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Admins.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Admins.php";
+        </script>';
         exit;
-
     } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add admin.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 
@@ -47,13 +50,16 @@ if (isset($_POST['updateAdmin'])) {
     );
 
     if ($admins->updateAdmin(...$data)) {
-        // Update successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Admins.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Admins.php";
+        </script>';
         exit;
-
     } else {
-        // Update failed, handle the error
-        $errorMessage = "Failed to update admin.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 
@@ -62,13 +68,16 @@ if (isset($_GET['deleteAdmin'])) {
     $adminIdToDelete = $_GET['deleteAdmin'];
 
     if ($admins->deleteAdmin($adminIdToDelete)) {
-        // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Admins.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Admins.php";
+        </script>';
         exit;
-
     } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete admin.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 ?>

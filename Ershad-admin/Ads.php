@@ -33,12 +33,16 @@ if (isset($_POST['addAd'])) {
         if (move_uploaded_file($profileImageTmp, $targetDir . $uniqueFilename)) {
             // Insert the file path into the database
             if ($adsTable->insertAd('Ershad-admin/' . $targetDir . $uniqueFilename)) {
-                // Insertion successful, you can redirect or show a success message
-                echo '<script>window.location.href = "Ads.php";</script>';
+                echo '<script>
+                alert("تم بنجاح")
+                window.location.href = "Admins.php";
+                </script>';
                 exit;
             } else {
-                // Insertion failed, handle the error
-                $errorMessage = "Failed to add ad.";
+                echo '<script>
+                alert("حدث خطأ")
+                location.reload();
+                </script>';
             }
         } else {
             // File upload failed, handle the error
@@ -52,12 +56,16 @@ if (isset($_GET['deleteAd'])) {
     $adIdToDelete = $_GET['deleteAd'];
 
     if ($adsTable->deleteAd($adIdToDelete)) {
-        // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Ads.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Ads.php";
+        </script>';
         exit;
     } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete ad.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 ?>

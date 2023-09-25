@@ -40,8 +40,8 @@ if (isset($_SESSION['user_id'])) {
                                     <p id="sales">5000 EGP</p>
                                 </div>
                             </div>
-                            <div class="chart-wrapper">
-                                <canvas id="canvas1" style="height:100px !important"></canvas>
+                            <div class="chart-wrapper" style="height: 70px;">
+                                <img src="assets/images/sats1.svg" class="w-100 mt-2">
                             </div>
                         </div>
                     </div>
@@ -57,8 +57,8 @@ if (isset($_SESSION['user_id'])) {
                                     <p id="users">532,20</p>
                                 </div>
                             </div>
-                            <div class="chart-wrapper">
-                                <canvas id="canvas2" style="height:100px !important"></canvas>
+                            <div class="chart-wrapper" style="height: 70px;">
+                                <img src="assets/images/sats2.svg" class="w-100 mt-2">
                             </div>
                         </div>
                     </div>
@@ -74,8 +74,8 @@ if (isset($_SESSION['user_id'])) {
                                     <p id="totalSessions">1,580 </p>
                                 </div>
                             </div>
-                            <div class="chart-wrapper">
-                                <canvas id="canvas3" style="height:100px !important"></canvas>
+                            <div class="chart-wrapper" style="height: 70px;">
+                                <img src="assets/images/sats3.svg" class="w-100 mt-2">
                             </div>
                         </div>
                     </div>
@@ -91,8 +91,8 @@ if (isset($_SESSION['user_id'])) {
                                     <p id="todaySessions">25 </p>
                                 </div>
                             </div>
-                            <div class="chart-wrapper">
-                                <canvas id="canvas4" style="height:100px !important"></canvas>
+                            <div class="chart-wrapper" style="height: 70px;">
+                                <img src="assets/images/sats.svg" class="w-100 mt-2">
                             </div>
                         </div>
                     </div>
@@ -133,8 +133,8 @@ if (isset($_SESSION['user_id'])) {
 
     $("#totalSessions").text(totalSessions);
     $("#todaySessions").text(todaySessions);
-    $("#sales").text(sales + 'EGP');
-    $("#users").text(users);
+    $("#sales").text(sales + ' EGP');
+    $("#users").text(users + ' EGP');
 </script>
 <?php
 // Include your database connection code here

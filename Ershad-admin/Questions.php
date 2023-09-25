@@ -23,11 +23,16 @@ if (isset($_POST['addQuestion'])) {
 
     if ($questionTable->insertQuestion($questionText, $answerText)) {
         // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Questions.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Questions.php";
+        </script>';
         exit;
     } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add question.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 
@@ -37,11 +42,16 @@ if (isset($_GET['deleteQuestion'])) {
 
     if ($questionTable->deleteQuestion($questionIdToDelete)) {
         // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Questions.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Questions.php";
+        </script>';
         exit;
     } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete question.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 ?>

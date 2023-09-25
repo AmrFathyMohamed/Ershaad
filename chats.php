@@ -75,7 +75,7 @@ if (isset($_SESSION['user_id'])) {
                     <h6 class="m-0 ps-3"><img src="assets/images/ticketsSide.svg" alt="" class="w-10 pe-2">جميع
                         المحادثات </h6>
                 </div>
-                <div class="tickets px-0 chat-content">
+                <div class="tickets px-0">
                     <?php foreach ($chatsData as $c) { ?>
                         <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center "
                             data-client-id="<?php echo $c['UserID']; ?>" data-therapist-id="<?php echo $c['TherapistID']; ?>" data-client-Name="<?php echo $c['FullName']; ?>">
@@ -314,6 +314,16 @@ if (isset($_SESSION['user_id'])) {
         });
     </script> -->
     <script>
+        scrollEnd() 
+        function scrollEnd() {
+        $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);
+        $(".chat-content").animate({ scrollTop: $(".chat-content")[0].scrollHeight }, 2000);
+    }
+            scrollToStart() 
+            function scrollToStart() {
+            $(".tickets").scrollTop(0);
+            $(".tickets").animate({ scrollTop: 0 }, 2000);
+        }
         var chatInterval; // Variable to store the chat refresh interval
 
         $('.ticket').click(function () {
@@ -331,7 +341,7 @@ if (isset($_SESSION['user_id'])) {
                     success: function (response) {
                         // Display the chat messages in the chatMessagesContainer
                         $('#chatMessagesContainer').html(response);
-
+                        scrollEnd()
                     },
                     error: function () {
                         alert('Failed to fetch chat messages.');
@@ -400,6 +410,7 @@ if (isset($_SESSION['user_id'])) {
                     $('#newMessageContent').val('');
                     // Reload chat messages to see the new message
                     //loadChatMessages();
+                    scrollEnd()
                 },
                 error: function () {
                     alert('Failed to send the message.');
@@ -414,6 +425,7 @@ if (isset($_SESSION['user_id'])) {
                 success: function (response) {
                     // Replace the chats section content with the refreshed content
                     $('#chatsSection').html(response);
+                    scrollEnd()
                 },
                 error: function () {
                     alert('Failed to refresh the chats section.');

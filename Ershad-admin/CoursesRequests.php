@@ -84,9 +84,12 @@ if (isset($_SESSION['user_id'])) {
     if (isset($_POST['rejectCourse'])) {
         $courseClientId = $_POST['courseClientId'];
 
-
+        
         if ($courseClientTable->updateCourseClient($courseClientId, 'Rejected')) {
-            echo '<script>window.location.href = "CoursesRequests.php";</script>';
+            echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "CoursesRequests.php";
+        </script>';
             exit;
         }
 

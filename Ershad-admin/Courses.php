@@ -27,11 +27,16 @@ if (isset($_POST['addCourse'])) {
 
     if ($coursesTable->insertCourse($title, $description, $sessions, $price, $type)) {
         // Insertion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Courses.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Courses.php";
+        </script>';
         exit;
     } else {
-        // Insertion failed, handle the error
-        $errorMessage = "Failed to add the course.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 
@@ -41,11 +46,16 @@ if (isset($_GET['deleteCourse'])) {
 
     if ($coursesTable->deleteCourse($courseIdToDelete)) {
         // Deletion successful, you can redirect or show a success message
-        echo '<script>window.location.href = "Courses.php";</script>';
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Courses.php";
+        </script>';
         exit;
     } else {
-        // Deletion failed, handle the error
-        $errorMessage = "Failed to delete the course.";
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
 }
 ?>

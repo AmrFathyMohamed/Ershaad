@@ -93,7 +93,7 @@ checkSession();
                                 <span>Ads</span>
                             </a>
                             <a href="Reports.php" class='sidebar-link'>
-                                <i data-feather="percent" width="20"></i>
+                                <i data-feather="pie-chart" width="20"></i>
                                 <span>Reports</span>
                             </a>
                         </li>
