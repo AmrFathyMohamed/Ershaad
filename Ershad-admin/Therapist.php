@@ -412,7 +412,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                         var listItem = $('<li class="d-inline-block col-6 mb-1 px-3 py-2 border d-flex justify-content-between align-items-center rounded ">').html(appointment['Date'] + ' - ' + appointment['Time'] + ' - ' + '<span class="badge bg-primary">'+appointment['Type']+'</span>');
                         var deleteForm = $('<form class="d-inline">').attr('method', 'POST').attr('action', 'Therapist.php');
                         deleteForm.append($('<input>').attr('type', 'hidden').attr('name', 'appointmentId').val(appointment['AppointmentID']));
-                        deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteAppointment').addClass('btn btn-danger btn-sm').html('<i class="bi bi-trash"></i>'));
+                        deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteAppointment').addClass('btn btn-danger px-2 py-1 btn-sm').html('<i class="bi bi-trash"></i>'));
                         listItem.append(deleteForm);
                         $('#appointmentsList').append(listItem);
                     }
@@ -443,7 +443,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                         var listItem = $('<li class="d-inline-block w-100 px-3 py-2 border d-flex justify-content-between align-items-center rounded">').html('<div><p class="fw-bold mb-1">'+document['DocumentName'] + '</p>'+'<span>'+ document['DocumentDate']+'</span>'+'</div> ' + '<span class="badge bg-info">'+document['DocumentType']+'</span>');
                         var deleteForm = $('<form class="d-inline">').attr('method', 'POST').attr('action', 'Therapist.php');
                         deleteForm.append($('<input>').attr('type', 'hidden').attr('name', 'documentId').val(document['DocumentID']));
-                        deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteDocument').addClass('btn btn-danger btn-sm').html('<i class="bi bi-trash"></i>'));
+                        deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteDocument').addClass('btn px-2 py-1 btn-danger btn-sm').html('<i class="bi bi-trash"></i>'));
                         listItem.append(deleteForm);
                         $('#documentsList').append(listItem);
                     }
