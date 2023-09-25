@@ -185,9 +185,9 @@ $sessionCountsJSON = json_encode(array_values($sessionCounts));
             datasets: [{
                 label: 'Sessions', // Change label to 'Sessions'
                 backgroundColor: [chartColors.grey, chartColors.info, chartColors.blue,
-                chartColors.grey, chartColors.info, chartColors.blue,
-                chartColors.grey, chartColors.info, chartColors.blue,
-                chartColors.grey, chartColors.info, chartColors.blue],
+                chartColors.yellow, chartColors.red, chartColors.brown,
+                chartColors.cadetblue, chartColors.coral, chartColors.crimson,
+                chartColors.purple, chartColors.green, chartColors.orange],
                 data: dynamicData, // Use dynamic data obtained from PHP
             }]
         },

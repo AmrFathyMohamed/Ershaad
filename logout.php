@@ -2,6 +2,7 @@
 <?php
 function logout() {
 
+    session_start();
     // Unset all session variables
     $_SESSION = array();
 

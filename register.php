@@ -85,18 +85,20 @@ session_start(); // Start the session
                     <label for="Age">السن</label>
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="form-floating">
-                    <input type="password" class="form-control" id="Password" name="Password"
-                      placeholder="كلمة المرور" />
-                    <label for="Password">كلمة المرور</label>
-                  </div>
-                </div>
+                
                 <div class="col-sm-6">
                   <div class="form-floating">
                     <input type="password" class="form-control" id="RePassword" name="RePassword"
                       placeholder=" تأكيد كلمة المرور" />
                     <label for="RePassword">تأكيد كلمة المرور</label>
+                  </div>
+                  <p id="passwordMatch" style="color: red; font-size:small;" class="right mb-0"></p>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="Password" name="Password"
+                      placeholder="كلمة المرور" />
+                    <label for="Password">كلمة المرور</label>
                   </div>
                 </div>
                 <div class="col-sm-12">
@@ -153,7 +155,7 @@ session_start(); // Start the session
                   <button class="btn btn-primary btn-lg mt-3 w-100 px-5" type="submit" id="submitBtn">
                     انشاء حسابي
                   </button>
-                  <button class="btn btn-danger mt-4 mt-3 w-100 px-5" type="submit" id="submitBtn">
+                  <button class="btn btn-danger mt-4 mt-3 w-100 px-5" type="submit" id="submitBtn" >
                      <i class="bi bi-google me-3"></i> Google تسجيل بأستخدام   
                   </button>
                 </div>
@@ -182,6 +184,23 @@ session_start(); // Start the session
   <script src="js/main.js"></script>
   <script>
     $(document).ready(function () {
+      $('#submitBtn').prop('disabled', true);
+      function checkAllFieldsValid() {
+    return $('.validate-input').toArray().every(function (inputField) {
+      return $(inputField).hasClass('is-valid');
+    });
+  }
+      $("#RePassword").keyup(function () {
+            var password = $("#Password").val();
+            var confirmPassword = $("#RePassword").val();
+            var passwordMatch = $("#passwordMatch");
+
+            if (password === confirmPassword) {
+                passwordMatch.text("كلمة المرور متطابقة").css("color", "green");
+            } else {
+                passwordMatch.text("كلمة المرور غير متطابقة").css("color", "red");
+            }
+        });
       // Attach event listeners to the input fields
       $('#Email, #Username, #Phone').on('keyup', function () {
         const inputField = $(this);
@@ -189,6 +208,7 @@ session_start(); // Start the session
         const value = inputField.val();
 
         // Send an AJAX request to checkregistration.php
+       if (inputField.val() !='') {
         $.ajax({
           type: 'POST',
           url: 'checkregistrationdata.php',
@@ -203,20 +223,24 @@ session_start(); // Start the session
               inputField.removeClass('is-valid');
               inputField.addClass('is-invalid');
             }
-
             // Check if all input fields have the .valid-field class
             const allFieldsValid = $('#Email').hasClass('is-valid') &&
               $('#Username').hasClass('is-valid') &&
               $('#Phone').hasClass('is-valid');
-
-            // // Enable or disable the submit button based on the validation result
-            // if (allFieldsValid) {
-            //   $('#submitBtn').prop('disabled', false);
-            // } else {
-            //   $('#submitBtn').prop('disabled', true);
-            // }
+            console.log(allFieldsValid);
+            // Enable or disable the submit button based on the validation result
+            if (allFieldsValid) {
+              $('#submitBtn').prop('disabled', false);
+            } if (!allFieldsValid) {
+              $('#submitBtn').prop('disabled', true);
+            }
+            // $('#submitBtn').prop('disabled', !checkAllFieldsValid());
           }
         });
+       }else{
+        inputField.removeClass('is-valid');
+        inputField.addClass('is-invalid');
+       }
       });
       // $('#submitBtn').prop('disabled', true);
     });

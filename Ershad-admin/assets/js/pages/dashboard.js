@@ -7,7 +7,14 @@ var chartColors = {
   info: '#41B1F9',
   blue: '#3245D1',
   purple: 'rgb(153, 102, 255)',
-  grey: '#EBEFF6'
+  grey: '#EBEFF6',
+  brown: '#a52a2a',
+    blueviolet: '#8a2be2',
+    burlywood: '#edbb7b',
+    coral: '#ff7f50',
+    crimson: '#ed143d',
+    darkgoldenrod: '#b8860b',
+    cadetblue: '#5f9ea0'
 };
 
 var config1 = {

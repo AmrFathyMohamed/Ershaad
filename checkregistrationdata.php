@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client = new ClientTable($db);
     $field = $_POST['field'];
     $value = $_POST['value'];
-    $stmt = $db->executeQuery("SELECT COUNT(*) FROM users WHERE $field = '$value'");
-    $count = count($stmt->fetch_all(MYSQLI_ASSOC));
-  
-    if ($count > 0) {
+    $stmt = $db->executeQuery("SELECT COUNT(Username) as C FROM clients WHERE $field = '$value'");
+    $count = $stmt->fetch_all(MYSQLI_ASSOC);
+    $C =  $count[0]['C'];
+    if ($C > 0) {
       echo 'taken';
     } else {
       echo 'available';
