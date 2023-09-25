@@ -171,9 +171,9 @@ $specialties = $SpecialtiesObject->getDataByTableName();
             <a href="#" class="d-inline-block mx-2 fs-5 pointer" 
                 style="color: #7892aa;"><?= $_SESSION['fullname'] ?></a>
             <div class="nav-item dropdown">
-                <a class="btn btn-square ms-1 btn-info rounded-circle" style="background-color: #7ce7d9;
-                        border-color: #7ce7d9;" data-bs-toggle="dropdown"><i class="fa-solid fa-user"
-                        style="color: #37474f;"></i>
+                <a class="btn btn-square ms-1 btn-info rounded-circle"  data-bs-toggle="dropdown">
+                        <img src="img/user.png" style="width: 3vw;background: white;" alt=""
+          class="rounded-circle shadow">
                 </a><div class="dropdown-menu bg-light border-0 m-0 shadow">
                 <?php
                 if($_SESSION['type'] === 'client') { ?>                    
@@ -181,10 +181,10 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                 <?php } else if($_SESSION['type'] === 'therapist') { ?>
                     <a href="my profile - therapist.php" class="dropdown-item">الملف الشخصي</a>
                 <?php } ?>                
-                    <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
-                        الشخصية</a>
-                     <!-- <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة 
-                        المرور</a> -->
+                    <!-- <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
+                        الشخصية</a> -->
+                     <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة 
+                        المرور</a>
                     <a class="dropdown-item pointer text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
                 </div>
             </div>
