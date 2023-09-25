@@ -1,6 +1,9 @@
 <?php
 session_start(); // Start the session
 ?>
+<?php
+require_once 'includes/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,9 +90,12 @@ session_start(); // Start the session
                   <button class="btn btn-primary py-3 mt-4 col-12 col-md-6 px-5" type="submit">
                     تسجيل الدخول
                   </button>
-                  <button class="btn btn-danger mt-4 mt-3 w-100 px-5" type="submit" id="submitBtn">
+                  <?php
+                  echo '<a class="btn btn-danger mt-4 mt-3 w-100 px-5" href="'.$client->createAuthUrl().'" id="submitBtn">
                     <i class="bi bi-google me-3"></i> Google تسجيل بأستخدام
-                  </button>
+                  </a>' 
+                  ?>
+                  
                 </div>
                 <?php if (isset($loginError) && !empty($loginError) && !strpos($loginError, 'email') && !strpos($loginError, 'password')) { ?>
                   <!-- Display general login error message -->
