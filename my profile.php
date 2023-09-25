@@ -115,12 +115,14 @@ if (isset($_SESSION['user_id'])) {
       $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
       $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
       if ($sessionDate->format('Y-m-d') >= $currentDate->format('Y-m-d')) {
-        echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+        echo '<div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
-                  <div class="d-flex align-items-center ms-n5 mb-1">
-                    <div class="service-icon w-25 text-white bg-primary rounded-end mb-1 me-4"  onclick="showRate(\'' . $session['SessionID'] . '\')"
-                      style="border-top-right-radius: 0px !important;">تحدث الي المعالج <i class="fa-solid fa-comments ms-2"></i></div>
-                      
+                  <div class="d-flex align-items-center ms-n5 mb-1">';
+                  if ($sessionDate->format('Y-m-d') == $currentDate->format('Y-m-d')) {
+                    echo '<div class="service-icon w-50 text-white bg-primary rounded-end mb-1 me-4"  onclick="showChat(\'' . $session['TherapistID'] . '\')"
+                      style="border-top-right-radius: 0px !important;">تحدث الي المعالج <i class="fa-solid fa-comments ms-2"></i></div>';
+                  }
+                  echo '                     
                     <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
                   </div>
                   <div class="d-flex justify-content-between">
@@ -166,13 +168,13 @@ if (isset($_SESSION['user_id'])) {
       $endTime = clone $startTime;
       $endTime->add(new DateInterval('PT1H'));
       $sessionDate = new DateTime($session['Date']);
-      $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
-      $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
+      $sessionTypeClass = ($session['Type'] == 'Work' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
+      $sessionTypeName = ($session['Type'] == 'Work' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
       if ($sessionDate->format('Y-m-d') < $currentDate->format('Y-m-d')) {
-        echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+        echo '<div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">
-                  <div class="service-icon w-25 text-white bg-warning rounded-end mb-1 me-4 pointer"  onclick="showChat(\'' . $session['SessionID'] . '\')" style="border-top-right-radius: 0px !important;">
+                  <div class="service-icon w-50 text-white bg-warning rounded-end mb-1 me-4 pointer"  onclick="showRate(\'' . $session['SessionID'] . '\')" style="border-top-right-radius: 0px !important;">
                   تقييم <i class="fa-regular fa-star ms-2"></i>
                  </div>
                     <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
@@ -195,11 +197,11 @@ if (isset($_SESSION['user_id'])) {
   </div>
   <div class="tab-pane w-55 px-5 mx-auto fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
   <?php foreach ($course_client as $course) { ?>
-      <div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+      <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
         <div class="service-item rounded h-100 px-4 pb-2">
           <div class="ms-n5 mb-1">
             <?php if ($course['Status'] == "Pending Review") { ?>
-              <div class="service-icon w-25 text-white bg-warning rounded-end mb-1 me-4"
+              <div class="service-icon w-50 text-white bg-warning rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;">
                 قيد المراجعة
               </div>
@@ -239,18 +241,22 @@ if (isset($_SESSION['user_id'])) {
 </div>
 <!-- tabs end -->
 <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="POST" action="chat.php">
+      <form method="POST" action="send_message.php">
         <div class="modal-header">
           <h5 class="modal-title" id="">تحدثت الي معالجك</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <textarea name="" id="message" cols="30" rows="4" placeholder="أكتب رسالتك"
+          <textarea id="Message" name="Message" cols="30" rows="4" placeholder="أكتب رسالتك"
             class="rtl arabic form-control"></textarea>
-            <input type="text" hidden id="therapistID">
+          <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
+          <input type="hidden" id="T" name="T" value="0" />
+
+          <input type="hidden" id="therapistID" name="TherapistID" value="<?= $therapist['TherapistID']; ?>" />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
@@ -266,7 +272,7 @@ if (isset($_SESSION['user_id'])) {
 <div class="modal fade" id="rateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="POST" action="rate.php">
+      <form method="POST" action="send_rate.php">
         <div class="modal-header">
           <h5 class="modal-title" id="">تقييم الجلسة</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -280,10 +286,10 @@ if (isset($_SESSION['user_id'])) {
             <i class="fa-regular fa-star rateStar"></i>
             <i class="fa-regular fa-star rateStar"></i>
           </div>
-          <textarea name="" id="comment" cols="30" rows="6" placeholder="أكتب تعليقاً"
+          <textarea name="Comment" id="comment" cols="30" rows="6" placeholder="أكتب تعليقاً"
             class="rtl arabic form-control"></textarea>
-            <input type="text" hidden id="sessionID">
-            <input type="text" hidden id="ratingVal">
+          <input type="text" hidden id="SessionID" name="SessionID">
+          <input type="text" hidden id="ratingVal" name="Rate">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
@@ -331,7 +337,7 @@ if (isset($_SESSION['user_id'])) {
 <?php include("includes/footer.php"); ?>
 <script>
  function showRate(sessionID) {
-  $("#sessionID").val(sessionID)
+  $("#SessionID").val(sessionID)
   $("#rateModal").modal('show')
   }
 

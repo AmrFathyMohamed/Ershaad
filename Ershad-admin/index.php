@@ -184,10 +184,10 @@ $sessionCountsJSON = json_encode(array_values($sessionCounts));
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // Complete the labels for all months
             datasets: [{
                 label: 'Sessions', // Change label to 'Sessions'
-                backgroundColor: [chartColors.grey, chartColors.info, chartColors.blue,
-                chartColors.yellow, chartColors.red, chartColors.brown,
-                chartColors.cadetblue, chartColors.coral, chartColors.crimson,
-                chartColors.purple, chartColors.green, chartColors.orange],
+                backgroundColor: [chartColors.grey, chartColors.grey, chartColors.grey,
+                chartColors.grey, chartColors.grey, chartColors.grey,
+                chartColors.grey, chartColors.grey, chartColors.grey,
+                chartColors.grey, chartColors.grey, chartColors.grey],
                 data: dynamicData, // Use dynamic data obtained from PHP
             }]
         },

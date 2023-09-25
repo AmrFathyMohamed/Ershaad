@@ -26,7 +26,12 @@ $html = '';
 foreach ($chatsData as $c) {
     $html .= '<div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center" data-client-id="' . $c['ClientID'] . '" data-therapist-id="' . $c['TherapistID'] . '" data-client-name="' . $c['FullName'] . '">';
     $html .= '<div class="content">';
-    $html .= '<h6 class="mb-0">' . $c['FullName'] . '</h6>';
+    if ($_SESSION['type'] == 'therapist') {
+        $html .= '<h6 class="mb-0">' . $c['Username'] . '</h6>';
+    } else if ($_SESSION['type'] == 'client') {
+        $html .= '<h6 class="mb-0">' . $c['FullName'] . '</h6>';
+    }
+    
     $html .= '<small class="mb-0 last-message">';
 
     if ($_SESSION['type'] == 'therapist') {

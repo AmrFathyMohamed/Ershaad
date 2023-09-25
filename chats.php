@@ -71,17 +71,26 @@ if (isset($_SESSION['user_id'])) {
     <section class="section my-5">
         <div class="row w-90 mx-auto border rounded-3 bg-white shadow">
             <div class="col-md-4 col-sm-12 px-0 border-end active-ticktes-out">
-                <div class="col-12 d-flex justify-content-between py-4 border-bottom tickets-header">
-                    <h6 class="m-0 ps-3"><img src="assets/images/ticketsSide.svg" alt="" class="w-10 pe-2">جميع
+                <div class="col-12 d-flex justify-content-end align-items-center  border-bottom tickets-header">
+                    <h6 class="m-0"><img src="assets/images/ticketsSide.svg" alt="" class="w-100 pe-2 ">جميع
                         المحادثات </h6>
                 </div>
                 <div class="tickets px-0">
                     <?php foreach ($chatsData as $c) { ?>
                         <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center "
-                            data-client-id="<?php echo $c['UserID']; ?>" data-therapist-id="<?php echo $c['TherapistID']; ?>" data-client-Name="<?php echo $c['FullName']; ?>">
+                            data-client-id="<?php echo $c['UserID']; ?>" data-therapist-id="<?php echo $c['TherapistID']; ?>" data-client-Name="<?php if ($_SESSION['type'] == 'therapist') {
+                                    echo $c['Username'];
+                                } else if ($_SESSION['type'] == 'client') {
+                                    echo $c['FullName'];
+                                } ?>">
                             <div class="content">
                                 <h6 class="mb-0">
-                                    <?php echo $c['FullName']; ?>
+                                <?php if ($_SESSION['type'] == 'therapist') {
+                                    echo $c['Username'];
+                                } else if ($_SESSION['type'] == 'client') {
+                                    echo $c['FullName'];
+                                }
+                                      ?>
                                 </h6>
                                 <small class="mb-0 last-message">
                                     <?php
