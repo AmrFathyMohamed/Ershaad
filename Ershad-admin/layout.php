@@ -45,58 +45,86 @@ checkSession();
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class='sidebar-title'>Main Menu</li>
-                        <li class="sidebar-item  ">
-                            <a href="index.php" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="index.php" class="sidebar-link">
                                 <i data-feather="home" width="20"></i>
                                 <span>Dashboard</span>
                             </a>
-
-                            <a href="Therapist.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Therapist.php" class="sidebar-link">
                                 <i data-feather="users" width="20"></i>
                                 <span>Therapist</span>
                             </a>
-                            <a href="Client.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Client.php" class="sidebar-link">
                                 <i data-feather="user" width="20"></i>
                                 <span>Client</span>
                             </a>
-                            <a href="Admins.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Admins.php" class="sidebar-link">
                                 <i data-feather="user" width="20"></i>
                                 <span>Admins</span>
                             </a>
-                            <!-- <a href="Appointment.php" class='sidebar-link'>
-                                <i data-feather="calendar" width="20"></i>
-                                <span>Appointments</span>
-                            </a> -->
-                            <a href="Sessions.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Sessions.php" class="sidebar-link">
                                 <i data-feather="git-commit" width="20"></i>
                                 <span>Sessions</span>
                             </a>
-                            <a href="Courses.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Courses.php" class="sidebar-link">
                                 <i data-feather="monitor" width="20"></i>
                                 <span>Courses</span>
                             </a>
-                            <a href="CoursesRequests.php" class='sidebar-link'>
-                                <i data-feather="monitor" width="20"></i>
-                                <span>Courses Requests</span>
-                            </a>
-                            <a href="Specialties.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i data-feather="briefcase" width="20"></i> 
+                            <span>Courses Requests</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li>
+                                <a href="CoursesRequests.php">Pending</a>
+                            </li>
+                            
+                            <li>
+                                <a href="CoursesRequestsAccepted.php">Accepted</a>
+                            </li>
+                            <li>
+                                <a href="CoursesRequestsRejected.php">Rejected</a>
+                            </li>
+                        </ul>
+
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Specialties.php" class="sidebar-link">
                                 <i data-feather="award" width="20"></i>
                                 <span>Specialties</span>
                             </a>
-
-                            <a href="Questions.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Questions.php" class="sidebar-link">
                                 <i data-feather="help-circle" width="20"></i>
                                 <span>Questions</span>
                             </a>
-                            <a href="Ads.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Ads.php" class="sidebar-link">
                                 <i data-feather="percent" width="20"></i>
                                 <span>Ads</span>
                             </a>
-                            <a href="Reports.php" class='sidebar-link'>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="Reports.php" class="sidebar-link">
                                 <i data-feather="pie-chart" width="20"></i>
                                 <span>Reports</span>
                             </a>
                         </li>
+                        
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

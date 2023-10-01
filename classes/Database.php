@@ -1,22 +1,23 @@
 <?php
 class Database
 {
-    //private $host = "localhost";
-    // private $username = "root"; //"id21106103_ershad"
-    // private $password = ""; //"Ershad2023@@"
-    // private $database = "ershad"; //"id21106103_ershad"
-    // private $conn;
+    private $host = "localhost";
+    private $username = "root"; //"id21106103_ershad"
+    private $password = ""; //"Ershad2023@@"
+    private $database = "ershad"; //"id21106103_ershad"
+    private $conn;
+    
     //private $host = "localhost";
     // private $username = "u853470417_ershaad";
     // private $password = "Ershad2023@@";
     // private $database = "id21106103_ershad";
     // private $conn;
 
-    private $host = "ershaad.net";
-    private $username = "u853470417_ershaad";
-    private $password = "Ershad2023@@";
-    private $database = "u853470417_ershaad";
-    private $conn;
+    // private $host = "ershaad.net";
+    // private $username = "u853470417_ershaad";
+    // private $password = "Ershad2023@@";
+    // private $database = "u853470417_ershaad";
+    // private $conn;
     private $errorMessage = "";
 
     public function __construct()

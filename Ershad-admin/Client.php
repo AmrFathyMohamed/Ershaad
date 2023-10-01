@@ -420,7 +420,7 @@ if (isset($_POST['addclient'])) {
         // Insertion successful, you can redirect or show a success message
         echo '<script>
         alert("تم بنجاح")
-        window.location.href = "Therapist.php";
+        window.location.href = "Client.php";
         </script>';
         exit;
     } else {
@@ -450,7 +450,7 @@ if (isset($_POST['updateclient'])) {
         //        echo '<script>window.location.href = "Client.php";</script>';
         echo '<script>
         alert("تم بنجاح")
-        window.location.href = "client.php";
+        window.location.href = "Client.php";
         </script>';
         exit;
     } else {
