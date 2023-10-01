@@ -2,17 +2,17 @@
 class Database
 {
 
-    private $host = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $database = "ershad";
-    private $conn;
-
-    // private $host = "ershaad.net";
-    // private $username = "u853470417_ershaad";
-    // private $password = "Ershad2023@@";
-    // private $database = "u853470417_ershaad";
+    // private $host = "localhost";
+    // private $username = "root";
+    // private $password = "";
+    // private $database = "ershad";
     // private $conn;
+
+    private $host = "ershaad.net";
+    private $username = "u853470417_ershaad";
+    private $password = "Ershad2023@@";
+    private $database = "u853470417_ershaad";
+    private $conn;
     private $errorMessage = "";
 
     public function __construct()
