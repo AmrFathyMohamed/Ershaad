@@ -83,7 +83,7 @@
         <nav aria-label="breadcrumb animated slideInDown ">
           <div class="d-flex justify-content-between">
             <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="#">الرئيسية</a></li>
+              <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
               <li class="breadcrumb-item active" aria-current="page">
                 الملف الشخصي
               </li>

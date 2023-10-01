@@ -88,25 +88,19 @@ class TherapistTable
     }
     public function getTherapists()
     {
-        $query = "SELECT * FROM $this->table ";
-        $stmt = $this->db->executeQuery($query);
-        return $stmt->fetch_all(MYSQLI_ASSOC);
-    }
-    public function getAdmins()
-    {
-        $query = "SELECT * FROM admins ";
+        $query = "SELECT * FROM $this->table  Where TherapistID > 10000";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
     public function getTherapistsBySpecialization($SpecialtyID)
     {
-        $query = "SELECT * FROM $this->table where Specialization = (SELECT Specialty FROM specialties where SpecialtyID = $SpecialtyID) ORDER BY Rating DESC";
+        $query = "SELECT * FROM $this->table where Specialization = (SELECT Specialty FROM specialties where SpecialtyID = $SpecialtyID)  and TherapistID > 10000 ORDER BY Rating DESC";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
     public function getRandomTopRatedTherapists($count)
     {
-        $query = "SELECT * FROM $this->table ORDER BY RAND() LIMIT $count";
+        $query = "SELECT * FROM $this->table Where TherapistID > 10000 ORDER BY RAND() LIMIT $count ";
         $stmt = $this->db->executeQuery($query);
 
         if ($stmt !== false) {
@@ -127,7 +121,7 @@ class TherapistTable
         $sql = "SELECT T.*, COUNT(S.SessionID) AS SessionCount
             FROM therapists T
             LEFT JOIN sessions S ON T.TherapistID = S.TherapistID
-            WHERE 1 = 1";
+            Where TherapistID > 10000";
 
         if ($therapistName !== 'All') {
             $sql .= " AND T.FullName LIKE '%$therapistName%'";

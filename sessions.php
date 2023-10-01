@@ -75,7 +75,7 @@ if (isset($_SESSION['user_id'])) {
       <nav aria-label="breadcrumb animated slideInDown ">
         <div class="d-flex justify-content-between">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">الرئيسية</a></li>
+            <li class="breadcrumb-item"><a href="v">الرئيسية</a></li>
             <li class="breadcrumb-item active" aria-current="page">
               الجلسات
             </li>
@@ -118,8 +118,8 @@ if (isset($_SESSION['user_id'])) {
       $endTime = clone $startTime;
       $endTime->add(new DateInterval('PT1H'));
       $sessionDate = new DateTime($session['Date']);
-      $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
-      $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
+      $sessionTypeClass = ($session['Type'] == 'Regular' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
+      $sessionTypeName = ($session['Type'] == 'Regular' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
       if ($sessionDate->format('Y-m-d') >= $currentDate->format('Y-m-d')) {
         echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
@@ -152,13 +152,13 @@ if (isset($_SESSION['user_id'])) {
       $endTime = clone $startTime;
       $endTime->add(new DateInterval('PT1H'));
       $sessionDate = new DateTime($session['Date']);
-      $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
-      $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
+      $sessionTypeClass = ($session['Type'] == 'Regular' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
+      $sessionTypeName = ($session['Type'] == 'Regular' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
       if ($sessionDate->format('Y-m-d') < $currentDate->format('Y-m-d')) {
-        echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+        echo '<div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">
-                    <div class="service-icon w-25 text-white ' . $sessionTypeClass . ' rounded-end mb-1 me-4"
+                    <div class="service-icon w-50 text-white ' . $sessionTypeClass . ' rounded-end mb-1 me-4"
                       style="border-top-right-radius: 0px !important;">' . $sessionTypeName . '</div>
                     <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
                   </div>

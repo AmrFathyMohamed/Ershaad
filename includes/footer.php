@@ -20,11 +20,18 @@
                 <p>01020304050 <i class="fa fa-phone-alt ms-3"></i></p> -->
                 <p>ershaad80@gmail.com<i class="fa fa-envelope ms-3"></i></p>
                 <div class="d-flex pt-2 justify-content-end">
-                    <a class="btn btn-square me-1" href="https://twitter.com/ershaad392688"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-square me-1" href="https://www.facebook.com/profile.php?id=61550946876715&mibextid=D4KYlr"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square me-1" href="https://www.tiktok.com/@ershaad2"><i class="fa-brands fa-tiktok"></i></a>
-                    <a class="btn btn-square me-1" href="https://www.snapchat.com/add/ershaad566?share_id=CYR0dVL1NQw&locale=en-EG"><i class="fa-brands fa-snapchat"></i></a>
-                    <a class="btn btn-square me-0" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i class="fa-brands fa-instagram"></i></a>
+                    <a class="btn btn-square me-1" href="https://twitter.com/ershaad392688"><i
+                            class="fab fa-twitter"></i></a>
+                    <a class="btn btn-square me-1"
+                        href="https://www.facebook.com/profile.php?id=61550946876715&mibextid=D4KYlr"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square me-1" href="https://www.tiktok.com/@ershaad2"><i
+                            class="fa-brands fa-tiktok"></i></a>
+                    <a class="btn btn-square me-1"
+                        href="https://www.snapchat.com/add/ershaad566?share_id=CYR0dVL1NQw&locale=en-EG"><i
+                            class="fa-brands fa-snapchat"></i></a>
+                    <a class="btn btn-square me-0" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i
+                            class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 right">
@@ -32,12 +39,13 @@
                 <a class="btn btn-link" href="about.php">عن إرشاد</a>
                 <a class="btn btn-link" href="search.php">المعالجين</a>
                 <!-- <a class="btn btn-link" href="index.php #spec">التخصصات</a> -->
-                <?php if ($_SESSION['user_id'] != 0) {
-                ?>
-                <a class="btn btn-link" data-bs-toggle="modal"
-                  data-bs-target="#chatModal2">الدعم والمساعدة</a>
-                  <?php }?>
-                
+                <?php if (isset($_SESSION['user_id'])) {
+                    if ($_SESSION['user_id'] != 0) {
+                        ?>
+                        <a class="btn btn-link" data-bs-toggle="modal" data-bs-target="#chatModal2">الدعم والمساعدة</a>
+                    <?php }
+                } ?>
+
                 <a class="btn btn-link" href="policy.php">سياسة الاستخدام والخصوصية</a>
             </div>
             <!-- <div class="col-lg-3 col-md-6 right">
@@ -161,28 +169,28 @@
 <!-- chat Modal -->
 <!-- Modal -->
 <div class="modal fade" id="chatModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="POST" action="send_message.php">
-        <div class="modal-header">
-          <h5 class="modal-title" id="">تحدثت الي الادارة</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <textarea id="Message" name="Message" cols="30" rows="4" placeholder="أكتب رسالتك"
-            class="rtl arabic form-control"></textarea>
-          <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
-          <input type="hidden" id="T" name="T" value="0" />
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="send_message.php">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">تحدثت الي الادارة</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="Message" name="Message" cols="30" rows="4" placeholder="أكتب رسالتك"
+                        class="rtl arabic form-control"></textarea>
+                    <input type="hidden" id="UserID" name="UserID" value="<?= $_SESSION['user_id']; ?>" />
+                    <input type="hidden" id="T" name="T" value="0" />
 
-          <input type="hidden" id="therapistID" name="TherapistID" value="0" />
+                    <input type="hidden" id="therapistID" name="TherapistID" value="0" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                    <button type="submit" class="btn btn-primary px-5" id="send">ارسال</button>
+                </div>
+            </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-          <button type="submit" class="btn btn-primary px-5" id="send">ارسال</button>
-        </div>
-      </form>
     </div>
-  </div>
 </div>
 <!-- rate modal -->
 <!-- Back to Top -->

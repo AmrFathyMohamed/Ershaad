@@ -1,13 +1,16 @@
 <?php include("includes/header.php"); ?>
 
 <?php include("classes/TherapistTable.php"); ?>
+
 <?php
 if (isset($_GET['SpecialtyID'])) {
     $specialtyID = $_GET['SpecialtyID'];
     $database = new Database();
+    $Specialties = new SpecialtiesTable($database);
     $therapistTable = new TherapistTable($database);
     $therapists = $therapistTable->getTherapistsBySpecialization($specialtyID);
-    $firstTherapist = reset($therapists);
+    $Specialy = $Specialties->getSpecialtyById($specialtyID);
+    //$$Specialy =Specialtyists);
 } else {
     header("Location: index.php");
     exit;
@@ -21,9 +24,9 @@ if (isset($_GET['SpecialtyID'])) {
             <div class="col-10">
                 <div class="form-floating">
                     <input type="text" class="form-control right" id="search"
-                        placeholder="بحث بأسم المعالج فى تخصص <?= $firstTherapist['Specialization']; ?>" />
+                        placeholder="بحث بأسم المعالج فى تخصص <?= $Specialy['Specialty']; ?>" />
                     <label for="search" style="right: 0!important; left: auto!important;">    متخصصين: 
-                        <?= $firstTherapist['Specialization']; ?>
+                        <?= $Specialy['Specialty']; ?>
                     </label>
                 </div>
             </div>
@@ -35,7 +38,7 @@ if (isset($_GET['SpecialtyID'])) {
         </div>
         <div class="text-center mx-auto" style="max-width: 1000px">
             <h1 class="display-6 mb-5 underline">تخصص -
-                <?= $firstTherapist['Specialization']; ?>
+                <?= $Specialy['Specialty']; ?>
             </h1>
         </div>
         <div class="row g-4" id="therapistsList">

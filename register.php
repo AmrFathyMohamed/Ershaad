@@ -197,8 +197,12 @@ session_start(); // Start the session
 
             if (password === confirmPassword) {
                 passwordMatch.text("كلمة المرور متطابقة").css("color", "green");
+              $('#submitBtn').prop('disabled', false);
+
             } else {
                 passwordMatch.text("كلمة المرور غير متطابقة").css("color", "red");
+              $('#submitBtn').prop('disabled', true);
+
             }
         });
       // Attach event listeners to the input fields
