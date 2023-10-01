@@ -75,7 +75,7 @@ if (isset($_SESSION['user_id'])) {
       <nav aria-label="breadcrumb animated slideInDown ">
         <div class="d-flex justify-content-between">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">الرئيسية</a></li>
+            <li class="breadcrumb-item"><a href="v">الرئيسية</a></li>
             <li class="breadcrumb-item active" aria-current="page">
               الجلسات
             </li>

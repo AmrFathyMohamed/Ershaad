@@ -1,17 +1,22 @@
 <?php
 class Database
 {
-private $host = "localhost";
-    private $username = "root"; //"id21106103_ershad"
-    private $password = ""; //"Ershad2023@@"
-    private $database = "ershad"; //"id21106103_ershad"
-    private $conn;
-    // private $host = "localhost";
-    // private $username = "id21106103_ershad";
+    //private $host = "localhost";
+    // private $username = "root"; //"id21106103_ershad"
+    // private $password = ""; //"Ershad2023@@"
+    // private $database = "ershad"; //"id21106103_ershad"
+    // private $conn;
+    //private $host = "localhost";
+    // private $username = "u853470417_ershaad";
     // private $password = "Ershad2023@@";
     // private $database = "id21106103_ershad";
     // private $conn;
-    // Add a property to store the error message
+
+    private $host = "ershaad.net";
+    private $username = "u853470417_ershaad";
+    private $password = "Ershad2023@@";
+    private $database = "u853470417_ershaad";
+    private $conn;
     private $errorMessage = "";
 
     public function __construct()
@@ -108,12 +113,12 @@ private $host = "localhost";
     //         // Check whether the user already exists in the database 
     //         $checkQuery = "SELECT * FROM  WHERE oauth_provider = '".$data['oauth_provider']."' AND oauth_uid = '".$data['oauth_uid']."'"; 
     //         $checkResult = $this->db->query($checkQuery); 
-             
+
     //         // Add modified time to the data array 
     //         if(!array_key_exists('modified',$data)){ 
     //             $data['modified'] = date("Y-m-d H:i:s"); 
     //         } 
-             
+
     //         if($checkResult->num_rows > 0){ 
     //             // Prepare column and value format 
     //             $colvalSet = ''; 
@@ -124,7 +129,7 @@ private $host = "localhost";
     //                 $i++; 
     //             } 
     //             $whereSql = " WHERE oauth_provider = '".$data['oauth_provider']."' AND oauth_uid = '".$data['oauth_uid']."'"; 
-                 
+
     //             // Update user data in the database 
     //             $query = "UPDATE ".$this->userTbl." SET ".$colvalSet.$whereSql; 
     //             $update = $this->db->query($query); 
@@ -133,7 +138,7 @@ private $host = "localhost";
     //             if(!array_key_exists('created',$data)){ 
     //                 $data['created'] = date("Y-m-d H:i:s"); 
     //             } 
-                 
+
     //             // Prepare column and value format 
     //             $columns = $values = ''; 
     //             $i = 0; 
@@ -143,17 +148,17 @@ private $host = "localhost";
     //                 $values  .= $pre."'".$this->db->real_escape_string($val)."'"; 
     //                 $i++; 
     //             } 
-                 
+
     //             // Insert user data in the database 
     //             $query = "INSERT INTO ".$this->userTbl." (".$columns.") VALUES (".$values.")"; 
     //             $insert = $this->db->query($query); 
     //         } 
-             
+
     //         // Get user data from the database 
     //         $result = $this->db->query($checkQuery); 
     //         $userData = $result->fetch_assoc(); 
     //     } 
-         
+
     //     // Return user data 
     //     return !empty($userData)?$userData:false; 
     // } 
