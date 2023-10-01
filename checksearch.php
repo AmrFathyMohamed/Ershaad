@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($priceRange) {
-        $sql .= " AND Price > $priceRange";
+        $sql .= " AND PriceAfterPercentage > $priceRange";
     }
 
     $sql .= ") GROUP BY therapists.TherapistID  ORDER BY therapists.FullName ASC";
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $html .= '</div>';
 
         $html .= '<div class="price d-flex justify-content-center align-content-center">';
-        $html .= '<p>' . $row["Price"] . ' / ساعة</p>';
+        $html .= '<p>' . $row["PriceAfterPercentage"] . ' / ساعة</p>';
         $html .= '<i class="fa-solid fa-money-bill-1-wave ms-2"></i>';
         $html .= '</div>';
 

@@ -35,7 +35,14 @@ class SessionTable
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
+    public function updateSessionDT($sessionID, $newDate, $newTime)
+    {
+        $query = "UPDATE $this->table SET Date = '$newDate', Time = '$newTime', updated_at = NOW() 
+        WHERE SessionID = $sessionID";
 
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
+    }
     public function updateSessionRate($sessionid, $r , $c)
     {
         $query = "UPDATE $this->table SET UserOpinion = '$c',UserRate = $r, updated_at = NOW() 

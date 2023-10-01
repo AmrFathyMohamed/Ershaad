@@ -15,12 +15,12 @@ if (isset($_SESSION['user_id'])) {
         $courseClientId = $_POST['SessionID'];
 
         if ($sessions->updateSession($courseClientId, 'Accepted')) {
-            
-                echo '<script>
+
+            echo '<script>
         alert("تم بنجاح")
         window.location.href = "Sessions.php";
         </script>';
-        exit;
+            exit;
         }
 
     }
@@ -33,7 +33,7 @@ if (isset($_SESSION['user_id'])) {
         alert("تم بنجاح")
         window.location.href = "Sessions.php";
         </script>';
-        exit;
+            exit;
         }
 
     }
@@ -86,12 +86,13 @@ if (isset($_SESSION['user_id'])) {
                                 <td>
                                     <?php echo $SD['ClientName']; ?>
                                 </td>
-                                <td>
+                                <td class="session-date">
                                     <?php echo $SD['Date']; ?>
                                 </td>
-                                <td>
+                                <td class="session-time">
                                     <?php echo $SD['Time']; ?>
                                 </td>
+
                                 <td>
                                     <?php echo $SD['Type']; ?>
                                 </td>
@@ -149,7 +150,9 @@ if (isset($_SESSION['user_id'])) {
                                             </div>
                                         </div>
                                     <?php } ?>
-
+                                    <!-- Add an "Edit" button with a data-id attribute to store the session ID -->
+                                    <button class="btn btn-primary edit-session"
+                                        data-id="<?= $SD['SessionID']; ?>">Edit</button>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -204,7 +207,34 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="editSessionModal" tabindex="-1" role="dialog" aria-labelledby="editSessionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSessionModalLabel">Edit Session Date and Time</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form id="editSessionForm" action="update_session.php" method="POST" onsubmit="return validateForm()">                    <input type="hidden" id="editSessionId" name="session_id" value="">
+                    <div class="form-group">
+                        <label for="sessionDate">Date</label>
+                        <input type="date" class="form-control" id="sessionDate" name="session_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sessionTime">Time</label>
+                        <input type="time" class="form-control" id="sessionTime" name="session_time" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" onclick="return validateForm()">Save Changes</button>                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <?php include("footer.php"); ?>
 <script>
     $(document).ready(function () {
@@ -216,8 +246,38 @@ if (isset($_SESSION['user_id'])) {
             ], "pageLength": 10
         });
 
+        // Handle click on "Edit" button
+        $('.edit-session').click(function () {
+            var sessionId = $(this).data('id');
+            var sessionDate = $(this).closest('tr').find('.session-date').text().trim();
+            var sessionTime = $(this).closest('tr').find('.session-time').text().trim();
+
+            $('#editSessionId').val(sessionId);
+            $('#sessionDate').val(sessionDate);
+            $('#sessionTime').val(sessionTime);
+            console.log(sessionId+
+            sessionDate+
+            sessionTime);
+            $('#editSessionModal').modal('show');
+        });
     });
+    function validateForm() {
+        // Get the values from your form elements
+        var sessionId = $('#editSessionId').val();
+        var sessionDate = $('#sessionDate').val();
+        var sessionTime = $('#sessionTime').val();
+
+        // Check if the values are empty or not
+        if (sessionId === '' || sessionDate === '' || sessionTime === '') {
+            alert("Please fill in all fields.");
+            return false; // Prevent the form from submitting
+        }
+
+        // If all fields are filled, proceed with the form submission
+        return true;
+    }
 </script>
+
 </body>
 
 </html>

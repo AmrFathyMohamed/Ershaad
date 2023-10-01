@@ -82,7 +82,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
         </h3>
       </div>
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
-          <?= $therapist['Price'] ?>
+          <?= $therapist['PriceAfterPercentage'] ?>
         </span><span class="px-2">/</span><span>ساعة</span></p>
         
 

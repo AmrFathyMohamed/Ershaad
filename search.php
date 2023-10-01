@@ -81,7 +81,7 @@ $alltherapists = $therapistTable2->getTherapists();
                     </div>
                     <div class="price d-flex justify-content-center align-content-center">
                       <p>
-                        <?= $therapist['Price']; ?> /
+                        <?= $therapist['PriceAfterPercentage']; ?> /
                         ساعة
                       </p>
                       <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
@@ -186,7 +186,7 @@ $alltherapists = $therapistTable2->getTherapists();
                                 ${getStarRating(therapist['Rating'])}
                                 </div>
                                 <div class="price d-flex justify-content-center align-content-center">
-                                    <p>${therapist['Price']}/ساعة</p>
+                                    <p>${therapist['PriceAfterPercentage']}/ساعة</p>
                                     <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
                                 </div>
                                 <a class="btn w-100 btn-light m-1" href="therapist-profile.php?id=${therapist['TherapistID']}">عرض الملف الشخصي</a>

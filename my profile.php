@@ -226,7 +226,7 @@ if (isset($_SESSION['user_id'])) {
           <div class="d-flex justify-content-between">
             <p class=" mb-0 text-right">
               <i class="fa-solid fa-hand-holding-dollar" style="color: #6eaedc;"></i>
-              <?= $course['Price'] ?> ج.م
+              <?= $course['PriceAfterPercentage'] ?> ج.م
             </p>
             <p class=" mb-0 text-right">
               <?= $course['Sessions'] ?> جلسات <i class="fa-regular fa-calendar-check" style="color: #6eaedc;"></i>

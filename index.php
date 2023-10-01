@@ -101,7 +101,7 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
                                 </div>
                                 <div class="price d-flex justify-content-center align-content-center">
                                     <p>
-                                        <?= $therapist['Price']; ?> /
+                                        <?= $therapist['PriceAfterPercentage']; ?> /
                                         ساعة
                                     </p>
                                     <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
