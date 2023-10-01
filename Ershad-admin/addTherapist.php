@@ -54,16 +54,27 @@ if (isset($_POST['addTherapist'])) {
         // Check if the file was successfully uploaded
         if (move_uploaded_file($profileImageTmp, $targetDir . $uniqueFilename)) {
             // Assuming $therapists is an instance of a class with an insertTherapist method
-            $success = $therapists->insertTherapist($fullName, $specialization, $price, $percentage, $priceAfterPercentage, $rating, $city, $bio, $gender, $phone, $uniqueUsername, $email, $password, $age, 'Ershad-admin/'.$targetDir.$uniqueFilename);
+            $success = $therapists->insertTherapist($fullName, $specialization, $price, $percentage, $priceAfterPercentage, $rating, $city, $bio, $gender, $phone, $uniqueUsername, $email, $password, $age, 'Ershad-admin/' . $targetDir . $uniqueFilename);
 
             if ($success) {
-                header('Location: index.php');
+                echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
                 exit;
             } else {
                 $errorMessage = "Failed to add therapist.";
+                echo '<script>
+        alert(" ' . $errorMessage . ' حدث خطأ")
+        location.reload();
+        </script>';
             }
         } else {
             $errorMessage = "Failed to upload profile image.";
+            echo '<script>
+        alert(" ' . $errorMessage . ' حدث خطأ")
+        location.reload();
+        </script>';
         }
     }
 
@@ -90,7 +101,7 @@ if (isset($_POST['addTherapist'])) {
     <section class="section">
         <div class="card">
             <div class="card-body">
-            <form method="POST" action="addTherapist.php" enctype="multipart/form-data">
+                <form method="POST" action="addTherapist.php" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-4">
                             <div class="mb-3">

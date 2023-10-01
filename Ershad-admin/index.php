@@ -37,7 +37,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class='px-3 py-3 d-flex justify-content-between'>
                                 <h3 class='card-title'>Total</h3>
                                 <div class="card-right d-flex align-items-center">
-                                    <p id="sales">5000 EGP</p>
+                                    <p id="sales">0 EGP</p>
                                 </div>
                             </div>
                             <div class="chart-wrapper" style="height: 70px;">
@@ -54,7 +54,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class='px-3 py-3 d-flex justify-content-between'>
                                 <h3 class='card-title'>Profit</h3>
                                 <div class="card-right d-flex align-items-center">
-                                    <p id="users">532,20</p>
+                                    <p id="users">0</p>
                                 </div>
                             </div>
                             <div class="chart-wrapper" style="height: 70px;">
@@ -71,7 +71,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class='px-3 py-3 d-flex justify-content-between'>
                                 <h3 class='card-title'>Sessions</h3>
                                 <div class="card-right d-flex align-items-center">
-                                    <p id="totalSessions">1,580 </p>
+                                    <p id="totalSessions">0 </p>
                                 </div>
                             </div>
                             <div class="chart-wrapper" style="height: 70px;">
@@ -88,7 +88,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class='px-3 py-3 d-flex justify-content-between'>
                                 <h3 class='card-title'>Sessions Today</h3>
                                 <div class="card-right d-flex align-items-center">
-                                    <p id="todaySessions">25 </p>
+                                    <p id="todaySessions">0 </p>
                                 </div>
                             </div>
                             <div class="chart-wrapper" style="height: 70px;">

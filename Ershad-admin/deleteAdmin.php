@@ -11,7 +11,10 @@ if (isset($_GET['id'])) {
     // Delete the admin by ID
     if ($Admins->deleteAdmin($adminId)) {
         // Deletion successful, you can redirect or show a success message
-        echo json_encode(array('success' => true));
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Admins.php";
+        </script>';
         exit;
     } else {
         // Deletion failed, handle the error

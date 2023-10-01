@@ -53,7 +53,17 @@ class CourseClientTable
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
+    public function getAllCourseTherapists()
+    {
+        $query = "SELECT cc.*,co.Title AS CourseName,t.FullName AS TherapistName
+        FROM course_therapist cc
+        JOIN therapists t ON cc.TherapistID = t.TherapistID
+        JOIN courses co ON cc.CourseID = co.CourseID";
 
+
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
     // Add other methods as needed
 
     

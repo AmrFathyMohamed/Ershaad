@@ -9,14 +9,35 @@ class AppointmentTable
         $this->db = $database;
     }
 
-    public function insertAppointment($date, $time, $type,$TherapistID)
+    public function insertAppointment($startDate, $endDate, $startTime, $endTime, $type, $TherapistID)
     {
-        $query = "INSERT INTO $this->table (Date, Time, Type,TherapistID, is_deleted, created_at, updated_at) 
-        VALUES ('$date', '$time', '$type',$TherapistID, 0, NOW(), NOW())";
+        $startDatetime = new DateTime("$startDate $startTime");
+        $endDatetime = new DateTime("$endDate $endTime");
 
-        $stmt = $this->db->executeQuery($query);
-        return $stmt !== false;
+        while ($startDatetime <= $endDatetime) {
+            $date = $startDatetime->format('Y-m-d');
+            $time = $startDatetime->format('H:i:s');
+            if ($time >= $startTime && $time <= $endTime) {
+                $query = "INSERT INTO $this->table (Date, Time, Type, TherapistID, is_deleted, created_at, updated_at) 
+                  VALUES ('$date', '$time', '$type', $TherapistID, 0, NOW(), NOW())";
+
+                $stmt = $this->db->executeQuery($query);
+
+                if ($stmt === false) {
+                    return false; // Return false on failure
+                }
+            }
+            $startDatetime->add(new DateInterval('PT1H')); // Increment by 1 hour
+
+        }
+
+        return true; // Return true when all appointments are inserted
     }
+
+
+
+
+
 
     public function updateAppointment($appointmentID, $date, $time, $type)
     {

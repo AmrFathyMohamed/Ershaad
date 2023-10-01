@@ -23,50 +23,61 @@ if (isset($_SESSION['user_id'])) {
 // Handle Add Specialty Form Submission
 if (isset($_POST['addSpecialty'])) {
     $specialtyName = $_POST['Specialty'];
-        $inserted = $SpecialtiesObject->insertSpecialty($specialtyName);
-        
-        if ($inserted) {
-            // Specialty added successfully, you can show a success message or redirect
-            header("Location: Specialties.php");
-            exit;
-        }
+    $inserted = $SpecialtiesObject->insertSpecialty($specialtyName);
+
+    if ($inserted) {
+        // Specialty added successfully, you can show a success message or redirect
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Specialties.php";
+        </script>';
+        exit;
+    } else {
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
+}
 
 
-// Handle Edit Specialty Form Submission
+
 if (isset($_POST['saveSpecialty'])) {
     $specialtyId = $_POST['SpecialtyID'];
     $specialtyName = $_POST['Specialty'];
-        $updated = $SpecialtiesObject->updateSpecialty($specialtyId, $specialtyName);
-        
-        if ($updated) {
-            // Specialty updated successfully, you can show a success message or redirect
-            header("Location: Specialties.php");
-            exit;
-        } else {
-            // Redirect or display an error message for unauthorized access
-            header("Location: index.php");
-            exit;
-        }
+    $updated = $SpecialtiesObject->updateSpecialty($specialtyId, $specialtyName);
+
+    if ($updated) {
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Specialties.php";
+        </script>';
+        exit;
+    } else {
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
     }
-// Handle Delete Specialty Action
-if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    $specialtyIdToDelete = $_GET['id'];
-        $deleted = $SpecialtiesObject->deleteSpecialty($specialtyIdToDelete);
-        
-        if ($deleted) {
-            // Specialty deleted successfully, you can show a success message or redirect
-            header("Location: Specialties.php");
-            exit;
-        } else {
-            // Redirect or display an error message for unauthorized access
-            header("Location: index.php");
-            exit;
-        }
 }
 
-// Rest of your PHP code (e.g., fetching specialties, displaying them in the table, etc.)
+if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+    $specialtyIdToDelete = $_GET['id'];
+    $deleted = $SpecialtiesObject->deleteSpecialty($specialtyIdToDelete);
 
+    if ($deleted) {
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Specialties.php";
+        </script>';
+        exit;
+    } else {
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
+    }
+}
 ?>
 <!-- Rest of your HTML and PHP code remains the same -->
 
@@ -120,13 +131,17 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                             Options
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item pointer" data-bs-toggle="modal"
+                                            <a class="dropdown-item pointer edit-specialty" data-bs-toggle="modal"
                                                 data-bs-target="#editModal"
-                                                data-id="<?php echo $therapist['SpecialtyID']; ?>">تعديل</a>
-                                            <a class="dropdown-item pointer" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal">حذف</a>
+                                                data-id="<?php echo $therapist['SpecialtyID']; ?>"
+                                                data-name="<?php echo $therapist['Specialty']; ?>">تعديل</a>
+
+                                            <a href="?action=delete&id=<?php echo $therapist['SpecialtyID']; ?>"
+                                                class="dropdown-item pointer delete-specialty"
+                                                data-specialty-id="<?php echo $therapist['SpecialtyID']; ?>">Delete</a>
+
                                         </div>
-                                    </div>
+                                        
                                 </td>
                             </tr>
                         <?php } ?>
@@ -243,6 +258,26 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         });
 
     });
+    $(document).ready(function () {
+        // Handle click on "Edit" button
+        $('.edit-specialty').click(function () {
+            var specialtyId = $(this).data('id');
+            var specialtyName = $(this).data('name');
+
+            // Set the specialty ID and name in the "Edit Specialty" modal
+            $('#editModal input[name="SpecialtyID"]').val(specialtyId);
+            $('#editModal input[name="Specialty"]').val(specialtyName);
+        });
+    });
+    $(document).ready(function () {
+        // Handle click on "Delete" button
+        $('.delete-specialty').click(function () {
+            var specialtyId = $(this).data('specialty-id');
+            var confirmationLink = '?action=delete&id=' + specialtyId;
+            $('#deleteModal .btn-danger').attr('href', confirmationLink);
+        });
+    });
+
 </script>
 </body>
 

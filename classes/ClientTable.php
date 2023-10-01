@@ -28,11 +28,26 @@ class ClientTable
     }
     public function deleteclient($clientId)
     {
-        $query = "DELETE FROM $this->table WHERE clientID = $clientId";
+        
 
-        // Prepare the SQL statement
-        $stmt = $this->db->executeQuery($query);
-        return $stmt !== false;
+        $query1 = "DELETE FROM sessions WHERE UserID = $clientId";
+        $stmt1 = $this->db->executeQuery($query1);
+        if ($stmt1 === false) {
+            return false;
+        }
+        $query2 = "DELETE FROM course_client WHERE clientID = $clientId";
+        $stmt2 = $this->db->executeQuery($query2);
+        if ($stmt2 === false) {
+            return false;
+        }
+        $query5 = "DELETE FROM chats WHERE UserID = $clientId";
+        $stmt5 = $this->db->executeQuery($query5);
+        if ($stmt5 === false) {
+            return false;
+        }
+        $query6 = "DELETE FROM $this->table WHERE clientID = $clientId";
+        $stmt6 = $this->db->executeQuery($query6);
+        return $stmt6 !== false;
     }
     public function getClients()
     {

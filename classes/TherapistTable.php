@@ -57,10 +57,36 @@ class TherapistTable
     }
     public function deleteTherapist($therapistId)
     {
-        $query = "DELETE FROM $this->table WHERE TherapistID = $therapistId";
-        $stmt = $this->db->executeQuery($query);
-        return $stmt !== false;
+        $query1 = "DELETE FROM sessions WHERE TherapistID = $therapistId";
+        $stmt1 = $this->db->executeQuery($query1);
+        if ($stmt1 === false) {
+            return false;
+        }
+        $query2 = "DELETE FROM course_therapist WHERE TherapistID = $therapistId";
+        $stmt2 = $this->db->executeQuery($query2);
+        if ($stmt2 === false) {
+            return false;
+        }
+        $query3 = "DELETE FROM documents WHERE TherapistID = $therapistId";
+        $stmt3 = $this->db->executeQuery($query3);
+        if ($stmt3 === false) {
+            return false;
+        }
+        $query4 = "DELETE FROM appointments WHERE TherapistID = $therapistId";
+        $stmt4 = $this->db->executeQuery($query4);
+        if ($stmt4 === false) {
+            return false;
+        }
+        $query5 = "DELETE FROM chats WHERE TherapistID = $therapistId";
+        $stmt5 = $this->db->executeQuery($query5);
+        if ($stmt5 === false) {
+            return false;
+        }
+        $query6 = "DELETE FROM $this->table WHERE TherapistID = $therapistId";
+        $stmt6 = $this->db->executeQuery($query6);
+        return $stmt6 !== false;
     }
+
 
     public function getTherapistById($therapistId)
     {
@@ -88,19 +114,19 @@ class TherapistTable
     }
     public function getTherapists()
     {
-        $query = "SELECT * FROM $this->table  Where TherapistID > 10000";
+        $query = "SELECT * FROM $this->table  Where TherapistID > 1000";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
     public function getTherapistsBySpecialization($SpecialtyID)
     {
-        $query = "SELECT * FROM $this->table where Specialization = (SELECT Specialty FROM specialties where SpecialtyID = $SpecialtyID)  and TherapistID > 10000 ORDER BY Rating DESC";
+        $query = "SELECT * FROM $this->table where Specialization = (SELECT Specialty FROM specialties where SpecialtyID = $SpecialtyID)  and TherapistID > 1000 ORDER BY Rating DESC";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
     public function getRandomTopRatedTherapists($count)
     {
-        $query = "SELECT * FROM $this->table Where TherapistID > 10000 ORDER BY RAND() LIMIT $count ";
+        $query = "SELECT * FROM $this->table Where TherapistID > 1000 ORDER BY RAND() LIMIT $count ";
         $stmt = $this->db->executeQuery($query);
 
         if ($stmt !== false) {
@@ -121,7 +147,7 @@ class TherapistTable
         $sql = "SELECT T.*, COUNT(S.SessionID) AS SessionCount
             FROM therapists T
             LEFT JOIN sessions S ON T.TherapistID = S.TherapistID
-            Where TherapistID > 10000";
+            Where TherapistID > 1000";
 
         if ($therapistName !== 'All') {
             $sql .= " AND T.FullName LIKE '%$therapistName%'";

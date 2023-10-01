@@ -13,8 +13,10 @@ if (isset($_SESSION['user_id'])) {
 } else {
     // Handle the case when 'id' is not present in the URL
     // You might want to redirect the user or show an error message
-    header("Location: index.php");
-    exit;
+    echo '<script>
+        window.location.href = "index.php";
+        </script>';
+        exit;
 }
 ?>
 <div class="main-content container-fluid">
@@ -420,7 +422,7 @@ if (isset($_POST['addclient'])) {
         // Insertion successful, you can redirect or show a success message
         echo '<script>
         alert("تم بنجاح")
-        window.location.href = "Therapist.php";
+        window.location.href = "Client.php";
         </script>';
         exit;
     } else {
@@ -450,7 +452,7 @@ if (isset($_POST['updateclient'])) {
         //        echo '<script>window.location.href = "Client.php";</script>';
         echo '<script>
         alert("تم بنجاح")
-        window.location.href = "client.php";
+        window.location.href = "Client.php";
         </script>';
         exit;
     } else {
@@ -543,7 +545,7 @@ if (isset($_GET['viewDetails'])) {
             $('#confirmDelete').click(function () {
                 // Make an AJAX request to delete the Client
                 $.ajax({
-                    url: './deleteClient.php', // Update the URL to match the correct path
+                    url: 'deleteClient.php', // Update the URL to match the correct path
                     method: 'GET',
                     data: { id: ClientId },
                     dataType: 'json',

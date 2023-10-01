@@ -15,7 +15,6 @@ if (isset($_SESSION['user_id'], $_GET['TherapistID'])) {
     // You can use $userId in your code as needed
 } else {
     echo '<script>
-        alert("تم بنجاح")
         window.location.href = "Therapist.php";
         </script>';
     
@@ -67,8 +66,11 @@ if (isset($_POST['updateTherapist'])) {
             );
 
             if ($success) {
-                echo '<script>window.location.href = "Therapist.php";</script>';
-                exit;
+                echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
+        exit;
             } else {
                 $errorMessage = "Failed to update therapist.";
             }

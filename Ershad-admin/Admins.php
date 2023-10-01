@@ -39,7 +39,6 @@ if (isset($_POST['addAdmin'])) {
     }
 }
 
-// Handle the form submission for updating an existing admin
 if (isset($_POST['updateAdmin'])) {
     $data = array(
         $_POST['editAdminId'],
@@ -107,6 +106,7 @@ if (isset($_GET['deleteAdmin'])) {
                             <th>Full Name</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Password</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -121,12 +121,15 @@ if (isset($_GET['deleteAdmin'])) {
                                 </td>
                                 <td>
                                     <?php echo $admin['Email']; ?>
+                                </td>                                
+                                <td>
+                                    <?php echo $admin['Password']; ?>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-sm btn-primary btn-edit-admin" data-bs-toggle="modal"
                                         data-bs-target="#editAdminModal"
                                         data-adminid="<?php echo $admin['AdminID']; ?>">Edit</button>
-                                    <a href="admin.php?deleteAdmin=<?php echo $admin['AdminID']; ?>"
+                                    <a href="deleteAdmin.php?id=<?php echo $admin['AdminID']; ?>"
                                         class="btn btn-sm btn-danger"
                                         onclick="return confirm('Are you sure you want to delete this admin?')">Delete</a>
                                 </td>
@@ -241,6 +244,25 @@ if (isset($_GET['deleteAdmin'])) {
         });
     });
 
+    $(document).ready(function () {
+        // Add click event listener to Edit buttons
+        $('.btn-edit-admin').click(function () {
+            var adminId = $(this).data('adminid');
+            var adminFullName = $(this).closest('tr').find('td:eq(0)').text().trim();
+            var adminUsername = $(this).closest('tr').find('td:eq(1)').text().trim();
+            var adminEmail = $(this).closest('tr').find('td:eq(2)').text().trim();
+            var adminPassword = $(this).closest('tr').find('td:eq(3)').text().trim();
+
+
+            // Populate the Edit Admin Modal fields
+            $('#editAdminModal input[name="editAdminId"]').val(adminId);
+            $('#editAdminModal input[name="editAdminFullName"]').val(adminFullName);
+            $('#editAdminModal input[name="editAdminUsername"]').val(adminUsername);
+            $('#editAdminModal input[name="editAdminEmail"]').val(adminEmail);
+            $('#editAdminModal input[name="editAdminPassword"]').val(adminPassword);
+
+        });
+    });
 </script>
 </body>
 

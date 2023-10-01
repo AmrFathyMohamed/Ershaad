@@ -23,11 +23,13 @@ $appointmentTable = new AppointmentTable($database);
 $documentsTable = new DocumentTable($database);
 
 if (isset($_POST['addAppointment'])) {
-    $date = $_POST['date'];
-    $time = $_POST['time'];
+    $dateS = $_POST['dateS'];
+    $dateE = $_POST['dateE'];
+    $timeS = $_POST['timeS'];
+    $timeE = $_POST['timeE'];
     $type = $_POST['type'];
     $tid = $_POST['therapistId'];
-    if ($appointmentTable->insertAppointment($date, $time, $type, $tid)) {
+    if ($appointmentTable->insertAppointment($dateS,$dateE, $timeS,  $timeE, $type, $tid)) {
         echo '<script>
         alert("تم بنجاح")
         window.location.href = "Therapist.php";
@@ -36,7 +38,7 @@ if (isset($_POST['addAppointment'])) {
     } else {
         echo '<script>
         alert("حدث خطأ")
-        location.reload();
+        
         </script>';
     }
 }
@@ -79,15 +81,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['therapistId']) && iss
         alert("تم بنجاح")
         window.location.href = "Therapist.php";
         </script>';
-        exit;
-    } else {
-        echo '<script>
+                exit;
+            } else {
+                echo '<script>
         alert("حدث خطأ")
         location.reload();
         </script>';
             }
         } else {
-            
+
             echo '<script>
             alert("حدث خطأ")
             location.reload();
@@ -116,6 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
 } else {
     $errorMessage = "Failed to delete document.";
 }
+
+
 ?>
 
 <div class="main-content container-fluid">
@@ -208,8 +212,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                                             <a class="dropdown-item pointer"
                                                 href="editTherapist.php?TherapistID=<?= $therapist['TherapistID']; ?>">Edit
                                                 Data</a>
-                                            <a class="dropdown-item pointer"
-                                                href="viewTherapist.php?TherapistID=<?= $therapist['TherapistID']; ?>">Details</a>
+                                            <!-- <a class="dropdown-item pointer"
+                                                href="viewTherapist.php?TherapistID=d $therapist['TherapistID']; ?>">Details</a> -->
                                             <a class="dropdown-item pointer" href="javascript:void(0);"
                                                 onclick="openDocumentsModal(<?= $therapist['TherapistID']; ?>, '<?= $therapist['FullName']; ?>')">Manage
                                                 Documents</a>
@@ -279,12 +283,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                 </ul>
                 <form id="addAppointmentForm" method="POST" action="Therapist.php">
                     <div class="form-group">
-                        <label for="date">Date:</label>
-                        <input type="date" class="form-control" id="date" name="date" required>
+                        <label for="date">Start Date:</label>
+                        <input type="date" class="form-control" id="dateS" name="dateS" required>
                     </div>
                     <div class="form-group">
-                        <label for="time">Time:</label>
-                        <input type="time" class="form-control" id="time" name="time" required>
+                        <label for="date">End Date:</label>
+                        <input type="date" class="form-control" id="dateE" name="dateE" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Start Time:</label>
+                        <input type="time" class="form-control" id="timeS" name="timeS" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">End Time:</label>
+                        <input type="time" class="form-control" id="timeE" name="timeE" required>
                     </div>
                     <div class="form-group">
                         <label for="type">Type:</label>
@@ -314,7 +326,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                 </button>
             </div>
             <div class="modal-body">
-                <ul id="documentsList" class="ps-0">
+                <h3>Documents for <span id="therapistFullNameDoc"></span></h3>
+                <ul id="documentsList">
                 </ul>
                 <form id="addDocumentForm" method="POST" action="Therapist.php" enctype="multipart/form-data">
                     <div class="form-group">
@@ -342,18 +355,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
 
                     <div class="form-group">
                         <label for="documentFile">Upload Document:</label>
-                        <div class="mb-3 border rounded p-1">
                         <input type="file" class="form-control-file" id="documentFile" name="documentFile" required>
-                        </div>
-                        
                     </div>
-                    
+                    <input type="hidden" id="therapistIdInputDoc" name="therapistId" value="">
                     <button type="submit" class="btn btn-primary" name="addDocument">Upload Document</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <?php include("footer.php"); ?>
 <script>
@@ -393,8 +404,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
             });
         });
     });
-</script>
-<script>
     function openAppointmentsModal(therapistID, therapistFullName) {
         $('#appointmentsModalLabel').text('Appointments for ' + therapistFullName);
         $('#therapistIdInput').val(therapistID);
@@ -409,7 +418,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                 if (response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
                         var appointment = response[i];
-                        var listItem = $('<li class="d-inline-block col-6 mb-1 px-3 py-2 border d-flex justify-content-between align-items-center rounded ">').html(appointment['Date'] + ' - ' + appointment['Time'] + ' - ' + '<span class="badge bg-primary">'+appointment['Type']+'</span>');
+                        var listItem = $('<li class="d-inline-block col-6 mb-1 px-3 py-2 border d-flex justify-content-between align-items-center rounded ">').html('<span class="badge bg-primary">'+appointment['Date'] + '</span><span class="badge bg-primary">' + appointment['Time'] + '</span><span class="badge bg-primary">' + appointment['Type'] + '</span>');
                         var deleteForm = $('<form class="d-inline">').attr('method', 'POST').attr('action', 'Therapist.php');
                         deleteForm.append($('<input>').attr('type', 'hidden').attr('name', 'appointmentId').val(appointment['AppointmentID']));
                         deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteAppointment').addClass('btn btn-danger px-2 py-1 btn-sm').html('<i class="bi bi-trash"></i>'));
@@ -440,7 +449,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                 if (response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
                         var document = response[i];
-                        var listItem = $('<li class="d-inline-block w-100 px-3 py-2 border d-flex justify-content-between align-items-center rounded">').html('<div><p class="fw-bold mb-1">'+document['DocumentName'] + '</p>'+'<span>'+ document['DocumentDate']+'</span>'+'</div> ' + '<span class="badge bg-info">'+document['DocumentType']+'</span>');
+                        var listItem = $('<li class="d-inline-block w-100 px-3 py-2 border d-flex justify-content-between align-items-center rounded">').html('<div><p class="fw-bold mb-1">' + document['DocumentName'] + '</p>' + '<span>' + document['DocumentDate'] + '</span>' + '</div> ' + '<span class="badge bg-info">' + document['DocumentType'] + '</span>');
                         var deleteForm = $('<form class="d-inline">').attr('method', 'POST').attr('action', 'Therapist.php');
                         deleteForm.append($('<input>').attr('type', 'hidden').attr('name', 'documentId').val(document['DocumentID']));
                         deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteDocument').addClass('btn px-2 py-1 btn-danger btn-sm').html('<i class="bi bi-trash"></i>'));
