@@ -26,7 +26,7 @@ if (isset($_SESSION['user_id'])) {
                     $html .= '<div class="message-user ps-2 me-3 my-3">
                     <div class="d-flex justify-content-end align-items-top">
     
-                        <div class="response me-2 delivered seen" onclick="copyMessage(this)">
+                        <div class="response me-2 delivered seen pointer" title="اضغط لنسخ الرسالة" onclick="copyMessage(this)">
                             <p class="mb-0">' . htmlspecialchars($message['Message']) . '</p>
                         </div>
                         <div class="avatar avatar-md"></div>
@@ -36,7 +36,7 @@ if (isset($_SESSION['user_id'])) {
                     $html .= '<div class="message-agent ps-2 ms-3 my-3">
                     <div class="d-flex align-items-top">
                         <div class="avatar avatar-md"></div>
-                        <div class="message ms-2" onclick="copyMessage(this)">
+                        <div class="message ms-2 pointer" title="اضغط لنسخ الرسالة" onclick="copyMessage(this)">
                             <p class="mb-0">' . htmlspecialchars($message['Message']) . '</p>
                         </div>
                     </div>
@@ -47,7 +47,7 @@ if (isset($_SESSION['user_id'])) {
                     $html .= '<div class="message-user ps-2 me-3 my-3">
                     <div class="d-flex justify-content-end align-items-top">
     
-                        <div class="response me-2 delivered seen" onclick="copyMessage(this)">
+                        <div class="response me-2 delivered seen pointer" title="اضغط لنسخ الرسالة" onclick="copyMessage(this)">
                             <p class="mb-0">' . htmlspecialchars($message['Message']) . '</p>
                         </div>
                         <div class="avatar avatar-md"></div>
@@ -57,7 +57,7 @@ if (isset($_SESSION['user_id'])) {
                     $html .= '<div class="message-agent ps-2 ms-3 my-3">
                     <div class="d-flex align-items-top">
                         <div class="avatar avatar-md"></div>
-                        <div class="message ms-2" onclick="copyMessage(this)">
+                        <div class="message ms-2 pointer" title="اضغط لنسخ الرسالة" onclick="copyMessage(this)">
                             <p class="mb-0">' . htmlspecialchars($message['Message']) . '</p>
                         </div>
                     </div>
