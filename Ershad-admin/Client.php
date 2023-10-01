@@ -409,7 +409,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title white" id="myModalLabel120">تحدث الي عميل</h5>
+                <h5 class="modal-title" id="myModalLabel120">تحدث الي عميل</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i data-feather="x"></i>
                 </button>

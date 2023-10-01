@@ -11,7 +11,7 @@ class ChatTable
 
     public function insertChat($UserID, $TherapistID, $Message)
     {
-        if ($_SESSION['type'] == 'therapist') {
+        if ($_SESSION['type'] == 'therapist' || $_SESSION['type'] == 'admin') {
             $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at) 
                   VALUES ($UserID, $TherapistID, '$Message','Therapist', NOW())";
         } else if ($_SESSION['type'] == 'client') {
