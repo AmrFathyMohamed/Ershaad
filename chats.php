@@ -64,6 +64,26 @@ if (isset($_SESSION['user_id'])) {
         font-size: 2rem;
 
     }
+    .pointer{
+        cursor: pointer;
+        position: relative;
+    }
+    .pointer::after{
+        position: absolute;
+        top: -24px;
+        right: 0;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #fff;
+        background: darkslateblue;
+        padding: 0.2rem 0.75rem;
+        border-radius: 15px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    .pointer:hover.pointer::after{
+        content: " نسـخ";
+    }
 </style>
 
 <body style="background-color: #f6f7fc;">
@@ -154,6 +174,17 @@ if (isset($_SESSION['user_id'])) {
     <?php include("includes/footer.php"); ?>
 
     <script>
+        function copyMessage(element){
+            var textToCopy = element.querySelector('p').textContent;
+            var textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+
+            document.body.removeChild(textArea);
+            toast("تم نسخ الرسالة ")
+        }
         scrollEnd()
         function scrollEnd() {
             $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);

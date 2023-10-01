@@ -90,7 +90,8 @@ if (isset($_SESSION['user_id'])) {
                                     <?php echo $client['Age']; ?>
                                 </td>
                                 <td>
-                                    <div class="dropdown right">
+                                <a class="btn pinter icon btn-dark" onclick="showAdminChat(<?php echo $client['ClientID']; ?>)"><i data-feather="message-circle" class="fs-5"></i></a>
+                                    <div class="dropdown right d-inline">
                                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Options
@@ -403,6 +404,34 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 </div>
+<div class="modal fade text-left" id="adminClientChat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title white" id="myModalLabel120">تحدث الي عميل</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form method="POST" action="send_message.php">
+                <div class="modal-body">
+                    <textarea id="Message" name="Message" cols="30" rows="4" placeholder="أكتب رسالتك"
+                        class="rtl arabic form-control"></textarea>
+                    <input type="hidden" id="UserID" name="UserID" value="" />
+                    <input type="hidden" id="T" name="T" value="0" />
+                    <input type="hidden" id="therapistID" name="TherapistID" value="0" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                    <button type="submit" class="btn btn-primary px-5" id="send">ارسال</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php include("footer.php");
 // Handle the form submission for adding a new client
@@ -477,8 +506,13 @@ if (isset($_GET['viewDetails'])) {
     $clientData = $clients->getclientById($clientId);
 }
 ?>
-<script>
+<script> 
+function showAdminChat(userID){
+        $("#adminClientChat").modal('show');
+        $("#UserID").val(userID);
+        }
     $(document).ready(function () {
+       
         $('#table1').DataTable({
             dom: 'Bfrtip', // Add buttons to the DataTable
             "buttons": [

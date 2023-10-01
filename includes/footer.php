@@ -275,11 +275,23 @@
     }
 </script>
 <script>
+    function copyMessage(element){
+            var textToCopy = element.querySelector('p').textContent;
+            var textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+
+            document.body.removeChild(textArea);
+            toast("Text Copied")
+        }
+
     var count = $(".chat-content").children().length;
     if (count == 0) {
         $(".chat-content").html(`
                   <div class="w-45 px-0 h-100 mx-auto">
-                      <img src="assets/Images/empty-chat.svg" class="d-inline-block"/>
+                      <img src="img/empty-chat.svg" class="d-inline-block"/>
                       <p class="text-muted text-center ps-2 fs-small" style="letter-spacing: 0.09rem; text-transform: uppercase;">Start a conversation</p>
                   </div>
           `)
@@ -296,7 +308,7 @@
         let messageElement = $(`
           <div class="message-user ps-2 me-3 my-2">
           <div class="d-flex justify-content-end align-items-top">
-              <div class="response me-2 delivered">
+              <div class="response me-2 delivered" onclick="copyMessage(this)">
               <p class="mb-0">${message}</p>
               </div>
               <div class="avatar avatar-md"></div>
@@ -306,7 +318,7 @@
         let messageElement2 = $(`
           <div class="message-user ps-2 me-3 my-3">
           <div class="d-flex justify-content-end align-items-top">
-              <div class="response me-2 delivered">
+              <div class="response me-2 delivered" onclick="copyMessage(this)">
               <p class="mb-0">${message}</p>
               </div>
               <div class="avatar avatar-md"></div>
