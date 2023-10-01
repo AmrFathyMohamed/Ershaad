@@ -36,7 +36,7 @@ if (isset($_SESSION['user_id'])) {
 
     // Review
     //Accepted
-    $courseTablePending = $courseClientTable->getAllCourseClients('Pending Review');
+    $courseTableRejected = $courseClientTable->getAllCourseClients('Rejected');
 
 
     // Fetch course requests from clients with 'Pending' status
@@ -103,25 +103,24 @@ if (isset($_SESSION['user_id'])) {
 <div class="main-content container-fluid">
     <div class="page-title">
         <!-- Add page title content here -->
-        <h3>Pending Courses Requests</h3>
+        <h3>Rejected Courses Requests</h3>
     </div>
+    
     <section class="section">
-        <!-- Display the list of course requests from clients with 'Pending' status -->
         <div class="card">
             <div class="card-body">
-                <h4 class="text-warning">Pending requests</h4>
-                <table class="table table-striped" id="table1">
+                <h4 class="text-danger">Rejected requests</h4>
+                <table class='table table-striped' id="table1">
                     <thead>
                         <tr>
-                            <th>Course</th>
-                            <th>Client</th>
-                            <th>Therapist</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th class="fs-small">Course</th>
+                            <th class="fs-small">User</th>
+                            <th class="fs-small">Status</th>
+                            <th class="fs-small">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($courseTablePending as $request) {
+                        <?php foreach ($courseTableRejected as $request) {
                             $courseClientId = $request['id'];
                             ?>
                             <tr>
@@ -136,64 +135,7 @@ if (isset($_SESSION['user_id'])) {
                                     <?php echo $request['TherapistName']; ?>
                                 </td>
                                 <td>
-                                    <span class="badge bg-warning px-3">
-                                        <?php echo $request['Status']; ?>
-                                    </span>
-
-                                </td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-6 pe-3">
-                                            <input id="argent-<?php echo $SD['TherapistID'] ?>" class="check-rej-input"
-                                                type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="argent" />
-                                            <label for="argent-<?php echo $SD['TherapistID']; ?>"
-                                                class="check-img-label w-100">
-                                                <!-- <div class="check-img-content py-1"> -->
-                                                <form method="POST" action="CoursesRequests.php">
-                                                    <input type="hidden" name="courseClientId"
-                                                        value="<?php echo $courseClientId; ?>">
-                                                    <input type="hidden" name="CourseID"
-                                                        value="<?php echo $request['CourseID']; ?>">
-                                                    <input type="hidden" name="ClientID"
-                                                        value="<?php echo $request['ClientID']; ?>">
-                                                    <input type="hidden" name="TherapistID"
-                                                        value="<?php echo $request['TherapistID']; ?>">
-                                                    <button type="submit" name="rejectCourse"
-                                                        class="check-img-content py-1">
-                                                        <h6 class="mb-0">
-                                                             رفض
-                                                        </h6>
-                                                    </button>
-                                                </form>
-                                                <!-- </div> -->
-                                            </label>
-                                        </div>
-                                        <div class="col-6 ps-3">
-                                            <input id="normal-<?php echo $SD['TherapistID'] ?>" class="check-acc-input"
-                                                type="radio" name="type-<?php echo $SD['TherapistID'] ?>" value="normal" />
-                                            <label for="normal-<?php echo $SD['TherapistID'] ?>"
-                                                class="check-img-label w-100">
-                                                <!-- <div class="check-img-content py-1"> -->
-                                                <form method="POST" action="CoursesRequests.php">
-                                                    <input type="hidden" name="courseClientId"
-                                                        value="<?php echo $courseClientId; ?>">
-                                                    <input type="hidden" name="CourseID"
-                                                        value="<?php echo $request['CourseID']; ?>">
-                                                    <input type="hidden" name="ClientID"
-                                                        value="<?php echo $request['ClientID']; ?>">
-                                                    <input type="hidden" name="TherapistID"
-                                                        value="<?php echo $request['TherapistID']; ?>">
-                                                    <button type="submit" name="acceptCourse"
-                                                        class="check-img-content py-1">
-                                                        <h6 class="mb-0">
-                                                            قبول
-                                                        </h6>
-                                                    </button>
-                                                </form>
-                                                <!-- </div> -->
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <span class="badge bg-danger px-3">Rejected</span>
                                 </td>
                             </tr>
                         <?php } ?>

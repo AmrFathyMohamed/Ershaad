@@ -35,7 +35,7 @@ if (isset($_POST['addAd'])) {
             if ($adsTable->insertAd('Ershad-admin/' . $targetDir . $uniqueFilename)) {
                 echo '<script>
                 alert("تم بنجاح")
-                window.location.href = "Admins.php";
+                window.location.href = "Ads.php";
                 </script>';
                 exit;
             } else {
