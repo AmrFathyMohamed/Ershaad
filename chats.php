@@ -154,6 +154,17 @@ if (isset($_SESSION['user_id'])) {
     <?php include("includes/footer.php"); ?>
 
     <script>
+        function copyMessage(element){
+            var textToCopy = element.querySelector('p').textContent;
+            var textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+
+            document.body.removeChild(textArea);
+            toast("Text Copied")
+        }
         scrollEnd()
         function scrollEnd() {
             $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);

@@ -278,7 +278,7 @@ if (isset($_SESSION['user_id'])) {
   if (count == 0) {
     $(".chat-content").html(`
                   <div class="w-45 px-0 h-100 mx-auto">
-                      <img src="assets/Images/empty-chat.svg" class="d-inline-block"/>
+                      <img src="img/empty-chat.svg" class="d-inline-block"/>
                       <p class="text-muted text-center ps-2 fs-small" style="letter-spacing: 0.09rem; text-transform: uppercase;">Start a conversation</p>
                   </div>
           `)
