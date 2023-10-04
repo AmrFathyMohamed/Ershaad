@@ -91,10 +91,10 @@ require_once 'includes/config.php';
                     تسجيل الدخول
                   </button>
                   <?php
-                  echo '<a class="btn btn-danger mt-4 mt-3 w-100 px-5" href="#" id="submitBtn">
+                  echo '<a class="btn btn-danger mt-4 mt-3 w-100 px-5" href="'.$client->createAuthUrl().'" id="submitBtn">
                     <i class="bi bi-google me-3"></i> Google تسجيل بأستخدام
                   </a>' ;
-                  //'.$client->createAuthUrl().'
+                  //
                   ?>
                   
                 </div>

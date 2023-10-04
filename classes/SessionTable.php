@@ -27,9 +27,9 @@ class SessionTable
     }
 
 
-    public function updateSession($courseClientId, $status)
+    public function updateSession($courseClientId, $status,$column)
     {
-        $query = "UPDATE $this->table SET Status = '$status', updated_at = NOW() 
+        $query = "UPDATE $this->table SET $column = '$status', updated_at = NOW() 
         WHERE SessionID = $courseClientId";
 
         $stmt = $this->db->executeQuery($query);
@@ -45,7 +45,7 @@ class SessionTable
     }
     public function updateSessionRate($sessionid, $r , $c)
     {
-        $query = "UPDATE $this->table SET UserOpinion = '$c',UserRate = $r, updated_at = NOW() 
+        $query = "UPDATE $this->table SET UserOpinion = '$c',UserRate = $r,CStatus = 'Pending Review' updated_at = NOW() 
         WHERE SessionID = $sessionid";
 
         $stmt = $this->db->executeQuery($query);
@@ -62,8 +62,28 @@ class SessionTable
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
+    public function getSessionsComments()
+    {
+        $query = "SELECT s.*, c.FullName AS ClientName, t.FullName AS TherapistName
+              FROM sessions s
+              JOIN clients c ON s.UserID = c.ClientID
+              JOIN therapists t ON s.TherapistID = t.TherapistID
+              WHERE s.UserOpinion IS NOT NULL AND s.UserRate IS NOT NULL";
 
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getSessionsCommentsIndex()
+    {
+        $query = "SELECT s.*, c.FullName AS ClientName, t.FullName AS TherapistName
+              FROM sessions s
+              JOIN clients c ON s.UserID = c.ClientID
+              JOIN therapists t ON s.TherapistID = t.TherapistID
+              WHERE s.UserOpinion IS NOT NULL AND s.UserRate IS NOT NULL And CStatus = 'Accepted'";
 
+        $stmt = $this->db->executeQuery($query);
+        return $stmt->fetch_all(MYSQLI_ASSOC);
+    }
     public function getSessionstherapist($id)
     {
         // Define your SELECT query to fetch sessions for a therapist using $this->db->executeQuery

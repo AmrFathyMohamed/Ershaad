@@ -29,7 +29,7 @@ if (isset($_POST['addAppointment'])) {
     $timeE = $_POST['timeE'];
     $type = $_POST['type'];
     $tid = $_POST['therapistId'];
-    if ($appointmentTable->insertAppointment($dateS,$dateE, $timeS,  $timeE, $type, $tid)) {
+    if ($appointmentTable->insertAppointment($dateS, $dateE, $timeS, $timeE, $type, $tid)) {
         echo '<script>
         alert("تم بنجاح")
         window.location.href = "Therapist.php";
@@ -282,30 +282,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                 <ul id="appointmentsList" class="ps-0 row" style="height: 40vh; overflow-y:auto;">
                 </ul>
                 <form id="addAppointmentForm" method="POST" action="Therapist.php">
-                    <div class="form-group">
-                        <label for="date">Start Date:</label>
-                        <input type="date" class="form-control" id="dateS" name="dateS" required>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="date">Start Date:</label>
+                            <input type="date" class="form-control" id="dateS" name="dateS" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="date">End Date:</label>
+                            <input type="date" class="form-control" id="dateE" name="dateE" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="time">Start Time:</label>
+                            <input type="time" class="form-control" id="timeS" name="timeS" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="time">End Time:</label>
+                            <input type="time" class="form-control" id="timeE" name="timeE" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type:</label>
+                            <select class="form-control" id="type" name="type" required>
+                                <option value="Urgent Consultation">Urgent Consultation</option>
+                                <option value="Work">Work</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="date">End Date:</label>
-                        <input type="date" class="form-control" id="dateE" name="dateE" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Start Time:</label>
-                        <input type="time" class="form-control" id="timeS" name="timeS" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">End Time:</label>
-                        <input type="time" class="form-control" id="timeE" name="timeE" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="type">Type:</label>
-                        <select class="form-control" id="type" name="type" required>
-                            <option value="Urgent Consultation">Urgent Consultation</option>
-                            <option value="Work">Work</option>
-                        </select>
-                    </div>
-
                     <input type="hidden" id="therapistIdInput" name="therapistId" value="">
                     <button type="submit" class="btn btn-primary" name="addAppointment">Submit</button>
                 </form>
@@ -418,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
                 if (response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
                         var appointment = response[i];
-                        var listItem = $('<li class="d-inline-block col-6 mb-1 px-3 py-2 border d-flex justify-content-between align-items-center rounded ">').html('<span class="badge bg-primary">'+appointment['Date'] + '</span><span class="badge bg-primary">' + appointment['Time'] + '</span><span class="badge bg-primary">' + appointment['Type'] + '</span>');
+                        var listItem = $('<li class="d-inline-block col-6 mb-1 px-3 py-2 border d-flex justify-content-between align-items-center rounded ">').html('<span class="badge bg-primary">' + appointment['Date'] + '</span><span class="badge bg-primary">' + appointment['Time'] + '</span><span class="badge bg-primary">' + appointment['Type'] + '</span>');
                         var deleteForm = $('<form class="d-inline">').attr('method', 'POST').attr('action', 'Therapist.php');
                         deleteForm.append($('<input>').attr('type', 'hidden').attr('name', 'appointmentId').val(appointment['AppointmentID']));
                         deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteAppointment').addClass('btn btn-danger px-2 py-1 btn-sm').html('<i class="bi bi-trash"></i>'));

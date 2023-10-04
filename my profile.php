@@ -65,7 +65,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="col-2">
           <h6 class="animated text-center slideInDown arabic fs-small fst-normal mb-1">النوع</h6>
           <p class="animated text-center slideInDown arabic fs-6 text-primary fw-bold mb-4">
-            <?= $client['FullName']; ?>Gemder
+            <?= $client['Gender']; ?>
           </p>
         </div>
         <div class="col-2">
@@ -114,22 +114,57 @@ if (isset($_SESSION['user_id'])) {
       $sessionDate = new DateTime($session['Date']);
       $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
       $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
-      if ($sessionDate->format('Y-m-d') >= $currentDate->format('Y-m-d')) {
+
+      // Calculate 5 minutes before the session start time
+      $sessionDateTime = new DateTime($session['Date'] . $session['Time']);
+
+      $fiveMinutesBeforeNOW = clone $currentDate;
+      $fiveMinutesBeforeNOW->add(new DateInterval('PT1H'));
+
+      $fiveMinutesBefore = clone $sessionDateTime;
+      $fiveMinutesBefore->sub(new DateInterval('PT5M'));
+
+      //  echo$fiveMinutesBeforeNOW->format('Y-m-d h:i');
+      //  echo '<br/>';
+      //  echo $currentDate->format('Y-m-d h:i');
+
+      $interval = $fiveMinutesBeforeNOW->diff($fiveMinutesBefore);
+      $interval2 = $fiveMinutesBeforeNOW->diff(new DateTime($session['Date'] . $endTime->format('h:i')));
+
+// // // Check if the interval is zero or negative
+// if ($interval2->invert === 0 && $interval2->s >= 0) {
+//   echo '<br/>';
+//   echo $interval2->format('%R%h hours %i minutes');
+//   echo '<br/>';
+//   echo "Interval is positive.";
+
+// } else {
+//   echo '<br/>';
+//   echo $interval2->format('%R%h hours %i minutes');
+//   echo '<br/>';
+//   echo "Interval is zero or negative.";
+
+// }
+      if ($interval2->invert === 0 && $interval2->s >= 0) {
+
         echo '<div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">';
-                  if ($sessionDate->format('Y-m-d') == $currentDate->format('Y-m-d')) {
-                    echo '<div class="service-icon w-50 text-white bg-primary rounded-end mb-1 me-4"  onclick="showChat(\'' . $session['TherapistID'] . '\')"
+                  if ($interval->invert === 1 || $interval->s < 0) {
+          echo '<div class="service-icon w-50 text-white bg-primary rounded-end mb-1 me-4"  onclick="showChat(\'' . $session['TherapistID'] . '\')"
                       style="border-top-right-radius: 0px !important;">تحدث الي المعالج <i class="fa-solid fa-comments ms-2"></i></div>';
-                  }
-                  echo '                     
+                    } else {
+                      echo '<div class="service-icon w-75 text-white bg-primary rounded-end mb-1 me-4""
+                      style="border-top-right-radius: 0px !important;">ستبدا الجلسة قبل 5 دقائق من الميعاد</div>';
+                    }
+        echo '                     
                     <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="mb-0 text-right">
                       <i class="fa-regular fa-clock" style="color: #6eaedc;"></i> ' . $startTime->format('h:i A') . ' - ' . $endTime->format('h:i A') . '
                     </p>
-                    <p class="badge bg-'.$sessionTypeClass .' text-white">'.$sessionTypeClass .'</p>
+                    <p class="badge bg-' . $sessionTypeClass . ' text-white">' . $sessionTypeClass . '</p>
                     <p class="mb-0 text-right">
                       ' . $sessionDate->format('d-m-Y') . ' <i class="fa-regular fa-calendar-check" style="color: #6eaedc;"></i>
                     </p>
@@ -168,9 +203,18 @@ if (isset($_SESSION['user_id'])) {
       $endTime = clone $startTime;
       $endTime->add(new DateInterval('PT1H'));
       $sessionDate = new DateTime($session['Date']);
-      $sessionTypeClass = ($session['Type'] == 'Work' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
-      $sessionTypeName = ($session['Type'] == 'Work' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
-      if ($sessionDate->format('Y-m-d') < $currentDate->format('Y-m-d')) {
+            // Calculate 5 minutes before the session start time
+            $sessionDateTime = new DateTime($session['Date'] . $session['Time']);
+
+            $fiveMinutesBeforeNOW = clone $currentDate;
+            $fiveMinutesBeforeNOW->add(new DateInterval('PT1H'));
+      
+            $fiveMinutesBefore = clone $sessionDateTime;
+            $fiveMinutesBefore->sub(new DateInterval('PT5M'));
+      
+            $interval = $fiveMinutesBeforeNOW->diff($fiveMinutesBefore);
+            $interval2 = $fiveMinutesBeforeNOW->diff(new DateTime($session['Date'] . $endTime->format('h:i')));
+            if ($interval2->invert === 0 && $interval2->s >= 0) {}else{
         echo '<div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded h-100 px-4 pb-2">
                   <div class="d-flex align-items-center ms-n5 mb-1">
@@ -196,7 +240,7 @@ if (isset($_SESSION['user_id'])) {
     } ?>
   </div>
   <div class="tab-pane w-55 px-5 mx-auto fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-  <?php foreach ($course_client as $course) { ?>
+    <?php foreach ($course_client as $course) { ?>
       <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
         <div class="service-item rounded h-100 px-4 pb-2">
           <div class="ms-n5 mb-1">
@@ -234,9 +278,9 @@ if (isset($_SESSION['user_id'])) {
           </div>
         </div>
       </div>
-  <?php } ?>
+    <?php } ?>
   </div>
-  </div>
+</div>
 
 </div>
 <!-- tabs end -->
@@ -336,30 +380,30 @@ if (isset($_SESSION['user_id'])) {
 </div>
 <?php include("includes/footer.php"); ?>
 <script>
- function showRate(sessionID) {
-  $("#SessionID").val(sessionID)
-  $("#rateModal").modal('show')
+  function showRate(sessionID) {
+    $("#SessionID").val(sessionID)
+    $("#rateModal").modal('show')
   }
 
   function showChat(therID) {
-  $("#therapistID").val(therID)
-  $("#chatModal").modal('show')
+    $("#therapistID").val(therID)
+    $("#chatModal").modal('show')
   }
   $(document).ready(function () {
     const ratingIcons = $('.rating .fa-regular');
     let ratingValue = 0;
-    
+
     ratingIcons.click(function () {
       ratingValue = $(this).index() + 1;
       ratingIcons.removeClass('fa-solid rateStar-fill').addClass('fa-regular rateStar');
       $(this).prevAll().addBack().removeClass('fa-regular rateStar').addClass('fa-solid rateStar-fill');
     });
-    
+
     $("#pupl").on('click', function () {
-      $("#ratingVal").val(ratingValue); 
-      alert('Session ID:'+ $("#sessionID").val());
-      alert('Rating:'+ $("#ratingVal").val());
-      alert('Comment:'+ $("#comment").val());
+      $("#ratingVal").val(ratingValue);
+      alert('Session ID:' + $("#sessionID").val());
+      alert('Rating:' + $("#ratingVal").val());
+      alert('Comment:' + $("#comment").val());
     });
   });
 </script>

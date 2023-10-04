@@ -106,6 +106,8 @@ class TherapistTable
             $query = "SELECT * FROM $tableName WHERE TherapistID = $therapistId ORDER BY DocumentDate DESC";
         } else if ($tableName == "course_therapist") {
             $query = "SELECT c.* ,ct.Status FROM courses AS c INNER JOIN $tableName AS ct ON c.CourseID = ct.CourseID WHERE ct.TherapistID = $therapistId";
+        } else if ($tableName == "soon") {
+            $query = "SELECT c.* ,ct.Status FROM courses AS c INNER JOIN course_therapist AS ct ON c.CourseID = ct.CourseID WHERE ct.TherapistID = $therapistId And Status = 'Accepted'";
         } else {
             $query = "SELECT * FROM $tableName WHERE TherapistID = $therapistId";
         }

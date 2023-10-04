@@ -12,6 +12,9 @@ $docements = $therapistTable->getDataByTherapistId($userId, "documents");
 $course_therapist = $therapistTable->getDataByTherapistId($userId, "course_therapist");
 $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
 
+$coursesoon = $therapistTable->getDataByTherapistId($userId, "soon");
+
+$totalCourses = count($coursesoon);
 ?>
 <style>
   .page-header {
@@ -84,7 +87,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
           <?= $therapist['PriceAfterPercentage'] ?>
         </span><span class="px-2">/</span><span>ساعة</span></p>
-        
+
 
     </div>
   </div>
@@ -99,7 +102,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
         <h6 class="text-right">المواعيد المتاحة</h6>
       </div>
       <div class="row gx-4" id="availableDates">
-       
+
       </div>
       <div class="text-center mt-5">
         <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
@@ -113,7 +116,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       <h6 class="text-right mt-3">أختر نوع الجلسة</h6>
       <div class="d-flex align-items-center justify-content-around">
         <div class="col-6 pe-3" id="arg">
-          <input id="argent" class="check-img-input" type="radio" name="type" value="argent" />
+          <input id="argent" class="check-img-input" type="radio" name="type" value="Urgent Consultation" />
           <label for="argent" class="check-img-label w-100">
             <div class="check-img-content pt-2 pb-1">
               <!-- <img src="img/icon/icon-02-primary.png" class="w-15" alt=""> -->
@@ -122,7 +125,7 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
           </label>
         </div>
         <div class="col-6 ps-3">
-          <input id="normal" class="check-img-input" type="radio" name="type" value="normal" />
+          <input id="normal" class="check-img-input" type="radio" name="type" value="Work" />
           <label for="normal" class="check-img-label w-100">
             <div class="check-img-content pt-2 pb-1">
               <!-- <img src="img/icon/icon-02-primary.png" class="w-15" alt=""> -->
@@ -143,29 +146,31 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       <h6 class="text-right">اخر التقييمات</h6>
 
     </div>
-    <?php foreach ($sessions as $session) { ?>
-      <div class="col-lg-10 mx-auto mt-3 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="service-item rounded h-100 p-4 pb-2">
-          <div class="testimonial-item text-">
-            <div class="d-flex justify-content-end align-items-center">
-              <p class="text-right mb-0">
-                <?= $session['UserOpinion'] ?>
-              </p>
+    <?php foreach ($sessions as $session)
+      if ($session['CStatus'] == 'Accepted') { { ?>
+          <div class="col-lg-10 mx-auto mt-3 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="service-item rounded h-100 p-4 pb-2">
+              <div class="testimonial-item text-">
+                <div class="d-flex justify-content-end align-items-center">
+                  <p class="text-right mb-0">
+                    <?= $session['UserOpinion'] ?>
+                  </p>
+                </div>
+                <?php
+                $rating = $session['UserRate'];
+                for ($i = 1; $i <= 5; $i++) {
+                  if ($i <= $rating) {
+                    echo '<i class="fa-solid fa-star text-warning"></i>';
+                  } else {
+                    echo '<i class="fa-regular fa-star text-warning"></i>';
+                  }
+                }
+                ?>
+              </div>
             </div>
-            <?php
-            $rating = $session['UserRate'];
-            for ($i = 1; $i <= 5; $i++) {
-              if ($i <= $rating) {
-                echo '<i class="fa-solid fa-star text-warning"></i>';
-              } else {
-                echo '<i class="fa-regular fa-star text-warning"></i>';
-              }
-            }
-            ?>
           </div>
-        </div>
-      </div>
-    <?php } ?>
+        <?php }
+      } ?>
   </div>
 </div>
 <!-- courswes Start -->
@@ -175,75 +180,82 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       <h1 class="display-6 mb-5"> الكورسات </h1>
     </div>
     <div class="row g-4 justify-content-center">
-      <?php foreach ($course_therapist as $course) {
-        if ($course['Status'] == "Accepted") { ?>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="service-item rounded h-100 p-4">
-              <div class="mb-4">
-                <img class="img-fluid rounded" src="img/carousel-1.jpg" alt="" />
-              </div>
-              <h4 class="mb-0 right pointer">
-                <?= $course['Title'] ?>
-              </h4>
-              <p class="mb-4 right">
-                <?= $course['Description'] ?>
-              </p>
-              <div class="text-right">
-                <a class="btn btn-light px-3" data-bs-toggle="modal"
-                  data-bs-target="#courseDetailsModal-<?= $course['CourseID'] ?>">تفاصيل الكورس </a>
+      <?php if ($totalCourses > 0) {
+        foreach ($course_therapist as $course) {
+          if ($course['Status'] == "Accepted") { ?>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div class="service-item rounded h-100 p-4">
+                <div class="mb-4">
+                  <img class="img-fluid rounded" src="img/carousel-1.jpg" alt="" />
+                </div>
+                <h4 class="mb-0 right pointer">
+                  <?= $course['Title'] ?>
+                </h4>
+                <p class="mb-4 right">
+                  <?= $course['Description'] ?>
+                </p>
+                <div class="text-right">
+                  <a class="btn btn-light px-3" data-bs-toggle="modal"
+                    data-bs-target="#courseDetailsModal-<?= $course['CourseID'] ?>">تفاصيل الكورس </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="modal fade" id="courseDetailsModal-<?= $course['CourseID'] ?>" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <form action="reservition_course.php" method="POST">
-                  <input type="hidden" name="CourseID" value="<?= $course['CourseID'] ?>">
-                  <input type="hidden" name="ClientID" value="<?php echo $_SESSION['user_id']; ?>">
-                  <input type="hidden" name="TherapistID" value="<?php echo $therapist['TherapistID']; ?>">
-                  <div class="modal-header">
-                    <h5 class="modal-title"> تفاصيل الكورس</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <h4 class=" right pointer" data-bs-toggle="modal" data-bs-target="#courseDetailsModal">
-                      <?= $course['Title'] ?>
-                    </h4>
-                    <p class="mb-4 right">
-                      <?= $course['Description'] ?>
-                    </p>
-                    <div class="d-flex justify-content-between">
-                      <p class=" mb-0 text-right">
-                        <i class="fa-solid fa-hand-holding-dollar" style="color: #6eaedc;"></i>
-                        <?= $course['Price'] ?> ج.م
-                      </p>
-                      <p class=" mb-0 text-right">
-                        <?= $course['Sessions'] ?> جلسات <i class="fa-regular fa-calendar-check"
-                          style="color: #6eaedc;"></i>
-                      </p>
+            <div class="modal fade" id="courseDetailsModal-<?= $course['CourseID'] ?>" tabindex="-1"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <form action="reservition_course.php" method="POST">
+                    <input type="hidden" name="CourseID" value="<?= $course['CourseID'] ?>">
+                    <input type="hidden" name="ClientID" value="<?php echo $_SESSION['user_id']; ?>">
+                    <input type="hidden" name="TherapistID" value="<?php echo $therapist['TherapistID']; ?>">
+                    <div class="modal-header">
+                      <h5 class="modal-title"> تفاصيل الكورس</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
-                    <?php
-                    if (isset($_SESSION['type'])) {
-                      if ($_SESSION['type'] == 'client') { ?>
-                        <button type="submit" class="btn btn-dark px-4" data-bs-dismiss="modal">حجز
-                          الكورس</button>
-                      <?php } else { ?>
+                    <div class="modal-body">
+                      <h4 class=" right pointer" data-bs-toggle="modal" data-bs-target="#courseDetailsModal">
+                        <?= $course['Title'] ?>
+                      </h4>
+                      <p class="mb-4 right">
+                        <?= $course['Description'] ?>
+                      </p>
+                      <div class="d-flex justify-content-between">
+                        <p class=" mb-0 text-right">
+                          <i class="fa-solid fa-hand-holding-dollar" style="color: #6eaedc;"></i>
+                          <?= $course['Price'] ?> ج.م
+                        </p>
+                        <p class=" mb-0 text-right">
+                          <?= $course['Sessions'] ?> جلسات <i class="fa-regular fa-calendar-check"
+                            style="color: #6eaedc;"></i>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+                      <?php
+                      if (isset($_SESSION['type'])) {
+                        if ($_SESSION['type'] == 'client') { ?>
+                          <button type="submit" class="btn btn-dark px-4" data-bs-dismiss="modal">حجز
+                            الكورس</button>
+                        <?php } else { ?>
+                          <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
+                        <?php }
+                      } else { ?>
                         <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
-                      <?php }
-                    } else { ?>
-                      <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
-                    <?php } ?>
+                      <?php } ?>
 
-                  </div>
-                </form>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-        <?php }
+          <?php }
+        }
+      } else {
+        echo '<div class="text-center">
+<h4 class="text-center my-5">Soon...</h4>
+          </div>';
+
       } ?>
 
 
@@ -451,25 +463,27 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       $('#arg').show();
     }
     $.ajax({
-    url: 'fetch_appointments.php', // Replace with your backend endpoint
-    method: 'POST',
-    data: {
-      date: $(this).val(),
-      TherapistID : <?= $therapist['TherapistID']; ?>
-    },
-    success: function (response) {
-      // Handle the response and display the available appointments
-      $("#availableDates").html(response);
-    },
-    error: function () {
-      toast("حدث خطأ أثناء جلب المواعيد المتاحة.", 0);
-    }
-  });
+      url: 'fetch_appointments.php', // Replace with your backend endpoint
+      method: 'POST',
+      data: {
+        date: $(this).val(),
+        TherapistID: <?= $therapist['TherapistID']; ?>
+      },
+      success: function (response) {
+        // Handle the response and display the available appointments
+        $("#availableDates").html(response);
+      },
+      error: function () {
+        toast("حدث خطأ أثناء جلب المواعيد المتاحة.", 0);
+      }
+    });
   });
 
 </script>
 <script>
   function reservePeriod() {
+    let type = $("#type").val();
+
     let date = $("#date").val();
     let period = $("input[name='period']:checked").val(); // Get the selected period
     let therapistId = <?= $userId ?>; // Get the therapist ID from PHP
@@ -481,20 +495,20 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
       return;
     }
     console.log({
-        date: date,
-        time: period,
-        therapistId: therapistId,
-        uid : <?= $_SESSION['user_id'];?>,
-        status: status
-      });
-      $.ajax({
+      date: date,
+      time: period,
+      therapistId: therapistId,
+      uid: <?= $_SESSION['user_id']; ?>,
+      status: status
+    });
+    $.ajax({
       url: 'insert_session.php',
       method: 'POST',
       data: {
         date: date,
         time: period,
         therapistId: therapistId,
-        uid : <?= $_SESSION['user_id'];?>,
+        uid: <?= $_SESSION['user_id']; ?>,
         status: status
       },
       success: function (response) {
@@ -506,9 +520,9 @@ $appointments = $therapistTable->getDataByTherapistId($userId, "appointments");
         alert("حدث خطأ أثناء إجراء الحجز.");
       }
     });
-    
+
   }
-  
+
 </script>
 </body>
 

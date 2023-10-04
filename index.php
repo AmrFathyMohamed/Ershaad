@@ -3,6 +3,7 @@ include("includes/header.php");
 include("classes/TherapistTable.php");
 include("classes/QuestionTable.php");
 include("classes/AdsTable.php");
+include("classes/SessionTable.php");
 
 
 $questionTable = new QuestionTable($database); // Change this to your QuestionTable class
@@ -11,7 +12,8 @@ $questionsData = $questionTable->getQuestions(); // Assuming you have a method t
 $adsTable = new AdsTable($database); // Change this to your QuestionTable class
 $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
 
-
+$sessions = new SessionTable($database);
+$sessionscommentData = $sessions->getSessionsCommentsIndex();
   ?>
 <style>
     .accordion-button::after {
@@ -423,14 +425,14 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="position-relative overflow-hidden rounded ps-5 pt-5 h-100" style="min-height: 400px">
                     <img class="position-absolute w-100 h-100" src="img/about.jpg" alt="" style="object-fit: cover" />
-                    <div class="position-absolute top-0 start-0 bg-white rounded pe-3 pb-3"
+                    <!-- <div class="position-absolute top-0 start-0 bg-white rounded pe-3 pb-3"
                         style="width: 200px; height: 200px">
                         <div class="d-flex flex-column justify-content-center text-center bg-dark rounded h-100 p-3">
                             <h1 class="text-white mb-0 h-phone">15</h1>
                             <h2 class="text-white h-phone">عاماً خبرة</h2>
                             <h5 class="text-white mb-0 h-phone">في الطب النفسي</h5>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
@@ -477,7 +479,49 @@ $adsData = $adsTable->getAds(); // Assuming you have a method to fetch questions
 </div>
 <!-- About End -->
 
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto" style="max-width: 500px">
+            <h1 class="display-6 mb-5">شهادات العملاء </h1>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-3 d-none d-lg-block">
 
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="owl-carousel testimonial-carousel">
+                <?php foreach ($sessionscommentData as $SD) { ?>
+                    <div class="testimonial-item text-center">
+                        <img class="img-fluid rounded mx-auto mb-4" src="img/user.png" alt="" />
+                        <p class="fs-5">
+                        <?php echo $SD['UserOpinion']; ?>
+                        </p>
+                        <?php
+                $rating = $SD['UserRate'];
+                for ($i = 1; $i <= 5; $i++) {
+                  if ($i <= $rating) {
+                    echo '<i class="fa-solid fa-star text-warning"></i>';
+                  } else {
+                    echo '<i class="fa-regular fa-star text-warning"></i>';
+                  }
+                }
+                ?>
+                        <a href="" class="text-primary fw-bold fs-6">الي <?php echo $SD['TherapistName']; ?> </a>
+                    </div>
+                <?php } ?>
+                    
+                </div>
+            </div>
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="testimonial-right h-100">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
 <!-- Testimonial Start -->
 <div class="container-xxl py-5 px-sm-1" id="FAQ">
     <div class="container">
