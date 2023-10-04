@@ -412,6 +412,21 @@ $totalCourses = count($coursesoon);
   }
   // Set the input's value to the current date
   document.getElementById('date').value = getCurrentDate();
+  $.ajax({
+      url: 'fetch_appointments.php', // Replace with your backend endpoint
+      method: 'POST',
+      data: {
+        date: getCurrentDate(),
+        TherapistID: <?= $therapist['TherapistID']; ?>
+      },
+      success: function (response) {
+        // Handle the response and display the available appointments
+        $("#availableDates").html(response);
+      },
+      error: function () {
+        toast("حدث خطأ أثناء جلب المواعيد المتاحة.", 0);
+      }
+    });
   // $("#reserveSession").prop("hidden", true);
   // $("#availableDates").hide()
   // $(document).ready(function () {
