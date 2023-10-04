@@ -5,7 +5,7 @@ require_once './vendor/autoload.php';
 // init configuration
 $clientID = '243523636081-fr07lu284c9s9n0m1sqihll9mrqed2t5.apps.googleusercontent.com';
 $clientSecret = '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';
-$redirectUri = 'https://ershaad.net/Demo/index.php';
+$redirectUri = 'https://ershaad.net/index.php';
 
 // create Client Request to access Google API
 $client = new Google_Client();
