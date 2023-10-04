@@ -21,8 +21,6 @@ $client->setIncludeGrantedScopes(true); // optional
 $client->setPrompt('consent'); // optional
 
 if (isset($_GET['code'])) {
-    require_once '../classes/Database.php';
-    require_once '../classes/ClientTable.php';
     // Exchange the authorization code for an access token.
     $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
     $client->setAccessToken($token['access_token']);
@@ -43,7 +41,8 @@ if (isset($_GET['code'])) {
     // $_SESSION['username'] = $google_account_info['name'];
     // $_SESSION['fullname'] = $google_account_info['name'];
     // $_SESSION['type'] = 'client';
-    $FullName = $google_account_info['name'];;
+    $FullName = $google_account_info['name'];
+    ;
     $Username = str_replace('@gmail.com', '', $google_account_info['email']);
     $Email = $google_account_info['email'];
     $Password = "Ershaad.net";
@@ -54,19 +53,50 @@ if (isset($_GET['code'])) {
     $Phone = $google_account_info['id'];
 
 
+    $host = "ershaad.net";
+    $usernameh = "u853470417_ershaad";
+    $passwordh = "Ershad2023@@";
+    $database = "u853470417_ershaad";
+    $conn = new mysqli($host, $usernameh, $passwordh, $database);
+    $Done;
+    //$result = mysqli_query($conn, $query);
+    // Check if the email is already registered
+    $emailExistsQuery = "SELECT COUNT(*) as count FROM clients WHERE Email = '$email'";
+    $emailExistsResult = mysqli_query($conn, $emailExistsQuery);
 
-    $db = new Database();
-    $client2 = new ClientTable($db);
-    $user = $client2->insertClient2($FullName, $Username,$Email,$Password,$Gender,$Age,$City,$Phone);
+    $emailExistsData = $emailExistsResult->fetch_assoc();
 
-    if ($user) {
+    if ($emailExistsData['count'] > 0) {
+        $Done = true;
+    } else {
+        // Email is not registered, proceed to insert
+        $query = "INSERT INTO clients (FullName, Username, Email, Password, Gender, Age, City, Phone, is_deleted, created_at, updated_at) 
+         VALUES ('$FullName', '$Username', '$Email', '$Password', '$Gender', $Age, '$City', '$Phone', 0, NOW(), NOW())";
+
+        $stmt = mysqli_query($conn, $query);
+        $Done = true;
+    }
+
+
+
+    if ($Done) {
         // Registration successful
-        $user2 = $db->login($Email, $Password);
+        $clientQuery = "SELECT * FROM clients WHERE Email = '" . $Email . "' AND Password = '" . $Password . "'";
 
-        if ($user2) {
-            // Login successful
-            header("Location: index.php");
-            exit;
+        $clientResult = mysqli_query($conn, $clientQuery);
+        if ($clientResult) {
+            if ($clientResult->num_rows == 1) {
+                $user = mysqli_fetch_assoc($clientResult);
+                $_SESSION['user_id'] = $user['ClientID'];
+                $_SESSION['username'] = $user['Username'];
+                $_SESSION['fullname'] = $user['FullName'];
+                $_SESSION['type'] = 'client';
+                header("Location: index.php");
+                exit;
+            } else {
+                header("Location: login.php");
+                exit;
+            }
         }
     } else {
         // Login failed

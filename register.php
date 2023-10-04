@@ -1,6 +1,9 @@
 <?php
 session_start(); // Start the session
 ?>
+<?php
+require_once 'includes/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,9 +158,12 @@ session_start(); // Start the session
                   <button class="btn btn-primary btn-lg mt-3 w-100 px-5" type="submit" id="submitBtn">
                     انشاء حسابي
                   </button>
-                  <button class="btn btn-danger mt-4 mt-3 w-100 px-5" href="<?= $client->createAuthUrl(); ?>" type="submit" id="submitBtn" >
-                     <i class="bi bi-google me-3"></i> Google تسجيل بأستخدام   
-                  </button>
+                  <?php
+                  echo '<a class="btn btn-danger mt-4 mt-3 w-100 px-5" href="'.$client->createAuthUrl().'" id="submitBtn">
+                    <i class="bi bi-google me-3"></i> Google تسجيل بأستخدام
+                  </a>' ;
+                  //
+                  ?>
                 </div>
                 <p class="mt-4 text-center"> لديك حساب بالفعل؟ <a href="login.php" class="text-primary"> تسجل
                     الدخول</a></p>
