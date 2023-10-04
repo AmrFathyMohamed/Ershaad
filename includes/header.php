@@ -3,6 +3,7 @@ session_start();
 ?>
 <?php include("./classes/Database.php"); ?>
 <?php include("./classes/SpecialtiesTable.php"); 
+include("config.php"); 
 ?>
 <?php
 $database = new Database();

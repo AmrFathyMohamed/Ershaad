@@ -1,8 +1,7 @@
 <?php
 
 require_once './vendor/autoload.php';
-require_once '../classes/Database.php';
-require_once '../classes/ClientTable.php';
+
 // init configuration
 $clientID = '243523636081-fr07lu284c9s9n0m1sqihll9mrqed2t5.apps.googleusercontent.com';
 $clientSecret = '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';
@@ -22,6 +21,8 @@ $client->setIncludeGrantedScopes(true); // optional
 $client->setPrompt('consent'); // optional
 
 if (isset($_GET['code'])) {
+    require_once '../classes/Database.php';
+    require_once '../classes/ClientTable.php';
     // Exchange the authorization code for an access token.
     $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
     $client->setAccessToken($token['access_token']);
@@ -43,8 +44,8 @@ if (isset($_GET['code'])) {
     // $_SESSION['fullname'] = $google_account_info['name'];
     // $_SESSION['type'] = 'client';
     $FullName = $google_account_info['name'];;
-    $Username = $_POST['Username'];
-    $Email = str_replace('@gmail.com', '', $google_account_info['email']);
+    $Username = str_replace('@gmail.com', '', $google_account_info['email']);
+    $Email = $google_account_info['email'];
     $Password = "Ershaad.net";
     $RePassword = "Ershaad.net";
     $Gender = "Male";
