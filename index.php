@@ -483,7 +483,7 @@ $sessionscommentData = $sessions->getSessionsCommentsIndex();
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto" style="max-width: 500px">
-            <h1 class="display-6 mb-5">شهادات العملاء </h1>
+        <h1 class="display-6 mb-5">اراء العملاء </h1>
         </div>
         <div class="row g-5">
             <div class="col-lg-3 d-none d-lg-block">

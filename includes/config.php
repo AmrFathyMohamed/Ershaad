@@ -1,7 +1,8 @@
 <?php
 
 require_once './vendor/autoload.php';
-
+require_once '../classes/Database.php';
+require_once '../classes/ClientTable.php';
 // init configuration
 $clientID = '243523636081-fr07lu284c9s9n0m1sqihll9mrqed2t5.apps.googleusercontent.com';
 $clientSecret = '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';
@@ -34,21 +35,45 @@ if (isset($_GET['code'])) {
     $name = $google_account_info['name'];
 
     // Print the user's profile information.
-    echo print_r($google_account_info);
+    // echo 'User Profile Information: <pre>';
+    // print_r($google_account_info);
+    // echo '</pre>';
     // $_SESSION['user_id'] = $google_account_info['id'];
     // $_SESSION['username'] = $google_account_info['name'];
     // $_SESSION['fullname'] = $google_account_info['name'];
     // $_SESSION['type'] = 'client';
-    // $FullName = $_POST['FullName'];
-    // $Username = $_POST['Username'];
-    // $Email = $_POST['Email'];
-    // $Password = $_POST['Password'];
-    // $RePassword = $_POST['RePassword'];
-    // $Gender = $_POST['Gender'];
-    // $Age = $_POST['Age'];
-    // $City = $_POST['City'];
-    // $Phone = $_POST['Phone'];
+    $FullName = $google_account_info['name'];;
+    $Username = $_POST['Username'];
+    $Email = str_replace('@gmail.com', '', $google_account_info['email']);
+    $Password = "Ershaad.net";
+    $RePassword = "Ershaad.net";
+    $Gender = "Male";
+    $Age = 0;
+    $City = "Egypt";
+    $Phone = $google_account_info['id'];
 
+
+
+    $db = new Database();
+    $client2 = new ClientTable($db);
+    $user = $client2->insertClient2($FullName, $Username,$Email,$Password,$Gender,$Age,$City,$Phone);
+
+    if ($user) {
+        // Registration successful
+        $user2 = $db->login($Email, $Password);
+
+        if ($user2) {
+            // Login successful
+            header("Location: index.php");
+            exit;
+        }
+    } else {
+        // Login failed
+        // Set an error message and redirect back to the login page
+        $_SESSION['loginError'] = "Invalid login credentials. Please try again.";
+        header("Location: login.php");
+        exit;
+    }
     // Now you can use this profile information to create an account in your website and make the user logged in.
 }
 ?>

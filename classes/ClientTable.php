@@ -16,6 +16,28 @@ class ClientTable
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
+    public function insertClient2($fullName, $username, $email, $password, $gender, $age, $city, $phone)
+    {
+        // Check if the email is already registered
+        $emailExistsQuery = "SELECT COUNT(*) as count FROM clients WHERE Email = '$email'";
+        $emailExistsResult = $this->db->executeQuery($emailExistsQuery);
+    
+        $emailExistsData = $emailExistsResult->fetch_assoc();
+    
+        if ($emailExistsData['count'] > 0) {
+            // Email is already registered, return true (or a specific message/error code)
+            return true;
+        }
+    
+        // Email is not registered, proceed to insert
+        $query = "INSERT INTO clients (FullName, Username, Email, Password, Gender, Age, City, Phone, is_deleted, created_at, updated_at) 
+        VALUES ('$fullName', '$username', '$email', '$password', '$gender', $age, '$city', '$phone', 0, NOW(), NOW())";
+    
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
+    }
+    
+
     public function updateClient($edit_clientId,$edit_fullName, $edit_username,$edit_email,$edit_password,$edit_gender,   $edit_age, $edit_city,  $edit_phone)
     {
         $query = "UPDATE $this->table SET 
