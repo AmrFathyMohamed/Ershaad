@@ -103,7 +103,7 @@ if (isset($_GET['SpecialtyID'])) {
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item rounded">
                         <!-- You can replace the image source with the actual therapist's image -->
-                        <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
+                        <img class="img-fluid"  style="object-fit: cover; width: 100%;height: 200px;" src="<?= $therapist['Profile']; ?>" alt="" />
                         <div class="text-center p-4 px-sm-1">
                             <h5 class="h-phone">
                                 <?= $therapist['FullName']; ?>
