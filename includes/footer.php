@@ -8,7 +8,7 @@
                 </h1>
                 <p class="right">
                     نعمل علي توفير التواصل السريع والمستمر بين أصحاب الاحتياجات الاستشارية إلى المختصين في جميع
-                    مناحي الحياة
+                    نواحي الحياة
                 </p>
 
             </div>
@@ -20,7 +20,7 @@
                 <p>01020304050 <i class="fa fa-phone-alt ms-3"></i></p> -->
                 <p>ershaad80@gmail.com<i class="fa fa-envelope ms-3"></i></p>
                 <div class="d-flex pt-2 justify-content-end">
-                    <a class="btn btn-square me-1" href="https://twitter.com/ershaad392688"><i
+                    <a class="btn btn-square me-1" href="https://twitter.com/Ershaad_Net"><i
                             class="fab fa-twitter"></i></a>
                     <a class="btn btn-square me-1"
                         href="https://www.facebook.com/profile.php?id=61550946876715&mibextid=D4KYlr"><i
@@ -30,8 +30,10 @@
                     <a class="btn btn-square me-1"
                         href="https://www.snapchat.com/add/ershaad566?share_id=CYR0dVL1NQw&locale=en-EG"><i
                             class="fa-brands fa-snapchat"></i></a>
-                    <a class="btn btn-square me-0" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i
+                    <a class="btn btn-square me-1" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i
                             class="fa-brands fa-instagram"></i></a>
+                            <a class="btn btn-square me-0" href="https://www.linkedin.com/company/ershaad-net"><i
+                            class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 right">
@@ -46,7 +48,7 @@
                     <?php }
                 } ?>
 
-                <a class="btn btn-link" href="policy.php">سياسة الاستخدام والخصوصية</a>
+                <a class="btn btn-link" href="policy.php">شروط وأحكام المستخدم وسياسة الخصوصية</a>
             </div>
             <!-- <div class="col-lg-3 col-md-6 right">
                 <h5 class="text-light mb-4">التحديثات</h5>

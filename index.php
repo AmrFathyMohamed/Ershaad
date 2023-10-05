@@ -59,6 +59,38 @@ $sessionscommentData = $sessions->getSessionsCommentsIndex();
             <h1 class="display-6 mb-5 underline">المعالجين</h1>
         </div>
         <div class="row gx-3">
+        <div class="col-lg-3 col-md-6 col-6 wow fadeInUp mb-3" data-wow-delay="0.1s" onclick="window.location.href='#'" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                    <div class="team-item rounded">
+                        <!-- You can replace the image source with the actual therapist's image -->
+                        <img class="img-fluid" style="object-fit: cover; width: 100%;height: 200px;" src="https://img.freepik.com/free-vector/industrial-cleaning-team-work-flat-poster_1284-8622.jpg?size=626&ext=jpg&uid=R1913461&ga=GA1.2.1806301143.1685634737&semt=sph" alt="">
+                        <div class="text-center p-4">
+                            <h5 class="h-phone">
+                                ahmed                            </h5>
+                            <span class="text-phone">
+                                إرشاد أسري                            </span>
+                        </div>
+                        <div class="team-text text-center bg-white p-4 px-sm-3">
+                            <h5 class="h-phone">
+                                ahmed                            </h5>
+                            <p class="text-phone">
+                                إرشاد أسري                            </p>
+                            <div class="d- justify-content-center">
+                                <!-- Example rating -->
+                                <div class="rate d-flex justify-content-center align-content-center mb-2">
+                                    <i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-regular fa-star text-warning"></i><i class="fa-regular fa-star text-warning"></i>                                </div>
+                                <div class="price d-flex justify-content-center align-content-center">
+                                    <p>
+                                        300 /
+                                        ساعة
+                                    </p>
+                                    <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
+                                </div>
+                                <a class="btn w-100 btn-light m-1 btn-sm-phone" href="therapist-profile.php?id=20000">عرض الملف الشخصي</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php
             // Example usage to display 8 random top-rated therapists
             $database = new Database();
@@ -71,7 +103,7 @@ $sessionscommentData = $sessions->getSessionsCommentsIndex();
                     onclick="window.location.href='#'">
                     <div class="team-item rounded">
                         <!-- You can replace the image source with the actual therapist's image -->
-                        <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
+                        <img class="img-fluid" style="object-fit: cover; width: 100%;height: 200px;" src="<?= $therapist['Profile']; ?>" alt="" />
                         <div class="text-center p-4">
                             <h5 class="h-phone">
                                 <?= $therapist['FullName']; ?>

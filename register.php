@@ -165,7 +165,8 @@ require_once 'includes/config.php';
                   //
                   ?>
                 </div>
-                <p class="mt-4 text-center"> لديك حساب بالفعل؟ <a href="login.php" class="text-primary"> تسجل
+                <p class="mt-2 text-center"> قيامك بالتسجيل فانت توافق على  <a href="policy.php" class="text-primary">الشروط و القوانين</a></p>
+                    <p class="mt-4 text-center"> لديك حساب بالفعل؟ <a href="login.php" class="text-primary"> تسجل
                     الدخول</a></p>
 
               </div>

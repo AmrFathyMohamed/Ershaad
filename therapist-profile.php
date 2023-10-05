@@ -528,7 +528,7 @@ $totalCourses = count($coursesoon);
       },
       success: function (response) {
         // Handle the response (e.g., show a success message)
-        alert("تمت عملية الحجز بنجاح");
+        alert("سيتم التواصل معك في أقرب وقت لتأكيد الحجز");
         // You can also perform additional actions here, such as updating the UI
       },
       error: function () {
