@@ -13,7 +13,7 @@ if (isset($_SESSION['user_id'])) {
         $SessionID = $_POST['SessionID']; // Get TherapistID from the session
         $Comment = $_POST['Comment'];
         $Rate = $_POST['Rate'];
-
+        
         // Insert the message into the database
         $db = new Database();
         //echo $UserID.$TherapistID.$Message;
