@@ -399,12 +399,12 @@ if (isset($_SESSION['user_id'])) {
       $(this).prevAll().addBack().removeClass('fa-regular rateStar').addClass('fa-solid rateStar-fill');
     });
 
-    $("#pupl").on('click', function () {
-      $("#ratingVal").val(ratingValue);
-      alert('Session ID:' + $("#sessionID").val());
-      alert('Rating:' + $("#ratingVal").val());
-      alert('Comment:' + $("#comment").val());
-    });
+    // $("#pupl").on('click', function () {
+    //   $("#ratingVal").val(ratingValue);
+    //   alert('Session ID:' + $("#sessionID").val());
+    //   alert('Rating:' + $("#ratingVal").val());
+    //   alert('Comment:' + $("#comment").val());
+    // });
   });
 </script>
 </body>

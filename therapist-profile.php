@@ -199,11 +199,14 @@ $totalCourses = count($coursesoon);
                   <img class="img-fluid rounded" src="img/carousel-1.jpg" alt="" />
                 </div>
                 <h4 class="mb-0 right pointer">
-                  <?= $course['Title'] ?>
+                  <?= $course['Title'] ?>   <span class="badge bg-success px-3"><?= $course['type'] ?></span>
                 </h4>
                 <p class="mb-4 right">
                   <?= $course['Description'] ?>
                 </p>
+                
+                <!-- <option value="Treatment">Treatment</option>
+                                <option value="Training">Training</option> -->
                 <div class="text-right">
                   <a class="btn btn-light px-3" data-bs-toggle="modal"
                     data-bs-target="#courseDetailsModal-<?= $course['CourseID'] ?>">تفاصيل الكورس </a>
