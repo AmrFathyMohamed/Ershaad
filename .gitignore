@@ -258,3 +258,5 @@ vendor/psr/log/Psr/Log/NullLogger.php
 vendor/psr/log/Psr/Log/Test/DummyTest.php
 vendor/psr/log/Psr/Log/Test/LoggerInterfaceTest.php
 vendor/psr/log/Psr/Log/Test/TestLogger.php
+Ershad-admin/uploads
+Ershad-admin/document_uploads
