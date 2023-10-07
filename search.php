@@ -148,15 +148,15 @@ $alltherapists = $therapistTable2->getTherapists();
 <!-- Team End -->
 <?php include("includes/footer.php"); ?>
 <script>
-  function getCurrentDate() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, '0');
-    const day = now.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-  // Set the input's value to the current date
-  document.getElementById('date').value = getCurrentDate();
+  // function getCurrentDate() {
+  //   const now = new Date();
+  //   const year = now.getFullYear();
+  //   const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  //   const day = now.getDate().toString().padStart(2, '0');
+  //   return `${year}-${month}-${day}`;
+  // }
+  // // Set the input's value to the current date
+  // document.getElementById('date').value = getCurrentDate();
   function searchTherapists() {
     var searchQuery = document.getElementById("search").value.toLowerCase().trim();
     var therapistsList = document.getElementById("therapistsList");
@@ -179,7 +179,7 @@ $alltherapists = $therapistTable2->getTherapists();
   }
   function addTherapistToResults(parentElement, therapist) {
     const therapistDiv = document.createElement('div');
-    therapistDiv.className = 'col-lg-3 col-md-6 wow fadeInUp';
+    therapistDiv.className = 'col-lg-4 col-md-6 wow fadeInUp';
     therapistDiv.setAttribute('data-wow-delay', '0.1s');
     therapistDiv.innerHTML = `<div class="team-item rounded">
                         <img class="img-fluid" src="${therapist['Profile']}" alt="" />
