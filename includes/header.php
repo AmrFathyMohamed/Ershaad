@@ -209,7 +209,8 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                             </div>
                         </div>
                     </div>
-                    <a href="login.php" class="btn btn-light px-4 d-block">تسجيل الدخول</a>
+                    <a href="register.php" class="btn btn-outline-warning me-3 px-3 btn-sm d-block">إنشاء حساب</a>
+                    <a href="login.php" class="btn btn-light px-3 btn-sm d-block">تسجيل الدخول</a>
 
             </div>
         <?php }

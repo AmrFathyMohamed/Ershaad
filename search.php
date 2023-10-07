@@ -50,7 +50,7 @@ $alltherapists = $therapistTable2->getTherapists();
             <div class="col-lg-4 col-md-6 col-6 wow fadeInUp mb-3" data-wow-delay="0.1s">
               <div class="team-item rounded px-sm-1">
                 <!-- You can replace the image source with the actual therapist's image -->
-                <img class="img-fluid" src="<?= $therapist['Profile']; ?>" alt="" />
+                <img class="img-fluid"  style="object-fit: cover; width: 100%;height: 200px;" src="<?= $therapist['Profile']; ?>" alt="" />
                 <div class="text-center p-4 px-sm-3">
                   <h5 class="h-phone">
                     <?= $therapist['FullName']; ?>
