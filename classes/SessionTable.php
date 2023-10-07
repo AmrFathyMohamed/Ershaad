@@ -45,7 +45,7 @@ class SessionTable
     }
     public function updateSessionRate($sessionid, $r , $c)
     {
-        $query = "UPDATE $this->table SET UserOpinion = '$c',UserRate = $r,CStatus = 'Pending Review' updated_at = NOW() 
+        $query = "UPDATE $this->table SET UserOpinion = '$c',UserRate = $r,CStatus = 'Pending Review', updated_at = NOW() 
         WHERE SessionID = $sessionid";
 
         $stmt = $this->db->executeQuery($query);
