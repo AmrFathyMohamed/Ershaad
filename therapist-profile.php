@@ -199,7 +199,7 @@ $totalCourses = count($coursesoon);
                   <img class="img-fluid rounded" src="img/carousel-1.jpg" alt="" />
                 </div>
                 <h4 class="mb-0 right pointer">
-                  <?= $course['Title'] ?>   <span class="badge bg-success px-3"><?= $course['type'] ?></span>
+                  <?= $course['Title'] ?>   <span class="badge bg-success px-3"><?= $course['Type'] ?></span>
                 </h4>
                 <p class="mb-4 right">
                   <?= $course['Description'] ?>
