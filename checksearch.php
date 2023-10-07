@@ -11,8 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
     $speciality = $_POST['speciality'];
     $priceRange = $_POST['priceRange'];
-
-    // Build the SQL query based on the form inputs
+    if($date == null){
+        $sql = "SELECT therapists.*, GROUP_CONCAT(appointments.Date) AS appointment_dates
+        FROM therapists
+        INNER JOIN appointments ON therapists.TherapistID = appointments.TherapistID OR appointments.Date >= '$date' AND appointments.Type = 'Work'
+        WHERE (
+            (
+                (SELECT COUNT(*) FROM sessions WHERE sessions.TherapistID = therapists.TherapistID OR sessions.Date >= '$date') = 0
+            )";
+    }else{
     $sql = "SELECT therapists.*, GROUP_CONCAT(appointments.Date) AS appointment_dates
         FROM therapists
         INNER JOIN appointments ON therapists.TherapistID = appointments.TherapistID AND appointments.Date >= '$date' AND appointments.Type = 'Work'
@@ -20,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             (
                 (SELECT COUNT(*) FROM sessions WHERE sessions.TherapistID = therapists.TherapistID AND sessions.Date >= '$date') = 0
             )";
+    }
+    // Build the SQL query based on the form inputs
 
     if ($gendermale && $genderfemale) {
         $sql .= " AND Gender IN ('Male', 'Female')";

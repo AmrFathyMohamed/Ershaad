@@ -105,8 +105,18 @@ $totalCourses = count($coursesoon);
 
       </div>
       <div class="text-center mt-5">
-        <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
+      <?php
+                      if (isset($_SESSION['type'])) {
+                        if ($_SESSION['type'] == 'client') { ?>
+                          <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
           الموعد</button>
+                        <?php } else { ?>
+                          <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
+                        <?php }
+                      } else { ?>
+                        <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
+                      <?php } ?>
+        
       </div>
     </div>
     <div class="col-md-5 col-12">
