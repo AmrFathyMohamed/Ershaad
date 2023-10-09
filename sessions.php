@@ -125,7 +125,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center ms-n5 mb-1">
-              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+              <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;">تسطتيع ان تتحدث للمريض قبل 5 دقائق من الميعاد -
                 <?php echo $sessionTypeName; ?>
               </div>
@@ -153,7 +153,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center ms-n5 mb-1">
-              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+              <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;"> بدات الجلسة -
                 <?php echo $sessionTypeName; ?>
               </div>
@@ -184,7 +184,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center ms-n5 mb-1">
-              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+              <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;"> بدات الجلسة -
                 <?php echo $sessionTypeName; ?>
               </div>
@@ -231,7 +231,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center ms-n5 mb-1">
-              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+              <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;"> انتهت الجلسة -
                 <?php echo $sessionTypeName; ?>
               </div>
