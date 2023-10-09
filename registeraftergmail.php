@@ -238,9 +238,7 @@ if (isset($_SESSION['user_id'])) {
                 inputField.addClass('is-invalid');
               }
               // Check if all input fields have the .valid-field class
-              const allFieldsValid = $('#Email').hasClass('is-valid') &&
-                $('#Username').hasClass('is-valid') &&
-                $('#Phone').hasClass('is-valid');
+              const allFieldsValid = $('#Phone').hasClass('is-valid');
               console.log(allFieldsValid);
               // Enable or disable the submit button based on the validation result
               if (allFieldsValid) {
