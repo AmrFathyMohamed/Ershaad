@@ -58,6 +58,16 @@ class ClientTable
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
+
+    public function updateClientDatePassword($edit_clientId,$oldpass,$npass)
+    {
+        $query = "UPDATE $this->table SET 
+                  Password = '$npass',updated_at = NOW()
+                  WHERE ClientID = $edit_clientId AND Password = '$oldpass'";
+        //$data[] = $clientId;
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
+    }
     public function deleteclient($clientId)
     {
         

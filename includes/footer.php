@@ -80,24 +80,24 @@
 <div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="">
+        <form method="POST" action="updatedatapassword.php">
                 <div class="modal-header">
                     <h5 class="modal-title" id="">تغيير كلمة المرور</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
-                    <input type="text" class="form-control form-control-lg rtl mb-3" id="old-pass"
+                    <input type="text" class="form-control form-control-lg rtl mb-3" id="old-pass" name="oldpass"
                         placeholder="كلمة المرور السابقة">
-                    <input type="text" class="form-control form-control-lg rtl mb-3" id="new-pass"
+                    <input type="text" class="form-control form-control-lg rtl mb-3" id="new-pass" name="newpass"
                         placeholder="كلمة المرور الجديدة">
-                    <input type="text" class="form-control form-control-lg rtl mb-3" id="new-pass-con"
+                    <input type="text" class="form-control form-control-lg rtl mb-3" id="new-pass-con" name="newpasscon"
                         placeholder="تأكيد كلمة المرور الجديدة">
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-                    <button type="button" class="btn btn-primary px-5">حفظ</button>
+                    <button type="submit" class="btn btn-primary px-5">حفظ</button>
                 </div>
             </form>
         </div>

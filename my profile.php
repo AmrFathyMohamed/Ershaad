@@ -368,7 +368,7 @@ if (isset($_SESSION['user_id'])) {
   </div>
 </div>
 <!-- Edit info Modal -->
-<div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-">
     <div class="modal-content">
       <div class="modal-header">
@@ -401,7 +401,7 @@ if (isset($_SESSION['user_id'])) {
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <?php include("includes/footer.php"); ?>
 <script>
   function showRate(sessionID) {

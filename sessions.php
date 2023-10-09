@@ -109,113 +109,154 @@ if (isset($_SESSION['user_id'])) {
   <div class="tab-pane w-55 px-4 mx-auto fade show active" id="pills-home" role="tabpanel"
     aria-labelledby="pills-home-tab">
     <?php
-    $currentDate = new DateTime(); // Get the current date and time
-    
     foreach ($sessionsData as $session) {
-      $startTime = new DateTime($session['Time']);
+      $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
+      $sessionStartDateTime = new DateTime($session['Date'] . ' ' . $session['Time'], new DateTimeZone('Asia/Amman'));
+      $sessionEndDateTime = clone $sessionStartDateTime;
+      $sessionEndDateTime->add(new DateInterval('PT1H'));
+      $sessionStartMinus5Minutes = clone $sessionStartDateTime;
+      $sessionStartMinus5Minutes->sub(new DateInterval('PT5M'));
+      $sessionTypeClass = ($session['Type'] == 'Work' || $session['Type'] == 'Regular') ? 'bg-success' : 'bg-danger';
+      $sessionTypeName = ($session['Type'] == 'Work' || $session['Type'] == 'Regular') ? 'عادية' : 'عاجلة'; ?>
+      <!-- // Check if now is less than session start time minus 5 minutes -->
+      <?php if ($currentLocalTime < $sessionStartMinus5Minutes) { ?>
+        <!-- echo "<br/> Session is more than 5 minutes in the future."; -->
 
-      // Calculate the end time by adding 1 hour to the start time
-      $endTime = clone $startTime;
-      $endTime->add(new DateInterval('PT1H'));
-      $sessionDate = new DateTime($session['Date']);
-      $sessionTypeClass = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'bg-success' : 'bg-danger';
-      $sessionTypeName = ($session['Type'] == 'Urgent' && $session['Type'] != 'Courses') ? 'عادية' : 'عاجلة';
+        <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="service-item rounded h-100 px-4 pb-2">
+            <div class="d-flex align-items-center ms-n5 mb-1">
+              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+                style="border-top-right-radius: 0px !important;">تسطتيع ان تتحدث للمريض قبل 5 دقائق من الميعاد -
+                <?php echo $sessionTypeName; ?>
+              </div>
+              <h4 class="mb-0 w-85 text-right">
+                <?= $session['FullName'] ?>
+              </h4>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-0 text-right"> <i class="fa-regular fa-clock" style="color: #6eaedc;"></i>
+                <?= $sessionStartDateTime->format('h:i A') ?> -
+                <?= $sessionEndDateTime->format('h:i A') ?>
+              </p>
+              <p class="badge bg-<?= $sessionTypeClass ?> text-white">
+                <?= $sessionTypeClass ?>
+              </p>
+              <p class="mb-0 text-right">
+                <?= $sessionStartDateTime->format('d-m-Y') ?> <i class="fa-regular fa-calendar-check"
+                  style="color: #6eaedc;"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      <?php } elseif ($currentLocalTime >= $sessionStartDateTime && $currentLocalTime < $sessionEndDateTime) { ?>
+        <!-- echo "<br/> Session is currently in progress (within the next hour)."; -->
+        <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="service-item rounded h-100 px-4 pb-2">
+            <div class="d-flex align-items-center ms-n5 mb-1">
+              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+                style="border-top-right-radius: 0px !important;"> بدات الجلسة -
+                <?php echo $sessionTypeName; ?>
+              </div>
+              <h4 class="mb-0 w-85 text-right">
+                <?= $session['FullName'] ?>
+              </h4>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-0 text-right"> <i class="fa-regular fa-clock" style="color: #6eaedc;"></i>
+                <?= $sessionStartDateTime->format('h:i A') ?> -
+                <?= $sessionEndDateTime->format('h:i A') ?>
+              </p>
+              <p class="badge bg-<?= $sessionTypeClass ?> text-white">
+                <?= $sessionTypeClass ?>
+              </p>
+              <p class="mb-0 text-right">
+                <?= $sessionStartDateTime->format('d-m-Y') ?> <i class="fa-regular fa-calendar-check"
+                  style="color: #6eaedc;"></i>
+              </p>
+            </div>
+          </div>
+        </div>
 
-      // Calculate 5 minutes before the session start time
-      $sessionDateTime = new DateTime($session['Date'] . $session['Time']);
-
-      $fiveMinutesBeforeNOW = clone $currentDate;
-      $fiveMinutesBeforeNOW->add(new DateInterval('PT1H'));
-
-      $fiveMinutesBefore = clone $sessionDateTime;
-      $fiveMinutesBefore->sub(new DateInterval('PT5M'));
-
-      //  echo$fiveMinutesBeforeNOW->format('Y-m-d h:i');
-      //  echo '<br/>';
-      //  echo $currentDate->format('Y-m-d h:i');
-
-      $interval = $fiveMinutesBeforeNOW->diff($fiveMinutesBefore);
-      $interval2 = $fiveMinutesBeforeNOW->diff(new DateTime($session['Date'] . $endTime->format('h:i')));
-
-// // // Check if the interval is zero or negative
-// if ($interval2->invert === 0 && $interval2->s >= 0) {
-//   echo '<br/>';
-//   echo $interval2->format('%R%h hours %i minutes');
-//   echo '<br/>';
-//   echo "Interval is positive.";
-
-// } else {
-//   echo '<br/>';
-//   echo $interval2->format('%R%h hours %i minutes');
-//   echo '<br/>';
-//   echo "Interval is zero or negative.";
-
-// }
-      if ($interval2->invert === 0 && $interval2->s >= 0) {
-        echo '<div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="service-item rounded h-100 px-4 pb-2">
-                  <div class="d-flex align-items-center ms-n5 mb-1">
-                    <div class="service-icon w-25 text-white ' . $sessionTypeClass . ' rounded-end mb-1 me-4"
-                      style="border-top-right-radius: 0px !important;">' . $sessionTypeName . '</div>
-                    <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <p class="mb-0 text-right">
-                      <i class="fa-regular fa-clock" style="color: #6eaedc;"></i> ' . $startTime->format('h:i A') . ' - ' . $endTime->format('h:i A') . '
-                    </p>
-                    <p class="mb-0 text-right">
-                      ' . $sessionDate->format('d-m-Y') . ' <i class="fa-regular fa-calendar-check" style="color: #6eaedc;"></i>
-                    </p>
-                  </div>
-                </div>
-            </div>';
-      }
+      <?php } elseif ($currentLocalTime >= $sessionEndDateTime) { ?>
+        <!-- echo "<br/> Session has ended (more than 1 hour in the past)."; -->
+      <?php } else { ?>
+        <!-- echo "<br/> Session is starting within 5 minutes or has already started but will end within 1 hour."; -->
+        <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="service-item rounded h-100 px-4 pb-2">
+            <div class="d-flex align-items-center ms-n5 mb-1">
+              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+                style="border-top-right-radius: 0px !important;"> بدات الجلسة -
+                <?php echo $sessionTypeName; ?>
+              </div>
+              <h4 class="mb-0 w-85 text-right">
+                <?= $session['FullName'] ?>
+              </h4>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-0 text-right"> <i class="fa-regular fa-clock" style="color: #6eaedc;"></i>
+                <?= $sessionStartDateTime->format('h:i A') ?> -
+                <?= $sessionEndDateTime->format('h:i A') ?>
+              </p>
+              <p class="badge bg-<?= $sessionTypeClass ?> text-white">
+                <?= $sessionTypeClass ?>
+              </p>
+              <p class="mb-0 text-right">
+                <?= $sessionStartDateTime->format('d-m-Y') ?> <i class="fa-regular fa-calendar-check"
+                  style="color: #6eaedc;"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      <?php }
     } ?>
   </div>
   <div class="tab-pane w-55 px-4 mx-auto fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
     <?php
-    $currentDate = new DateTime(); // Get the current date and time
-    
     foreach ($sessionsData as $session) {
-      $startTime = new DateTime($session['Time']);
-
-      // Calculate the end time by adding 1 hour to the start time
-      $endTime = clone $startTime;
-      $endTime->add(new DateInterval('PT1H'));
-      $sessionDate = new DateTime($session['Date']);
-            // Calculate 5 minutes before the session start time
-            $sessionDateTime = new DateTime($session['Date'] . $session['Time']);
-
-            $fiveMinutesBeforeNOW = clone $currentDate;
-            $fiveMinutesBeforeNOW->add(new DateInterval('PT1H'));
-      
-            $fiveMinutesBefore = clone $sessionDateTime;
-            $fiveMinutesBefore->sub(new DateInterval('PT5M'));
-      
-            $interval = $fiveMinutesBeforeNOW->diff($fiveMinutesBefore);
-            $interval2 = $fiveMinutesBeforeNOW->diff(new DateTime($session['Date'] . $endTime->format('h:i')));
-            if ($interval2->invert === 0 && $interval2->s >= 0) {}else{
-        echo '<div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="service-item rounded h-100 px-4 pb-2">
-                  <div class="d-flex align-items-center ms-n5 mb-1">
-                    <div class="service-icon w-50 text-white ' . $sessionTypeClass . ' rounded-end mb-1 me-4"
-                      style="border-top-right-radius: 0px !important;">' . $sessionTypeName . '</div>
-                    <h4 class="mb-0 w-85 text-right">' . $session['FullName'] . '</h4>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <p class="mb-0 text-right">
-                      <i class="fa-regular fa-clock" style="color: #6eaedc;"></i> ' . $startTime->format('h:i A') . ' - ' . $endTime->format('h:i A') . '
-                    </p>
-                    <p class="mb-0 text-right">
-                      ' . $sessionDate->format('d-m-Y') . ' <i class="fa-regular fa-calendar-check" style="color: #6eaedc;"></i>
-                    </p>
-                  </div>
-                </div>
-                </div>
-
-                
-            ';
-      }
+      $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
+      $sessionStartDateTime = new DateTime($session['Date'] . ' ' . $session['Time'], new DateTimeZone('Asia/Amman'));
+      $sessionEndDateTime = clone $sessionStartDateTime;
+      $sessionEndDateTime->add(new DateInterval('PT1H'));
+      $sessionStartMinus5Minutes = clone $sessionStartDateTime;
+      $sessionStartMinus5Minutes->sub(new DateInterval('PT5M'));
+      $sessionTypeClass = ($session['Type'] == 'Work' || $session['Type'] == 'Regular') ? 'bg-success' : 'bg-danger';
+      $sessionTypeName = ($session['Type'] == 'Work' || $session['Type'] == 'Regular') ? 'عادية' : 'عاجلة'; ?>
+      <!-- // Check if now is less than session start time minus 5 minutes -->
+      <?php if ($currentLocalTime < $sessionStartMinus5Minutes) { ?>
+        <!-- echo "<br/> Session is more than 5 minutes in the future."; -->
+      <?php } elseif ($currentLocalTime >= $sessionStartDateTime && $currentLocalTime < $sessionEndDateTime) { ?>
+        <!-- echo "<br/> Session is currently in progress (within the next hour)."; -->
+      <?php } elseif ($currentLocalTime >= $sessionEndDateTime) { ?>
+        <!-- echo "<br/> Session has ended (more than 1 hour in the past)."; -->
+        <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="service-item rounded h-100 px-4 pb-2">
+            <div class="d-flex align-items-center ms-n5 mb-1">
+              <div class="service-icon w-75 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
+                style="border-top-right-radius: 0px !important;"> انتهت الجلسة -
+                <?php echo $sessionTypeName; ?>
+              </div>
+              <h4 class="mb-0 w-85 text-right">
+                <?= $session['FullName'] ?>
+              </h4>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-0 text-right"> <i class="fa-regular fa-clock" style="color: #6eaedc;"></i>
+                <?= $sessionStartDateTime->format('h:i A') ?> -
+                <?= $sessionEndDateTime->format('h:i A') ?>
+              </p>
+              <p class="badge bg-<?= $sessionTypeClass ?> text-white">
+                <?= $sessionTypeClass ?>
+              </p>
+              <p class="mb-0 text-right">
+                <?= $sessionStartDateTime->format('d-m-Y') ?> <i class="fa-regular fa-calendar-check"
+                  style="color: #6eaedc;"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      <?php } else { ?>
+        <!-- echo "<br/> Session is starting within 5 minutes or has already started but will end within 1 hour."; -->
+      <?php }
     } ?>
   </div>
   <!-- rate modal -->
