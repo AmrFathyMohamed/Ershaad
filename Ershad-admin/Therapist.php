@@ -21,7 +21,39 @@ if (isset($_SESSION['user_id'])) {
 }
 $appointmentTable = new AppointmentTable($database);
 $documentsTable = new DocumentTable($database);
-
+if (isset($_POST['deleteAppointment'])) {
+    $appointmentId = $_POST['appointmentId'];
+    if ($appointmentTable->deleteAppointment($appointmentId)) {
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
+        exit;
+    } else {
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
+    $documentId = $_POST['documentId'];
+    // Delete the document from the database
+    if ($documentsTable->deleteDocument($documentId)) {
+        echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "Therapist.php";
+        </script>';
+        exit;
+    } else {
+        echo '<script>
+        alert("حدث خطأ")
+        location.reload();
+        </script>';
+    }
+} else {
+    $errorMessage = "Failed to delete document.";
+}
 if (isset($_POST['addAppointment'])) {
     $dateS = $_POST['dateS'];
     $dateE = $_POST['dateE'];
@@ -42,23 +74,6 @@ if (isset($_POST['addAppointment'])) {
         </script>';
     }
 }
-
-if (isset($_POST['deleteAppointment'])) {
-    $appointmentId = $_POST['appointmentId'];
-    if ($appointmentTable->deleteAppointment($appointmentId)) {
-        echo '<script>
-        alert("تم بنجاح")
-        window.location.href = "Therapist.php";
-        </script>';
-        exit;
-    } else {
-        echo '<script>
-        alert("حدث خطأ")
-        location.reload();
-        </script>';
-    }
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['therapistId']) && isset($_FILES['documentFile'])) {
     $therapistID = $_POST['therapistId'];
     $documentName = $_POST['documentName'];
@@ -100,24 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['therapistId']) && iss
     $errorMessage = "Failed to add document.";
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
-    $documentId = $_POST['documentId'];
-    // Delete the document from the database
-    if ($documentsTable->deleteDocument($documentId)) {
-        echo '<script>
-        alert("تم بنجاح")
-        window.location.href = "Therapist.php";
-        </script>';
-        exit;
-    } else {
-        echo '<script>
-        alert("حدث خطأ")
-        location.reload();
-        </script>';
-    }
-} else {
-    $errorMessage = "Failed to delete document.";
-}
 
 
 ?>
@@ -409,6 +406,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
         $('#appointmentsModalLabel').text('Appointments for ' + therapistFullName);
         $('#therapistIdInput').val(therapistID);
         $('#appointmentsModal').modal('show');
+
+        // Fetch appointments and populate the list
         $.ajax({
             url: 'get_appointments.php',
             method: 'POST',
@@ -416,14 +415,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
             dataType: 'json',
             success: function (response) {
                 $('#appointmentsList').empty();
+
                 if (response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
                         var appointment = response[i];
                         var listItem = $('<li class="d-inline-block col-6 mb-1 px-3 py-2 border d-flex justify-content-between align-items-center rounded ">').html('<span class="badge bg-primary">' + appointment['Date'] + '</span><span class="badge bg-primary">' + appointment['Time'] + '</span><span class="badge bg-primary">' + appointment['Type'] + '</span>');
-                        var deleteForm = $('<form class="d-inline">').attr('method', 'POST').attr('action', 'Therapist.php');
-                        deleteForm.append($('<input>').attr('type', 'hidden').attr('name', 'appointmentId').val(appointment['AppointmentID']));
-                        deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteAppointment').addClass('btn btn-danger px-2 py-1 btn-sm').html('<i class="bi bi-trash"></i>'));
-                        listItem.append(deleteForm);
+                        var deleteButton = $('<button class="btn-sm delete-button">')
+                            .attr('type', 'button')
+                            .attr('data-item-id', appointment['AppointmentID']) // Add data-item-id attribute
+                            .attr('data-item-tid', therapistID) // Add data-item-id attribute
+                            .attr('name', 'deleteAppointment')
+                            .addClass('btn btn-danger px-2 py-1 btn-sm')
+                            .html('<i class="bi bi-trash"></i>');
+                        listItem.append(deleteButton);
                         $('#appointmentsList').append(listItem);
                     }
                 } else {
@@ -435,11 +439,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
             }
         });
     }
+
     function openDocumentsModal(therapistID, therapistFullName) {
         $('#documentsModalLabel').text('Documents for ' + therapistFullName);
         $('#therapistIdInputDoc').val(therapistID);
         $('#therapistFullNameDoc').text(therapistFullName);
         $('#documentsModal').modal('show');
+
+        // Fetch documents and populate the list
         $.ajax({
             url: 'get_documents.php', // Replace with the actual URL to fetch documents
             method: 'POST',
@@ -447,14 +454,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
             dataType: 'json',
             success: function (response) {
                 $('#documentsList').empty();
+
                 if (response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
                         var document = response[i];
                         var listItem = $('<li class="d-inline-block w-100 px-3 py-2 border d-flex justify-content-between align-items-center rounded">').html('<div><p class="fw-bold mb-1">' + document['DocumentName'] + '</p>' + '<span>' + document['DocumentDate'] + '</span>' + '</div> ' + '<span class="badge bg-info">' + document['DocumentType'] + '</span>');
-                        var deleteForm = $('<form class="d-inline">').attr('method', 'POST').attr('action', 'Therapist.php');
-                        deleteForm.append($('<input>').attr('type', 'hidden').attr('name', 'documentId').val(document['DocumentID']));
-                        deleteForm.append($('<button class="btn-sm">').attr('type', 'submit').attr('name', 'deleteDocument').addClass('btn px-2 py-1 btn-danger btn-sm').html('<i class="bi bi-trash"></i>'));
-                        listItem.append(deleteForm);
+                        var deleteButton = $('<button class="btn-sm delete-button">')
+                            .attr('type', 'button')
+                            .attr('data-item-id', document['DocumentID']) // Add data-item-id attribute
+                            .attr('data-item-tid', therapistID) // Add data-item-id attribute
+                            .attr('name', 'deleteDocument')
+                            .addClass('btn px-2 py-1 btn-danger btn-sm')
+                            .html('<i class="bi bi-trash"></i>');
+                        listItem.append(deleteButton);
                         $('#documentsList').append(listItem);
                     }
                 } else {
@@ -466,6 +478,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
             }
         });
     }
+
+    // Event delegation for handling delete button clicks
+    $(document).on('click', '.delete-button', function () {
+        var itemId = $(this).data('item-id');
+        var therapistID = $(this).data('item-tid');
+
+        var isAppointment = $(this).attr('name') === 'deleteAppointment';
+        var ajaxUrl = isAppointment ? 'delete_appointment.php' : 'delete_document.php';
+        $.ajax({
+            url: ajaxUrl,
+            method: 'POST',
+            data: { itemId: itemId },
+            //dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    // Optionally, you can update the UI here if needed
+                    alert('تم الحذف بنجاح');
+                    if (isAppointment) {
+                        $.ajax({
+                            url: 'get_appointments.php',
+                            method: 'POST',
+                            data: { therapistID: therapistID },
+                            dataType: 'json',
+                            success: function (response) {
+                                $('#appointmentsList').empty();
+
+                                if (response.length > 0) {
+                                    for (var i = 0; i < response.length; i++) {
+                                        var appointment = response[i];
+                                        var listItem = $('<li class="d-inline-block col-6 mb-1 px-3 py-2 border d-flex justify-content-between align-items-center rounded ">').html('<span class="badge bg-primary">' + appointment['Date'] + '</span><span class="badge bg-primary">' + appointment['Time'] + '</span><span class="badge bg-primary">' + appointment['Type'] + '</span>');
+                                        var deleteButton = $('<button class="btn-sm delete-button">')
+                                            .attr('type', 'button')
+                                            .attr('data-item-id', appointment['AppointmentID']) // Add data-item-id attribute
+                                            .attr('data-item-tid', therapistID) // Add data-item-id attribute
+                                            .attr('name', 'deleteAppointment')
+                                            .addClass('btn btn-danger px-2 py-1 btn-sm')
+                                            .html('<i class="bi bi-trash"></i>');
+                                        listItem.append(deleteButton);
+                                        $('#appointmentsList').append(listItem);
+                                    }
+                                } else {
+                                    $('#appointmentsList').append('<li>No appointments found.</li>');
+                                }
+                            },
+                            error: function (response) {
+                                alert('Failed to fetch appointments. Please try again.');
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            url: 'get_documents.php', // Replace with the actual URL to fetch documents
+                            method: 'POST',
+                            data: { therapistID: therapistID },
+                            dataType: 'json',
+                            success: function (response) {
+                                $('#documentsList').empty();
+
+                                if (response.length > 0) {
+                                    for (var i = 0; i < response.length; i++) {
+                                        var document = response[i];
+                                        var listItem = $('<li class="d-inline-block w-100 px-3 py-2 border d-flex justify-content-between align-items-center rounded">').html('<div><p class="fw-bold mb-1">' + document['DocumentName'] + '</p>' + '<span>' + document['DocumentDate'] + '</span>' + '</div> ' + '<span class="badge bg-info">' + document['DocumentType'] + '</span>');
+                                        var deleteButton = $('<button class="btn-sm delete-button">')
+                                            .attr('type', 'button')
+                                            .attr('data-item-id', document['DocumentID']) // Add data-item-id attribute
+                                            .attr('data-item-tid', therapistID) // Add data-item-id attribute
+                                            .attr('name', 'deleteDocument')
+                                            .addClass('btn px-2 py-1 btn-danger btn-sm')
+                                            .html('<i class="bi bi-trash"></i>');
+                                        listItem.append(deleteButton);
+                                        $('#documentsList').append(listItem);
+                                    }
+                                } else {
+                                    $('#documentsList').append('<li>No documents found.</li>');
+                                }
+                            },
+                            error: function (response) {
+                                alert('Failed to fetch documents. Please try again.' + response.responseText);
+                            }
+                        });
+                    }
+                } else {
+                    alert('فشل فى عملية الحذف حاول مرة اخري');
+                }
+            },
+            error: function () {
+                alert('فشل فى عملية الحذف حاول مرة اخري');
+            }
+        });
+    });
+
 </script>
 
 

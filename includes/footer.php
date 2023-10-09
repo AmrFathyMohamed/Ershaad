@@ -18,7 +18,7 @@
                     123 Street, New York, USA <i class="fa fa-map-marker-alt ms-3"></i>
                 </p>
                 <p>01020304050 <i class="fa fa-phone-alt ms-3"></i></p> -->
-                <p>ershaad80@gmail.com<i class="fa fa-envelope ms-3"></i></p>
+                <p>Ershaad@consultant.com<i class="fa fa-envelope ms-3"></i></p>
                 <div class="d-flex pt-2 justify-content-end">
                     <a class="btn btn-square me-1" href="https://twitter.com/Ershaad_Net"><i
                             class="fab fa-twitter"></i></a>
@@ -32,7 +32,7 @@
                             class="fa-brands fa-snapchat"></i></a>
                     <a class="btn btn-square me-1" href="https://instagram.com/ershaad777?igshid=OGQ5ZDc2ODk2ZA=="><i
                             class="fa-brands fa-instagram"></i></a>
-                            <a class="btn btn-square me-0" href="https://www.linkedin.com/company/ershaad-net"><i
+                    <a class="btn btn-square me-0" href="https://www.linkedin.com/company/ershaad-net"><i
                             class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
@@ -129,42 +129,113 @@
 </div>
 <!-- forget pass Modal end-->
 <!-- Edit info Modal -->
-<div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php if (isset($_SESSION['user_id'])) {
+if ($_SESSION['type'] == 'client') { ?>
+  <div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="">تعديل البيانات الشخصية </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form>
+            <form method="POST" action="updatedata.php">
                 <div class="modal-body">
-                    <div class="col-sm-12 mt-4">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="name" placeholder="الاسم كامل" />
-                            <label for="name"> الاسم كامل</label>
-                        </div>
-                    </div>
+                    
                     <div class="col-sm-12 mt-3">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="الهاتف" placeholder="الهاتف" />
-                            <label for="الهاتف">الهاتف</label>
-                        </div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="Phone" name="Phone" placeholder="الهاتف"
+                      value="<?= $client['Phone'] ?>" />
+                    <label for="Phone">الهاتف</label>
+                  </div>
+                </div>
+                <div class="col-sm-12 mt-3">
+                  <div class="form-floating">
+                    <input type="number" class="form-control" id="Age" name="Age" placeholder="السن"
+                      value="<?= $client['Age'] ?>" />
+                    <label for="Age">السن</label>
+                  </div>
+                </div>
+                <div class="col-sm-12 mt-3">
+                  <p class="me- right">النوع</p>
+                  <?php if ($client['Gender'] == "Male") { ?>
+                    <div class="d-flex flex-row-reverse">
+                      <div class="form-check form-check-primary me-3">
+                        <input class="form-check-input" type="radio" name="Gender" id="Male" checked>
+                        <label class="form-check-label" for="Male">
+                          ذكر
+                        </label>
+                      </div>
+                      <div class="form-check form-check-primary me-3">
+                        <input class="form-check-input" type="radio" name="Gender" id="Female">
+                        <label class="form-check-label" for="Female">
+                          انثي
+                        </label>
+                      </div>
                     </div>
-                    <div class="col-sm-12 mt-3">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="السن" placeholder="السن" />
-                            <label for="السن">السن</label>
-                        </div>
+                  <?php }else { ?>
+                    <div class="d-flex flex-row-reverse">
+                      <div class="form-check form-check-primary me-3">
+                        <input class="form-check-input" type="radio" name="Gender" id="Male" >
+                        <label class="form-check-label" for="Male">
+                          ذكر
+                        </label>
+                      </div>
+                      <div class="form-check form-check-primary me-3">
+                        <input class="form-check-input" type="radio" name="Gender" id="Female" checked>
+                        <label class="form-check-label" for="Female">
+                          انثي
+                        </label>
+                      </div>
                     </div>
+                    <?php } ?>
+                </div>
+                <div class="col-sm-12 mt-3">
+                  <p for="city" class="form-label right">المدينة</p>
+                  <select class="form-select" id="City" name="City" value="<?= $client['City'] ?>" required>
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Aswan">Aswan</option>
+                    <option value="Asyut">Asyut</option>
+                    <option value="Beheira">Beheira</option>
+                    <option value="Beni Suef">Beni Suef</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Dakahlia">Dakahlia</option>
+                    <option value="Damietta">Damietta</option>
+                    <option value="Faiyum">Faiyum</option>
+                    <option value="Gharbia">Gharbia</option>
+                    <option value="Giza">Giza</option>
+                    <option value="Ismailia">Ismailia</option>
+                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                    <option value="Luxor">Luxor</option>
+                    <option value="Matrouh">Matrouh</option>
+                    <option value="Minya">Minya</option>
+                    <option value="Monufia">Monufia</option>
+                    <option value="New Valley">New Valley</option>
+                    <option value="North Sinai">North Sinai</option>
+                    <option value="Port Said">Port Said</option>
+                    <option value="Qalyubia">Qalyubia</option>
+                    <option value="Qena">Qena</option>
+                    <option value="Red Sea">Red Sea</option>
+                    <option value="Sharqia">Sharqia</option>
+                    <option value="Sohag">Sohag</option>
+                    <option value="South Sinai">South Sinai</option>
+                    <option value="Suez">Suez</option>
+                  </select>
+
+                </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-                    <button type="button" class="btn btn-primary px-5">حفظ</button>
+                    <button type="submit" class="btn btn-primary px-5" >حفظ</button>
                 </div>
             </form>
         </div>
     </div>
-</div>
+</div>  
+<?php  }
+}?>
+
 <!-- Edit info Modal -->
 <!-- chat Modal -->
 
@@ -277,17 +348,17 @@
     }
 </script>
 <script>
-    function copyMessage(element){
-            var textToCopy = element.querySelector('p').textContent;
-            var textArea = document.createElement('textarea');
-            textArea.value = textToCopy;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
+    function copyMessage(element) {
+        var textToCopy = element.querySelector('p').textContent;
+        var textArea = document.createElement('textarea');
+        textArea.value = textToCopy;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
 
-            document.body.removeChild(textArea);
-            toast("Text Copied")
-        }
+        document.body.removeChild(textArea);
+        toast("Text Copied")
+    }
 
     var count = $(".chat-content").children().length;
     if (count == 0) {

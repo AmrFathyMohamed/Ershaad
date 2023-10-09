@@ -105,18 +105,18 @@ $totalCourses = count($coursesoon);
 
       </div>
       <div class="text-center mt-5">
-      <?php
-                      if (isset($_SESSION['type'])) {
-                        if ($_SESSION['type'] == 'client') { ?>
-                          <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
-          الموعد</button>
-                        <?php } else { ?>
-                          <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
-                        <?php }
-                      } else { ?>
-                        <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
-                      <?php } ?>
-        
+        <?php
+        if (isset($_SESSION['type'])) {
+          if ($_SESSION['type'] == 'client') { ?>
+            <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
+              الموعد</button>
+          <?php } else { ?>
+            <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
+          <?php }
+        } else { ?>
+          <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
+        <?php } ?>
+
       </div>
     </div>
     <div class="col-md-5 col-12">
@@ -154,11 +154,16 @@ $totalCourses = count($coursesoon);
   <div class="row">
     <div class="col-10 mx-auto">
       <h6 class="text-right">اخر التقييمات</h6>
-
     </div>
-    <?php foreach ($sessions as $session)
-      if ($session['CStatus'] == 'Accepted') { { ?>
-          <div class="col-lg-10 mx-auto mt-3 wow fadeInUp" data-wow-delay="0.1s">
+    <?php
+    $visibleComments = 5; // Number of comments to initially show
+    $count = 0; // Counter for comments
+    foreach ($sessions as $session) {
+      if ($session['CStatus'] == 'Accepted') {
+        $count++;
+        if ($count <= $visibleComments) {
+          ?>
+          <div class="col-lg-10 mx-auto mt-3 wow fadeInUp">
             <div class="service-item rounded h-100 p-4 pb-2">
               <div class="testimonial-item text-">
                 <div class="d-flex justify-content-end align-items-center">
@@ -179,10 +184,57 @@ $totalCourses = count($coursesoon);
               </div>
             </div>
           </div>
-        <?php }
-      } ?>
+          <?php
+        }
+      }
+    }
+    ?>
+    <div class="col-12 mx-auto mt-3" id="seeMoreContainer" style="display: none;">
+      <!-- Container for hidden comments -->
+      <?php
+      // Reset the counter and display the hidden comments
+      $count = 0;
+      foreach ($sessions as $session) {
+        if ($session['CStatus'] == 'Accepted') {
+          $count++;
+          if ($count > $visibleComments) {
+            ?>
+            <div class="col-lg-10 mx-auto mt-3 wow" data-wow-delay="0.1s">
+              <div class="service-item rounded h-100 p-4 pb-2">
+                <div class="testimonial-item text-">
+                  <div class="d-flex justify-content-end align-items-center">
+                    <p class="text-right mb-0">
+                      <?= $session['UserOpinion'] ?>
+                    </p>
+                  </div>
+                  <?php
+                  $rating = $session['UserRate'];
+                  for ($i = 1; $i <= 5; $i++) {
+                    if ($i <= $rating) {
+                      echo '<i class="fa-solid fa-star text-warning"></i>';
+                    } else {
+                      echo '<i class="fa-regular fa-star text-warning"></i>';
+                    }
+                  }
+                  ?>
+                </div>
+              </div>
+            </div>
+            <?php
+          }
+        }
+      }
+      ?>
+    </div>
+    <?php if ($count > $visibleComments) { ?>
+      <div class="col-10 mx-auto mt-3">
+        <button id="seeMoreButton" class="btn btn-primary">See More</button>
+      </div>
+    <?php } ?>
   </div>
 </div>
+
+
 <!-- courswes Start -->
 <div class="container-xxl py-5">
   <div class="container">
@@ -199,12 +251,14 @@ $totalCourses = count($coursesoon);
                   <img class="img-fluid rounded" src="img/carousel-1.jpg" alt="" />
                 </div>
                 <h4 class="mb-0 right pointer">
-                  <?= $course['Title'] ?>   <span class="badge bg-success px-3"><?= $course['Type'] ?></span>
+                  <?= $course['Title'] ?> <span class="badge bg-success px-3">
+                    <?= $course['Type'] ?>
+                  </span>
                 </h4>
                 <p class="mb-4 right">
                   <?= $course['Description'] ?>
                 </p>
-                
+
                 <!-- <option value="Treatment">Treatment</option>
                                 <option value="Training">Training</option> -->
                 <div class="text-right">
@@ -426,20 +480,20 @@ $totalCourses = count($coursesoon);
   // Set the input's value to the current date
   document.getElementById('date').value = getCurrentDate();
   $.ajax({
-      url: 'fetch_appointments.php', // Replace with your backend endpoint
-      method: 'POST',
-      data: {
-        date: getCurrentDate(),
-        TherapistID: <?= $therapist['TherapistID']; ?>
-      },
-      success: function (response) {
-        // Handle the response and display the available appointments
-        $("#availableDates").html(response);
-      },
-      error: function () {
-        toast("حدث خطأ أثناء جلب المواعيد المتاحة.", 0);
-      }
-    });
+    url: 'fetch_appointments.php', // Replace with your backend endpoint
+    method: 'POST',
+    data: {
+      date: getCurrentDate(),
+      TherapistID: <?= $therapist['TherapistID']; ?>
+    },
+    success: function (response) {
+      // Handle the response and display the available appointments
+      $("#availableDates").html(response);
+    },
+    error: function () {
+      toast("حدث خطأ أثناء جلب المواعيد المتاحة.", 0);
+    }
+  });
   // $("#reserveSession").prop("hidden", true);
   // $("#availableDates").hide()
   // $(document).ready(function () {
@@ -522,35 +576,47 @@ $totalCourses = count($coursesoon);
       alert("يرجى تحديد الفترة المرغوبة.");
       return;
     }
-    console.log({
-      date: date,
-      time: period,
-      therapistId: therapistId,
-      uid: <?= $_SESSION['user_id']; ?>,
-      status: status
-    });
-    $.ajax({
-      url: 'insert_session.php',
-      method: 'POST',
-      data: {
+    <?php if (isset($_SESSION['user_id'])) { ?>
+      console.log({
         date: date,
         time: period,
         therapistId: therapistId,
-        uid: <?= $_SESSION['user_id']; ?>,
+        //uid: < $_SESSION['user_id']; ?>,
         status: status
-      },
-      success: function (response) {
-        // Handle the response (e.g., show a success message)
-        alert("سيتم التواصل معك في أقرب وقت لتأكيد الحجز");
-        // You can also perform additional actions here, such as updating the UI
-      },
-      error: function () {
-        alert("حدث خطأ أثناء إجراء الحجز.");
-      }
-    });
-
+      });
+      $.ajax({
+        url: 'insert_session.php',
+        method: 'POST',
+        data: {
+          date: date,
+          time: period,
+          therapistId: therapistId,
+          uid: <?= $_SESSION['user_id']; ?>,
+          status: status
+        },
+        success: function (response) {
+          // Handle the response (e.g., show a success message)
+          alert("سيتم التواصل معك في أقرب وقت لتأكيد الحجز");
+          // You can also perform additional actions here, such as updating the UI
+        },
+        error: function () {
+          alert("حدث خطأ أثناء إجراء الحجز.");
+        }
+      });
+    <?php } ?>
   }
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const seeMoreButton = document.getElementById("seeMoreButton");
+    const seeMoreContainer = document.getElementById("seeMoreContainer");
+
+    if (seeMoreButton) {
+      seeMoreButton.addEventListener("click", function () {
+        seeMoreContainer.style.display = "block";
+        seeMoreButton.style.display = "none";
+      });
+    }
+  });
 </script>
 </body>
 

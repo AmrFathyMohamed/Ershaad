@@ -3,12 +3,24 @@ session_start();
 ?>
 <?php include("./classes/Database.php"); ?>
 <?php include("./classes/SpecialtiesTable.php"); 
+include("classes/ClientTable.php");
+
 include("config.php"); 
 ?>
 <?php
 $database = new Database();
 $SpecialtiesObject = new SpecialtiesTable($database);
 $specialties = $SpecialtiesObject->getDataByTableName();
+
+
+if (isset($_SESSION['user_id'])) {
+if ($_SESSION['type'] == 'client') {
+    $userId = $_SESSION['user_id'];
+    $database = new Database();
+    $clientTable = new ClientTable($database);
+    $client = $clientTable->getClientById($userId);
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +89,7 @@ $specialties = $SpecialtiesObject->getDataByTableName();
             <div class="col-lg-7 px-5 text-start">
                 <div class="h-100 d-inline-flex align-items-center me-4">
                     <small class="far fa-envelope-open me-2"></small>
-                    <small>ershaad80@gmail.com</small>
+                    <small>Ershaad@consultant.com</small>
                 </div>
             </div>
             <div class="col-lg-5 px-5 text-end">
@@ -182,8 +194,8 @@ $specialties = $SpecialtiesObject->getDataByTableName();
                 <?php } else if($_SESSION['type'] === 'therapist') { ?>
                     <a href="my profile - therapist.php" class="dropdown-item">الملف الشخصي</a>
                 <?php } ?>                
-                    <!-- <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
-                        الشخصية</a> -->
+                    <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
+                        الشخصية</a>
                      <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة 
                         المرور</a>
                     <a class="dropdown-item pointer text-danger" href="logout.php?logout=true">تسجيل الخروج</a>

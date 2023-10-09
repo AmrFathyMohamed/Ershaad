@@ -59,6 +59,8 @@ if (isset($_GET['code'])) {
     $database = "u853470417_ershaad";
     $conn = new mysqli($host, $usernameh, $passwordh, $database);
     $Done;
+    $FirstDone;
+
     //$result = mysqli_query($conn, $query);
     // Check if the email is already registered
     $emailExistsQuery = "SELECT COUNT(*) as count FROM clients WHERE Email = '$email'";
@@ -68,6 +70,7 @@ if (isset($_GET['code'])) {
 
     if ($emailExistsData['count'] > 0) {
         $Done = true;
+        $FirstDone = false;
     } else {
         // Email is not registered, proceed to insert
         $query = "INSERT INTO clients (FullName, Username, Email, Password, Gender, Age, City, Phone, is_deleted, created_at, updated_at) 
@@ -75,13 +78,14 @@ if (isset($_GET['code'])) {
 
         $stmt = mysqli_query($conn, $query);
         $Done = true;
+        $FirstDone = true;
     }
 
 
 
     if ($Done) {
         // Registration successful
-        $clientQuery = "SELECT * FROM clients WHERE Email = '" . $Email . "' AND Password = '" . $Password . "'";
+        $clientQuery = "SELECT * FROM clients WHERE Email = '" . $Email . "'";
 
         $clientResult = mysqli_query($conn, $clientQuery);
         if ($clientResult) {
@@ -91,8 +95,14 @@ if (isset($_GET['code'])) {
                 $_SESSION['username'] = $user['Username'];
                 $_SESSION['fullname'] = $user['FullName'];
                 $_SESSION['type'] = 'client';
-                header("Location: index.php");
-                exit;
+                if($FirstDone){
+                    header("Location: registeraftergmail.php");
+                    exit;
+                }else{
+                    header("Location: index.php");
+                    exit;
+
+                }
             } else {
                 header("Location: login.php");
                 exit;

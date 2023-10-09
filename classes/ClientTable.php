@@ -48,6 +48,16 @@ class ClientTable
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
+
+    public function updateClientDate($edit_clientId,$edit_gender,$edit_age,$edit_city,$edit_phone)
+    {
+        $query = "UPDATE $this->table SET 
+                  Gender = '$edit_gender', Age = $edit_age, City = '$edit_city', Phone = '$edit_phone' ,updated_at = NOW()
+                  WHERE ClientID = $edit_clientId";
+        //$data[] = $clientId;
+        $stmt = $this->db->executeQuery($query);
+        return $stmt !== false;
+    }
     public function deleteclient($clientId)
     {
         
