@@ -124,7 +124,7 @@ if (isset($_SESSION['user_id'])) {
 
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
-            <div class="d-flex align-items-center ms-n5 mb-1">
+            <div class="d-flex align-items-center  mb-1">
               <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;">تسطتيع ان تتحدث للمريض قبل 5 دقائق من الميعاد -
                 <?php echo $sessionTypeName; ?>
@@ -183,7 +183,7 @@ if (isset($_SESSION['user_id'])) {
         <!-- echo "<br/> Session is starting within 5 minutes or has already started but will end within 1 hour."; -->
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
-            <div class="d-flex align-items-center ms-n5 mb-1">
+            <div class="d-flex align-items-center mb-1">
               <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;"> بدات الجلسة -
                 <?php echo $sessionTypeName; ?>
@@ -230,7 +230,7 @@ if (isset($_SESSION['user_id'])) {
         <!-- echo "<br/> Session has ended (more than 1 hour in the past)."; -->
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
-            <div class="d-flex align-items-center ms-n5 mb-1">
+            <div class="d-flex align-items-center  mb-1">
               <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;"> انتهت الجلسة -
                 <?php echo $sessionTypeName; ?>
