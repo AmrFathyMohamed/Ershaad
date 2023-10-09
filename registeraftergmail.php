@@ -214,21 +214,7 @@ if (isset($_SESSION['user_id'])) {
           return $(inputField).hasClass('is-valid');
         });
       }
-      $("#RePassword").keyup(function () {
-        var password = $("#Password").val();
-        var confirmPassword = $("#RePassword").val();
-        var passwordMatch = $("#passwordMatch");
-
-        if (password === confirmPassword) {
-          passwordMatch.text("كلمة المرور متطابقة").css("color", "green");
-          $('#submitBtn').prop('disabled', false);
-
-        } else {
-          passwordMatch.text("كلمة المرور غير متطابقة").css("color", "red");
-          $('#submitBtn').prop('disabled', true);
-
-        }
-      });
+      
       // Attach event listeners to the input fields
       $('#Phone').on('keyup', function () {
         const inputField = $(this);
