@@ -230,7 +230,7 @@ if (isset($_SESSION['user_id'])) {
         }
       });
       // Attach event listeners to the input fields
-      $('#Email, #Username, #Phone').on('keyup', function () {
+      $('#Phone').on('keyup', function () {
         const inputField = $(this);
         const fieldName = inputField.attr('name');
         const value = inputField.val();
