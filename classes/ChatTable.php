@@ -11,14 +11,16 @@ class ChatTable
 
     public function insertChat($UserID, $TherapistID, $Message)
     {
+        $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
+        $t = $currentLocalTime->format("Y-m-d H:i");
         if ($_SESSION['type'] == 'therapist' || $_SESSION['type'] == 'admin') {
-            $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at) 
-                  VALUES ($UserID, $TherapistID, '$Message','Therapist', NOW())";
+            $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at,updated_at) 
+                  VALUES ($UserID, $TherapistID, '$Message','Therapist', '$t','$t')";
         } else if ($_SESSION['type'] == 'client') {
-            $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at) 
-                  VALUES ($UserID, $TherapistID, '$Message','Client', NOW())";
+            $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at,updated_at) 
+                  VALUES ($UserID, $TherapistID, '$Message','Client', '$t','$t')";
         }
-        
+
         $stmt = $this->db->executeQuery($query);
         return $stmt !== false;
     }
@@ -32,6 +34,29 @@ class ChatTable
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
+    public function getChatsCheck($UserID, $TherapistID)
+    {
+        $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
+        $t = $currentLocalTime->format("Y-m-d H:i:s");
+        $query = "SELECT COUNT(*) AS sessionCount
+              FROM sessions
+              WHERE UserID = $UserID 
+                AND TherapistID = $TherapistID
+                AND DATE_FORMAT(CONCAT(Date, ' ', Time - INTERVAL 5 MINUTE), '%Y-%m-%d %H:%i:%s') <= '$t'
+                AND DATE_FORMAT(CONCAT(Date, ' ', Time + INTERVAL 1 HOUR), '%Y-%m-%d %H:%i:%s') >= '$t'
+                AND Status = 'Accepted'";
+
+        $stmt = $this->db->executeQuery($query);
+        $row = $stmt->fetch_all(MYSQLI_ASSOC);
+
+        if ($row[0]['sessionCount'] > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
 
     public function getChatByChatID($chatID)
     {
@@ -97,6 +122,7 @@ class ChatTable
                     AND ch.TherapistID = $TherapistID
                     WHERE latest_chats.UserID IS NOT NULL
                     ORDER BY LastMessageDate DESC;";
+        //echo $query;
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
@@ -119,6 +145,7 @@ class ChatTable
                     AND ch.UserID = $ClientID
                     WHERE latest_chats.TherapistID IS NOT NULL
                     ORDER BY LastMessageDate DESC;";
+        //echo $query;
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }

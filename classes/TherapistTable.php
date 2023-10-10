@@ -116,7 +116,7 @@ class TherapistTable
     }
     public function getTherapists()
     {
-        $query = "SELECT * FROM $this->table  Where TherapistID > 1000";
+        $query = "SELECT * FROM $this->table  Where TherapistID > 1000 ORDER BY Rating DESC";
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }

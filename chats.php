@@ -1,6 +1,9 @@
 <?php include("includes/header.php"); ?>
 
 <?php include("classes/ChatTable.php"); ?>
+<?php include("classes/SessionTable.php"); ?>
+
+
 <?php
 // Check if the 'id' parameter is set in the URL
 if (isset($_SESSION['user_id'])) {
@@ -64,11 +67,13 @@ if (isset($_SESSION['user_id'])) {
         font-size: 2rem;
 
     }
-    .pointer{
+
+    .pointer {
         cursor: pointer;
         position: relative;
     }
-    .pointer::after{
+
+    .pointer::after {
         position: absolute;
         top: -24px;
         right: 0;
@@ -81,7 +86,8 @@ if (isset($_SESSION['user_id'])) {
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
     }
-    .pointer:hover.pointer::after{
+
+    .pointer:hover.pointer::after {
         content: " نسـخ";
     }
 </style>
@@ -149,7 +155,8 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div>
                                 <span class="badge text-muted fs-small">
-                                    <?php echo $c['LastMessageTime']; ?>
+                                    <?php $T = new DateTime($c['LastMessageTime'], new DateTimeZone('Asia/Amman'));
+                                    echo $T->format('d-m-Y h:i A'); ?>
                                 </span>
                             </div>
                         </div>
@@ -174,7 +181,7 @@ if (isset($_SESSION['user_id'])) {
     <?php include("includes/footer.php"); ?>
 
     <script>
-        function copyMessage(element){
+        function copyMessage(element) {
             var textToCopy = element.querySelector('p').textContent;
             var textArea = document.createElement('textarea');
             textArea.value = textToCopy;
@@ -196,7 +203,7 @@ if (isset($_SESSION['user_id'])) {
             $(".tickets").animate({ scrollTop: 0 }, 2000);
         }
         var chatInterval; // Variable to store the chat refresh interval
-
+        var CheckOpen = 0;
         $('.ticket').click(function () {
             $(this).addClass('active');
             var clientID = $(this).data('client-id');
@@ -204,52 +211,57 @@ if (isset($_SESSION['user_id'])) {
             $('#ClientName').text($(this).data('client-name'));
 
             // Call a function to load and display chat messages for the clicked client
+            function loadChatForm(Open, UID) {
+
+            }
             function loadChatMessages() {
                 $.ajax({
                     url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
                     method: 'POST',
                     data: { clientID: clientID, therapistID: therapistID },
+                    dataType: 'json', // Specify that you expect a JSON response
                     success: function (response) {
                         // Display the chat messages in the chatMessagesContainer
-                        $('#chatMessagesContainer').html(response);
-                        scrollEnd()
+                        //
+                        $('#chatMessagesContainer').html(response.html);
+                        CheckOpen = response.Check;
+                        console.log(CheckOpen);
+                        if (CheckOpen == 1 || therapistID < 1000) {
+                            $('#formsend').show();
+                        } else {
+                            $('#formsend').hide();
+                        }
+                        // Use response.Check as needed
+                        scrollEnd();
                     },
                     error: function () {
-                        alert('Failed to fetch chat messages.');
+                        //alert('Failed to fetch chat messages.');
                     }
                 });
             }
-
-            // Initial load of chat messages
+            loadChatMessages();
             <?php
             if ($_SESSION['type'] == 'therapist') { ?>
                 $('#formsend').html(`<div class="d-flex align-items-center">
-                                <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
-                                <button id="sendBtn" type="submit" class="btn me-2">
-                                    <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                                </button>
-                            </div>
-                            `);
+                                                 <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                                                 <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
+                                                 <button id="sendBtn" type="submit" class="btn me-2"><i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
             <?php } else if ($_SESSION['type'] == 'client') { ?>
                     $('#formsend').html(`<div class="d-flex align-items-center">
-                                            <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                            <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
-                                            <button id="sendBtn" type="submit" class="btn me-2">
-                                                <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i>
-                                            </button>
-                                        </div>
-                                        `);
+                                                        <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                                                        <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
+                                                        <button id="sendBtn" type="submit" class="btn me-2"> <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
             <?php }
             ?>
+            // Initial load of chat messages
 
-            loadChatMessages();
+
 
             // Clear any existing chat refresh interval
             clearInterval(chatInterval);
 
             // Set an interval to refresh chat messages every second
-            chatInterval = setInterval(loadChatMessages, 1000);
+            chatInterval = setInterval(loadChatMessages, 5000);
         });
         // Handle form submission to send messages outside of the click event
         $('#formsend').on('submit', function (e) {
@@ -277,7 +289,7 @@ if (isset($_SESSION['user_id'])) {
                     scrollEnd()
                 },
                 error: function () {
-                    alert('Failed to send the message.');
+                    //alert('Failed to send the message.');
                 }
             });
         });
@@ -292,7 +304,7 @@ if (isset($_SESSION['user_id'])) {
                     scrollEnd()
                 },
                 error: function () {
-                    alert('Failed to refresh the chats section.');
+                    //alert('Failed to refresh the chats section.');
                 }
             });
         }
@@ -301,7 +313,7 @@ if (isset($_SESSION['user_id'])) {
         reloadChatsSection();
 
         // Set an interval to reload the chats section every minute (60,000 milliseconds)
-        setInterval(reloadChatsSection, 1000);
+        setInterval(reloadChatsSection, 5000);
 
     </script>
 </body>

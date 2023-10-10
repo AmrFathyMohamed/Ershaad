@@ -126,8 +126,7 @@ if (isset($_SESSION['user_id'])) {
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center  mb-1">
               <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
-                style="border-top-right-radius: 0px !important;">تسطتيع ان تتحدث للمريض قبل 5 دقائق من الميعاد -
-                <?php echo $sessionTypeName; ?>
+                style="border-top-right-radius: 0px !important;">تسطتيع ان تتحدث للمريض قبل 5 دقائق من الميعاد 
               </div>
               <h4 class="mb-0 w-85 text-right">
                 <?= $session['FullName'] ?>
@@ -154,8 +153,7 @@ if (isset($_SESSION['user_id'])) {
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center ms-n5 mb-1">
               <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
-                style="border-top-right-radius: 0px !important;"> بدات الجلسة -
-                <?php echo $sessionTypeName; ?>
+                style="border-top-right-radius: 0px !important;"> بدات الجلسة 
               </div>
               <h4 class="mb-0 w-85 text-right">
                 <?= $session['FullName'] ?>
@@ -185,8 +183,7 @@ if (isset($_SESSION['user_id'])) {
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center mb-1">
               <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
-                style="border-top-right-radius: 0px !important;"> بدات الجلسة -
-                <?php echo $sessionTypeName; ?>
+                style="border-top-right-radius: 0px !important;"> بدات الجلسة 
               </div>
               <h4 class="mb-0 w-85 text-right">
                 <?= $session['FullName'] ?>
@@ -219,7 +216,7 @@ if (isset($_SESSION['user_id'])) {
       $sessionEndDateTime->add(new DateInterval('PT1H'));
       $sessionStartMinus5Minutes = clone $sessionStartDateTime;
       $sessionStartMinus5Minutes->sub(new DateInterval('PT5M'));
-      $sessionTypeClass = ($session['Type'] == 'Work' || $session['Type'] == 'Regular') ? 'bg-success' : 'bg-danger';
+      $sessionTypeClass = ($session['Type'] == 'Work' || $session['Type'] == 'Course') ? 'bg-success' : 'bg-danger';
       $sessionTypeName = ($session['Type'] == 'Work' || $session['Type'] == 'Regular') ? 'عادية' : 'عاجلة'; ?>
       <!-- // Check if now is less than session start time minus 5 minutes -->
       <?php if ($currentLocalTime < $sessionStartMinus5Minutes) { ?>
@@ -232,8 +229,7 @@ if (isset($_SESSION['user_id'])) {
           <div class="service-item rounded h-100 px-4 pb-2">
             <div class="d-flex align-items-center  mb-1">
               <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
-                style="border-top-right-radius: 0px !important;"> انتهت الجلسة -
-                <?php echo $sessionTypeName; ?>
+                style="border-top-right-radius: 0px !important;"> انتهت الجلسة 
               </div>
               <h4 class="mb-0 w-85 text-right">
                 <?= $session['FullName'] ?>

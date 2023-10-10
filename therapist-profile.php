@@ -134,7 +134,7 @@ $totalCourses = count($coursesoon);
             </div>
           </label>
         </div>
-        <div class="col-6 ps-3">
+        <div class="col-6 ps-3" id="nor">
           <input id="normal" class="check-img-input" type="radio" name="type" value="Work" />
           <label for="normal" class="check-img-label w-100">
             <div class="check-img-content pt-2 pb-1">
@@ -531,7 +531,8 @@ $totalCourses = count($coursesoon);
   //   })
 
   //});
-
+  $('#arg').show();
+      $('#nor').hide();
   $('#date').on('change', function () {
     const selectedDate = $(this).val();
     const currentDate = getCurrentDate();
@@ -540,9 +541,13 @@ $totalCourses = count($coursesoon);
     if (selectedDate !== currentDate) {
       // Hide the element with ID "arg"
       $('#arg').hide();
+      $('#nor').show();
+
     } else {
       // Show the element with ID "arg"
       $('#arg').show();
+      $('#nor').hide();
+
     }
     $.ajax({
       url: 'fetch_appointments.php', // Replace with your backend endpoint
@@ -564,8 +569,8 @@ $totalCourses = count($coursesoon);
 </script>
 <script>
   function reservePeriod() {
-    let type = $("#type").val();
-
+    let type = $("input[name='type']:checked").val();
+    //console.log(type);
     let date = $("#date").val();
     let period = $("input[name='period']:checked").val(); // Get the selected period
     let therapistId = <?= $userId ?>; // Get the therapist ID from PHP
@@ -592,10 +597,15 @@ $totalCourses = count($coursesoon);
           time: period,
           therapistId: therapistId,
           uid: <?= $_SESSION['user_id']; ?>,
-          status: status
+          status: status,
+          type : type
         },
         success: function (response) {
           // Handle the response (e.g., show a success message)
+          //alert(response);
+          if(response == 2){
+            SendUrgent();
+          }
           alert("سيتم التواصل معك في أقرب وقت لتأكيد الحجز");
           // You can also perform additional actions here, such as updating the UI
         },

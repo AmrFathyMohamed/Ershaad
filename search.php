@@ -38,10 +38,10 @@ $alltherapists = $therapistTable2->getTherapists();
         </div>
       </div>
       <div class="col-2 px-sm-0">
-        <button class="btn btn-primary py-3 w-100" type="button" onclick="searchTherapists()">
-          بحث
-        </button>
-      </div>
+                <button class="btn btn-primary py-3 w-100" type="button" onclick="searchTherapists()">
+                    بحث
+                </button>
+            </div>
     </div>
     <div class="row g-2">
       <div class="col-md-9 mt-5 order-last-phone">
@@ -132,10 +132,15 @@ $alltherapists = $therapistTable2->getTherapists();
             </select>
             <hr>
             <div class="border rounded py-4 px-2">
-              <p class="right">سعر الجلسة</p>
+              <p class="right">من سعر الجلسة</p>
               <input type="range" class="form-range" min="0" max="2000" step="1" id="customRange3" name="priceRange"
                 value="100">
               <p class="right" id="priceValue">100</p>
+              <hr>
+              <p class="right">الى سعر الجلسة</p>
+              <input type="range" class="form-range" min="0" max="2000" step="1" id="customRange4" name="priceRangeto"
+                value="100">
+              <p class="right" id="priceValueto">100</p>
               <hr>
               <button class="btn btn-primary py- w-100 px-5" type="submit"> تطبيق الفلاتر </button>
             </div>
@@ -148,40 +153,46 @@ $alltherapists = $therapistTable2->getTherapists();
 <!-- Team End -->
 <?php include("includes/footer.php"); ?>
 <script>
-  // function getCurrentDate() {
-  //   const now = new Date();
-  //   const year = now.getFullYear();
-  //   const month = (now.getMonth() + 1).toString().padStart(2, '0');
-  //   const day = now.getDate().toString().padStart(2, '0');
-  //   return `${year}-${month}-${day}`;
-  // }
-  // // Set the input's value to the current date
-  // document.getElementById('date').value = getCurrentDate();
-  function searchTherapists() {
-    var searchQuery = document.getElementById("search").value.toLowerCase().trim();
-    var therapistsList = document.getElementById("therapistsList");
-    therapistsList.innerHTML = '';
-    var results = <?php echo json_encode($alltherapists); ?>;
-    var filteredResults = results.filter(function (therapist) {
-      return therapist['FullName'].toLowerCase().includes(searchQuery);
-    });
-    var displayCount = Math.ceil(filteredResults.length * 0.25);
-    for (var i = 0; i < displayCount; i++) {
-      var therapist = filteredResults[i];
-      addTherapistToResults(therapistsList, therapist);
+    function searchTherapists() {
+        // Get the search query
+        var searchQuery = document.getElementById("search").value.toLowerCase().trim();
+        var therapistsList = document.getElementById("therapistsList");
+        therapistsList.innerHTML = ''; // Clear previous results
+
+        // Filter therapists based on searchQuery
+        var results = <?php echo json_encode($alltherapists); ?>;
+        //console.log(results);
+
+        if (string1.length == 0) {
+            // string is empty
+          }
+        var filteredResults = results.filter(function (therapist) {
+            return therapist['FullName'].toLowerCase().includes(searchQuery);
+        });
+
+        // Display the first 25% of results
+        var displayCount = Math.ceil(filteredResults.length * 0.25);
+        for (var i = 0; i < displayCount; i++) {
+            var therapist = filteredResults[i];
+            addTherapistToResults(therapistsList, therapist);
+        }
+
+        // If all results match, display the rest
+        if (filteredResults.length <= displayCount) {
+            for (var i = displayCount; i < filteredResults.length; i++) {
+                var therapist = filteredResults[i];
+                addTherapistToResults(therapistsList, therapist);
+            }
+        }
     }
-    if (filteredResults.length <= displayCount) {
-      for (var i = displayCount; i < filteredResults.length; i++) {
-        var therapist = filteredResults[i];
-        addTherapistToResults(therapistsList, therapist);
-      }
-    }
-  }
-  function addTherapistToResults(parentElement, therapist) {
-    const therapistDiv = document.createElement('div');
-    therapistDiv.className = 'col-lg-4 col-md-6 wow fadeInUp';
-    therapistDiv.setAttribute('data-wow-delay', '0.1s');
-    therapistDiv.innerHTML = `<div class="team-item rounded">
+
+    function addTherapistToResults(parentElement, therapist) {
+
+        const therapistDiv = document.createElement('div');
+        therapistDiv.className = 'col-lg-3 col-md-6 wow fadeInUp';
+        therapistDiv.setAttribute('data-wow-delay', '0.1s');
+
+        therapistDiv.innerHTML = `<div class="team-item rounded">
                         <img class="img-fluid" src="${therapist['Profile']}" alt="" />
                         <div class="text-center p-4">
                             <h5 class="text-">${therapist['FullName']}</h5>
@@ -198,24 +209,25 @@ $alltherapists = $therapistTable2->getTherapists();
                                     <p>${therapist['PriceAfterPercentage']}/ساعة</p>
                                     <i class="fa-solid fa-money-bill-1-wave ms-2"></i>
                                 </div>
-                                <a class="btn w-100 btn-light m-1" href="therapist-profile.php?id=${therapist['TherapistID']}">عرض الملف الشخصي</a>
+                                <a class="btn w-100 btn-light m-1" href="therapist-profile.php?id=${therapist["TherapistID"]}">عرض الملف الشخصي</a>
                             </div>
                         </div>
                     </div>
                 </div>`;
-    parentElement.appendChild(therapistDiv);
-  }
-  function getStarRating(rating) {
-    let stars = '';
-    for (let i = 1; i <= 5; i++) {
-      if (i <= rating) {
-        stars += '<i class="fa-solid fa-star text-warning"></i>';
-      } else {
-        stars += '<i class="fa-regular fa-star text-warning"></i>';
-      }
+        parentElement.appendChild(therapistDiv);
     }
-    return stars;
-  }
+    function getStarRating(rating) {
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) {
+                stars += '<i class="fa-solid fa-star text-warning"></i>';
+            } else {
+                stars += '<i class="fa-regular fa-star text-warning"></i>';
+            }
+        }
+        return stars;
+    }
+
   const priceRangeInput = document.getElementById("customRange3");
   const priceValueElement = document.getElementById("priceValue");
 
@@ -226,10 +238,20 @@ $alltherapists = $therapistTable2->getTherapists();
   priceRangeInput.addEventListener("input", function () {
     priceValueElement.textContent = this.value;
   });
-</script>
 
 
-<script>
+
+  const priceRangeInput2 = document.getElementById("customRange4");
+  const priceValueElement2 = document.getElementById("priceValueto");
+
+  // Display the initial value
+  priceValueElement2.textContent = priceRangeInput2.value;
+
+  // Update the displayed value as the user changes the input
+  priceRangeInput2.addEventListener("input", function () {
+    priceValueElement2.textContent = this.value;
+  });
+
   $("#filterForm").on("submit", function (e) {
     e.preventDefault(); // Prevent the form from submitting traditionally
 

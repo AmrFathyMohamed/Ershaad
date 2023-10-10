@@ -13,11 +13,13 @@ if (isset($_SESSION['user_id'])) {
     if (isset($_POST['clientID'])) {
         $clientID = $_POST['clientID'];
         $therapistID = $_POST['therapistID'];
-
-
+        //  echo "<script>alert('$clientID $therapistID $Date $Time');</script>";
         // Query the database to fetch chat messages for the selected client
         $messages = $chats->getChatsBetweenUsers($clientID, $therapistID); // Replace with the actual method to fetch chat messages
 
+        $Check = $chats->getChatsCheck($clientID, $therapistID);
+        $_SESSION['OpenChat'] = $Check;
+          //echo "<script>alert('$Check');</script>";
         // Create HTML content for chat messages
         $html = '';
         foreach ($messages as $message) {
@@ -69,7 +71,8 @@ if (isset($_SESSION['user_id'])) {
         }
 
         // Return the HTML response
-        echo $html;
+        
+        echo json_encode(array('Check' => $Check, 'html' => $html));
     } else {
         // Handle the case where clientID is not received
         echo 'client ID not provided.';

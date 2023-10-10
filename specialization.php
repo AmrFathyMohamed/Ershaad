@@ -42,7 +42,7 @@ if (isset($_GET['SpecialtyID'])) {
             </h1>
         </div>
         <div class="text-center mx-auto container">
-            <h6 class="fw-normal mb-5 text-primary">
+            <h6 class="fw-normal mb-5 text-primary rtl">
             <?php
                 
                     if ($Specialy['SpecialtyID'] ==1) {

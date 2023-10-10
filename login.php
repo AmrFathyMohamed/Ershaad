@@ -159,7 +159,10 @@ require_once 'includes/config.php';
   <!-- Template Javascript -->
   <script src="js/main.js"></script>
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-
+<script>
+  function SendUrgent(){
+  emailjs.send("service_66qxkf7","template_6mvctvj");}
+</script>
   <script>
     function toast(text, type) {
       if (type == 0) {
@@ -222,6 +225,7 @@ require_once 'includes/config.php';
       // Send the email using Email.js
       emailjs.send("service_66qxkf7", "template_g9q8u4c", {
         to_email: email,
+        E: email,
         random_password: randomPassword,
       }).then(function (response) {
         alert("Email sent successfully!");

@@ -27,15 +27,19 @@ if (isset($_POST['date'])) {
                 // Generate HTML to display the available appointments
                 echo '<div class="row gx-4" id="availableDates">';
                 foreach ($appointments as $key) {
-                    echo '<div class="col-3 pb-4">';
-                    echo '<input id="period-' . $key['AppointmentID'] . '" class="check-img-input" type="radio" name="period" ' .
-                        'value="' . $key['Time'] . '" />';
-                    echo '<label for="period-' . $key['AppointmentID'] . '" class="check-img-label w-100">';
-                    echo '<div class="check-img-content pt-2 pb-1">';
-                    echo '<h6>' . date('h:ia', strtotime($key['Time'])) . ' - ' . date('h:ia', strtotime($key['Time'] . ' +1 hour')) . '</h6>';
-                    echo '</div>';
-                    echo '</label>';
-                    echo '</div>';
+                    $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
+                    $sessionStartDateTime = new DateTime($key['Date'] . ' ' . $key['Time'], new DateTimeZone('Asia/Amman'));
+                    if ($currentLocalTime <= $sessionStartDateTime) {
+                        echo '<div class="col-3 pb-4">';
+                        echo '<input id="period-' . $key['AppointmentID'] . '" class="check-img-input" type="radio" name="period" ' .
+                            'value="' . $key['Time'] . '" />';
+                        echo '<label for="period-' . $key['AppointmentID'] . '" class="check-img-label w-100">';
+                        echo '<div class="check-img-content pt-2 pb-1">';
+                        echo '<h6>' . date('h:ia', strtotime($key['Time'])) . ' - ' . date('h:ia', strtotime($key['Time'] . ' +1 hour')) . '</h6>';
+                        echo '</div>';
+                        echo '</label>';
+                        echo '</div>';
+                    }
                 }
                 echo '</div>';
 

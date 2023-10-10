@@ -108,37 +108,91 @@ if (isset($_SESSION['user_id'])) {
   </div>
 </div>
 <!-- Page Header End -->
+<!-- reservation end -->
 <div class="container mb-5">
   <div class="row">
     <div class="col-10 mx-auto">
       <h6 class="text-right">اخر التقييمات</h6>
-
     </div>
-    <?php foreach ($sessions as $session) { ?>
-      <div class="col-lg-10 mx-auto mt-3 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="service-item rounded h-100 p-4 pb-2">
-          <div class="testimonial-item text-">
-            <div class="d-flex justify-content-end align-items-center">
-              <p class="text-right mb-0">
-                <?= $session['UserOpinion'] ?>
-              </p>
+    <?php
+    $visibleComments = 5; // Number of comments to initially show
+    $count = 0; // Counter for comments
+    foreach ($sessions as $session) {
+      if ($session['CStatus'] == 'Accepted') {
+        $count++;
+        if ($count <= $visibleComments) {
+          ?>
+          <div class="col-lg-10 mx-auto mt-3 wow fadeInUp">
+            <div class="service-item rounded h-100 p-4 pb-2">
+              <div class="testimonial-item text-">
+                <div class="d-flex justify-content-end align-items-center">
+                  <p class="text-right mb-0">
+                    <?= $session['UserOpinion'] ?>
+                  </p>
+                </div>
+                <?php
+                $rating = $session['UserRate'];
+                for ($i = 1; $i <= 5; $i++) {
+                  if ($i <= $rating) {
+                    echo '<i class="fa-solid fa-star text-warning"></i>';
+                  } else {
+                    echo '<i class="fa-regular fa-star text-warning"></i>';
+                  }
+                }
+                ?>
+              </div>
+            </div>
+          </div>
+          <?php
+        }
+      }
+    }
+    ?>
+    <div class="col-12 mx-auto mt-3" id="seeMoreContainer" style="display: none;">
+      <!-- Container for hidden comments -->
+      <?php
+      // Reset the counter and display the hidden comments
+      $count = 0;
+      foreach ($sessions as $session) {
+        if ($session['CStatus'] == 'Accepted') {
+          $count++;
+          if ($count > $visibleComments) {
+            ?>
+            <div class="col-lg-10 mx-auto mt-3 wow" data-wow-delay="0.1s">
+              <div class="service-item rounded h-100 p-4 pb-2">
+                <div class="testimonial-item text-">
+                  <div class="d-flex justify-content-end align-items-center">
+                    <p class="text-right mb-0">
+                      <?= $session['UserOpinion'] ?>
+                    </p>
+                  </div>
+                  <?php
+                  $rating = $session['UserRate'];
+                  for ($i = 1; $i <= 5; $i++) {
+                    if ($i <= $rating) {
+                      echo '<i class="fa-solid fa-star text-warning"></i>';
+                    } else {
+                      echo '<i class="fa-regular fa-star text-warning"></i>';
+                    }
+                  }
+                  ?>
+                </div>
+              </div>
             </div>
             <?php
-            $rating = $session['UserRate'];
-            for ($i = 1; $i <= 5; $i++) {
-              if ($i <= $rating) {
-                echo '<i class="fa-solid fa-star text-warning"></i>';
-              } else {
-                echo '<i class="fa-regular fa-star text-warning"></i>';
-              }
-            }
-            ?>
-          </div>
-        </div>
+          }
+        }
+      }
+      ?>
+    </div>
+    <?php if ($count > $visibleComments) { ?>
+      <div class="col-10 mx-auto mt-3">
+        <button id="seeMoreButton" class="btn btn-primary">See More</button>
       </div>
     <?php } ?>
   </div>
 </div>
+
 <div class="container-xxl py-5">
   <div class="container">
     <div class="row gx-4">
@@ -338,6 +392,19 @@ if (isset($_SESSION['user_id'])) {
     this.style.height = (this.scrollHeight > this.offsetHeight) ? `${this.scrollHeight}px` : '43px';
   });
 
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const seeMoreButton = document.getElementById("seeMoreButton");
+    const seeMoreContainer = document.getElementById("seeMoreContainer");
+
+    if (seeMoreButton) {
+      seeMoreButton.addEventListener("click", function () {
+        seeMoreContainer.style.display = "block";
+        seeMoreButton.style.display = "none";
+      });
+    }
+  });
 </script>
 </body>
 

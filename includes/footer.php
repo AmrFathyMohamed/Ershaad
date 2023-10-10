@@ -293,6 +293,12 @@ if ($_SESSION['type'] == 'client') { ?>
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    emailjs.init("8IqpS-2yL8vNVUlT-");
+  function SendUrgent(){
+  emailjs.send("service_66qxkf7","template_6mvctvj");}
+</script>
 <script>
     function toast(text, type) {
         if (type == 0) {
@@ -439,25 +445,25 @@ if ($_SESSION['type'] == 'client') { ?>
     //     const formattedTime = `${day}, ${date} ${month} ${year} : ${formattedHours}:${minutes} ${ampm}`;
     //     document.getElementById('realTimeClock').textContent = formattedTime;
     // }
-    function updateClock() {
-        const currentTime = new Date();
-        const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-        const day = days[currentTime.getDay()];
-        const date = currentTime.getDate();
-        const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
-        const month = months[currentTime.getMonth()];
-        const year = currentTime.getFullYear();
-        const hours = String(currentTime.getHours()).padStart(2, '0');
-        const minutes = String(currentTime.getMinutes()).padStart(2, '0');
-        const seconds = String(currentTime.getSeconds()).padStart(2, '0');
-        const ampm = hours >= 12 ? 'م' : 'ص';
-        const formattedHours = String(hours % 12 || 12).padStart(2, '0');
-        const formattedTime = `${day}، ${date} ${month} ${year} : ${formattedHours}:${minutes} ${ampm}`;
-        document.getElementById('realTimeClock').textContent = formattedTime;
-    }
-    // Update the clock every second
-    setInterval(updateClock, 1000);
+    // function updateClock() {
+    //     const currentTime = new Date();
+    //     const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+    //     const day = days[currentTime.getDay()];
+    //     const date = currentTime.getDate();
+    //     const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+    //     const month = months[currentTime.getMonth()];
+    //     const year = currentTime.getFullYear();
+    //     const hours = String(currentTime.getHours()).padStart(2, '0');
+    //     const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+    //     const seconds = String(currentTime.getSeconds()).padStart(2, '0');
+    //     const ampm = hours >= 12 ? 'م' : 'ص';
+    //     const formattedHours = String(hours % 12 || 12).padStart(2, '0');
+    //     const formattedTime = `${day}، ${date} ${month} ${year} : ${formattedHours}:${minutes} ${ampm}`;
+    //     document.getElementById('realTimeClock').textContent = formattedTime;
+    // }
+    // // Update the clock every second
+    // setInterval(updateClock, 1000);
 
-    // Update the clock immediately on page load
-    updateClock();
+    // // Update the clock immediately on page load
+    // updateClock();
 </script>
