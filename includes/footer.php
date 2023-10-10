@@ -80,7 +80,7 @@
 <div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-        <form method="POST" action="updatedatapassword.php">
+            <form method="POST" action="updatedatapassword.php">
                 <div class="modal-header">
                     <h5 class="modal-title" id="">تغيير كلمة المرور</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -130,111 +130,111 @@
 <!-- forget pass Modal end-->
 <!-- Edit info Modal -->
 <?php if (isset($_SESSION['user_id'])) {
-if ($_SESSION['type'] == 'client') { ?>
-  <div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="">تعديل البيانات الشخصية </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    if ($_SESSION['type'] == 'client') { ?>
+        <div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="">تعديل البيانات الشخصية </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="POST" action="updatedata.php">
+                        <div class="modal-body">
+
+                            <div class="col-sm-12 mt-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="Phone" name="Phone" placeholder="الهاتف"
+                                        value="<?= $client['Phone'] ?>" />
+                                    <label for="Phone">الهاتف</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 mt-3">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="Age" name="Age" placeholder="السن"
+                                        value="<?= $client['Age'] ?>" />
+                                    <label for="Age">السن</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 mt-3">
+                                <p class="me- right">النوع</p>
+                                <?php if ($client['Gender'] == "Male") { ?>
+                                    <div class="d-flex flex-row-reverse">
+                                        <div class="form-check form-check-primary me-3">
+                                            <input class="form-check-input" type="radio" name="Gender" id="Male" checked>
+                                            <label class="form-check-label" for="Male">
+                                                ذكر
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-primary me-3">
+                                            <input class="form-check-input" type="radio" name="Gender" id="Female">
+                                            <label class="form-check-label" for="Female">
+                                                انثي
+                                            </label>
+                                        </div>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="d-flex flex-row-reverse">
+                                        <div class="form-check form-check-primary me-3">
+                                            <input class="form-check-input" type="radio" name="Gender" id="Male">
+                                            <label class="form-check-label" for="Male">
+                                                ذكر
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-primary me-3">
+                                            <input class="form-check-input" type="radio" name="Gender" id="Female" checked>
+                                            <label class="form-check-label" for="Female">
+                                                انثي
+                                            </label>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <div class="col-sm-12 mt-3">
+                                <p for="city" class="form-label right">المدينة</p>
+                                <select class="form-select" id="City" name="City" value="<?= $client['City'] ?>" required>
+                                    <option value="Alexandria">Alexandria</option>
+                                    <option value="Aswan">Aswan</option>
+                                    <option value="Asyut">Asyut</option>
+                                    <option value="Beheira">Beheira</option>
+                                    <option value="Beni Suef">Beni Suef</option>
+                                    <option value="Cairo">Cairo</option>
+                                    <option value="Dakahlia">Dakahlia</option>
+                                    <option value="Damietta">Damietta</option>
+                                    <option value="Faiyum">Faiyum</option>
+                                    <option value="Gharbia">Gharbia</option>
+                                    <option value="Giza">Giza</option>
+                                    <option value="Ismailia">Ismailia</option>
+                                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                                    <option value="Luxor">Luxor</option>
+                                    <option value="Matrouh">Matrouh</option>
+                                    <option value="Minya">Minya</option>
+                                    <option value="Monufia">Monufia</option>
+                                    <option value="New Valley">New Valley</option>
+                                    <option value="North Sinai">North Sinai</option>
+                                    <option value="Port Said">Port Said</option>
+                                    <option value="Qalyubia">Qalyubia</option>
+                                    <option value="Qena">Qena</option>
+                                    <option value="Red Sea">Red Sea</option>
+                                    <option value="Sharqia">Sharqia</option>
+                                    <option value="Sohag">Sohag</option>
+                                    <option value="South Sinai">South Sinai</option>
+                                    <option value="Suez">Suez</option>
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                            <button type="submit" class="btn btn-primary px-5">حفظ</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form method="POST" action="updatedata.php">
-                <div class="modal-body">
-                    
-                    <div class="col-sm-12 mt-3">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" id="Phone" name="Phone" placeholder="الهاتف"
-                      value="<?= $client['Phone'] ?>" />
-                    <label for="Phone">الهاتف</label>
-                  </div>
-                </div>
-                <div class="col-sm-12 mt-3">
-                  <div class="form-floating">
-                    <input type="number" class="form-control" id="Age" name="Age" placeholder="السن"
-                      value="<?= $client['Age'] ?>" />
-                    <label for="Age">السن</label>
-                  </div>
-                </div>
-                <div class="col-sm-12 mt-3">
-                  <p class="me- right">النوع</p>
-                  <?php if ($client['Gender'] == "Male") { ?>
-                    <div class="d-flex flex-row-reverse">
-                      <div class="form-check form-check-primary me-3">
-                        <input class="form-check-input" type="radio" name="Gender" id="Male" checked>
-                        <label class="form-check-label" for="Male">
-                          ذكر
-                        </label>
-                      </div>
-                      <div class="form-check form-check-primary me-3">
-                        <input class="form-check-input" type="radio" name="Gender" id="Female">
-                        <label class="form-check-label" for="Female">
-                          انثي
-                        </label>
-                      </div>
-                    </div>
-                  <?php }else { ?>
-                    <div class="d-flex flex-row-reverse">
-                      <div class="form-check form-check-primary me-3">
-                        <input class="form-check-input" type="radio" name="Gender" id="Male" >
-                        <label class="form-check-label" for="Male">
-                          ذكر
-                        </label>
-                      </div>
-                      <div class="form-check form-check-primary me-3">
-                        <input class="form-check-input" type="radio" name="Gender" id="Female" checked>
-                        <label class="form-check-label" for="Female">
-                          انثي
-                        </label>
-                      </div>
-                    </div>
-                    <?php } ?>
-                </div>
-                <div class="col-sm-12 mt-3">
-                  <p for="city" class="form-label right">المدينة</p>
-                  <select class="form-select" id="City" name="City" value="<?= $client['City'] ?>" required>
-                    <option value="Alexandria">Alexandria</option>
-                    <option value="Aswan">Aswan</option>
-                    <option value="Asyut">Asyut</option>
-                    <option value="Beheira">Beheira</option>
-                    <option value="Beni Suef">Beni Suef</option>
-                    <option value="Cairo">Cairo</option>
-                    <option value="Dakahlia">Dakahlia</option>
-                    <option value="Damietta">Damietta</option>
-                    <option value="Faiyum">Faiyum</option>
-                    <option value="Gharbia">Gharbia</option>
-                    <option value="Giza">Giza</option>
-                    <option value="Ismailia">Ismailia</option>
-                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
-                    <option value="Luxor">Luxor</option>
-                    <option value="Matrouh">Matrouh</option>
-                    <option value="Minya">Minya</option>
-                    <option value="Monufia">Monufia</option>
-                    <option value="New Valley">New Valley</option>
-                    <option value="North Sinai">North Sinai</option>
-                    <option value="Port Said">Port Said</option>
-                    <option value="Qalyubia">Qalyubia</option>
-                    <option value="Qena">Qena</option>
-                    <option value="Red Sea">Red Sea</option>
-                    <option value="Sharqia">Sharqia</option>
-                    <option value="Sohag">Sohag</option>
-                    <option value="South Sinai">South Sinai</option>
-                    <option value="Suez">Suez</option>
-                  </select>
-
-                </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-                    <button type="submit" class="btn btn-primary px-5" >حفظ</button>
-                </div>
-            </form>
         </div>
-    </div>
-</div>  
-<?php  }
-}?>
+    <?php }
+} ?>
 
 <!-- Edit info Modal -->
 <!-- chat Modal -->
@@ -296,8 +296,16 @@ if ($_SESSION['type'] == 'client') { ?>
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
     emailjs.init("8IqpS-2yL8vNVUlT-");
-  function SendUrgent(){
-  emailjs.send("service_66qxkf7","template_6mvctvj");}
+    function SendUrgent() {
+        emailjs.send("service_66qxkf7", "template_6mvctvj", {
+        to_email: "mahinazatfy2@gmail.com"
+      }).then(function (response) {
+        // alert("سيتم التواصل معك في أقرب وقت لتأكيد الحجز");
+        alert("Email sent successfully!");        
+      }, function (error) {
+        console.error("Email sending failed:", error);
+      });
+    }
 </script>
 <script>
     function toast(text, type) {

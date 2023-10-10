@@ -16,7 +16,7 @@ if (isset($_POST['date'], $_POST['time'], $_POST['therapistId'], $_POST['status'
     $database = new Database();
     // Prepare and execute a query to insert a new session
     $sql = "INSERT INTO sessions (date, time,UserID, TherapistID,Type, status) VALUES ('$selectedDate', '$selectedTime',$Uid, $therapistId,'$Type', '$status')";
-
+    //echo $sql;
     try {
         $stmt = $database->executeQuery($sql);
         if ($stmt) {
