@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     while ($row = $result->fetch_assoc()) {
         $html = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">';
         $html .= '<div class="team-item rounded">';
-        $html .= '<img class="img-fluid" src="' . $row["Profile"] . '" alt="" />';
+        $html .= '<img class="img-fluid" style="object-fit: cover; width: 100%;height: 200px;" src="' . $row["Profile"] . '" alt="" />';
         $html .= '<div class="text-center p-4">';
         $html .= '<h5 class="text-">' . $row["FullName"] . '</h5>';
         // $html .= '<h5 class="text-">' . $row["SessionScheduled"] . '</h5>';
