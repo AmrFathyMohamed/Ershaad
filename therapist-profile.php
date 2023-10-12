@@ -126,7 +126,7 @@ $totalCourses = count($coursesoon);
       <h6 class="text-right mt-3">أختر نوع الجلسة</h6>
       <div class="d-flex align-items-center justify-content-around">
         <div class="col-6 pe-3" id="arg">
-          <input id="argent" class="check-img-input" type="radio" name="type" value="Urgent Consultation" />
+          <input id="argent" class="check-img-input" type="radio" name="type" checked value="Urgent Consultation" />
           <label for="argent" class="check-img-label w-100">
             <div class="check-img-content pt-2 pb-1">
               <!-- <img src="img/icon/icon-02-primary.png" class="w-15" alt=""> -->
@@ -542,6 +542,9 @@ $totalCourses = count($coursesoon);
       // Hide the element with ID "arg"
       $('#arg').hide();
       $('#nor').show();
+      $('#nor').show();
+      $('#nor').prop('checked', true);
+
 
     } else {
       // Show the element with ID "arg"
