@@ -367,9 +367,8 @@ if (isset($_POST['addCourseTherapist'])) {
 <?php include("footer.php"); ?>
 
 <script>
-    $(document).ready(function () {
-        // Add click event listener to Edit buttons
-        $('.btn-edit-course').click(function () {
+   
+    $('.btn-edit-course').click(function () {
             var courseId = $(this).data('courseid');
             var courseTitle = $(this).closest('tr').find('td:eq(0)').text().trim();
             var courseDescription = $(this).closest('tr').find('td:eq(1)').text().trim();
@@ -385,7 +384,6 @@ if (isset($_POST['addCourseTherapist'])) {
             $('#editPrice').val(coursePrice);
             $('#editType').val(courseType);
         });
-    });
 </script>
 
 <script>

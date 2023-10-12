@@ -258,9 +258,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         });
 
     });
-    $(document).ready(function () {
-        // Handle click on "Edit" button
-        $('.edit-specialty').click(function () {
+    $('.edit-specialty').click(function () {
             var specialtyId = $(this).data('id');
             var specialtyName = $(this).data('name');
 
@@ -268,15 +266,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             $('#editModal input[name="SpecialtyID"]').val(specialtyId);
             $('#editModal input[name="Specialty"]').val(specialtyName);
         });
-    });
-    $(document).ready(function () {
-        // Handle click on "Delete" button
         $('.delete-specialty').click(function () {
             var specialtyId = $(this).data('specialty-id');
             var confirmationLink = '?action=delete&id=' + specialtyId;
             $('#deleteModal .btn-danger').attr('href', confirmationLink);
         });
-    });
 
 </script>
 </body>

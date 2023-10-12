@@ -244,9 +244,8 @@ if (isset($_GET['deleteAdmin'])) {
         });
     });
 
-    $(document).ready(function () {
-        // Add click event listener to Edit buttons
-        $('.btn-edit-admin').click(function () {
+   
+    $('.btn-edit-admin').click(function () {
             var adminId = $(this).data('adminid');
             var adminFullName = $(this).closest('tr').find('td:eq(0)').text().trim();
             var adminUsername = $(this).closest('tr').find('td:eq(1)').text().trim();
@@ -262,7 +261,6 @@ if (isset($_GET['deleteAdmin'])) {
             $('#editAdminModal input[name="editAdminPassword"]').val(adminPassword);
 
         });
-    });
 </script>
 </body>
 

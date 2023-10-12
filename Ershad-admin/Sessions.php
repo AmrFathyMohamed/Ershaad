@@ -349,7 +349,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editSessionModalLabel">Edit Session Date and Time</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -365,7 +365,7 @@ if (isset($_SESSION['user_id'])) {
                         <input type="time" class="form-control" id="sessionTime" name="session_time" required>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" onclick="return validateForm()">Save
                             Changes</button>
                     </div>
@@ -385,11 +385,15 @@ if (isset($_SESSION['user_id'])) {
             ], "pageLength": 10
         });
 
-        // Handle click on "Edit" button
-        $('.edit-session').click(function () {
+    });
+    // Handle click on "Edit" button
+    $('.edit-session').click(function () {
             var sessionId = $(this).data('id');
+            console.log('sessionId' + sessionId);
             var sessionDate = $(this).closest('tr').find('.session-date').text().trim();
             var sessionTime = $(this).closest('tr').find('.session-time').text().trim();
+            console.log('sessionDate' + sessionDate);
+            console.log('sessionTime' + sessionTime);
 
             $('#editSessionId').val(sessionId);
             $('#sessionDate').val(sessionDate);
@@ -399,7 +403,6 @@ if (isset($_SESSION['user_id'])) {
                 sessionTime);
             $('#editSessionModal').modal('show');
         });
-    });
     function validateForm() {
         // Get the values from your form elements
         var sessionId = $('#editSessionId').val();
