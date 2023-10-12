@@ -151,9 +151,10 @@ if (isset($_SESSION['user_id'])) {
         <!-- echo "<br/> Session is currently in progress (within the next hour)."; -->
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
-            <div class="d-flex align-items-center ms-n5 mb-1">
-              <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
-                style="border-top-right-radius: 0px !important;"> بدات الجلسة 
+          <div class="d-flex align-items-center ms-n5 mb-1">
+              <div class="service-icon w-50 text-white bg-primary rounded-end mb-1 me-4"
+                onclick="showChat('<?php echo $session['UserID']; ?>')"
+                style="border-top-right-radius: 0px !important;">تحدث الي العميل <i class="fa-solid fa-comments ms-2"></i>
               </div>
               <h4 class="mb-0 w-85 text-right">
                 <?= $session['FullName'] ?>
@@ -181,9 +182,10 @@ if (isset($_SESSION['user_id'])) {
         <!-- echo "<br/> Session is starting within 5 minutes or has already started but will end within 1 hour."; -->
         <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item rounded h-100 px-4 pb-2">
-            <div class="d-flex align-items-center mb-1">
-              <div class="service-icon w-100 text-white <?php echo $sessionTypeClass; ?> rounded-end mb-1 me-4"
-                style="border-top-right-radius: 0px !important;"> بدات الجلسة 
+          <div class="d-flex align-items-center ms-n5 mb-1">
+              <div class="service-icon w-50 text-white bg-primary rounded-end mb-1 me-4"
+                onclick="showChat('<?php echo $session['UserID']; ?>')"
+                style="border-top-right-radius: 0px !important;">تحدث الي العميل <i class="fa-solid fa-comments ms-2"></i>
               </div>
               <h4 class="mb-0 w-85 text-right">
                 <?= $session['FullName'] ?>
@@ -275,9 +277,37 @@ if (isset($_SESSION['user_id'])) {
       </div>
     </div>
   </div>
+  <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="send_message.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">تحدث الي العميل</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea id="Message" name="Message" cols="30" rows="4" placeholder="أكتب رسالتك"
+            class="rtl arabic form-control"></textarea>
+          <input type="hidden" id="UserID" name="UserID" />
+          <input type="hidden" id="T" name="T" value="0" />
 
+          <input type="hidden" id="therapistID" name="TherapistID" value="<?= $_SESSION['user_id']; ?>" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+          <button type="submit" class="btn btn-primary px-5" id="send">ارسال</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
   <?php include("includes/footer.php"); ?>
-
+<script>
+  function showChat(therID) {
+    $("#UserID").val(therID)
+    $("#chatModal").modal('show')
+  }
+</script>
   </body>
 
   </html>
