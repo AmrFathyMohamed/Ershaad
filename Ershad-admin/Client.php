@@ -528,7 +528,7 @@ function showAdminChat(userID){
         // Function to fetch client data and populate the form
         function fetchclientData(clientId) {
             $.ajax({
-                url: 'getclientData.php',
+                url: 'getClientData.php',
                 method: 'GET',
                 data: { ClientId: clientId },
                 dataType: 'json',
