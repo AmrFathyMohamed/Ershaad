@@ -101,23 +101,17 @@ if (isset($_SESSION['user_id'])) {
                     <h6 class="m-0"><img src="assets/images/ticketsSide.svg" alt="" class="w-100 pe-2 ">جميع
                         المحادثات </h6>
                 </div>
-                <div class="tickets px-0">
-                    <?php foreach ($chatsData as $c) { ?>
-                        <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center "
-                            data-client-id="<?php echo $c['UserID']; ?>"
-                            data-therapist-id="<?php echo $c['TherapistID']; ?>" data-client-Name="<?php if ($_SESSION['type'] == 'therapist') {
-                                   echo $c['Username'];
-                               } else if ($_SESSION['type'] == 'client') {
-                                   echo $c['FullName'];
-                               } ?>">
+                <div class="tickets px-0" id="tickets">
+                    <?php foreach ($chatsData as $c) {
+                        if ($_SESSION['type'] == 'therapist') {
+                            $N = $c['Username'];
+                        } else if ($_SESSION['type'] == 'client') {
+                            $N = $c['FullName'];
+                        } ?>
+                        <div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center " onclick="ticketclick(<?php echo $c['UserID']; ?>, <?php echo $c['TherapistID']; ?>,'<?php echo $N; ?>')">
                             <div class="content">
                                 <h6 class="mb-0">
-                                    <?php if ($_SESSION['type'] == 'therapist') {
-                                        echo $c['Username'];
-                                    } else if ($_SESSION['type'] == 'client') {
-                                        echo $c['FullName'];
-                                    }
-                                    ?>
+                                    <?php echo $N;?>
                                 </h6>
                                 <small class="mb-0 last-message">
                                     <?php
@@ -204,17 +198,35 @@ if (isset($_SESSION['user_id'])) {
         }
         var chatInterval; // Variable to store the chat refresh interval
         var CheckOpen = 0;
-        $('.ticket').click(function () {
-            $(this).addClass('active');
-            var clientID = $(this).data('client-id');
-            var therapistID = $(this).data('therapist-id');
-            $('#ClientName').text($(this).data('client-name'));
 
-            // Call a function to load and display chat messages for the clicked client
-            function loadChatForm(Open, UID) {
-
+        function ticketclick(clientID, therapistID,ClientName) {
+            loadChatMessages(clientID, therapistID);
+            $('#ClientName').text(ClientName);
+            <?php
+            if ($_SESSION['type'] == 'therapist') { ?>
+                $('#formsend').html(`<div class="d-flex align-items-center">
+                                                 <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                                                 <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
+                                                 <button id="sendBtn" type="submit" class="btn me-2"><i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
+            <?php } else if ($_SESSION['type'] == 'client') { ?>
+                    $('#formsend').html(`<div class="d-flex align-items-center">
+                                                        <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
+                                                        <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
+                                                        <button id="sendBtn" type="submit" class="btn me-2"> <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
+            <?php }
+            ?>
+            clearInterval(chatInterval);
+            chatInterval = setInterval(loadChatMessages, 5000);
             }
-            function loadChatMessages() {
+        //     $('.ticket').click(function () {
+        //     $(this).addClass('active');
+        //     var clientID = $(this).data('client-id');
+        //     var therapistID = $(this).data('therapist-id');
+        //     $('#ClientName').text($(this).data('client-name'));
+
+
+        // });
+        function loadChatMessages(clientID, therapistID) {
                 $.ajax({
                     url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
                     method: 'POST',
@@ -239,30 +251,6 @@ if (isset($_SESSION['user_id'])) {
                     }
                 });
             }
-            loadChatMessages();
-            <?php
-            if ($_SESSION['type'] == 'therapist') { ?>
-                $('#formsend').html(`<div class="d-flex align-items-center">
-                                                 <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                                 <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
-                                                 <button id="sendBtn" type="submit" class="btn me-2"><i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
-            <?php } else if ($_SESSION['type'] == 'client') { ?>
-                    $('#formsend').html(`<div class="d-flex align-items-center">
-                                                        <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                                        <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
-                                                        <button id="sendBtn" type="submit" class="btn me-2"> <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
-            <?php }
-            ?>
-            // Initial load of chat messages
-
-
-
-            // Clear any existing chat refresh interval
-            clearInterval(chatInterval);
-
-            // Set an interval to refresh chat messages every second
-            chatInterval = setInterval(loadChatMessages, 5000);
-        });
         // Handle form submission to send messages outside of the click event
         $('#formsend').on('submit', function (e) {
             e.preventDefault();
@@ -285,7 +273,7 @@ if (isset($_SESSION['user_id'])) {
                     // Clear the message input field
                     $('#newMessageContent').val('');
                     // Reload chat messages to see the new message
-                    //loadChatMessages();
+                    loadChatMessages(userID,therapistID);
                     scrollEnd()
                 },
                 error: function () {
@@ -300,7 +288,7 @@ if (isset($_SESSION['user_id'])) {
                 method: 'GET',
                 success: function (response) {
                     // Replace the chats section content with the refreshed content
-                    $('#chatsSection').html(response);
+                    $('#tickets').html(response);
                     scrollEnd()
                 },
                 error: function () {
@@ -313,7 +301,7 @@ if (isset($_SESSION['user_id'])) {
         reloadChatsSection();
 
         // Set an interval to reload the chats section every minute (60,000 milliseconds)
-        setInterval(reloadChatsSection, 5000);
+        setInterval(reloadChatsSection, 2000);
 
     </script>
 </body>

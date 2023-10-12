@@ -1,4 +1,4 @@
-<?php include("classes/Database.php"); ?>
+<?php session_start();include("classes/Database.php"); ?>
 <?php include("classes/ChatTable.php"); ?>
 <?php
 // Check if the 'id' parameter is set in the URL
@@ -13,26 +13,30 @@ if (isset($_SESSION['user_id'])) {
         $chatsData = $chats->getAllChatsForUser($userId);
     }
 } else {
-    header("Location: index.php");
-    exit;
+    echo 'Er';
 }
 
 // Fetch the latest chat data (modify this query according to your database structure)
 
 
 // Generate the HTML for chat tickets
-$html = '';
+
+//print_r($chatsData);
+$html = ''; // Initialize the HTML variable
 
 foreach ($chatsData as $c) {
-    $html .= '<div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center" data-client-id="' . $c['ClientID'] . '" data-therapist-id="' . $c['TherapistID'] . '" data-client-name="' . $c['FullName'] . '">';
-    $html .= '<div class="content">';
     if ($_SESSION['type'] == 'therapist') {
-        $html .= '<h6 class="mb-0">' . $c['Username'] . '</h6>';
+        $N = $c['Username'];
     } else if ($_SESSION['type'] == 'client') {
-        $html .= '<h6 class="mb-0">' . $c['FullName'] . '</h6>';
+        $N = $c['FullName'];
     }
-    
-    $html .= '<small class="mb-0 last-message">';
+
+    $html .= '<div class="ticket w-95 mx-auto ps-3 py-3 mt-3 d-flex justify-content-between align-items-center " onclick="ticketclick(' . $c['UserID'] . ', ' . $c['TherapistID'] . ', \'' . $N . '\')">
+        <div class="content">
+            <h6 class="mb-0">
+                ' . $N . '
+            </h6>
+            <small class="mb-0 last-message">';
 
     if ($_SESSION['type'] == 'therapist') {
         if ($c['LastMessageSender'] == 'Therapist') {
@@ -40,13 +44,13 @@ foreach ($chatsData as $c) {
             if (strlen($message) > 100) {
                 $message = substr($message, 0, 25) . '...';
             }
-            echo 'You : ' . $message;
+            $html .= 'You : ' . $message;
         } else {
             $message = $c['LastMessage'];
             if (strlen($message) > 100) {
                 $message = substr($message, 0, 25) . '...';
             }
-            echo $c['FullName'] . ' : ' . $message;
+            $html .= $c['FullName'] . ' : ' . $message;
         }
     } else if ($_SESSION['type'] == 'client') {
         if ($c['LastMessageSender'] == 'Client') {
@@ -54,37 +58,31 @@ foreach ($chatsData as $c) {
             if (strlen($message) > 100) {
                 $message = substr($message, 0, 25) . '...';
             }
-            echo 'You : ' . $message;
+            $html .= 'You : ' . $message;
         } else {
             $message = $c['LastMessage'];
             if (strlen($message) > 100) {
                 $message = substr($message, 0, 25) . '...';
             }
-            echo $c['FullName'] . ' : ' . $message;
+            $html .= $c['FullName'] . ' : ' . $message;
         }
-    }
-    if ($c['LastMessageSender'] == 'Therapist') {
-        $message = $c['LastMessage'];
-        if (strlen($message) > 100) {
-            $message = substr($message, 0, 25) . '...';
-        }
-        echo 'You : ' . $message;
-    } else {
-        $message = $c['LastMessage'];
-        if (strlen($message) > 100) {
-            $message = substr($message, 0, 25) . '...';
-        }
-        echo $c['FullName'] . ' : ' . $message;
     }
 
-    $html .= '</small>';
-    $html .= '</div>';
-    $html .= '<div>';
-    $html .= '<span class="badge text-muted fs-small">' . $c['LastMessageTime'] . '</span>';
-    $html .= '</div>';
-    $html .= '</div>';
+    $html .= '</small>
+        </div>
+        <div>
+            <span class="badge text-muted fs-small">';
+    
+    $T = new DateTime($c['LastMessageTime'], new DateTimeZone('Asia/Amman'));
+    $html .= $T->format('d-m-Y h:i A');
+
+    $html .= '</span>
+        </div>
+    </div>';
 }
 
-// Return the generated HTML as the response
+// Now, you can use the $html variable as needed, for example, to echo it or include it in your HTML output.
 echo $html;
+
+
 ?>
