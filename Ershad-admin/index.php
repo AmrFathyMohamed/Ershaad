@@ -141,7 +141,7 @@ if (isset($_SESSION['user_id'])) {
 
 // Assuming you have a database connection, create a SQL query to get session counts by month
 $sql = "SELECT DATE_FORMAT(Date, '%b') AS month, COUNT(*) AS session_count
-FROM Sessions
+FROM sessions
 GROUP BY DATE_FORMAT(Date, '%b')
 ORDER BY MIN(Date)";
 // Execute the query and fetch the results

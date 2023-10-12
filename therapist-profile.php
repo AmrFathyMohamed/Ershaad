@@ -542,8 +542,7 @@ $totalCourses = count($coursesoon);
       // Hide the element with ID "arg"
       $('#arg').hide();
       $('#nor').show();
-      $('#nor').show();
-      $('#nor').prop('checked', true);
+      $('#normal').attr('checked', 'checked');
 
 
     } else {

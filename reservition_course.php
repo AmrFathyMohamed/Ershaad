@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Insert the reservation as "Pending" into the course_client table
         $status = 'Pending Review'; // Change this to 'Pending'
-        echo $courseId . $clientId. $status;
+        //echo $courseId . $clientId. $status;
         
         if ($courseClientTable->insertCourseClient($courseId, $clientId,$therapistId, $status)) {
             // Reservation was successful

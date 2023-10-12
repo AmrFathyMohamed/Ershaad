@@ -17,7 +17,7 @@ class SessionTable
 
         // Execute the SQL query
         $stmt = $this->db->executeQuery($query);
-
+        
         // Check if the insertion was successful
         if ($stmt !== false) {
             return true; // Return true to indicate success

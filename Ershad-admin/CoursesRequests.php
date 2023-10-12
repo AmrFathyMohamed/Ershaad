@@ -64,8 +64,8 @@ if (isset($_SESSION['user_id'])) {
             // Insert sessions into the 'sessions' table
             for ($i = 0; $i < $sessions; $i++) {
                 $sessionDate = date('Y-m-d', strtotime($startDate . ' + ' . $i . ' days'));
-                $sessionTime = '12:00:00'; // Change this to the desired session time
-                $sessionType = 'Regular'; // Change this to the desired session type
+                $sessionTime = '10:00:00'; // Change this to the desired session time
+                $sessionType = 'Course'; // Change this to the desired session type
                 $sessionStatus = 'Accepted'; // Change this to the initial session status
 
                 // Insert the session into the 'sessions' table
