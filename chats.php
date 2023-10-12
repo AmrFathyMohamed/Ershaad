@@ -192,7 +192,7 @@ if (isset($_SESSION['user_id'])) {
                             $('#formsend').hide();
                         }
                         // Use response.Check as needed
-                        scrollEnd();
+                        
                     },
                     error: function () {
                         //alert('Failed to fetch chat messages.');
