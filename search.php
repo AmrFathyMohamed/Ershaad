@@ -30,19 +30,21 @@ $alltherapists = $therapistTable2->getTherapists();
     <div class="text-center mx-auto" style="max-width: 500px">
       <h1 class="display-6 mb-5">المعالجين</h1>
     </div>
+    <form method="POST" id="filterFormName">
     <div class="row g-4">
       <div class="col-10">
         <div class="form-floating">
-          <input type="text" class="form-control right" id="search" placeholder=">بحث بأسم المعالج" />
+          <input type="text" class="form-control right" id="search" name="search" placeholder=">بحث بأسم المعالج" />
           <label for="search" style="right: 0!important; left: auto!important;">بحث بأسم المعالج</label>
         </div>
       </div>
       <div class="col-2 px-sm-0">
-                <button class="btn btn-primary py-3 w-100" type="button" onclick="searchTherapists()">
+                <button class="btn btn-primary py-3 w-100" type="submit">
                     بحث
                 </button>
             </div>
     </div>
+</form >
     <div class="row g-2">
       <div class="col-md-9 mt-5 order-last-phone">
         <div class="row g-4" id="therapistsList">
@@ -134,13 +136,13 @@ $alltherapists = $therapistTable2->getTherapists();
             <div class="border rounded py-4 px-2">
               <p class="right">من سعر الجلسة</p>
               <input type="range" class="form-range" min="0" max="2000" step="1" id="customRange3" name="priceRange"
-                value="100">
-              <p class="right" id="priceValue">100</p>
+                value="0">
+              <p class="right" id="priceValue">0</p>
               <hr>
               <p class="right">الى سعر الجلسة</p>
               <input type="range" class="form-range" min="0" max="2000" step="1" id="customRange4" name="priceRangeto"
-                value="100">
-              <p class="right" id="priceValueto">100</p>
+                value="500">
+              <p class="right" id="priceValueto">500</p>
               <hr>
               <button class="btn btn-primary py- w-100 px-5" type="submit"> تطبيق الفلاتر </button>
             </div>
@@ -153,6 +155,11 @@ $alltherapists = $therapistTable2->getTherapists();
 <!-- Team End -->
 <?php include("includes/footer.php"); ?>
 <script>
+  // Get today's date in the format "YYYY-MM-DD"
+  const today = new Date().toISOString().split('T')[0];
+
+  // Set the minimum date for the input field
+  document.getElementById("date").setAttribute("min", today);
     function searchTherapists() {
         // Get the search query
         var searchQuery = document.getElementById("search").value.toLowerCase().trim();
@@ -261,6 +268,28 @@ $alltherapists = $therapistTable2->getTherapists();
     // Make an AJAX request to fetch filtered data
     $.ajax({
       url: "checksearch.php", // Update the URL to your PHP script
+      method: "POST",
+      data: formData,
+      dataType: "html", // Expect HTML response
+      success: function (data) {
+        // Update the therapistsList div with the filtered data
+        $("#therapistsList").html(data);
+      },
+      error: function () {
+        // Handle errors if any
+        alert("An error occurred while fetching data.");
+      },
+    });
+  });
+  $("#filterFormName").on("submit", function (e) {
+    e.preventDefault(); // Prevent the form from submitting traditionally
+
+    // Get the form data
+    const formData = $(this).serialize();
+
+    // Make an AJAX request to fetch filtered data
+    $.ajax({
+      url: "checksearch2.php", // Update the URL to your PHP script
       method: "POST",
       data: formData,
       dataType: "html", // Expect HTML response

@@ -627,6 +627,11 @@ $totalCourses = count($coursesoon);
       });
     }
   });
+    // Get today's date in the format "YYYY-MM-DD"
+    const today = new Date().toISOString().split('T')[0];
+
+// Set the minimum date for the input field
+document.getElementById("date").setAttribute("min", today);
 </script>
 </body>
 

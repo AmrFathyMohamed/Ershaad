@@ -12,103 +12,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $speciality = $_POST['speciality'];
     $priceRange = $_POST['priceRange'];
     $priceRangeto = $_POST['priceRangeto'];
-
-    // if ($date == '') {
-    //     $sql = "SELECT therapists.* FROM therapists WHERE (true ";
-    // } else {
-    //     $sql = "SELECT therapists.*, GROUP_CONCAT(appointments.Date) AS appointment_dates
-    //     FROM therapists
-    //     INNER JOIN appointments ON therapists.TherapistID = appointments.TherapistID AND appointments.Date >= '$date'
-    //     WHERE (
-    //         (
-    //             (SELECT COUNT(*) FROM sessions WHERE sessions.TherapistID = therapists.TherapistID AND sessions.Date >= '$date') = 0 
-    //         )";
-    // }
-    // // Build the SQL query based on the form inputs
-
-    // if ($gendermale && $genderfemale) {
-    //     $sql .= " AND Gender IN ('Male', 'Female')";
-    // } elseif ($gendermale) {
-    //     $sql .= " AND Gender IN ('Male')";
-    // } elseif ($genderfemale) {
-    //     $sql .= " AND Gender IN ('Female')";
-    // }
-
-    // if ($speciality != 'All') {
-    //     $sql .= " AND Specialization = '$speciality'";
-    // }
-
-    // if ($priceRange) {
-    //     $sql .= " AND PriceAfterPercentage > $priceRange";
-    // }
-
-    // if ($priceRange) {
-    //     $sql .= " AND PriceAfterPercentage < $priceRangeto";
-    // }
-    // $sql .= ") GROUP BY therapists.TherapistID  ORDER BY therapists.FullName ASC";
-    // Execute the query
-    // Initialize the SQL query
-    $sql = "SELECT
-    a.AppointmentID,
-    a.Date,
-    a.Time,
-    a.Type,
-    t.*,
-    CASE
-        WHEN s.SessionID IS NOT NULL THEN 'Yes'
-        ELSE 'No'
-    END AS SessionScheduled
-FROM (
-    SELECT
-        a1.AppointmentID,
-        a1.Date,
-        a1.Time,
-        a1.Type,
-        a1.TherapistID
-    FROM appointments a1
-    WHERE a1.AppointmentID = (
-        SELECT MIN(a2.AppointmentID)
-        FROM appointments a2
-        WHERE a2.TherapistID = a1.TherapistID
-        AND NOT EXISTS (
-            SELECT 1
-            FROM sessions s
-            WHERE s.Date = a2.Date
-            AND s.Time = a2.Time
-            AND s.TherapistID = a2.TherapistID
-        )
-    )
-) a
-INNER JOIN therapists t ON a.TherapistID = t.TherapistID
-LEFT JOIN sessions s ON a.Date = s.Date AND a.Time = s.Time AND a.TherapistID = s.TherapistID
-WHERE 1 "; // Start with a true condition
-
-    // Add conditions based on user input
-    $date = isset($_POST['date']) ? $_POST['date'] : '';
+    $sql = '';
     if (!empty($date)) {
-        $sql .= " AND a.Date = '$date'";
+        $sql .= "SELECT DISTINCT t.* FROM therapists t INNER JOIN appointments a ON t.TherapistID = a.TherapistID WHERE 1";
+        $date = isset($_POST['date']) ? $_POST['date'] : '';
+        if (!empty($date)) {
+            $sql .= " AND a.Date = '$date'";
+        }
+        $gendermale = isset($_POST['GenderM']) ? 1 : 0;
+        $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
+        if ($gendermale && !$genderfemale) {
+            $sql .= " AND t.Gender = 'Male'";
+        } elseif ($genderfemale && !$gendermale) {
+            $sql .= " AND t.Gender = 'Female'";
+        }
+        $speciality = $_POST['speciality'];
+        if ($speciality != 'All') {
+            $sql .= " AND t.Specialization = '$speciality'";
+        }
+        $priceRange = $_POST['priceRange'];
+        $priceRangeto = $_POST['priceRangeto'];
+        if (!empty($priceRange) && !empty($priceRangeto)) {
+            $sql .= " AND t.PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";
+        }
+        $sql .= " ORDER BY FullName";
+    } else {
+        $sql .= "select * from `therapists` WHERE TherapistID > 1000 AND FullName like '%%'";
+        $gendermale = isset($_POST['GenderM']) ? 1 : 0;
+        $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
+        if ($gendermale && !$genderfemale) {
+            $sql .= " AND Gender = 'Male'";
+        } elseif ($genderfemale && !$gendermale) {
+            $sql .= " AND Gender = 'Female'";
+        }
+        $speciality = $_POST['speciality'];
+        if ($speciality != 'All') {
+            $sql .= " AND Specialization = '$speciality'";
+        }
+        $priceRange = $_POST['priceRange'];
+        $priceRangeto = $_POST['priceRangeto'];
+        if (!empty($priceRange) && !empty($priceRangeto)) {
+            $sql .= " AND PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";
+        }
+        $sql .= " ORDER BY FullName";
     }
-
-    $gendermale = isset($_POST['GenderM']) ? 1 : 0;
-    $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
-    if ($gendermale && !$genderfemale) {
-        $sql .= " AND t.Gender = 'Male'";
-    } elseif ($genderfemale && !$gendermale) {
-        $sql .= " AND t.Gender = 'Female'";
-    }
-
-    $speciality = $_POST['speciality'];
-    if ($speciality != 'All') {
-        $sql .= " AND t.Specialization = '$speciality'";
-    }
-
-    $priceRange = $_POST['priceRange'];
-    $priceRangeto = $_POST['priceRangeto'];
-    if (!empty($priceRange) && !empty($priceRangeto)) {
-        $sql .= " AND t.PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";
-    }
-
-    $sql .= " ORDER BY a.Date, a.Time, a.TherapistID";
     //echo $sql;
     $db = new Database();
 
