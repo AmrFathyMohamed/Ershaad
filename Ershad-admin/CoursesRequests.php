@@ -76,6 +76,11 @@ if (isset($_SESSION['user_id'])) {
             }
 
             // Display a success message or redirect as needed
+            echo '<script>
+        alert("تم بنجاح")
+        window.location.href = "CoursesRequests.php";
+        </script>';
+            exit;
         }
 
     }
