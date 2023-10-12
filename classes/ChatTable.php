@@ -12,7 +12,7 @@ class ChatTable
     public function insertChat($UserID, $TherapistID, $Message)
     {
         $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
-        $t = $currentLocalTime->format("Y-m-d H:i");
+        $t = $currentLocalTime->format("Y-m-d H:i:s");
         if ($_SESSION['type'] == 'therapist' || $_SESSION['type'] == 'admin') {
             $query = "INSERT INTO $this->table (UserID, TherapistID, Message,Sender, created_at,updated_at) 
                   VALUES ($UserID, $TherapistID, '$Message','Therapist', '$t','$t')";
@@ -146,6 +146,24 @@ class ChatTable
                     WHERE latest_chats.TherapistID IS NOT NULL
                     ORDER BY LastMessageDate DESC;";
         //echo $query;
+        // $query2 = "SELECT c.TherapistID, MAX(ch.created_at) AS LastMessageTime, c.*, ch.TherapistID, ch.UserID, 
+        // IFNULL(ch.Message, '') AS LastMessage, IFNULL(ch.Sender, '') AS LastMessageSender 
+        // FROM therapists c 
+        // LEFT JOIN chats ch ON c.TherapistID = ch.TherapistID 
+        // AND ch.UserID = $ClientID 
+        // AND ch.is_deleted = 0 
+        // WHERE ch.created_at = ( SELECT MAX(created_at) 
+        // FROM chats WHERE TherapistID = c.TherapistID 
+        // AND UserID = $ClientID AND is_deleted = 0 ) 
+        // GROUP BY c.TherapistID ORDER BY LastMessageTime DESC, ch.ChatID DESC; ";
+        // echo $query2;
+        //     $query = "SELECT c.TherapistID, MAX(ch.created_at) AS LastMessageTime, c.*, ch.TherapistID, ch.UserID, IFNULL(ch.Message, '') AS LastMessage, IFNULL(ch.Sender, '') AS LastMessageSender
+//               FROM therapists c
+//               LEFT JOIN chats ch ON c.TherapistID = ch.TherapistID
+//               WHERE c.TherapistID = $TherapistID AND ch.is_deleted = 0
+//               GROUP BY c.TherapistID, ch.UserID
+//               ORDER BY LastMessageTime DESC, ch.ChatID DESC;";
+// echo $query;
         $stmt = $this->db->executeQuery($query);
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }

@@ -13,7 +13,7 @@ if (isset($_SESSION['user_id'])) {
         $chatsData = $chats->getAllChatsForUser($userId);
     }
 } else {
-    echo 'Er';
+    
 }
 
 // Fetch the latest chat data (modify this query according to your database structure)
