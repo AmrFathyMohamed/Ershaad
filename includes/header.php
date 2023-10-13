@@ -181,7 +181,7 @@ if ($_SESSION['type'] == 'client') {
         if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {
             $userId = $_SESSION['user_id'];
             if ($_SESSION['type'] != 'admin') {?>
-            <a href="#" class="d-inline-block mx-2 fs-5 pointer" 
+            <a href="#" class="d-inline-block mx-2 fs-5 " 
                 style="color: #7892aa;"><?= $_SESSION['fullname'] ?></a>
             <div class="nav-item dropdown">
                 <a class="btn btn-square ms-1 btn-info rounded-circle"  data-bs-toggle="dropdown">
@@ -194,11 +194,11 @@ if ($_SESSION['type'] == 'client') {
                 <?php } else if($_SESSION['type'] === 'therapist') { ?>
                     <a href="my profile - therapist.php" class="dropdown-item">الملف الشخصي</a>
                 <?php } ?>                
-                    <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
+                    <a class="dropdown-item " data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
                         الشخصية</a>
-                     <a class="dropdown-item pointer" data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة 
+                     <a class="dropdown-item " data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة 
                         المرور</a>
-                    <a class="dropdown-item pointer text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
+                    <a class="dropdown-item  text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
                 </div>
             </div>
         <?php }

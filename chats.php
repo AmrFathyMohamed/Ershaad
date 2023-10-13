@@ -111,7 +111,7 @@ if (isset($_SESSION['user_id'])) {
                     <h6 class="m-0 fw-black text-purple text-right" id="ClientName"></h6>
                 </div>
                 <div class="chat-content pt-4" id="chatMessagesContainer">
-                </div>
+                                    </div>
                 <div class="new-message rounded-0 py-2 card w-100 border-top">
                     <form id="formsend">
 
@@ -174,6 +174,9 @@ if (isset($_SESSION['user_id'])) {
 
 
         // });
+        var II = 0;
+        var JJ = 0;
+
         function loadChatMessages(clientID, therapistID) {
                 $.ajax({
                     url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
@@ -183,6 +186,14 @@ if (isset($_SESSION['user_id'])) {
                     success: function (response) {
                         // Display the chat messages in the chatMessagesContainer
                         //
+                    //     II =response.Count;
+                    //     if(JJ == 0){
+                    //         JJ =response.Count;
+                    //     }
+                    //     if(II != JJ){
+                    //     //scrollEnd()
+                    // }
+
                         $('#chatMessagesContainer').html(response.html);
                         CheckOpen = response.Check;
                         console.log(CheckOpen);
@@ -222,7 +233,8 @@ if (isset($_SESSION['user_id'])) {
                     $('#newMessageContent').val('');
                     // Reload chat messages to see the new message
                     loadChatMessages(userID,therapistID);
-                    scrollEnd()
+                    
+                    
                 },
                 error: function () {
                     //alert('Failed to send the message.');
@@ -237,7 +249,7 @@ if (isset($_SESSION['user_id'])) {
                 success: function (response) {
                     // Replace the chats section content with the refreshed content
                     $('#tickets').html(response);
-                    scrollEnd()
+                    //scrollEnd()
                 },
                 error: function () {
                     //alert('Failed to refresh the chats section.');
