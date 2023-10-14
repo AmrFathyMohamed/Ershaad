@@ -6,18 +6,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'classes/Database.php';
     // Get form input values
     //$query = $_POST['query'];
-    $date = isset($_POST['date']) ? $_POST['date'] : '';
+    $date = isset($_POST['date']) ? $_POST['date'] : null;
     $gendermale = isset($_POST['GenderM']) ? 1 : 0;
     $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
     $speciality = $_POST['speciality'];
     $priceRange = $_POST['priceRange'];
     $priceRangeto = $_POST['priceRangeto'];
+    $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
+    $tNow = $currentLocalTime->format("Y-m-d H:i");
     $sql = '';
+    $sql2 = '';
     if (!empty($date)) {
         $sql .= "SELECT DISTINCT t.* FROM therapists t INNER JOIN appointments a ON t.TherapistID = a.TherapistID WHERE 1";
         $date = isset($_POST['date']) ? $_POST['date'] : '';
         if (!empty($date)) {
-            $sql .= " AND a.Date = '$date'";
+            $sql .= " AND a.Date = '$date' AND a.Time > '$tNow'";
         }
         $gendermale = isset($_POST['GenderM']) ? 1 : 0;
         $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
@@ -31,10 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql .= " AND t.Specialization = '$speciality'";
         }
         $priceRange = $_POST['priceRange'];
-        $priceRangeto = $_POST['priceRangeto'];
-        if (!empty($priceRange) && !empty($priceRangeto)) {
-            $sql .= " AND t.PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";
-        }
+        $priceRangeto = $_POST['priceRangeto'];        
+        $sql .= " AND PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";       
         $sql .= " ORDER BY FullName";
     } else {
         $sql .= "select * from `therapists` WHERE TherapistID > 1000 AND FullName like '%%'";
@@ -50,26 +51,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql .= " AND Specialization = '$speciality'";
         }
         $priceRange = $_POST['priceRange'];
-        $priceRangeto = $_POST['priceRangeto'];
-        if (!empty($priceRange) && !empty($priceRangeto)) {
-            $sql .= " AND PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";
-        }
+        $priceRangeto = $_POST['priceRangeto'];        
+        $sql .= " AND PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";       
         $sql .= " ORDER BY FullName";
+
     }
-    //echo $sql;
+    if (!empty($date)) {
+        $sql2 .= "SELECT DISTINCT t.* FROM therapists t INNER JOIN sessions a ON t.TherapistID = a.TherapistID WHERE 1";
+        $date = isset($_POST['date']) ? $_POST['date'] : '';
+        if (!empty($date)) {
+            $sql2 .= " AND a.Date = '$date' AND a.Time > '$tNow'";
+        }
+        $gendermale = isset($_POST['GenderM']) ? 1 : 0;
+        $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
+        if ($gendermale && !$genderfemale) {
+            $sql2 .= " AND t.Gender = 'Male'";
+        } elseif ($genderfemale && !$gendermale) {
+            $sql2 .= " AND t.Gender = 'Female'";
+        }
+        $speciality = $_POST['speciality'];
+        if ($speciality != 'All') {
+            $sql2 .= " AND t.Specialization = '$speciality'";
+        }
+        $priceRange = $_POST['priceRange'];
+        $priceRangeto = $_POST['priceRangeto'];        
+        $sql2 .= " AND PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";       
+        $sql2 .= " ORDER BY FullName";
+    } else {
+        $sql2 .= "select * from `therapists` WHERE TherapistID > 1000 AND FullName like '%%'";
+        $gendermale = isset($_POST['GenderM']) ? 1 : 0;
+        $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
+        if ($gendermale && !$genderfemale) {
+            $sql2 .= " AND Gender = 'Male'";
+        } elseif ($genderfemale && !$gendermale) {
+            $sql2 .= " AND Gender = 'Female'";
+        }
+        $speciality = $_POST['speciality'];
+        if ($speciality != 'All') {
+            $sql2 .= " AND Specialization = '$speciality'";
+        }
+        $priceRange = $_POST['priceRange'];
+        $priceRangeto = $_POST['priceRangeto'];        
+        $sql2 .= " AND PriceAfterPercentage BETWEEN $priceRange AND $priceRangeto";       
+        $sql2 .= " ORDER BY FullName";
+    }
+    
+
     $db = new Database();
 
+    
     // Attempt to log in the user
     $result = $db->executeQuery($sql);
+    $result1 = $db->executeQuery($sql);
+    $result2 = $db->executeQuery($sql2);
+
 
     if (!$result) {
         die("Query error: " . $conn->error);
     }
+    
 
-    // Fetch and display the results
-    // echo $sql;
-    // echo "<br>";
-
+    $totalappointment = count($result1->fetch_all(MYSQLI_ASSOC));
+    $totalsessions = count($result2->fetch_all(MYSQLI_ASSOC));
+    $B = ($totalappointment >= $totalsessions ) ? 'Yes' : 'No';
+    // echo '<script>
+    //     alert("'.$sql.'");
+    //     </script>';
+     if($B == 'Yes'){
+        //echo $B;
     while ($row = $result->fetch_assoc()) {
         $html = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">';
         $html .= '<div class="team-item rounded">';
@@ -111,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo $html;
     }
-
+}
 
     // Close the database connection
     //$conn->close();
