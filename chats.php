@@ -98,11 +98,10 @@ if (isset($_SESSION['user_id'])) {
         <div class="row w-90 mx-auto border rounded-3 bg-white shadow">
             <div class="col-md-4 col-sm-12 px-0 border-end active-ticktes-out">
                 <div class="col-12 d-flex justify-content-end align-items-center  border-bottom tickets-header">
-                    <h6 class="m-0"><img src="assets/images/ticketsSide.svg" alt="" class="w-100 pe-2 ">جميع
-                        المحادثات </h6>
+                    <h6 class="m-0"><img src="assets/images/ticketsSide.svg" alt="" class="w-100 pe-2 ">جميع المحادثات
+                    </h6>
                 </div>
                 <div class="tickets px-0" id="tickets">
-                    
                 </div>
 
             </div>
@@ -111,7 +110,7 @@ if (isset($_SESSION['user_id'])) {
                     <h6 class="m-0 fw-black text-purple text-right" id="ClientName"></h6>
                 </div>
                 <div class="chat-content pt-4" id="chatMessagesContainer">
-                                    </div>
+                </div>
                 <div class="new-message rounded-0 py-2 card w-100 border-top">
                     <form id="formsend">
 
@@ -123,6 +122,28 @@ if (isset($_SESSION['user_id'])) {
     <?php include("includes/footer.php"); ?>
 
     <script>
+        chatBox = document.querySelector(".chat-content");
+        // inputField = form.querySelector(".input-field"),
+
+            function scrollToBottom() {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+        chatBox.onmouseenter = () => {
+            chatBox.classList.add("active");
+        }
+
+        chatBox.onmouseleave = () => {
+            chatBox.classList.remove("active");
+        }
+        // inputField.focus();
+        // inputField.onkeyup = () => {
+        //     if (inputField.value != "") {
+        //         sendBtn.classList.add("active");
+        //     } else {
+        //         sendBtn.classList.remove("active");
+        //     }
+        // }
         function copyMessage(element) {
             var textToCopy = element.querySelector('p').textContent;
             var textArea = document.createElement('textarea');
@@ -134,12 +155,12 @@ if (isset($_SESSION['user_id'])) {
             document.body.removeChild(textArea);
             toast("تم نسخ الرسالة ")
         }
-        scrollEnd()
-        function scrollEnd() {
-            $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);
-            $(".chat-content").animate({ scrollTop: $(".chat-content")[0].scrollHeight }, 2000);
-        }
-        scrollToStart()
+        // // scrollEnd()
+        // function scrollEnd() {
+        //     $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);
+        //     $(".chat-content").animate({ scrollTop: $(".chat-content")[0].scrollHeight }, 2000);
+        // }
+         scrollToStart()
         function scrollToStart() {
             $(".tickets").scrollTop(0);
             $(".tickets").animate({ scrollTop: 0 }, 2000);
@@ -147,69 +168,52 @@ if (isset($_SESSION['user_id'])) {
         var chatInterval; // Variable to store the chat refresh interval
         var CheckOpen = 0;
 
-        function ticketclick(clientID, therapistID,ClientName) {
+        function ticketclick(clientID, therapistID, ClientName) {
             loadChatMessages(clientID, therapistID);
             $('#ClientName').text(ClientName);
             <?php
             if ($_SESSION['type'] == 'therapist') { ?>
                 $('#formsend').html(`<div class="d-flex align-items-center">
-                                                 <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                                 <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
-                                                 <button id="sendBtn" type="submit" class="btn me-2"><i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
+                                                         <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2 input-field" placeholder="Write a reply"></textarea>
+                                                         <input type="hidden" id="UserID" name="UserID" value="`+ clientID + `" />
+                                                         <button id="sendBtn" type="submit" class="btn me-2"><i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
             <?php } else if ($_SESSION['type'] == 'client') { ?>
                     $('#formsend').html(`<div class="d-flex align-items-center">
-                                                        <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2" placeholder="Write a reply"></textarea>
-                                                        <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
-                                                        <button id="sendBtn" type="submit" class="btn me-2"> <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
+                                                                        <textarea id="newMessageContent" name="newMessageContent" class="form-control border-0 mx-2 input-field" placeholder="Write a reply"></textarea>
+                                                                        <input type="hidden" id="TherapistID" name="TherapistID" value="`+ therapistID + `" />
+                                                                        <button id="sendBtn" type="submit" class="btn me-2"> <i class="bi px-2 bi-send-fill fs-5" style="cursor: pointer;"></i></button></div>`);
             <?php }
             ?>
-            clearInterval(chatInterval);
-            chatInterval = setInterval(loadChatMessages, 5000);
-            }
-        //     $('.ticket').click(function () {
-        //     $(this).addClass('active');
-        //     var clientID = $(this).data('client-id');
-        //     var therapistID = $(this).data('therapist-id');
-        //     $('#ClientName').text($(this).data('client-name'));
-
-
-        // });
-        var II = 0;
-        var JJ = 0;
+            clearInterval(chatInterval); // Clear any existing interval
+    chatInterval = setInterval(function () {
+        loadChatMessages(clientID, therapistID);
+    }, 1000); // Set a new interval to call loadChatMessages every 1 second
+        }
 
         function loadChatMessages(clientID, therapistID) {
-                $.ajax({
-                    url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
-                    method: 'POST',
-                    data: { clientID: clientID, therapistID: therapistID },
-                    dataType: 'json', // Specify that you expect a JSON response
-                    success: function (response) {
-                        // Display the chat messages in the chatMessagesContainer
-                        //
-                    //     II =response.Count;
-                    //     if(JJ == 0){
-                    //         JJ =response.Count;
-                    //     }
-                    //     if(II != JJ){
-                    //     //scrollEnd()
-                    // }
-
-                        $('#chatMessagesContainer').html(response.html);
-                        CheckOpen = response.Check;
-                        console.log(CheckOpen);
-                        if (CheckOpen == 1 || therapistID < 1000) {
-                            $('#formsend').show();
-                        } else {
-                            $('#formsend').hide();
-                        }
-                        // Use response.Check as needed
-                        
-                    },
-                    error: function () {
-                        //alert('Failed to fetch chat messages.');
+            $.ajax({
+                url: 'get_chat_messages.php', // Replace with the actual PHP script to fetch chat messages
+                method: 'POST',
+                data: { clientID: clientID, therapistID: therapistID },
+                dataType: 'json', // Specify that you expect a JSON response
+                success: function (response) {
+                    $('#chatMessagesContainer').html(response.html);
+                    CheckOpen = response.Check;
+                    console.log(CheckOpen);
+                    if (CheckOpen == 1 || therapistID < 1000) {
+                        $('#formsend').show();
+                    } else {
+                        $('#formsend').hide();
                     }
-                });
-            }
+                    if (!chatBox.classList.contains("active")) {
+                        scrollToBottom();
+                    }
+                },
+                error: function () {
+                    //alert('Failed to fetch chat messages.');
+                }
+            });
+        }
         // Handle form submission to send messages outside of the click event
         $('#formsend').on('submit', function (e) {
             e.preventDefault();
@@ -223,18 +227,14 @@ if (isset($_SESSION['user_id'])) {
                     var therapistID = $('#TherapistID').val();
             <?php } ?>
 
-            // Call an AJAX function to send the message to the server and update chat messages on success
             $.ajax({
                 url: 'send_message.php', // Replace with the actual PHP script to send messages
                 method: 'POST',
                 data: { Message: messageContent, UserID: userID, TherapistID: therapistID },
                 success: function (response) {
-                    // Clear the message input field
                     $('#newMessageContent').val('');
-                    // Reload chat messages to see the new message
-                    loadChatMessages(userID,therapistID);
-                    
-                    
+                    loadChatMessages(userID, therapistID);
+                    scrollToBottom();
                 },
                 error: function () {
                     //alert('Failed to send the message.');
@@ -242,29 +242,21 @@ if (isset($_SESSION['user_id'])) {
             });
         });
         function reloadChatsSection() {
-            // Reload the chats section content here
             $.ajax({
                 url: 'refresh_chats_section.php', // Replace with the actual PHP script to refresh the section
                 method: 'GET',
                 success: function (response) {
-                    // Replace the chats section content with the refreshed content
                     $('#tickets').html(response);
-                    //scrollEnd()
                 },
                 error: function () {
                     //alert('Failed to refresh the chats section.');
                 }
             });
         }
-
-        // Initial load of the chats section
         reloadChatsSection();
-
-        // Set an interval to reload the chats section every minute (60,000 milliseconds)
         setInterval(reloadChatsSection, 2000);
 
     </script>
 </body>
 
 </html>
-
