@@ -14,13 +14,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $priceRangeto = $_POST['priceRangeto'];
     $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
     $tNow = $currentLocalTime->format("H:i");
+    $DNow = $currentLocalTime->format("Y-m-d");
+
+
     $sql = '';
     $sql2 = '';
     if (!empty($date)) {
         $sql .= "SELECT DISTINCT t.* FROM therapists t INNER JOIN appointments a ON t.TherapistID = a.TherapistID WHERE 1";
         $date = isset($_POST['date']) ? $_POST['date'] : '';
         if (!empty($date)) {
-            $sql .= " AND a.Date = '$date' AND a.Time > '$tNow'";
+            if ($DNow < $date) {
+                $sql .= " AND a.Date = '$date'";
+            } else {
+                $sql .= " AND a.Date = '$date' AND a.Time > '$tNow'";
+            }
         }
         $gendermale = isset($_POST['GenderM']) ? 1 : 0;
         $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
@@ -60,7 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql2 .= "SELECT DISTINCT t.* FROM therapists t INNER JOIN sessions a ON t.TherapistID = a.TherapistID WHERE 1";
         $date = isset($_POST['date']) ? $_POST['date'] : '';
         if (!empty($date)) {
-            $sql2 .= " AND a.Date = '$date' AND a.Time > '$tNow'";
+            if ($DNow < $date) {
+                $sql2 .= " AND a.Date = '$date'";
+            } else {
+                $sql2 .= " AND a.Date = '$date' AND a.Time > '$tNow'";
+            }
         }
         $gendermale = isset($_POST['GenderM']) ? 1 : 0;
         $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
@@ -114,18 +125,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $totalappointment = count($result1->fetch_all(MYSQLI_ASSOC));
     $totalsessions = count($result2->fetch_all(MYSQLI_ASSOC));
     $B = ($totalappointment >= $totalsessions) ? 'Yes' : 'No';
-    // echo '<script>
-    //     alert("'.$sql.'  ; '.$sql2.'");
-    //     </script>';
+    echo '<script>
+        alert("' . $sql . '  ; ' . $sql2 . '");
+        </script>';
     if ($B == 'Yes') {
         //echo $B;
         while ($row = $result->fetch_assoc()) {
             if (!empty($date)) {
-                $S = $db->executeQuery("select count(TherapistID) AS S from `sessions` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
-                $A = $db->executeQuery("select count(TherapistID) AS A from `appointments` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
+                if ($DNow < $date) {
+                    $S = $db->executeQuery("select count(TherapistID) AS S from `sessions` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date'")->fetch_assoc();
+                    $A = $db->executeQuery("select count(TherapistID) AS A from `appointments` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date'")->fetch_assoc();
+                } else {
+                    $S = $db->executeQuery("select count(TherapistID) AS S from `sessions` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
+                    $A = $db->executeQuery("select count(TherapistID) AS A from `appointments` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
+                }
+                // $S = $db->executeQuery("select count(TherapistID) AS S from `sessions` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
+                // $A = $db->executeQuery("select count(TherapistID) AS A from `appointments` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
                 $CC = $A['A'] > $S['S'] ? "Free" : "Busy";
                 //echo $A['A'] .' '. $S['S'];
-                if ($CC == "Free") { 
+                if ($CC == "Free") {
 
                     $html = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">';
                     $html .= '<div class="team-item rounded">';
@@ -164,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $html .= '</div>';
                     $html .= '</div>';
                     echo $html;
-                }else{
+                } else {
 
                 }
 
@@ -211,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-            
+
         }
     }
 
