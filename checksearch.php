@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $priceRange = $_POST['priceRange'];
     $priceRangeto = $_POST['priceRangeto'];
     $currentLocalTime = new DateTime('now', new DateTimeZone('Asia/Amman'));
-    $tNow = $currentLocalTime->format("Y-m-d H:i");
+    $tNow = $currentLocalTime->format("H:i");
     $sql = '';
     $sql2 = '';
     if (!empty($date)) {
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $S = $db->executeQuery("select count(TherapistID) AS S from `sessions` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
                 $A = $db->executeQuery("select count(TherapistID) AS A from `appointments` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
                 $CC = $A['A'] > $S['S'] ? "Free" : "Busy";
-
+                //echo $A['A'] .' '. $S['S'];
                 if ($CC == "Free") { 
 
                     $html = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">';
