@@ -24,7 +24,7 @@ if (isset($_POST['addQuestion'])) {
     if ($questionTable->insertQuestion($questionText, $answerText)) {
         // Insertion successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة سوال بنجاح")
         window.location.href = "Questions.php";
         </script>';
         exit;
@@ -43,7 +43,7 @@ if (isset($_GET['deleteQuestion'])) {
     if ($questionTable->deleteQuestion($questionIdToDelete)) {
         // Deletion successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف سوال بنجاح")
         window.location.href = "Questions.php";
         </script>';
         exit;

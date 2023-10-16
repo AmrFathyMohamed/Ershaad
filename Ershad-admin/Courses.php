@@ -38,7 +38,7 @@ if (isset($_POST['addCourse'])) {
     if ($coursesTable->insertCourse($title, $description, $sessions, $price, $type)) {
         // Insertion successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة كورس بنجاح")
         window.location.href = "Courses.php";
         </script>';
         exit;
@@ -59,7 +59,7 @@ if (isset($_POST['updateCourse'])) {
 
     if ($coursesTable->updateCourse($courseId, $title, $description, $sessions, $price, $type)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم تعديل بيانات كورس بنجاح")
         window.location.href = "Courses.php";
         </script>';
         exit;
@@ -78,7 +78,7 @@ if (isset($_GET['deleteCourse'])) {
     if ($coursesTable->deleteCourse($courseIdToDelete)) {
         // Deletion successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف كورس بنجاح")
         window.location.href = "Courses.php";
         </script>';
         exit;
@@ -104,7 +104,7 @@ if (isset($_POST['addCourseTherapist'])) {
 
     if ($stmt) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضاف كورس  للمعالج بنجاح")
         window.location.href = "Courses.php";
         </script>';
         exit;

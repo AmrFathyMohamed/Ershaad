@@ -78,21 +78,22 @@ if (isset($_SESSION['user_id'])) {
 </style>
 
 <!-- Page Header Start -->
-<div class="container-fluid page-header pb-2 mb-5 wow fadeIn" data-wow-delay="1.1s">
+<div class="container-fluid page-header pb-5 mb-5 wow fadeIn" data-wow-delay="1.1s">
   <div class="">
     <div class="container  py-5">
       <nav aria-label="breadcrumb animated slideInDown">
         <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
+          <li class="breadcrumb-item"><a href="index.php" class="text-phone">الرئيسية</a></li>
+          <li class="breadcrumb-item"><a href="search.php" class="text-phone">المعالجين</a></li>
           <li class="breadcrumb-item active" aria-current="page">
             الملف الشخصي لمعالج
           </li>
         </ol>
       </nav>
-      <div class="text-center"><img src="<?= $therapist['Profile']; ?>" style="width: 10vw;" alt=""
-          class="rounded-circle shadow">
+      <div class="text-center mt-3"><img src="<?= $therapist['Profile']; ?>" alt=""
+          class="rounded-circle shadow prof-img">
       </div>
-      <h1 class="animated slideInDown text-center arabic text- mb-4">
+      <h1 class="animated slideInDown text-center arabic text- mb-4" style="text-align: Center !important;">
         <?= $therapist['FullName']; ?>
       </h1>
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white">
@@ -104,6 +105,11 @@ if (isset($_SESSION['user_id'])) {
           <?= $therapist['Rating'] ?>
         </h3>
       </div>
+      <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white"><span>جنية</span><span>
+          <?= $therapist['PriceAfterPercentage'] ?>
+        </span><span class="px-2">/</span><span>ساعة</span></p>
+
+
     </div>
   </div>
 </div>
@@ -229,9 +235,9 @@ if (isset($_SESSION['user_id'])) {
           <div class="service-item rounded h-100 p-4">
             <!-- <h6 class="text-right"> <span>اللغة : <span>العربية</span></span><i class="fa-solid fa-earth-americas ms-2"
                 style="color:#6691cc "></i></h6> -->
-            <h6 class="text-right"> <span>البلد : <span>
+            <h6 class="text-right rtl"><i class="fa-solid fa-flag ms-2" style="color:#6691cc "></i> <span>البلد : <span>
                   <?= $therapist['City']; ?>
-                </span></span><i class="fa-solid fa-flag ms-2" style="color:#6691cc "></i></h6>
+                </span></span></h6>
             <h6 class="text-right"> <span>تاريخ الانضمام : <span>
                   <?= date("Y-m-d", strtotime($therapist['created_at'])); ?>
                 </span></span><i class="fa-regular fa-calendar-check ms-2" style="color:#6691cc "></i></h6>

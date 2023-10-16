@@ -72,7 +72,7 @@ $totalCourses = count($coursesoon);
       <div class="text-center mt-3"><img src="<?= $therapist['Profile']; ?>" alt=""
           class="rounded-circle shadow prof-img">
       </div>
-      <h1 class="animated slideInDown text-center arabic text- mb-4">
+      <h1 class="animated slideInDown text-center arabic text- mb-4" style="text-align: Center !important;">
         <?= $therapist['FullName']; ?>
       </h1>
       <p class="animated slideInDown text-center arabic fs-5 mb-4 text-white">
@@ -366,9 +366,9 @@ $totalCourses = count($coursesoon);
           <div class="service-item rounded h-100 p-4">
             <!-- <h6 class="text-right"> <span>اللغة : <span>العربية</span></span><i class="fa-solid fa-earth-americas ms-2"
                 style="color:#6691cc "></i></h6> -->
-            <h6 class="text-right"> <span>البلد : <span>
+            <h6 class="text-right rtl"><i class="fa-solid fa-flag ms-2" style="color:#6691cc "></i> <span>البلد : <span>
                   <?= $therapist['City']; ?>
-                </span></span><i class="fa-solid fa-flag ms-2" style="color:#6691cc "></i></h6>
+                </span></span></h6>
             <h6 class="text-right"> <span>تاريخ الانضمام : <span>
                   <?= date("Y-m-d", strtotime($therapist['created_at'])); ?>
                 </span></span><i class="fa-regular fa-calendar-check ms-2" style="color:#6691cc "></i></h6>

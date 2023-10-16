@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     if ($Admins->deleteAdmin($adminId)) {
         // Deletion successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف عضو بالادارة بنجاح")
         window.location.href = "Admins.php";
         </script>';
         exit;

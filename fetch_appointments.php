@@ -48,13 +48,20 @@ if (isset($_POST['date'])) {
                 <label  class="check-img-label w-100">
                   <div class="check-img-content pt-2 pb-1">
                     <!-- <img src="img/icon/icon-02-primary.png" class="w-15" alt=""> -->
-                    <h6>No available appointments for the selected date and type.</h6>
-                  </div>
+                    <h6>لا تتوفر مواعيد متاحة لهذا اليوم برجاء تحديد يوم اخر</h6>
+                                      </div>
                 </label>
               </div>';
             }
         } else {
-            echo 'Error fetching appointments.';
+            echo '<div class="col-12 ps-3">
+            <label  class="check-img-label w-100">
+              <div class="check-img-content pt-2 pb-1">
+                <!-- <img src="img/icon/icon-02-primary.png" class="w-15" alt=""> -->
+                <h6>حدث خطا اثناء تحميل المواعيد الرجاء اعادة تحميل الصفحة</h6>
+                                  </div>
+            </label>
+          </div>';
         }
     } catch (PDOException $e) {
         echo 'Database error: ' . $e->getMessage();

@@ -78,7 +78,7 @@ if (isset($_SESSION['user_id'])) {
 </style>
 
 <!-- Page Header Start -->
-<div class="container-fluid page-header p-5 mb-5 wow fadeIn" data-wow-delay="1.1s">
+<!-- <div class="container-fluid page-header p-5 mb-5 wow fadeIn" data-wow-delay="1.1s">
   <div class="">
     <div class="container pb-3 pt-5">
       <nav aria-label="breadcrumb animated slideInDown ">
@@ -86,18 +86,30 @@ if (isset($_SESSION['user_id'])) {
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-              الكورسات
+              
             </li>
           </ol>
           <div>
-            <!-- <button class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#requestCourseModal"><i
-                class="fa-solid fa-pencil me-2"></i>طلب أضافة كورس</button> -->
+             <button class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#requestCourseModal"><i
+                class="fa-solid fa-pencil me-2"></i>طلب أضافة كورس</button> 
           </div>
         </div>
       </nav>
     </div>
   </div>
-</div>
+</div> -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+  <div class="container py-5">
+    <h1 class="display-4 animated slideInDown mb-4">الكورسات</h1>
+    <nav aria-label="breadcrumb animated slideInDown">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+        الكورسات
+        </li>
+      </ol>
+    </nav>
+  </div>
 </div>
 <!-- Page Header End -->
 <!-- tabs start -->
@@ -110,9 +122,9 @@ if (isset($_SESSION['user_id'])) {
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <?php foreach ($course_therapist as $course) { ?>
-    <div class="tab-pane w-55 px-4 mx-auto fade show active" id="pills-home" role="tabpanel"
+    <div class="tab-pane w-75 px-4 mx-auto fade show active" id="pills-home" role="tabpanel"
       aria-labelledby="pills-home-tab">
-      <div class="col-lg-10 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+      <div class="col-lg-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
         <div class="service-item rounded h-100 px-4 pb-2">
           <div class="ms-n5 mb-1">
             <?php if ($course['Status'] == "Pending Review") { ?>
@@ -120,7 +132,7 @@ if (isset($_SESSION['user_id'])) {
                 style="border-top-right-radius: 0px !important;">
                 قيد المراجعة
               </div>
-            <?php } else if ($course['Status'] == "Cancelled") { ?>
+            <?php } else if ($course['Status'] == "Rejected") { ?>
                 <div class="service-icon w-25 text-white bg-danger rounded-end mb-1 me-4"
                   style="border-top-right-radius: 0px !important;">
                   مرفوض

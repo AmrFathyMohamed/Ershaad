@@ -28,7 +28,7 @@ if (isset($_SESSION['user_id'])) {
             );
             if(isset($_POST['T'])){
                 echo '<script>
-        alert("تم بنجاح")
+        alert("تم ارسال الرسالة بنجاح")
         window.location.href = "Client.php";
         </script>';
                 exit;

@@ -35,7 +35,7 @@ if (isset($_POST['updateTherapist'])) {
     $username = $_POST['Username'];
     $email = $_POST['Email'];
     $password = $_POST['Password'];
-    $age = intval($_POST['Age']);
+    $age = intval($_POST['age']);
 
     // Check if a new profile image was uploaded
     if (!empty($_FILES['Profile']['name'])) {
@@ -67,7 +67,7 @@ if (isset($_POST['updateTherapist'])) {
 
             if ($success) {
                 echo '<script>
-        alert("تم بنجاح")
+        alert("تم تعديل بيانات المعالج بنجاح")
         window.location.href = "Therapist.php";
         </script>';
         exit;
@@ -98,7 +98,7 @@ if (isset($_POST['updateTherapist'])) {
 
         if ($success) {
             echo '<script>
-        alert("تم بنجاح")
+        alert("تم تعديل بيانات المعالج بنجاح")
         window.location.href = "Therapist.php";
         </script>';
         exit;
@@ -145,14 +145,13 @@ if (isset($_POST['updateTherapist'])) {
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="specialization" class="form-label">Specialization</label>
-                                <select class="form-select" id="specialization"
-                                    value="<?= $therapistsData['Specialization'] ?>" name="Specialization" required>
-                                    <?php foreach ($specialties as $spec) { ?>
-                                        <option value="<?= $spec["Specialty"] ?>">
-                                            <?= $spec["Specialty"] ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>
+                                <select class="form-select" id="specialization" name="Specialization" required>
+            <?php foreach ($specialties as $spec) { ?>
+                <option value="<?= $spec["Specialty"] ?>" <?php if ($spec["Specialty"] === $therapistsData['Specialization']) { echo 'selected'; } ?>>
+                    <?= $spec["Specialty"] ?>
+                </option>
+            <?php } ?>
+        </select>
                             </div>
                         </div>
                         <div class="col-4">
@@ -285,10 +284,6 @@ if (isset($_POST['updateTherapist'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Close</span>
-                        </button>
                         <button type="submit" class="btn btn-primary" name="updateTherapist">Update Therapist</button>
                     </div>
                 </form>

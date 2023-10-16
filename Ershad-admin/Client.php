@@ -450,7 +450,7 @@ if (isset($_POST['addclient'])) {
     if ($clients->insertclient(...$data)) {
         // Insertion successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة عميل بنجاح")
         window.location.href = "Client.php";
         </script>';
         exit;
@@ -480,7 +480,7 @@ if (isset($_POST['updateclient'])) {
         // Update successful, you can redirect or show a success message
         //        echo '<script>window.location.href = "Client.php";</script>';
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم تعديل بيانات العميل بنجاح")
         window.location.href = "Client.php";
         </script>';
         exit;

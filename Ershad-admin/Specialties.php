@@ -28,7 +28,7 @@ if (isset($_POST['addSpecialty'])) {
     if ($inserted) {
         // Specialty added successfully, you can show a success message or redirect
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة تخصص بنجاح")
         window.location.href = "Specialties.php";
         </script>';
         exit;
@@ -49,7 +49,7 @@ if (isset($_POST['saveSpecialty'])) {
 
     if ($updated) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم تعديل تخصص بنجاح")
         window.location.href = "Specialties.php";
         </script>';
         exit;
@@ -67,7 +67,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 
     if ($deleted) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف تخصص بنجاح")
         window.location.href = "Specialties.php";
         </script>';
         exit;

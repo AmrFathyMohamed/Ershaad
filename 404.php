@@ -62,3 +62,40 @@ Rediect URL : http://localhost/Ershaad/index.php
                             </div>
                         </div>
                     <?php } ?>
+
+
+
+
+
+
+Email Therapist         Password
+youssef@example.com 	securepass12
+sara@example.com 	    strongpwd78
+mahmoud@example.com 	secure123
+lamia@example.com 	    mypassword432
+mohamedali@example.com 	secure123
+reem@example.com 	    strongpwd567
+mohamed@example.com 	mypassword12
+fatma@example.com 	    strongpass45
+ali@example.com 	    mypassword78
+nour@example.com 	    secret123
+
+Email Clients	        Passwor
+fatma@example.com 	    securepwd45
+mahmoud@example.com 	strongpass78
+sara@example.com 	    secret123
+mohamed@example.com 	mypassword56
+nour@example.com 	    pass123
+ali@example.com 	    mypassword98
+reem@example.com 	    strongpass32
+youssef@example.com 	securepwd45
+lamia@example.com 	    secret789
+ahmed@example.com 	    password12
+    
+Email Management Chats	Password
+Ershad2@ershad.net 	    Ershad2023@@
+
+Email Admins	                Passwor
+nourhan.alkady@ershaad.net 	    Ershad2023@
+dareen.mashhour@ershaad.net 	Ershad2023@
+mahinaz.mashhour@ershaad.net 	Ershad2023@

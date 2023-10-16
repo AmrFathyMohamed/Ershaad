@@ -25,7 +25,7 @@ if (isset($_POST['deleteAppointment'])) {
     $appointmentId = $_POST['appointmentId'];
     if ($appointmentTable->deleteAppointment($appointmentId)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف ميعاد بنجاح")
         window.location.href = "Therapist.php";
         </script>';
         exit;
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['documentId'])) {
     // Delete the document from the database
     if ($documentsTable->deleteDocument($documentId)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف وثيقة بنجاح")
         window.location.href = "Therapist.php";
         </script>';
         exit;
@@ -63,7 +63,7 @@ if (isset($_POST['addAppointment'])) {
     $tid = $_POST['therapistId'];
     if ($appointmentTable->insertAppointment($dateS, $dateE, $timeS, $timeE, $type, $tid)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة ميعاد بنجاح")
         window.location.href = "Therapist.php";
         </script>';
         exit;
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['therapistId']) && iss
             // Insert the document into the database
             if ($documentsTable->insertDocument($therapistID, $documentName, $documentOrganization, $documentDate, $documentType, 'Ershad-admin/' . $targetDir . $uniqueFilename)) {
                 echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة وثيقة بنجاح")
         window.location.href = "Therapist.php";
         </script>';
                 exit;

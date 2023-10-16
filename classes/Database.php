@@ -8,7 +8,7 @@ class Database
     // private $database = "ershad";
     // private $conn;
 
-    private $host = "ershaad.net";
+    private $host = "185.224.138.95";
     private $username = "u853470417_ershaad";
     private $password = "Ershad2023@@";
     private $database = "u853470417_ershaad";
@@ -22,11 +22,14 @@ class Database
             die("Connection failed: " . $this->conn->connect_error);
         } else {
             $query = "UPDATE therapists AS t
-            JOIN (
-                SELECT TherapistID, AVG(UserRate) AS AvgRating
-                FROM sessions WHERE Status = 'Accepted' AND UserRate IS NOT NULL GROUP BY TherapistID
-            ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID SET t.Rating = avg_ratings.AvgRating;";
-            $this->executeQuery($query);
+    JOIN (
+        SELECT TherapistID, CEIL((CEIL(AVG(UserRate))+5)/2) AS AvgRating
+        FROM sessions
+        WHERE Status = 'Accepted' AND UserRate IS NOT NULL
+        GROUP BY TherapistID
+    ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID SET t.Rating = avg_ratings.AvgRating;";
+$this->executeQuery($query);
+
         }
     }
     public function executeQuery($query)

@@ -27,7 +27,7 @@ if (isset($_POST['addAdmin'])) {
 
     if ($admins->insertAdmin(...$data)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة عضو بالادارة بنجاح")
         window.location.href = "Admins.php";
         </script>';
         exit;
@@ -50,7 +50,7 @@ if (isset($_POST['updateAdmin'])) {
 
     if ($admins->updateAdmin(...$data)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم تعديل بيانات العضو بالادارة بنجاح")
         window.location.href = "Admins.php";
         </script>';
         exit;
@@ -68,7 +68,7 @@ if (isset($_GET['deleteAdmin'])) {
 
     if ($admins->deleteAdmin($adminIdToDelete)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف عضو بالادارة بنجاح")
         window.location.href = "Admins.php";
         </script>';
         exit;

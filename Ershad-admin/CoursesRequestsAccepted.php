@@ -33,19 +33,9 @@ if (isset($_SESSION['user_id'])) {
     $sessionTable = new SessionTable($database);
     $courseClientTable = new CourseClientTable($database);
     $courseTable = new CourseTable($database);
-
-    // Review
-    //Accepted
     $courseTableAccepted = $courseClientTable->getAllCourseClients('Accepted');
 
-
-    // Fetch course requests from clients with 'Pending' status
-    // $courseRequests = $courseClientTable->getCourseRequestsByStatus('Pending');
-
-    // // Handle changing the status of a course request to 'Accepted'
-
 } else {
-    // Redirect or display an error message for unauthorized access
     header("Location: index.php");
     exit;
 }

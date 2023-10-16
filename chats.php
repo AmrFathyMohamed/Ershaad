@@ -98,7 +98,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="row w-90 mx-auto border rounded-3 bg-white shadow">
             <div class="col-md-4 col-sm-12 px-0 border-end active-ticktes-out">
                 <div class="col-12 d-flex justify-content-end align-items-center  border-bottom tickets-header">
-                    <h6 class="m-0"><img src="assets/images/ticketsSide.svg" alt="" class="w-100 pe-2 ">جميع المحادثات
+                    <h6 class="m-0"style=" margin-right: 15px !important; "><img src="assets/images/ticketsSide.svg" alt="" class="w-100 pe-2 " >جميع المحادثات
                     </h6>
                 </div>
                 <div class="tickets px-0" id="tickets">
@@ -136,14 +136,6 @@ if (isset($_SESSION['user_id'])) {
         chatBox.onmouseleave = () => {
             chatBox.classList.remove("active");
         }
-        // inputField.focus();
-        // inputField.onkeyup = () => {
-        //     if (inputField.value != "") {
-        //         sendBtn.classList.add("active");
-        //     } else {
-        //         sendBtn.classList.remove("active");
-        //     }
-        // }
         function copyMessage(element) {
             var textToCopy = element.querySelector('p').textContent;
             var textArea = document.createElement('textarea');
@@ -155,11 +147,6 @@ if (isset($_SESSION['user_id'])) {
             document.body.removeChild(textArea);
             toast("تم نسخ الرسالة ")
         }
-        // // scrollEnd()
-        // function scrollEnd() {
-        //     $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);
-        //     $(".chat-content").animate({ scrollTop: $(".chat-content")[0].scrollHeight }, 2000);
-        // }
          scrollToStart()
         function scrollToStart() {
             $(".tickets").scrollTop(0);
@@ -187,7 +174,7 @@ if (isset($_SESSION['user_id'])) {
             clearInterval(chatInterval); // Clear any existing interval
     chatInterval = setInterval(function () {
         loadChatMessages(clientID, therapistID);
-    }, 1000); // Set a new interval to call loadChatMessages every 1 second
+    }, 7000); // Set a new interval to call loadChatMessages every 1 second
         }
 
         function loadChatMessages(clientID, therapistID) {
@@ -254,7 +241,7 @@ if (isset($_SESSION['user_id'])) {
             });
         }
         reloadChatsSection();
-        setInterval(reloadChatsSection, 2000);
+        setInterval(reloadChatsSection, 7000);
 
     </script>
 </body>

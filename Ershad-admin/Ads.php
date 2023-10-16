@@ -34,7 +34,7 @@ if (isset($_POST['addAd'])) {
             // Insert the file path into the database
             if ($adsTable->insertAd('Ershad-admin/' . $targetDir . $uniqueFilename)) {
                 echo '<script>
-                alert("تم بنجاح")
+                alert("تم اضافة اعلان بنجاح")
                 window.location.href = "Ads.php";
                 </script>';
                 exit;
@@ -57,7 +57,7 @@ if (isset($_GET['deleteAd'])) {
 
     if ($adsTable->deleteAd($adIdToDelete)) {
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم حذف اعلان بنجاح")
         window.location.href = "Ads.php";
         </script>';
         exit;

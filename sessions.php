@@ -69,28 +69,18 @@ if (isset($_SESSION['user_id'])) {
 
 
 <!-- Page Header Start -->
-<div class="container-fluid page-header p-5 mb-5 wow fadeIn" data-wow-delay="1.1s">
-  <div class="">
-    <div class="container pb-3 pt-5">
-      <nav aria-label="breadcrumb animated slideInDown ">
-        <div class="d-flex justify-content-between">
-          <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="v">الرئيسية</a></li>
-            <li class="breadcrumb-item active" aria-current="page">
-              الجلسات
-            </li>
-          </ol>
-
-        </div>
-
-      </nav>
-
-    </div>
-
-
-
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+  <div class="container py-5">
+    <h1 class="display-4 animated slideInDown mb-4">الجلسات</h1>
+    <nav aria-label="breadcrumb animated slideInDown">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+        الجلسات
+        </li>
+      </ol>
+    </nav>
   </div>
-</div>
 </div>
 <!-- Page Header End -->
 <!-- tabs start -->

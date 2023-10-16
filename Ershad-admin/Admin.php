@@ -597,7 +597,7 @@ if (isset($_POST['addTherapist'])) {
     if ($therapists->insertTherapist(...$data)) {
         // Insertion successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة عضو بالادارة بنجاح")
         window.location.href = "Therapist.php";
         </script>';
         exit;
@@ -636,7 +636,7 @@ if (isset($_POST['updateTherapist'])) {
     if ($therapists->updateTherapist(...$data)) {
         // Update successful, you can redirect or show a success message
         echo '<script>
-        alert("تم بنجاح")
+        alert("تم تعديل بيانات العضو بالادارة بنجاح")
         window.location.href = "Therapist.php";
         </script>';
         exit;

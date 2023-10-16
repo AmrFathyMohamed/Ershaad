@@ -19,7 +19,7 @@ if (isset($_SESSION['user_id'])) {
         if ($sessions->updateSession($courseClientId, 'Accepted','Status')) {
 
             echo '<script>
-        alert("تم بنجاح")
+        alert("تم الموافقة على الجلسة بنجاح")
         window.location.href = "Sessions.php";
         </script>';
             exit;
@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id'])) {
 
         if ($sessions->updateSession($courseClientId, 'Rejected','Status')) {
             echo '<script>
-        alert("تم بنجاح")
+        alert("تم رفض الجلسة بنجاح")
         window.location.href = "Sessions.php";
         </script>';
             exit;
@@ -49,7 +49,7 @@ if (isset($_SESSION['user_id'])) {
             if ($sessions->updateSession($courseClientId, 'Accepted','CStatus')) {
     
                 echo '<script>
-            alert("تم بنجاح")
+            alert("تم الموافقة على التعليق بنجاح")
             window.location.href = "Sessions.php";
             </script>';
                 exit;
@@ -62,7 +62,7 @@ if (isset($_SESSION['user_id'])) {
     
             if ($sessions->updateSession($courseClientId, 'Rejected','CStatus')) {
                 echo '<script>
-            alert("تم بنجاح")
+            alert("تم رفض التعليق بنجاح")
             window.location.href = "Sessions.php";
             </script>';
                 exit;

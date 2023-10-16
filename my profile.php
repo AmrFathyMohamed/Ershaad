@@ -273,7 +273,7 @@ if (isset($_SESSION['user_id'])) {
               style="border-top-right-radius: 0px !important;">
               قيد المراجعة
             </div>
-          <?php } else if ($course['Status'] == "Cancelled") { ?>
+          <?php } else if ($course['Status'] == "Rejected") { ?>
               <div class="service-icon w-25 text-white bg-danger rounded-end mb-1 me-4"
                 style="border-top-right-radius: 0px !important;">
                 مرفوض

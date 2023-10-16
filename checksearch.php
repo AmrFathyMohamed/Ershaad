@@ -4,8 +4,6 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Include the Database class
     require_once 'classes/Database.php';
-    // Get form input values
-    //$query = $_POST['query'];
     $date = isset($_POST['date']) ? $_POST['date'] : null;
     $gendermale = isset($_POST['GenderM']) ? 1 : 0;
     $genderfemale = isset($_POST['GenderF']) ? 1 : 0;
@@ -125,9 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $totalappointment = count($result1->fetch_all(MYSQLI_ASSOC));
     $totalsessions = count($result2->fetch_all(MYSQLI_ASSOC));
     $B = ($totalappointment >= $totalsessions) ? 'Yes' : 'No';
-    echo '<script>
-        alert("' . $sql . '  ; ' . $sql2 . '");
-        </script>';
+    
     if ($B == 'Yes') {
         //echo $B;
         while ($row = $result->fetch_assoc()) {
@@ -139,10 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $S = $db->executeQuery("select count(TherapistID) AS S from `sessions` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
                     $A = $db->executeQuery("select count(TherapistID) AS A from `appointments` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
                 }
-                // $S = $db->executeQuery("select count(TherapistID) AS S from `sessions` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
-                // $A = $db->executeQuery("select count(TherapistID) AS A from `appointments` WHERE TherapistID = " . $row["TherapistID"] . " AND Date = '$date' AND Time >= '$tNow'")->fetch_assoc();
+                
                 $CC = $A['A'] > $S['S'] ? "Free" : "Busy";
-                //echo $A['A'] .' '. $S['S'];
                 if ($CC == "Free") {
 
                     $html = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">';
@@ -192,7 +186,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $html .= '<img class="img-fluid" style="object-fit: cover; width: 100%;height: 200px;" src="' . $row["Profile"] . '" alt="" />';
                 $html .= '<div class="text-center p-4">';
                 $html .= '<h5 class="text-">' . $row["FullName"] . '</h5>';
-                // $html .= '<h5 class="text-">' . $row["SessionScheduled"] . '</h5>';
 
                 $html .= '<span>' . $row["Specialization"] . '</span>';
                 $html .= '</div>';
@@ -233,7 +226,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Close the database connection
-    //$conn->close();
 }
 ?>

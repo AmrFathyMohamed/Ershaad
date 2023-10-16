@@ -58,7 +58,7 @@ if (isset($_POST['addTherapist'])) {
 
             if ($success) {
                 echo '<script>
-        alert("تم بنجاح")
+        alert("تم اضافة المعالج بنجاح")
         window.location.href = "Therapist.php";
         </script>';
                 exit;

@@ -149,7 +149,7 @@ class TherapistTable
         $sql = "SELECT T.*, COUNT(S.SessionID) AS SessionCount
             FROM therapists T
             LEFT JOIN sessions S ON T.TherapistID = S.TherapistID
-            Where TherapistID > 1000";
+            Where T.TherapistID > 1000";
 
         if ($therapistName !== 'All') {
             $sql .= " AND T.FullName LIKE '%$therapistName%'";
