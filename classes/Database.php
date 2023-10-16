@@ -25,7 +25,7 @@ class Database
     JOIN (
         SELECT TherapistID, CEIL((CEIL(AVG(UserRate))+5)/2) AS AvgRating
         FROM sessions
-        WHERE Status = 'Accepted' AND UserRate IS NOT NULL
+        WHERE Status = 'Accepted' AND CStatus = 'Accepted' AND UserRate IS NOT NULL
         GROUP BY TherapistID
     ) AS avg_ratings ON t.TherapistID = avg_ratings.TherapistID SET t.Rating = avg_ratings.AvgRating;";
 $this->executeQuery($query);
