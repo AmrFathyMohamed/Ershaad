@@ -130,7 +130,9 @@
 <!-- forget pass Modal end-->
 <!-- Edit info Modal -->
 <?php if (isset($_SESSION['user_id'])) {
-    if ($_SESSION['type'] == 'client') { ?>
+    if ($_SESSION['type'] == 'client') { 
+        ?>
+     
         <div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-">
                 <div class="modal-content">

@@ -15,11 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Create an instance of the Database class
     
     // Attempt to log in the user
-    if($Gender == 'no'){
-        $Gender = "Male";
-    }else{
-        $Gender = "Female";
-    }
+    // if($Gender == 'no'){
+    //     $Gender = "Male";
+    // }else{
+    //     $Gender = "Female";
+    // }
+
     $user = $client->updateClientDate($clientId,$Gender,$Age,$City,$Phone);
 
     if ($user) {
