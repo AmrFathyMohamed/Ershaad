@@ -157,69 +157,66 @@
                             </div>
                             <div class="col-sm-12 mt-3">
                                 <p class="me- right">النوع</p>
-                                <?php if ($client['Gender'] == "Male") { ?>
-                                    <div class="d-flex flex-row-reverse">
-                                        <div class="form-check form-check-primary me-3">
-                                            <input class="form-check-input" type="radio" name="Gender" id="Male" checked>
-                                            <label class="form-check-label" for="Male">
-                                                ذكر
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-primary me-3">
-                                            <input class="form-check-input" type="radio" name="Gender" id="Female">
-                                            <label class="form-check-label" for="Female">
-                                                انثي
-                                            </label>
-                                        </div>
+                                <div class="d-flex flex-row-reverse">
+                                    <div class="form-check form-check-primary me-3">
+                                        <input class="form-check-input" type="radio" name="Gender" value="Male" id="Male" <?php if ($client['Gender'] === "Male")
+                                            echo 'checked'; ?>>
+                                        <label class="form-check-label" for="Male">
+                                            ذكر
+                                        </label>
                                     </div>
-                                <?php } else { ?>
-                                    <div class="d-flex flex-row-reverse">
-                                        <div class="form-check form-check-primary me-3">
-                                            <input class="form-check-input" type="radio" name="Gender" id="Male">
-                                            <label class="form-check-label" for="Male">
-                                                ذكر
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-primary me-3">
-                                            <input class="form-check-input" type="radio" name="Gender" id="Female" checked>
-                                            <label class="form-check-label" for="Female">
-                                                انثي
-                                            </label>
-                                        </div>
+                                    <div class="form-check form-check-primary me-3">
+                                        <input class="form-check-input" type="radio" name="Gender" value="Female" id="Female"
+                                            <?php if ($client['Gender'] === "Female")
+                                                echo 'checked'; ?>>
+                                        <label class="form-check-label" for="Female">
+                                            انثى
+                                        </label>
                                     </div>
-                                <?php } ?>
+                                </div>
+
                             </div>
                             <div class="col-sm-12 mt-3">
                                 <p for="city" class="form-label right">المدينة</p>
-                                <select class="form-select" id="City" name="City" value="<?= $client['City'] ?>" required>
-                                    <option value="Alexandria">Alexandria</option>
-                                    <option value="Aswan">Aswan</option>
-                                    <option value="Asyut">Asyut</option>
-                                    <option value="Beheira">Beheira</option>
-                                    <option value="Beni Suef">Beni Suef</option>
-                                    <option value="Cairo">Cairo</option>
-                                    <option value="Dakahlia">Dakahlia</option>
-                                    <option value="Damietta">Damietta</option>
-                                    <option value="Faiyum">Faiyum</option>
-                                    <option value="Gharbia">Gharbia</option>
-                                    <option value="Giza">Giza</option>
-                                    <option value="Ismailia">Ismailia</option>
-                                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
-                                    <option value="Luxor">Luxor</option>
-                                    <option value="Matrouh">Matrouh</option>
-                                    <option value="Minya">Minya</option>
-                                    <option value="Monufia">Monufia</option>
-                                    <option value="New Valley">New Valley</option>
-                                    <option value="North Sinai">North Sinai</option>
-                                    <option value="Port Said">Port Said</option>
-                                    <option value="Qalyubia">Qalyubia</option>
-                                    <option value="Qena">Qena</option>
-                                    <option value="Red Sea">Red Sea</option>
-                                    <option value="Sharqia">Sharqia</option>
-                                    <option value="Sohag">Sohag</option>
-                                    <option value="South Sinai">South Sinai</option>
-                                    <option value="Suez">Suez</option>
+                                <select class="form-select" id="City" name="City" required>
+                                    <?php
+                                    $cities = [
+                                        "Alexandria",
+                                        "Aswan",
+                                        "Asyut",
+                                        "Beheira",
+                                        "Beni Suef",
+                                        "Cairo",
+                                        "Dakahlia",
+                                        "Damietta",
+                                        "Faiyum",
+                                        "Gharbia",
+                                        "Giza",
+                                        "Ismailia",
+                                        "Kafr El Sheikh",
+                                        "Luxor",
+                                        "Matrouh",
+                                        "Minya",
+                                        "Monufia",
+                                        "New Valley",
+                                        "North Sinai",
+                                        "Port Said",
+                                        "Qalyubia",
+                                        "Qena",
+                                        "Red Sea",
+                                        "Sharqia",
+                                        "Sohag",
+                                        "South Sinai",
+                                        "Suez"
+                                    ];
+
+                                    foreach ($cities as $city) {
+                                        $selected = ($client['City'] === $city) ? 'selected' : '';
+                                        echo "<option value=\"$city\" $selected>$city</option>";
+                                    }
+                                    ?>
                                 </select>
+
 
                             </div>
 
@@ -298,13 +295,13 @@
     emailjs.init("8IqpS-2yL8vNVUlT-");
     function SendUrgent() {
         emailjs.send("service_66qxkf7", "template_6mvctvj", {
-        to_email: "mahinazatfy2@gmail.com"
-      }).then(function (response) {
-        // alert("سيتم التواصل معك في أقرب وقت لتأكيد الحجز");
-        alert("Email sent successfully!");        
-      }, function (error) {
-        console.error("Email sending failed:", error);
-      });
+            to_email: "mahinazatfy2@gmail.com"
+        }).then(function (response) {
+            // alert("سيتم التواصل معك في أقرب وقت لتأكيد الحجز");
+            alert("Email sent successfully!");
+        }, function (error) {
+            console.error("Email sending failed:", error);
+        });
     }
 </script>
 <script>
