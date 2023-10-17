@@ -114,7 +114,7 @@ if (isset($_POST['addTherapist'])) {
                                 <label for="specialization" class="form-label">Specialization</label>
                                 <select class="form-select" id="specialization" name="specialization" required>
                                     <?php foreach ($specialties as $spec) { ?>
-                                        <option value="<?= $spec["Specialty"] ?>">
+                                        <option value="<?= $spec["Specialty"] ?>" <?php if ($spec["Specialty"] === $therapistsData['Specialization']) { echo 'selected'; } ?>>
                                             <?= $spec["Specialty"] ?>
                                         </option>
                                     <?php } ?>

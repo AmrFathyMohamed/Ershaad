@@ -536,7 +536,7 @@ function showAdminChat(userID){
                     // Populate the form fields with data
                     $('#edit_fullName').val(data.FullName);
                     $('#edit_city').val(data.City);
-                    $('input[name="edit_gender"][value="' + data.Gender + '"]').prop('checked', true);
+                    $('#edit_gender').val(data.Gender);
                     $('#edit_phone').val(data.Phone);
                     $('#edit_username').val(data.Username);
                     $('#edit_email').val(data.Email);

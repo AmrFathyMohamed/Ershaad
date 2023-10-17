@@ -209,7 +209,8 @@ if (isset($_SESSION['user_id'])) {
                         <label for="specialization" class="form-label">Specialization</label>
                         <select class="form-select" id="specialization" name="specialization" required>
                             <?php foreach ($specialties as $spec) { ?>
-                                <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
+                                <option value="<?= $spec["Specialty"] ?>" <?php if ($spec["Specialty"] === $therapistsData['Specialization']) { echo 'selected'; } ?>>
+                                <?= $spec["Specialty"] ?></option>
                             <?php } ?>
 
                             <!-- Add more options as needed -->
@@ -345,7 +346,8 @@ if (isset($_SESSION['user_id'])) {
                         <label for="specialization" class="form-label">Specialization</label>
                         <select class="form-select" id="edit_specialization" name="edit_specialization" required>
                             <?php foreach ($specialties as $spec) { ?>
-                                <option value="<?= $spec["Specialty"] ?>"><?= $spec["Specialty"] ?></option>
+                                <option value="<?= $spec["Specialty"] ?>" <?php if ($spec["Specialty"] === $therapistsData['Specialization']) { echo 'selected'; } ?>>
+                                <?= $spec["Specialty"] ?></option>
                             <?php } ?>
 
                             <!-- Add more options as needed -->
