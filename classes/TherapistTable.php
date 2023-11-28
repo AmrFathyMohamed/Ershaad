@@ -67,6 +67,12 @@ class TherapistTable
         if ($stmt2 === false) {
             return false;
         }
+        
+        $query2 = "DELETE FROM course_client WHERE TherapistID = $therapistId";
+        $stmt2 = $this->db->executeQuery($query2);
+        if ($stmt2 === false) {
+            return false;
+        }
         $query3 = "DELETE FROM documents WHERE TherapistID = $therapistId";
         $stmt3 = $this->db->executeQuery($query3);
         if ($stmt3 === false) {
