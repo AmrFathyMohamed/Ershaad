@@ -66,31 +66,34 @@ class TherapistTable
         $stmt2 = $this->db->executeQuery($query2);
         if ($stmt2 === false) {
             return false;
-        }
-        
-        $query2 = "DELETE FROM course_client WHERE TherapistID = $therapistId";
-        $stmt2 = $this->db->executeQuery($query2);
-        if ($stmt2 === false) {
-            return false;
-        }
-        $query3 = "DELETE FROM documents WHERE TherapistID = $therapistId";
+        }        
+        $query3 = "DELETE FROM course_client WHERE TherapistID = $therapistId";
         $stmt3 = $this->db->executeQuery($query3);
         if ($stmt3 === false) {
             return false;
         }
-        $query4 = "DELETE FROM appointments WHERE TherapistID = $therapistId";
+        $query4 = "DELETE FROM documents WHERE TherapistID = $therapistId";
         $stmt4 = $this->db->executeQuery($query4);
         if ($stmt4 === false) {
             return false;
         }
-        $query5 = "DELETE FROM chats WHERE TherapistID = $therapistId";
+        $query5 = "DELETE FROM appointments WHERE TherapistID = $therapistId";
         $stmt5 = $this->db->executeQuery($query5);
         if ($stmt5 === false) {
             return false;
         }
-        $query6 = "DELETE FROM $this->table WHERE TherapistID = $therapistId";
+        
+        $query6 = "DELETE FROM chats WHERE TherapistID = $therapistId";
         $stmt6 = $this->db->executeQuery($query6);
-        return $stmt6 !== false;
+        if ($stmt6 === false) {
+            return false;
+        }
+        $query7 = "DELETE FROM $this->table WHERE TherapistID = $therapistId";
+        $stmt7 = $this->db->executeQuery($query7);
+        if ($stmt7 === false) {
+            return false;
+        }
+        return true;
     }
 
 

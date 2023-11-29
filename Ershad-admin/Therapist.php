@@ -383,9 +383,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['therapistId']) && iss
             $('#deletedTherName').val(thId);
         };
         $('#confirmDelete').click(function () {
-            let therapistId = $('#deletedTherName').val();
+            let therapistId = parseInt($('#deletedTherName').val());
                 $.ajax({
-                    url: 'deletetherapist.php',
+                    url: 'deleteTherapist.php',
                     method: 'GET',
                     data: { TherapistID: therapistId },
                     dataType: 'json',
