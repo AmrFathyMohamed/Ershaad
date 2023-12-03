@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['therapistId']) && iss
 
                                             <a class="dropdown-item pointer delete-therapist" href="#"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                onclick="confirmDeleteInputs(<?= $therapist['TherapistID']; ?>,<?= $therapist['FullName']; ?>)">Delete</a>
+                                                onclick="confirmDeleteInputs(<?= $therapist['TherapistID']; ?>,'<?= $therapist['FullName']; ?>')">Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -249,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['therapistId']) && iss
             <div class="modal-body">
                 <h4 class="text-center">Are you sure you want to delete this therapist?</h4>
                 <p class="text-center" id="therapistFullName"></p>
-                <input type="text" id="deletedTherName" hidden>
+                <input type="number" id="deletedTherName" hidden>
                 <div class="text-center">
                     <button class="btn btn-danger w-35 mt-5" id="confirmDelete">Delete</button>
                 </div>
