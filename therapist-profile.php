@@ -101,7 +101,7 @@ $totalCourses = count($coursesoon);
       <div class="col-12">
         <h6 class="text-right">المواعيد المتاحة</h6>
       </div>
-      <div class="row gx-4" id="availableDates">
+      <div class="row gx-3" id="availableDates">
 
       </div>
       <div class="text-center mt-5">
@@ -111,10 +111,10 @@ $totalCourses = count($coursesoon);
             <button class="btn btn-primary px-4 col-12 col-md-3" onclick="reservePeriod()" id="reserveSession"> حجز هذا
               الموعد</button>
           <?php } else { ?>
-            <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
+            <a href="login.php" class="btn btn-primary px-4 my-2 d-md-block">تسجيل الدخول</a>
           <?php }
         } else { ?>
-          <a href="login.php" class="btn btn-light px-4 d-none d-md-block">تسجيل الدخول</a>
+          <a href="login.php" class="btn btn-primary px-4 my-2 d-md-block">تسجيل الدخول</a>
         <?php } ?>
 
       </div>
