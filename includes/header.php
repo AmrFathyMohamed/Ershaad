@@ -2,10 +2,10 @@
 session_start();
 ?>
 <?php include("./classes/Database.php"); ?>
-<?php include("./classes/SpecialtiesTable.php"); 
+<?php include("./classes/SpecialtiesTable.php");
 include("classes/ClientTable.php");
 
-include("config.php"); 
+include("config.php");
 ?>
 <?php
 $database = new Database();
@@ -14,12 +14,12 @@ $specialties = $SpecialtiesObject->getDataByTableName();
 
 
 if (isset($_SESSION['user_id'])) {
-if ($_SESSION['type'] == 'client') {
-    $userId = $_SESSION['user_id'];
-    $database = new Database();
-    $clientTable = new ClientTable($database);
-    $client = $clientTable->getClientById($userId);
-  }
+    if ($_SESSION['type'] == 'client') {
+        $userId = $_SESSION['user_id'];
+        $database = new Database();
+        $clientTable = new ClientTable($database);
+        $client = $clientTable->getClientById($userId);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -38,31 +38,16 @@ if ($_SESSION['type'] == 'client') {
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
     <!--***************** -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css"
-        integrity="sha512-UiKdzM5DL+I+2YFxK+7TDedVyVm7HMp/bN85NeWMJNYortoll+Nd6PU9ZDrZiaOsdarOyk9egQm6LOJZi36L2g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap-grid.min.css"
-        integrity="sha512-2cWcZ9cbPMZFm2inlFOhwsBVbNMmNxKBtVXqL8OY9tXCZahhnIfXMxPCzpKqiHF2I2mOiNHNXEDUDglwd+4uYw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css" integrity="sha512-UiKdzM5DL+I+2YFxK+7TDedVyVm7HMp/bN85NeWMJNYortoll+Nd6PU9ZDrZiaOsdarOyk9egQm6LOJZi36L2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap-grid.min.css" integrity="sha512-2cWcZ9cbPMZFm2inlFOhwsBVbNMmNxKBtVXqL8OY9tXCZahhnIfXMxPCzpKqiHF2I2mOiNHNXEDUDglwd+4uYw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
-    integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css"
-    integrity="sha512-UiKdzM5DL+I+2YFxK+7TDedVyVm7HMp/bN85NeWMJNYortoll+Nd6PU9ZDrZiaOsdarOyk9egQm6LOJZi36L2g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.27/sweetalert2.min.css"
-    integrity="sha512-IScV5kvJo+TIPbxENerxZcEpu9VrLUGh1qYWv6Z9aylhxWE4k4Fch3CHl0IYYmN+jrnWQBPlpoTVoWfSMakoKA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css" integrity="sha512-UiKdzM5DL+I+2YFxK+7TDedVyVm7HMp/bN85NeWMJNYortoll+Nd6PU9ZDrZiaOsdarOyk9egQm6LOJZi36L2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.27/sweetalert2.min.css" integrity="sha512-IScV5kvJo+TIPbxENerxZcEpu9VrLUGh1qYWv6Z9aylhxWE4k4Fch3CHl0IYYmN+jrnWQBPlpoTVoWfSMakoKA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!--******************* -->
 <link href="lib/animate/animate.min.css" rel="stylesheet" />
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
@@ -77,8 +62,7 @@ if ($_SESSION['type'] == 'client') {
 
 <body>
     <!-- Spinner Start -->
-    <div id="spinner"
-        class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" style="background: #15233c;">
+    <div id="spinner" class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" style="background: #15233c;">
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
     <!-- Spinner End -->
@@ -112,15 +96,20 @@ if ($_SESSION['type'] == 'client') {
                 <img class="img-fluid me-3" src="img/logo-h.png" alt="" />
             </h1>
         </a>
+        <?php
+        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {
+        } else { ?>
+            <a href="login.php" class="btn btn-light px-3 btn-sm d-block ">تسجيل الدخول</a>
+        <?php } ?>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
+            <i class="bi bi-list fs-1 text-white"></i>
         </button>
         <?php
         if (isset($_SESSION['type'])) {
             if ($_SESSION['type'] == 'therapist' && $_SESSION['user_id'] != 0) {
-                ?>
+        ?>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">                    
+                    <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
                         <a href="sessions.php" class="nav-item nav-link px-3  text-white">الجلسات</a>
                         <a href="chats.php" class="nav-item nav-link px-3  text-white">المحادثات</a>
                         <a href="courses.php" class="nav-item nav-link px-3 text-white">الكورسات</a>
@@ -131,15 +120,14 @@ if ($_SESSION['type'] == 'client') {
                             <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
                             <div class="dropdown-menu bg-light border-0 m-0">
                                 <?php foreach ($specialties as $spec) { ?>
-                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
-                                        class="dropdown-item"><?= $spec["Specialty"] ?></a>
+                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>" class="dropdown-item"><?= $spec["Specialty"] ?></a>
                                 <?php } ?>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php } else if ($_SESSION['type'] == 'client' || $_SESSION['user_id'] == 0) {
-                ?>
+            ?>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
                         <a href="chats.php" class="nav-item nav-link px-3  text-white">المحادثات</a>
@@ -150,8 +138,7 @@ if ($_SESSION['type'] == 'client') {
                             <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
                             <div class="dropdown-menu bg-light border-0 m-0">
                                 <?php foreach ($specialties as $spec) { ?>
-                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
-                                        class="dropdown-item"><?= $spec["Specialty"] ?></a>
+                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>" class="dropdown-item"><?= $spec["Specialty"] ?></a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -167,8 +154,7 @@ if ($_SESSION['type'] == 'client') {
                             <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
                             <div class="dropdown-menu bg-light border-0 m-0">
                                 <?php foreach ($specialties as $spec) { ?>
-                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
-                                        class="dropdown-item"><?= $spec["Specialty"] ?></a>
+                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>" class="dropdown-item"><?= $spec["Specialty"] ?></a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -180,50 +166,47 @@ if ($_SESSION['type'] == 'client') {
         <?php
         if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fullname']) && isset($_SESSION['type'])) {
             $userId = $_SESSION['user_id'];
-            if ($_SESSION['type'] != 'admin') {?>
-            <a href="#" class="d-inline-block mx-2 fs-5 " 
-                style="color: #7892aa;"><?= $_SESSION['fullname'] ?></a>
-            <div class="nav-item dropdown">
-                <a class="btn btn-square ms-1 btn-info rounded-circle"  data-bs-toggle="dropdown">
-                        <img src="img/user.png" style="width: 3vw;background: white;" alt=""
-          class="rounded-circle shadow">
-                </a><div class="dropdown-menu bg-light border-0 m-0 shadow">
-                <?php
-                if($_SESSION['type'] === 'client') { ?>                    
-                    <a href="my profile.php" class="dropdown-item">الملف الشخصي</a>
-                <?php } else if($_SESSION['type'] === 'therapist') { ?>
-                    <a href="my profile - therapist.php" class="dropdown-item">الملف الشخصي</a>
-                <?php } ?>                
-                    <a class="dropdown-item " data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
-                        الشخصية</a>
-                     <a class="dropdown-item " data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة 
-                        المرور</a>
-                    <a class="dropdown-item  text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
+            if ($_SESSION['type'] != 'admin') { ?>
+                <a href="#" class="d-inline-block mx-2 fs-5 " style="color: #7892aa;"><?= $_SESSION['fullname'] ?></a>
+                <div class="nav-item dropdown">
+                    <a class="btn btn-square ms-1 btn-info rounded-circle" data-bs-toggle="dropdown">
+                        <img src="img/user.png" style="width: 3vw;background: white;" alt="" class="rounded-circle shadow">
+                    </a>
+                    <div class="dropdown-menu bg-light border-0 m-0 shadow">
+                        <?php
+                        if ($_SESSION['type'] === 'client') { ?>
+                            <a href="my profile.php" class="dropdown-item">الملف الشخصي</a>
+                        <?php } else if ($_SESSION['type'] === 'therapist') { ?>
+                            <a href="my profile - therapist.php" class="dropdown-item">الملف الشخصي</a>
+                        <?php } ?>
+                        <a class="dropdown-item " data-bs-toggle="modal" data-bs-target="#editInfoModal">تعديل البيانات
+                            الشخصية</a>
+                        <a class="dropdown-item " data-bs-toggle="modal" data-bs-target="#changePassModal">تغيير كلمة
+                            المرور</a>
+                        <a class="dropdown-item  text-danger" href="logout.php?logout=true">تسجيل الخروج</a>
+                    </div>
                 </div>
-            </div>
-        <?php }
-         else { ?>
-            
-            
-        <?php } } else { ?>
+            <?php } else { ?>
+
+
+            <?php }
+        } else { ?>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
-                        <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>
-                        <a href="search.php" class="nav-item nav-link px-3 text-white">المعالجين</a>
-                        <a href="about.php" class="nav-item nav-link px-3 text-white">عن إرشاد</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
-                            <div class="dropdown-menu bg-light border-0 m-0">
-                                <?php foreach ($specialties as $spec) { ?>
-                                    <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>"
-                                        class="dropdown-item text-center"><?= $spec["Specialty"] ?></a>
-                                <?php } ?>
-                            </div>
+                <div class="navbar-nav mx-auto rounded pe-4 py-3 py-lg-0" style="background-color: #7892aa !important;">
+                    <a href="index.php" class="nav-item nav-link px-3 active text-white">الرئيسية</a>
+                    <a href="search.php" class="nav-item nav-link px-3 text-white">المعالجين</a>
+                    <a href="about.php" class="nav-item nav-link px-3 text-white">عن إرشاد</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle px-3 text-white" data-bs-toggle="dropdown">التخصصات</a>
+                        <div class="dropdown-menu bg-light border-0 m-0">
+                            <?php foreach ($specialties as $spec) { ?>
+                                <a href="specialization.php?SpecialtyID=<?= $spec["SpecialtyID"] ?>" class="dropdown-item text-center"><?= $spec["Specialty"] ?></a>
+                            <?php } ?>
                         </div>
                     </div>
-                    <a href="register.php" class="btn btn-outline-warning me-3 px-3 btn-sm d-block">إنشاء حساب</a>
-                    <a href="login.php" class="btn btn-light px-3 btn-sm d-block">تسجيل الدخول</a>
-
+                </div>
+                <a href="register.php" class="btn btn-outline-warning me-3 px-3 btn-sm d-block">إنشاء حساب</a>
+                
             </div>
         <?php }
         ?>
@@ -231,4 +214,3 @@ if ($_SESSION['type'] == 'client') {
 
 
     </nav>
-   
