@@ -51,7 +51,7 @@ require_once 'includes/config.php';
   <div class="container-fluid pt-5 pb-3 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
       <div class="row g-5">
-        <div class="text-center mt-3"><img class="col-5 col-sm-2 me-3" src="img/logo-h.png" alt="" /></div>
+        <div class="text-center mt-3"><img class="col-5 col-sm-2 me-3" src="img/logo v.png" alt="" /></div>
         <div class="col-lg-6 mx-auto wow fadeIn mt-3" data-wow-delay="0.5s">
           <div class="bg-light rounded p-5 pb-3 px-sm-3">
             <form method="POST" action="checkregistration.php">
