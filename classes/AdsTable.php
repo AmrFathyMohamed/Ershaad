@@ -1,6 +1,8 @@
 <?php
 class AdsTable
 {
+
+    
     private $db;
     private $table = 'ads';
 
